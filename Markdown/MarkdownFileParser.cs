@@ -1,7 +1,7 @@
 using System.IO;
 using System.Text;
 
-namespace StaticSiteGenerator
+namespace StaticSiteGenerator.Markdown
 {
     public class MarkdownFileReader
     {
