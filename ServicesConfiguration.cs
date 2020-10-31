@@ -1,4 +1,5 @@
 using StaticSiteGenerator;
+using StaticSiteGenerator.FileManipulation;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServicesConfiguration

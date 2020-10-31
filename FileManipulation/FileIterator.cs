@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace StaticSiteGenerator
+namespace StaticSiteGenerator.FileManipulation
 {
     public class FileIterator
     {
