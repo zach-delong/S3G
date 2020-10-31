@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-
+using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.FileManipulation;
 
 namespace StaticSiteGenerator
@@ -9,12 +9,16 @@ namespace StaticSiteGenerator
     {
         private FileIterator fileIterator;
         private MarkdownFileReader MarkdownFileReader;
+        private MarkdownParser MarkdownParser;
 
         public StaticSiteGenerator(
             FileIterator fileIterator,
-            MarkdownFileReader markdownFileParser) {
+            MarkdownFileReader markdownFileParser,
+            MarkdownParser markdownParser
+        ) {
             this.fileIterator = fileIterator;
             this.MarkdownFileReader = markdownFileParser;
+            this.MarkdownParser = markdownParser;
         }
 
         public void Start()
@@ -29,7 +33,9 @@ namespace StaticSiteGenerator
 
                     var contents = MarkdownFileReader.ReadFile(stream);
 
-                    Console.WriteLine(contents);
+                    var parsedContents = MarkdownParser.ParseMarkdownString(contents);
+
+                    Console.WriteLine(parsedContents);
                 }
 
             }
