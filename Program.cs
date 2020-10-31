@@ -12,6 +12,8 @@ namespace StaticSiteGenerator
             {
                 var service = new ServiceCollection();
                 service.AddCustomServices();
+                service.AddMarkdownServices();
+                service.AddFileManipulationServices();
 
                 var serviceProvider = service.BuildServiceProvider();
 

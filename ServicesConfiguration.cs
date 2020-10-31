@@ -5,12 +5,19 @@ using StaticSiteGenerator.Markdown;
 
 public static class ServicesConfiguration
 {
-	public static void AddCustomServices(this IServiceCollection services)
-	{
-      services.AddSingleton<FileIterator, FileIterator>();
-      services.AddTransient<StaticSiteGenerator.StaticSiteGenerator, StaticSiteGenerator.StaticSiteGenerator>();
-      services.AddTransient<MarkdownFileReader, MarkdownFileReader>();
+    public static void AddCustomServices(this IServiceCollection services)
+    {
+        services.AddTransient<StaticSiteGenerator.StaticSiteGenerator, StaticSiteGenerator.StaticSiteGenerator>();
+    }
 
-      services.AddTransient<MarkdownParser, MarkdownParser>();
-	}
+    public static void AddFileManipulationServices(this IServiceCollection services)
+    {
+        services.AddSingleton<FileIterator, FileIterator>();
+    }
+
+    public static void AddMarkdownServices(this IServiceCollection services)
+    {
+        services.AddTransient<MarkdownFileReader, MarkdownFileReader>();
+        services.AddTransient<MarkdownParser, MarkdownParser>();
+    }
 }
