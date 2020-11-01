@@ -8,17 +8,14 @@ namespace StaticSiteGenerator
     public class StaticSiteGenerator
     {
         private FileIterator fileIterator;
-        private MarkdownFileReader MarkdownFileReader;
-        private MarkdownParser MarkdownParser;
+        private MarkdownFileParser MarkdownFileReader;
 
         public StaticSiteGenerator(
             FileIterator fileIterator,
-            MarkdownFileReader markdownFileParser,
-            MarkdownParser markdownParser
+            MarkdownFileParser markdownFileParser
         ) {
             this.fileIterator = fileIterator;
             this.MarkdownFileReader = markdownFileParser;
-            this.MarkdownParser = markdownParser;
         }
 
         public void Start()
@@ -29,20 +26,11 @@ namespace StaticSiteGenerator
 
                 foreach(var file in files)
                 {
-                    var stream = new StreamReader(file);
+                    var contents = MarkdownFileReader.ReadFile(file);
 
-                    var contents = MarkdownFileReader.ReadFile(stream);
-
-                    var parsedContents = MarkdownParser.ParseMarkdownString(contents);
-
-                    Console.WriteLine(parsedContents);
+                    Console.WriteLine(contents);
                 }
 
-            }
-            catch(FileNotFoundException ex)
-            {
-                Console.WriteLine("Error, file not found");
-                Console.Write(ex);
             }
             catch (Exception ex)
             {

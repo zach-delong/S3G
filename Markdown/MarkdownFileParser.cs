@@ -1,17 +1,29 @@
+using System;
 using System.IO;
 using System.Text;
+using StaticSiteGenerator.FileManipulation;
 
 namespace StaticSiteGenerator.Markdown
 {
-    public class MarkdownFileReader
+    public class MarkdownFileParser
     {
-        public string ReadFile(StreamReader reader)
+        FileReader FileParser;
+        MarkdownParser MarkdownParser;
+
+        public MarkdownFileParser(
+            FileReader fileParser,
+            MarkdownParser markdownParser
+        ){
+            FileParser = fileParser;
+            MarkdownParser = markdownParser;
+        }
+        public string ReadFile(string filePath)
         {
-            var fileContents = new StringBuilder();
-            do
-            {
-                fileContents.AppendLine(reader.ReadLine());
-            } while (reader.Peek() != -1);
+            var fileContents = FileParser.ReadFile(filePath);
+
+            var parsedContents = MarkdownParser.ParseMarkdownString(fileContents);
+
+            Console.WriteLine(parsedContents);
 
             return fileContents.ToString();
         }

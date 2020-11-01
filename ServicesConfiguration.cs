@@ -13,11 +13,12 @@ public static class ServicesConfiguration
     public static void AddFileManipulationServices(this IServiceCollection services)
     {
         services.AddSingleton<FileIterator, FileIterator>();
+        services.AddTransient<FileReader, FileReader>();
     }
 
     public static void AddMarkdownServices(this IServiceCollection services)
     {
-        services.AddTransient<MarkdownFileReader, MarkdownFileReader>();
+        services.AddTransient<MarkdownFileParser, MarkdownFileParser>();
         services.AddTransient<MarkdownParser, MarkdownParser>();
     }
 }
