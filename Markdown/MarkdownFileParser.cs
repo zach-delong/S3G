@@ -23,8 +23,6 @@ namespace StaticSiteGenerator.Markdown
 
             var parsedContents = MarkdownParser.ParseMarkdownString(fileContents);
 
-            Console.WriteLine(parsedContents);
-
             return fileContents.ToString();
         }
     }
