@@ -17,13 +17,13 @@ namespace StaticSiteGenerator.FileManipulation
             return fileContents.ToString();
         }
 
-        public string ReadFile(string filePath)
+        public StreamReader ReadFile(string filePath)
         {
             try
             {
                 var stream = new StreamReader(filePath);
 
-                return ReadFile(stream);
+                return stream;
             }
             catch(FileNotFoundException ex)
             {
