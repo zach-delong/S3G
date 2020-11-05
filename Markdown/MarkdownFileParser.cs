@@ -1,7 +1,10 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.TemplateSubstitution;
+using Microsoft.Toolkit.Parsers.Markdown;
 
 namespace StaticSiteGenerator.Markdown
 {
@@ -17,13 +20,13 @@ namespace StaticSiteGenerator.Markdown
             FileParser = fileParser;
             MarkdownParser = markdownParser;
         }
-        public string ReadFile(string filePath)
+        public MarkdownDocument ReadFile(string filePath)
         {
             var fileContents = FileParser.ReadFile(filePath);
 
             var parsedContents = MarkdownParser.ParseMarkdownString(fileContents);
 
-            return fileContents.ToString();
+            return parsedContents;
         }
     }
 }

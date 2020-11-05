@@ -2,12 +2,14 @@ using StaticSiteGenerator.FileManipulation;
 using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator;
 using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.TemplateSubstitution;
 
 public static class ServicesConfiguration
 {
     public static void AddCustomServices(this IServiceCollection services)
     {
         services.AddTransient<StaticSiteGenerator.StaticSiteGenerator, StaticSiteGenerator.StaticSiteGenerator>();
+        services.AddTransient<MarkdownConverter, MarkdownConverter>();
     }
 
     public static void AddFileManipulationServices(this IServiceCollection services)
