@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+
 namespace StaticSiteGenerator.FileManipulation
 {
+    [TransientService]
     public class FileIterator
     {
         public IEnumerable<string> GetFilesInDirectory(string directory)

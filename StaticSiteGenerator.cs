@@ -4,8 +4,11 @@ using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.TemplateSubstitution;
 
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+
 namespace StaticSiteGenerator
 {
+    [TransientService]
     public class StaticSiteGenerator
     {
         private FileIterator fileIterator;

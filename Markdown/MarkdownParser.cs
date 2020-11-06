@@ -1,8 +1,12 @@
 using System.IO;
 using Microsoft.Toolkit.Parsers.Markdown;
 
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+
 namespace StaticSiteGenerator.Markdown
 {
+
+    [TransientService]
     public class MarkdownParser
     {
         public MarkdownDocument ParseMarkdownString(StreamReader markdownFileContents)

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+
 namespace StaticSiteGenerator.TemplateSubstitution
 {
+    [TransientService]
     public class MarkdownConverter
     {
         public void Convert(MarkdownDocument markdownFile)

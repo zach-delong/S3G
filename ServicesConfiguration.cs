@@ -4,23 +4,12 @@ using StaticSiteGenerator;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.TemplateSubstitution;
 
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+
 public static class ServicesConfiguration
 {
     public static void AddCustomServices(this IServiceCollection services)
     {
-        services.AddTransient<StaticSiteGenerator.StaticSiteGenerator, StaticSiteGenerator.StaticSiteGenerator>();
-        services.AddTransient<MarkdownConverter, MarkdownConverter>();
-    }
-
-    public static void AddFileManipulationServices(this IServiceCollection services)
-    {
-        services.AddSingleton<FileIterator, FileIterator>();
-        services.AddTransient<FileReader, FileReader>();
-    }
-
-    public static void AddMarkdownServices(this IServiceCollection services)
-    {
-        services.AddTransient<MarkdownFileParser, MarkdownFileParser>();
-        services.AddTransient<MarkdownParser, MarkdownParser>();
+        services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
     }
 }

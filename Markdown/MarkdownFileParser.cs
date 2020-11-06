@@ -6,8 +6,12 @@ using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.TemplateSubstitution;
 using Microsoft.Toolkit.Parsers.Markdown;
 
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+
 namespace StaticSiteGenerator.Markdown
 {
+
+    [TransientService]
     public class MarkdownFileParser
     {
         FileReader FileParser;

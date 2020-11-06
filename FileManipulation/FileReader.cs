@@ -2,8 +2,11 @@ using System;
 using System.IO;
 using System.Text;
 
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+
 namespace StaticSiteGenerator.FileManipulation
 {
+    [TransientService]
     public class FileReader
     {
         public string ReadFile(StreamReader reader)
