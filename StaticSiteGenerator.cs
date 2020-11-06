@@ -33,8 +33,6 @@ namespace StaticSiteGenerator
                     var contents = MarkdownFileReader.ReadFile(file);
 
                     MarkdownConverter.Convert(contents);
-
-                    Console.WriteLine(contents);
                 }
 
             }
