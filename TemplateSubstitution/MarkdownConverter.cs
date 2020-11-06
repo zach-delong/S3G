@@ -5,16 +5,30 @@ using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
-    public class MarkdownConverter 
+    public class MarkdownConverter
     {
-        public void Convert(MarkdownDocument markdownFile) 
+        public void Convert(MarkdownDocument markdownFile)
         {
-            foreach(MarkdownBlock block in markdownFile.Blocks)
-            {
-                var result = block.GetType();
-                Console.WriteLine(result);
+            Convert(markdownFile.Blocks);
+        }
+
+        public void Convert(IList<MarkdownBlock> blockList)
+        {
+            foreach(var block in blockList){
+                Convert(block);
             }
         }
 
+        public void Convert(MarkdownBlock block){
+            switch(block){
+                case HeaderBlock b:
+                    Convert(b);
+                    break;
+            }
+        }
+
+        public void Convert(HeaderBlock block){
+            Console.WriteLine($"<h{block.HeaderLevel}>{block.ToString()}</h{block.HeaderLevel}>");
+        }
     }
 }
