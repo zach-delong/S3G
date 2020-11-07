@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
@@ -20,23 +21,36 @@ namespace StaticSiteGenerator.TemplateSubstitution
             ParagraphConveter = paragraphConverter;
         }
 
-        public void Convert(IList<MarkdownBlock> blocks)
+        public string Convert(IList<MarkdownBlock> blocks)
         {
+            var result = new StringBuilder();
             foreach(var block in blocks)
             {
-                Convert(block);
+                try
+                {
+                    result.AppendLine(Convert(block));
+                }
+                catch(ArgumentException ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    Console.WriteLine(ex.Message);
+                }
             }
+
+            return result.ToString();
         }
 
-        public void Convert(MarkdownBlock block)
+        public string Convert(MarkdownBlock block)
         {
             switch (block) {
                 case HeaderBlock b:
-                    HeaderConverter.Convert(b);
-                    break;
+                    return HeaderConverter.Convert(b);
                 case ParagraphBlock b:
-                    ParagraphConveter.Convert(b);
-                    break;
+                    return ParagraphConveter.Convert(b);
+                default:
+                    throw new ArgumentException(
+                        message: $"Could not convert block {block.GetType()}",
+                        paramName: nameof(block));
             }
 
         }

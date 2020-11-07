@@ -15,10 +15,9 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
         {
             InlineConverter = inlineConverter;
         }
-        public void Convert(ParagraphBlock block)
+        public string Convert(ParagraphBlock block)
         {
-            InlineConverter.Convert(block.Inlines);
-            Console.WriteLine($"<p>{block.ToString()}</p>");
+            return $"<p>{InlineConverter.Convert(block.Inlines)}</p>";
         }
     }
 }

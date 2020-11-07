@@ -17,9 +17,9 @@ namespace StaticSiteGenerator.TemplateSubstitution
             BlockConverter = blockConverter;
         }
 
-        public void Convert(MarkdownDocument markdownFile)
+        public string Convert(MarkdownDocument markdownFile)
         {
-            BlockConverter.Convert(markdownFile.Blocks);
+            return BlockConverter.Convert(markdownFile.Blocks);
         }
 
     }

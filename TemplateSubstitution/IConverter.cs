@@ -2,6 +2,6 @@ namespace StaticSiteGenerator.TemplateSubstitution
 {
     public interface IConverter<T>
     {
-        void Convert(T foo);
+        string Convert(T foo);
     }
 }

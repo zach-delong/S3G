@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using System.Collections.Generic;
 
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
@@ -17,22 +19,36 @@ namespace StaticSiteGenerator.TemplateSubstitution
             TextConverter = textConverter;
         }
 
-        public void Convert(MarkdownInline inline)
+        public string Convert(MarkdownInline inline)
         {
             switch(inline)
             {
                 case TextRunInline i:
-                    TextConverter.Convert(i);
-                    break;
+                    return TextConverter.Convert(i);
+                default:
+                    throw new ArgumentException(
+                        message: $"inline {inline.GetType()} is not a recognized inline element",
+                        paramName: nameof(inline));
             }
         }
 
-        public void Convert(IList<MarkdownInline> inlines)
+        public string Convert(IList<MarkdownInline> inlines)
         {
+            var result = new StringBuilder();
             foreach(var inline in inlines)
             {
-                Convert(inline);
+                try
+                {
+                    result.Append(Convert(inline));
+                }
+                catch(ArgumentException ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    Console.WriteLine(ex.Message);
+                }
             }
+
+            return result.ToString();
         }
     }
 }

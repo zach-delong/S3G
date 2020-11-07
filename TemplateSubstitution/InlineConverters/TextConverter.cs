@@ -8,9 +8,9 @@ namespace StaticSiteGenerator.TemplateSubstitution.InlineConverters
     [TransientService]
     public class TextConverter: IConverter<TextRunInline>
     {
-        public void Convert(TextRunInline inline)
+        public string Convert(TextRunInline inline)
         {
-            Console.WriteLine(inline.Text);
+            return inline.Text;
         }
     }
 }
