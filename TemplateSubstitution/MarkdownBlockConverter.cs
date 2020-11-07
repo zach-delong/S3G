@@ -30,7 +30,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
 
         public void Convert(MarkdownBlock block)
         {
-            switch(block){
+            switch (block) {
                 case HeaderBlock b:
                     HeaderConverter.Convert(b);
                     break;
