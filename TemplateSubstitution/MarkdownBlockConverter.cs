@@ -12,10 +12,12 @@ namespace StaticSiteGenerator.TemplateSubstitution
     public class MarkdownBlockConverter: IConverter<IList<MarkdownBlock>>, IConverter<MarkdownBlock>
     {
         HeaderConverter HeaderConverter;
+        ParagraphConverter ParagraphConveter;
 
-        public MarkdownBlockConverter(HeaderConverter headerConverter)
+        public MarkdownBlockConverter(HeaderConverter headerConverter, ParagraphConverter paragraphConverter)
         {
             HeaderConverter = headerConverter;
+            ParagraphConveter = paragraphConverter;
         }
 
         public void Convert(IList<MarkdownBlock> blocks)
@@ -31,6 +33,9 @@ namespace StaticSiteGenerator.TemplateSubstitution
             switch(block){
                 case HeaderBlock b:
                     HeaderConverter.Convert(b);
+                    break;
+                case ParagraphBlock b:
+                    ParagraphConveter.Convert(b);
                     break;
             }
 
