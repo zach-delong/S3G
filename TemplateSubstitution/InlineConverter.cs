@@ -22,7 +22,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             switch(inline)
             {
                 case TextRunInline i:
-
+                    TextConverter.Convert(i);
                     break;
             }
         }
