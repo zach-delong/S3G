@@ -4,20 +4,28 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
 {
     [TransientService]
     public class ParagraphConverter: IConverter<ParagraphBlock>
     {
-        InlineConverter InlineConverter;
+        private InlineConverter InlineConverter;
+        private TemplateReader TemplateReader;
 
-        public ParagraphConverter(InlineConverter inlineConverter)
+        public ParagraphConverter(InlineConverter inlineConverter, TemplateReader reader)
         {
             InlineConverter = inlineConverter;
+            TemplateReader = reader;
         }
         public string Convert(ParagraphBlock block)
         {
-            return $"<p>{InlineConverter.Convert(block.Inlines)}</p>";
+            var inlineText = InlineConverter.Convert(block.Inlines);
+
+            var template = TemplateReader.GetTemplateTagForType(TagType.Paragraph); 
+
+            return template.ToHtml(inlineText);
         }
     }
 }

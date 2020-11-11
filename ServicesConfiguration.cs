@@ -11,5 +11,6 @@ public static class ServicesConfiguration
     public static void AddCustomServices(this IServiceCollection services)
     {
         services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
+        services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
     }
 }

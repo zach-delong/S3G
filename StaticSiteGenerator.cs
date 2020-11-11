@@ -14,15 +14,18 @@ namespace StaticSiteGenerator
         private FileIterator fileIterator;
         private MarkdownFileParser MarkdownFileReader;
         private MarkdownConverter MarkdownConverter;
+        private TemplateReader TemplateReader;
 
         public StaticSiteGenerator(
             FileIterator fileIterator,
             MarkdownFileParser markdownFileParser,
-            MarkdownConverter markdownConverter
+            MarkdownConverter markdownConverter,
+            TemplateReader templateReader
         ) {
             this.fileIterator = fileIterator;
             this.MarkdownFileReader = markdownFileParser;
             this.MarkdownConverter = markdownConverter;
+            this.TemplateReader = templateReader;
         }
 
         public void Start()
@@ -30,6 +33,10 @@ namespace StaticSiteGenerator
             try
             {
                 var files = fileIterator.GetFilesInDirectory("exampleMarkdownDirectory");
+
+                TemplateReader.ReadTemplate("templates/default");
+
+
 
                 foreach(var file in files)
                 {
