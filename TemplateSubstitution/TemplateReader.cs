@@ -16,20 +16,19 @@ namespace StaticSiteGenerator.TemplateSubstitution
         readonly FileIterator FileIterator;
         readonly FileReader FileReader;
 
-        private IList<TagWriter> TemplateParts;
+        private IList<TemplateTag> TemplateParts;
 
         public TemplateReader(
             FileIterator fileIterator,
             FileReader fileReader
-        )
-        {
+        ){
             FileIterator = fileIterator;
             FileReader = fileReader;
 
-            TemplateParts = new List<TagWriter>();
+            TemplateParts = new List<TemplateTag>();
         }
 
-        public IList<TagWriter> ReadTemplate(string templatePath)
+        public IList<TemplateTag> ReadTemplate(string templatePath)
         {
             foreach(var filePath in FileIterator.GetFilesInDirectory(templatePath))
             {
@@ -47,11 +46,11 @@ namespace StaticSiteGenerator.TemplateSubstitution
             return TemplateParts;
         }
 
-        private TagWriter GetPropertTagWriterFor(string fileName)
+        private TemplateTag GetPropertTagWriterFor(string fileName)
         {
             try
             {
-                var template = new TagWriter();
+                var template = new TemplateTag();
                 TagType type = GetTagTypeForString(fileName);
 
                 template.Type = type;
@@ -77,7 +76,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             }
         }
 
-        public TagWriter GetTemplateTagForType(TagType type)
+        public TemplateTag GetTemplateTagForType(TagType type)
         {
             try
             {
