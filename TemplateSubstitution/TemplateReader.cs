@@ -32,18 +32,24 @@ namespace StaticSiteGenerator.TemplateSubstitution
         {
             foreach(var filePath in FileIterator.GetFilesInDirectory(templatePath))
             {
-                var name = Path
-                    .GetFileName(filePath)
-                    .Replace(".html", "");
-
-                var template = GetPropertTagWriterFor(name);
-
-                template.Template = FileReader.ReadFile(filePath).ReadToEnd();
-
+                var template = ReadTemplateFile(filePath);
                 TemplateParts.Add(template);
             }
 
             return TemplateParts;
+        }
+
+        public TemplateTag ReadTemplateFile(string filePath)
+        {
+            var name = Path
+                .GetFileName(filePath)
+                .Replace(".html", "");
+
+            var template = GetPropertTagWriterFor(name);
+
+            template.Template = FileReader.ReadFile(filePath).ReadToEnd();
+
+            return template;
         }
 
         private TemplateTag GetPropertTagWriterFor(string fileName)
