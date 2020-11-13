@@ -7,10 +7,12 @@ namespace Test.Helpers.TemporaryFiles
     {
         public string Path { get; set; }
 
-        public TempFileObject(string? path)
+        public TempFileObject(string path)
         {
             Path = path;
         }
+
+        public TempFileObject() {}
 
         public abstract void Dispose();
     }
