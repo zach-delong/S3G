@@ -12,17 +12,14 @@ namespace Test.FileManipulation
         public void FolderContainsOneFile()
         {
             using(var tempFolderPath = TempFileHelper.GetTempFolder())
+            using(var tempFileName = TempFileHelper.GetTempTextFile(tempFolderPath.Path))
             {
-                using(var tempFileName = TempFileHelper.GetTempTextFile(tempFolderPath.Path))
-                {
-                    var fileIterator = new FileIterator();
+                var fileIterator = new FileIterator();
 
-                    var result = fileIterator.GetFilesInDirectory(tempFolderPath.Path);
+                var result = fileIterator.GetFilesInDirectory(tempFolderPath.Path);
 
-                    Assert.That(result.Count, Is.EqualTo(1));
-                }
+                Assert.That(result.Count, Is.EqualTo(1));
             }
-
         }
 
         [Test]
