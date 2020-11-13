@@ -11,27 +11,18 @@ namespace Test.FileManipulation
         [Test]
         public void FolderContainsOneFile()
         {
-            var tempFolderPath = Path.GetTempPath() + Guid.NewGuid().ToString();
-
-            var tempFileName = tempFolderPath + "/" + Guid.NewGuid().ToString() + ".txt";
-
-            Directory.CreateDirectory(tempFolderPath);
-            var fileIterator = new FileIterator();
-
-            using (System.IO.FileStream fs = System.IO.File.Create(tempFileName))
+            using(var tempFolderPath = TempFileHelper.GetTempFolder())
             {
-                for (byte i = 0; i < 100; i++)
+                using(var tempFileName = TempFileHelper.GetTempTextFile(tempFolderPath.Path))
                 {
-                    fs.WriteByte(i);
+                    var fileIterator = new FileIterator();
+
+                    var result = fileIterator.GetFilesInDirectory(tempFolderPath.Path);
+
+                    Assert.That(result.Count, Is.EqualTo(1));
                 }
             }
 
-            var result = fileIterator.GetFilesInDirectory(tempFolderPath);
-
-            File.Delete(tempFileName);
-            Directory.Delete(tempFolderPath);
-
-            Assert.That(result.Count, Is.EqualTo(1));
         }
 
         [Test]
