@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using StaticSiteGenerator.FileManipulation;
+using Test.Helpers;
 
 namespace Test.FileManipulation
 {

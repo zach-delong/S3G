@@ -1,7 +1,9 @@
 using System;
 using System.IO;
 
-namespace Test.FileManipulation
+using Test.Helpers.TemporaryFiles;
+
+namespace Test.Helpers
 {
     public static class TempFileHelper
     {

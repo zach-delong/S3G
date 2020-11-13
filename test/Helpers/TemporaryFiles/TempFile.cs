@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Test.FileManipulation
+namespace Test.Helpers.TemporaryFiles
 {
     public class TempFile: TempFileObject
     {
