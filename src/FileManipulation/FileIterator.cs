@@ -4,6 +4,8 @@ using System.IO;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
+using StaticSiteGenerator.FileManipulation.FileException;
+
 namespace StaticSiteGenerator.FileManipulation
 {
     [TransientService]
@@ -15,10 +17,10 @@ namespace StaticSiteGenerator.FileManipulation
             {
                 return Directory.GetFiles(directory);
             }
-            catch(DirectoryNotFoundException ex){
+            catch(DirectoryNotFoundException ex)
+            {
                 // TODO: do something useful with this exception
-                Console.WriteLine("Could not access that directory");
-                throw ex;
+                throw new FileManipulationException($"Could not open directory {directory} for reading. Directory may not exist", ex);
             }
         }
     }

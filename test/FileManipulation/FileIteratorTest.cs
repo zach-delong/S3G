@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.FileManipulation.FileException;
 using Test.Helpers;
 
 namespace Test.FileManipulation
@@ -32,7 +33,7 @@ namespace Test.FileManipulation
 
             var fileIterator = new FileIterator();
 
-            Assert.Throws<DirectoryNotFoundException>( () => { fileIterator.GetFilesInDirectory(tempFolderPath); } );
+            Assert.Throws<FileManipulationException>( () => { fileIterator.GetFilesInDirectory(tempFolderPath); } );
         }
     }
 }
