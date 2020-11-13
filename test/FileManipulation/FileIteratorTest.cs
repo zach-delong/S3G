@@ -11,6 +11,7 @@ namespace Test.FileManipulation
     public class FileIteratorTests
     {
         [Test]
+        [Parallelizable(ParallelScope.Self)]
         public void FolderContainsOneFile()
         {
             using(var tempFolderPath = TempFileHelper.GetTempFolder())
@@ -25,6 +26,21 @@ namespace Test.FileManipulation
         }
 
         [Test]
+        [Parallelizable(ParallelScope.Self)]
+        public void FolderContainsNoFiles()
+        {
+            using(var tempFolderPath = TempFileHelper.GetTempFolder())
+            {
+                var fileIterator = new FileIterator();
+
+                var result = fileIterator.GetFilesInDirectory(tempFolderPath.Path);
+
+                Assert.That(result.Count, Is.EqualTo(0));
+            }
+        }
+
+        [Test]
+        [Parallelizable(ParallelScope.Self)]
         public void FolderDoesNotExist()
         {
             var tempFolderPath = Path.GetTempPath() + Guid.NewGuid().ToString();
