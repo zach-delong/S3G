@@ -4,22 +4,13 @@ using System.Text;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
+using StaticSiteGenerator.FileManipulation.FileException;
+
 namespace StaticSiteGenerator.FileManipulation
 {
     [TransientService]
     public class FileReader
     {
-        public string ReadFile(StreamReader reader)
-        {
-            var fileContents = new StringBuilder();
-            do
-            {
-                fileContents.AppendLine(reader.ReadLine());
-            } while (reader.Peek() != -1);
-
-            return fileContents.ToString();
-        }
-
         public StreamReader ReadFile(string filePath)
         {
             try
@@ -30,9 +21,11 @@ namespace StaticSiteGenerator.FileManipulation
             }
             catch(FileNotFoundException ex)
             {
-                // TODO: do something useful with this error
-                Console.WriteLine("Error, file not found");
-                throw(ex);
+                throw new FileManipulationException($"Error, the file {filePath} was not found when attempting to read it", ex);
+            }
+            catch(IOException ex)
+            {
+                throw new FileManipulationException($"Error, the file {filePath} could not be opened for Reading. Perhaps there is resource contention?", ex);
             }
         }
     }

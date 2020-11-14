@@ -15,7 +15,7 @@ namespace Test.FileManipulation
         public void FolderContainsOneFile()
         {
             using(var tempFolderPath = TempFileHelper.GetTempFolder())
-            using(var tempFileName = TempFileHelper.GetTempTextFile(tempFolderPath.Path))
+            using(var tempFileName = TempFileHelper.GetTempTextFile(tempFolderPath.Path + "/"))
             {
                 var fileIterator = new FileIterator();
 
