@@ -34,6 +34,7 @@ namespace Test.FileManipulation
                 Assert.That(fileContents, Is.Empty);
             }
         }
+
         [Test]
         [Parallelizable(ParallelScope.Self)]
         public void FileExists()
