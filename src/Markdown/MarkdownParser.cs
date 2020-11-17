@@ -18,12 +18,14 @@ namespace StaticSiteGenerator.Markdown
         IList<IMarkdownElementConverter> Converters;
 
         public MarkdownParser(
-            MarkdownHeaderElementConverter headerConverter
+            MarkdownHeaderElementConverter headerConverter,
+            MarkdownParagraphElementConverter paragraphConverter
         )
         {
 
             Converters = new List<IMarkdownElementConverter> {
-                headerConverter
+                headerConverter,
+                paragraphConverter
             };
 
         }

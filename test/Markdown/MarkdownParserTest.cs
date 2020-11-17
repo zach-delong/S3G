@@ -27,21 +27,37 @@ namespace Test.Markdown
 
         private MarkdownParser GetMarkdownParser()
         {
-            return new MarkdownParser(new MarkdownHeaderElementConverter());
+            return new MarkdownParser(
+                new MarkdownHeaderElementConverter(),
+                new MarkdownParagraphElementConverter()
+            );
         }
 
         [Test]
         [Parallelizable(ParallelScope.Self)]
         public void ParagraphParses()
         {
-            throw new NotImplementedException();
+            var input = @"Paragraph Text";
+
+            var parser = GetMarkdownParser();
+
+            var result = parser.Parse(input);
+
+            Console.WriteLine(result);
+
+            CollectionAssert.IsNotEmpty(result);
+            CollectionAssert.AllItemsAreInstancesOfType(result, typeof(Paragraph));
         }
 
         [Test]
         [Parallelizable(ParallelScope.Self)]
         public void BlankParse()
         {
-            throw new NotImplementedException();
+            var parser = GetMarkdownParser();
+
+            var result = parser.Parse(String.Empty);
+
+            CollectionAssert.IsEmpty(result);
         }
     }
 }
