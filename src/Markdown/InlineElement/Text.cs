@@ -1,7 +1,7 @@
 namespace StaticSiteGenerator.Markdown.InlineElement
 {
-    public class TextInline: IInlineElement
+    public class Text: IInlineElement
     {
-        public string Text { get; set; }
+        public string Content { get; set; }
     }
 }
