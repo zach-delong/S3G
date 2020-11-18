@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 
 using StaticSiteGenerator.Markdown;
-using StaticSiteGenerator.Markdown.MarkdownElement;
+using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.MarkdownElementConverter;
 
 namespace Test.Markdown
@@ -28,8 +28,8 @@ namespace Test.Markdown
         private MarkdownParser GetMarkdownParser()
         {
             return new MarkdownParser(
-                new MarkdownHeaderElementConverter(),
-                new MarkdownParagraphElementConverter()
+                new HeaderConverter(),
+                new ParagraphConverter()
             );
         }
 

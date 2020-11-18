@@ -3,7 +3,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
 namespace StaticSiteGenerator.Markdown.MarkdownElementConverter
 {
-    public interface IMarkdownElementConverter
+    public interface IBlockElementConverter
     {
         IBlockElement Convert(MarkdownBlock block);
     }

@@ -9,7 +9,7 @@ namespace StaticSiteGenerator.Markdown.MarkdownElementConverter
 {
     [TransientService]
     [MarkdownConverterFor(nameof(ParagraphBlock))]
-    public class MarkdownParagraphElementConverter: IMarkdownElementConverter
+    public class ParagraphConverter: IBlockElementConverter
     {
         public IBlockElement Convert(MarkdownBlock block)
         {

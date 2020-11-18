@@ -15,15 +15,15 @@ namespace StaticSiteGenerator.Markdown
     [TransientService]
     public class MarkdownParser: IMarkdownParser
     {
-        IList<IMarkdownElementConverter> Converters;
+        IList<IBlockElementConverter> Converters;
 
         public MarkdownParser(
-            MarkdownHeaderElementConverter headerConverter,
-            MarkdownParagraphElementConverter paragraphConverter
+            HeaderConverter headerConverter,
+            ParagraphConverter paragraphConverter
         )
         {
 
-            Converters = new List<IMarkdownElementConverter> {
+            Converters = new List<IBlockElementConverter> {
                 headerConverter,
                 paragraphConverter
             };
@@ -74,7 +74,7 @@ namespace StaticSiteGenerator.Markdown
             return converter.Convert(block);
         }
 
-        private IMarkdownElementConverter GetElementConverterFor(Type type)
+        private IBlockElementConverter GetElementConverterFor(Type type)
         {
             foreach(var converter in Converters)
             {
@@ -87,7 +87,7 @@ namespace StaticSiteGenerator.Markdown
             throw new Exception($"Converter for type {type.Name} not found");
         }
 
-        private bool ConverterHasMatchingAttributeType(IMarkdownElementConverter converter, Type type)
+        private bool ConverterHasMatchingAttributeType(IBlockElementConverter converter, Type type)
         {
             var converterType = converter.GetType();
 
