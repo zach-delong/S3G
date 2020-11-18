@@ -1,6 +1,6 @@
 using System;
 
-namespace StaticSiteGenerator.Markdown.MarkdownElementConverter
+namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
     public class MarkdownConverterForAttribute: System.Attribute
     {

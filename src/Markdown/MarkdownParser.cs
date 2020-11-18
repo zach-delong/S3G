@@ -5,7 +5,7 @@ using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.Markdown.MarkdownElementConverter;
+using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 

@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.Markdown.MarkdownElementConverter;
+using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 namespace Test.Markdown
 {

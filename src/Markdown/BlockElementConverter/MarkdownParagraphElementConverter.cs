@@ -5,7 +5,7 @@ using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
-namespace StaticSiteGenerator.Markdown.MarkdownElementConverter
+namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
     [TransientService]
     [MarkdownConverterFor(nameof(ParagraphBlock))]
