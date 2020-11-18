@@ -1,7 +1,7 @@
 using System;
 
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-using StaticSiteGenerator.Markdown.MarkdownElement;
+using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
@@ -11,7 +11,7 @@ namespace StaticSiteGenerator.Markdown.MarkdownElementConverter
     [MarkdownConverterFor(nameof(ParagraphBlock))]
     public class MarkdownParagraphElementConverter: IMarkdownElementConverter
     {
-        public IMarkdownElement Convert(MarkdownBlock block)
+        public IBlockElement Convert(MarkdownBlock block)
         {
             ParagraphBlock b = (ParagraphBlock)block;
             return new Paragraph

@@ -1,6 +1,8 @@
-namespace StaticSiteGenerator.Markdown.MarkdownElement
+using System.Collections.Generic;
+
+namespace StaticSiteGenerator.Markdown.BlockElement
 {
-    public class Header: IMarkdownElement
+    public class Header: IBlockElement
     {
         public byte Level { get; set; }
         public string Text { get; set; }

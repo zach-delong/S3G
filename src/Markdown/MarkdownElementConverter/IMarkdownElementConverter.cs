@@ -1,10 +1,10 @@
-using StaticSiteGenerator.Markdown.MarkdownElement;
+using StaticSiteGenerator.Markdown.BlockElement;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
 namespace StaticSiteGenerator.Markdown.MarkdownElementConverter
 {
     public interface IMarkdownElementConverter
     {
-        IMarkdownElement Convert(MarkdownBlock block);
+        IBlockElement Convert(MarkdownBlock block);
     }
 }

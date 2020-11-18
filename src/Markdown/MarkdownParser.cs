@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
-using StaticSiteGenerator.Markdown.MarkdownElement;
+using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.MarkdownElementConverter;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
@@ -47,7 +47,7 @@ namespace StaticSiteGenerator.Markdown
             return parsedMarkdownDocument;
         }
 
-        public IList<IMarkdownElement> Parse(string markdownFile)
+        public IList<IBlockElement> Parse(string markdownFile)
         {
             var parsedMarkdownDocument = new MarkdownDocument();
 
@@ -56,9 +56,9 @@ namespace StaticSiteGenerator.Markdown
             return Parse(parsedMarkdownDocument.Blocks);
         }
 
-        private IList<IMarkdownElement> Parse(IList<MarkdownBlock> inputBlocks)
+        private IList<IBlockElement> Parse(IList<MarkdownBlock> inputBlocks)
         {
-            var list = new List<IMarkdownElement>();
+            var list = new List<IBlockElement>();
             foreach(var block in inputBlocks)
             {
                 list.Add(Parse(block));
@@ -67,7 +67,7 @@ namespace StaticSiteGenerator.Markdown
             return list;
         }
 
-        private IMarkdownElement Parse(MarkdownBlock block)
+        private IBlockElement Parse(MarkdownBlock block)
         {
             var converter = GetElementConverterFor(block.GetType());
 
@@ -78,18 +78,22 @@ namespace StaticSiteGenerator.Markdown
         {
             foreach(var converter in Converters)
             {
-                var converterType = converter.GetType();
-
-                var attribute = (MarkdownConverterForAttribute) Attribute.GetCustomAttribute(converterType, typeof(MarkdownConverterForAttribute));
-
-                if (attribute.TypeName == type.Name)
-                {
+                if(ConverterHasMatchingAttributeType(converter, type)){
                     return converter;
                 }
             }
 
             // TODO: should probably thow a custom exception type
             throw new Exception($"Converter for type {type.Name} not found");
+        }
+
+        private bool ConverterHasMatchingAttributeType(IMarkdownElementConverter converter, Type type)
+        {
+            var converterType = converter.GetType();
+
+            var attribute = (MarkdownConverterForAttribute) Attribute.GetCustomAttribute(converterType, typeof(MarkdownConverterForAttribute));
+
+            return attribute?.TypeName == type.Name;
         }
     }
 }
