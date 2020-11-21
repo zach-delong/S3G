@@ -5,20 +5,29 @@ using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
+using StaticSiteGenerator.Markdown;
+
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
     [TransientService]
     [MarkdownConverterFor(nameof(HeaderBlock))]
     public class HeaderConverter: IBlockElementConverter
     {
+
+        private readonly IMarkdownInlineParser InlineParser;
+        public HeaderConverter(IMarkdownInlineParser inlineParser)
+        {
+            InlineParser = inlineParser;
+        }
+
         public IBlockElement Convert(MarkdownBlock block)
         {
             HeaderBlock b = (HeaderBlock)block;
             return new Header
             {
                 Level = (byte)b.HeaderLevel,
-                // TODO: HeaderBlocks actually have inlines and we need to process them rather than just ToString-ing
-                Text = b.ToString()
+
+                Inlines = InlineParser.Parse(b.Inlines)
             };
         }
     }

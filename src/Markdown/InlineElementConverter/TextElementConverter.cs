@@ -10,7 +10,7 @@ namespace StaticSiteGenerator.Markdown.InlineElementConverter
         {
             var textRun = (TextRunInline)inline;
 
-            return new Text{
+            return new Text {
                 Content = textRun.Text
             };
         }

@@ -1,8 +1,5 @@
-using StaticSiteGenerator.FileManipulation;
 using Microsoft.Extensions.DependencyInjection;
-using StaticSiteGenerator;
 using StaticSiteGenerator.Markdown;
-using StaticSiteGenerator.TemplateSubstitution;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
@@ -12,5 +9,7 @@ public static class ServicesConfiguration
     {
         services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
         services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
+
+        services.AddMarkdownConverters();
     }
 }

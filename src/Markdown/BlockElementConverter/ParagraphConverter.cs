@@ -11,13 +11,19 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
     [MarkdownConverterFor(nameof(ParagraphBlock))]
     public class ParagraphConverter: IBlockElementConverter
     {
+        private readonly IMarkdownInlineParser Parser;
+
+        public ParagraphConverter(IMarkdownInlineParser parser)
+        {
+            Parser = parser;
+        }
+
         public IBlockElement Convert(MarkdownBlock block)
         {
             ParagraphBlock b = (ParagraphBlock)block;
             return new Paragraph
             {
-                // TODO: Paragraph Blocks actually have inlines and we need to process them rather than just ToString-ing
-                Text = b.ToString()
+                Inlines = Parser.Parse(b.Inlines)
             };
         }
     }
