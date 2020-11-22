@@ -11,5 +11,6 @@ public static class ServicesConfiguration
         services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
 
         services.AddMarkdownConverters();
+        services.AddMarkdownParsers();
     }
 }

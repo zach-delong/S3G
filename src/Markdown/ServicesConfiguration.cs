@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
+using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.InlineElementConverter;
 
 namespace StaticSiteGenerator.Markdown
@@ -13,6 +14,11 @@ namespace StaticSiteGenerator.Markdown
             };
 
             services.AddSingleton<IList<IInlineElementConverter>>(inlineConverters);
+        }
+
+        public static void AddMarkdownParsers(this IServiceCollection services)
+        {
+            services.AddTransient<IMarkdownInlineParser, MarkdownInlineParser>();
         }
     }
 }
