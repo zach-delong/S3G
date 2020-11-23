@@ -4,7 +4,7 @@ using StaticSiteGenerator.Markdown.BlockElement;
 
 namespace StaticSiteGenerator.Markdown
 {
-    public interface IMarkdownParser
+    public interface IMarkdownBlockParser
     {
         public IList<IBlockElement> Parse(string markdownFile);
     }

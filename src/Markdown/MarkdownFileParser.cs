@@ -15,11 +15,11 @@ namespace StaticSiteGenerator.Markdown
     public class MarkdownFileParser
     {
         FileReader FileParser;
-        MarkdownParser MarkdownParser;
+        MarkdownBlockParser MarkdownParser;
 
         public MarkdownFileParser(
             FileReader fileParser,
-            MarkdownParser markdownParser
+            MarkdownBlockParser markdownParser
         ){
             FileParser = fileParser;
             MarkdownParser = markdownParser;
