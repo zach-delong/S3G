@@ -15,15 +15,13 @@ namespace StaticSiteGenerator.Markdown
     [TransientService]
     public class MarkdownParser: IMarkdownParser
     {
-        IList<IBlockElementConverter> Converters;
+        IEnumerable<IBlockElementConverter> Converters;
 
         public MarkdownParser(
-            IList<IBlockElementConverter> converters
+            IEnumerable<IBlockElementConverter> converters
         )
         {
-
             Converters = converters;
-
         }
 
         public MarkdownDocument ParseMarkdownString(StreamReader markdownFileContents)

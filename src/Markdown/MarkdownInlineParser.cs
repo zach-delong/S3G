@@ -13,9 +13,9 @@ namespace StaticSiteGenerator.Markdown
     [TransientService]
     public class MarkdownInlineParser: IMarkdownInlineParser
     {
-        private readonly IList<IInlineElementConverter> Converters;
+        private readonly IEnumerable<IInlineElementConverter> Converters;
 
-        public MarkdownInlineParser(IList<IInlineElementConverter> converters)
+        public MarkdownInlineParser(IEnumerable<IInlineElementConverter> converters)
         {
             Converters = converters;
         }

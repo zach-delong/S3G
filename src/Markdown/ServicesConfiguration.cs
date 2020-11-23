@@ -10,15 +10,10 @@ namespace StaticSiteGenerator.Markdown
     {
         public static void AddMarkdownConverters(this IServiceCollection services)
         {
-            var inlineConverters = new List<IInlineElementConverter> {
-                new TextElementConverter()
-            };
+            services.AddTransient<IInlineElementConverter, TextElementConverter>();
 
-            services.AddSingleton<IList<IInlineElementConverter>>(inlineConverters);
-
-            var blockConverters = new List<IBlockElementConverter>{
-                new HeaderConverter();
-            }
+            services.AddTransient<IBlockElementConverter, HeaderConverter>();
+            services.AddTransient<IBlockElementConverter, ParagraphConverter>();
         }
 
         public static void AddMarkdownParsers(this IServiceCollection services)
