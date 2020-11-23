@@ -59,7 +59,7 @@ namespace StaticSiteGenerator.Markdown
             return list;
         }
 
-        private IBlockElement Parse(MarkdownBlock block)
+        public IBlockElement Parse(MarkdownBlock block)
         {
             var converter = GetElementConverterFor(block.GetType());
 
