@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.TemplateSubstitution;
+using StaticSiteGenerator.Markdown.BlockElement;
 using Microsoft.Toolkit.Parsers.Markdown;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
@@ -15,7 +16,7 @@ namespace StaticSiteGenerator.Markdown
     public class MarkdownFileParser
     {
         FileReader FileParser;
-        MarkdownBlockParser MarkdownParser;
+        IMarkdownBlockParser MarkdownParser;
 
         public MarkdownFileParser(
             FileReader fileParser,
@@ -24,13 +25,24 @@ namespace StaticSiteGenerator.Markdown
             FileParser = fileParser;
             MarkdownParser = markdownParser;
         }
-        public MarkdownDocument ReadFile(string filePath)
+
+        public IList<IBlockElement> ReadFile(string filePath)
         {
             var fileContents = FileParser.ReadFile(filePath);
 
-            var parsedContents = MarkdownParser.ParseMarkdownString(fileContents);
+            var parsedContents = ParseMarkdownString(fileContents.ReadToEnd());
 
             return parsedContents;
         }
+
+        private IList<IBlockElement> ParseMarkdownString(string markdownFileContents)
+        {
+            var parsedMarkdownDocument = new MarkdownDocument();
+
+            parsedMarkdownDocument.Parse(markdownFileContents);
+
+            return MarkdownParser.Parse(parsedMarkdownDocument.Blocks);
+        }
+
     }
 }

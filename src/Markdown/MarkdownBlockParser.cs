@@ -22,33 +22,7 @@ namespace StaticSiteGenerator.Markdown
             Converters = converters;
         }
 
-        public MarkdownDocument ParseMarkdownString(StreamReader markdownFileContents)
-        {
-            var markdownString = markdownFileContents.ReadToEnd();
-            var parsedMarkdownDocument = ParseMarkdownString(markdownString);
-
-            return parsedMarkdownDocument;
-        }
-
-        public MarkdownDocument ParseMarkdownString(string markdownFileContents)
-        {
-            var parsedMarkdownDocument= new MarkdownDocument();
-
-            parsedMarkdownDocument.Parse(markdownFileContents);
-
-            return parsedMarkdownDocument;
-        }
-
-        public IList<IBlockElement> Parse(string markdownFile)
-        {
-            var parsedMarkdownDocument = new MarkdownDocument();
-
-            parsedMarkdownDocument.Parse(markdownFile);
-
-            return Parse(parsedMarkdownDocument.Blocks);
-        }
-
-        private IList<IBlockElement> Parse(IList<MarkdownBlock> inputBlocks)
+        public IList<IBlockElement> Parse(IList<MarkdownBlock> inputBlocks)
         {
             var list = new List<IBlockElement>();
             foreach(var block in inputBlocks)

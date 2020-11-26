@@ -12,7 +12,7 @@ namespace StaticSiteGenerator
     public class StaticSiteGenerator
     {
         private FileIterator fileIterator;
-        private MarkdownFileParser MarkdownFileReader;
+        private MarkdownFileParser MarkdownFileParser;
         private MarkdownConverter MarkdownConverter;
         private TemplateReader TemplateReader;
 
@@ -23,7 +23,7 @@ namespace StaticSiteGenerator
             TemplateReader templateReader
         ) {
             this.fileIterator = fileIterator;
-            this.MarkdownFileReader = markdownFileParser;
+            this.MarkdownFileParser = markdownFileParser;
             this.MarkdownConverter = markdownConverter;
             this.TemplateReader = templateReader;
         }
@@ -36,11 +36,9 @@ namespace StaticSiteGenerator
 
                 TemplateReader.ReadTemplate("templates/default");
 
-
-
                 foreach(var file in files)
                 {
-                    var contents = MarkdownFileReader.ReadFile(file);
+                    var contents = MarkdownFileParser.ReadFile(file);
 
                     var convertedFile = MarkdownConverter.Convert(contents);
 
