@@ -2,26 +2,28 @@ using System;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.Markdown.BlockElement;
 
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
 {
     [TransientService]
-    public class HeaderConverter : IConverter<HeaderBlock>
+    public class HeaderConverter : IConverter<Header>
     {
-
+        private InlineConverter InlineConverter;
         private TemplateReader TemplateReader;
 
-        public HeaderConverter(TemplateReader reader)
+        public HeaderConverter(InlineConverter inlineConverter, TemplateReader reader)
         {
+            InlineConverter = inlineConverter;
             TemplateReader = reader;
         }
-        public string Convert(HeaderBlock block)
+
+        public string Convert(Header block)
         {
             var template = TemplateReader.GetTemplateTagForType(TagType.Header1);
-            return template.ToHtml(block.ToString());
+            var inlineText = InlineConverter.Convert(block.Inlines);
+            return template.ToHtml(inlineText);
         }
     }
 }

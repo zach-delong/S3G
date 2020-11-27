@@ -1,16 +1,16 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 using StaticSiteGenerator.TemplateSubstitution.BlockConverters;
+using StaticSiteGenerator.Markdown.BlockElement;
+
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
-    public class MarkdownBlockConverter: IConverter<IList<MarkdownBlock>>, IConverter<MarkdownBlock>
+    public class MarkdownBlockConverter: IConverter<IList<IBlockElement>>, IConverter<IBlockElement>
     {
         HeaderConverter HeaderConverter;
         ParagraphConverter ParagraphConveter;
@@ -21,7 +21,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             ParagraphConveter = paragraphConverter;
         }
 
-        public string Convert(IList<MarkdownBlock> blocks)
+        public string Convert(IList<IBlockElement> blocks)
         {
             var result = new StringBuilder();
             foreach(var block in blocks)
@@ -40,12 +40,12 @@ namespace StaticSiteGenerator.TemplateSubstitution
             return result.ToString();
         }
 
-        public string Convert(MarkdownBlock block)
+        public string Convert(IBlockElement block)
         {
             switch (block) {
-                case HeaderBlock b:
+                case Header b:
                     return HeaderConverter.Convert(b);
-                case ParagraphBlock b:
+                case Paragraph b:
                     return ParagraphConveter.Convert(b);
                 default:
                     throw new ArgumentException(

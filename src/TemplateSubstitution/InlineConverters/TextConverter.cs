@@ -1,16 +1,17 @@
 using System;
 
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
+using StaticSiteGenerator.Markdown.InlineElement;
+
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.TemplateSubstitution.InlineConverters
 {
     [TransientService]
-    public class TextConverter: IConverter<TextRunInline>
+    public class TextConverter: IConverter<Text>
     {
-        public string Convert(TextRunInline inline)
+        public string Convert(Text inline)
         {
-            return inline.Text;
+            return inline.Content;
         }
     }
 }

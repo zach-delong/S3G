@@ -2,15 +2,15 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+using StaticSiteGenerator.Markdown.InlineElement;
 
 using StaticSiteGenerator.TemplateSubstitution.InlineConverters;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
-    public class InlineConverter: IConverter<MarkdownInline>, IConverter<IList<MarkdownInline>>
+    public class InlineConverter: IConverter<IInlineElement>, IConverter<IList<IInlineElement>>
     {
         TextConverter TextConverter;
 
@@ -19,11 +19,11 @@ namespace StaticSiteGenerator.TemplateSubstitution
             TextConverter = textConverter;
         }
 
-        public string Convert(MarkdownInline inline)
+        public string Convert(IInlineElement inline)
         {
             switch(inline)
             {
-                case TextRunInline i:
+                case Text i:
                     return TextConverter.Convert(i);
                 default:
                     throw new ArgumentException(
@@ -32,7 +32,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             }
         }
 
-        public string Convert(IList<MarkdownInline> inlines)
+        public string Convert(IList<IInlineElement> inlines)
         {
             var result = new StringBuilder();
             foreach(var inline in inlines)

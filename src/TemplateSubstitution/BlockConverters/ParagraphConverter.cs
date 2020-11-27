@@ -1,15 +1,15 @@
 using System;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+using StaticSiteGenerator.Markdown.BlockElement;
 
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
 {
     [TransientService]
-    public class ParagraphConverter: IConverter<ParagraphBlock>
+    public class ParagraphConverter: IConverter<Paragraph>
     {
         private InlineConverter InlineConverter;
         private TemplateReader TemplateReader;
@@ -19,7 +19,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
             InlineConverter = inlineConverter;
             TemplateReader = reader;
         }
-        public string Convert(ParagraphBlock block)
+        public string Convert(Paragraph block)
         {
             var inlineText = InlineConverter.Convert(block.Inlines);
 

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Toolkit.Parsers.Markdown;
+
+using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
-    public class MarkdownConverter: IConverter<MarkdownDocument>
+    public class MarkdownConverter: IConverter<IList<IBlockElement>>
     {
 
         MarkdownBlockConverter BlockConverter;
@@ -17,9 +18,9 @@ namespace StaticSiteGenerator.TemplateSubstitution
             BlockConverter = blockConverter;
         }
 
-        public string Convert(MarkdownDocument markdownFile)
+        public string Convert(IList<IBlockElement> markdownFile)
         {
-            return BlockConverter.Convert(markdownFile.Blocks);
+            return BlockConverter.Convert(markdownFile);
         }
 
     }
