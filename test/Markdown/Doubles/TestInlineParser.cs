@@ -2,6 +2,7 @@ using StaticSiteGenerator.Markdown;
 using System.Collections.Generic;
 
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
+using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.InlineElement;
 
 namespace Test.Markdown.Doubles

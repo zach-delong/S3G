@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Markdown.InlineElementConverter;
 
