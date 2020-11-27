@@ -1,5 +1,6 @@
 using System;
 
+using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Markdown.BlockElement;
 
@@ -7,8 +8,8 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
 {
-    [TransientService]
-    public class HeaderConverter : IConverter<Header>
+    [HtmlConverterFor(nameof(Header))]
+    public class HeaderConverter : IConverter<IBlockElement>
     {
         private InlineConverter InlineConverter;
         private TemplateReader TemplateReader;
@@ -19,10 +20,10 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
             TemplateReader = reader;
         }
 
-        public string Convert(Header block)
+        public string Convert(IBlockElement block)
         {
             var template = TemplateReader.GetTemplateTagForType(TagType.Header1);
-            var inlineText = InlineConverter.Convert(block.Inlines);
+            var inlineText = InlineConverter.Convert(((Header)block).Inlines);
             return template.ToHtml(inlineText);
         }
     }
