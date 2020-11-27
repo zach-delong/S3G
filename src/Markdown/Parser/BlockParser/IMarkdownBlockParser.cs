@@ -4,7 +4,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
 using StaticSiteGenerator.Markdown.BlockElement;
 
-namespace StaticSiteGenerator.Markdown
+namespace StaticSiteGenerator.Markdown.Parser.BlockParser
 {
     public interface IMarkdownBlockParser
     {

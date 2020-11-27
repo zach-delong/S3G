@@ -5,7 +5,7 @@ using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
-using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.Markdown.Parser.InlineParser;
 
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {

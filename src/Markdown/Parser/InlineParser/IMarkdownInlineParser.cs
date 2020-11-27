@@ -4,7 +4,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 
 using StaticSiteGenerator.Markdown.InlineElement;
 
-namespace StaticSiteGenerator.Markdown
+namespace StaticSiteGenerator.Markdown.Parser.InlineParser
 {
     public interface IMarkdownInlineParser
     {

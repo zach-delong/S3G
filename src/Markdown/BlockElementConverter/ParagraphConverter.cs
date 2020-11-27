@@ -1,6 +1,7 @@
 using System;
 
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;

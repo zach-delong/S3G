@@ -7,7 +7,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
-namespace StaticSiteGenerator.Markdown
+namespace StaticSiteGenerator.Markdown.Parser.InlineParser
 {
 
     [TransientService]

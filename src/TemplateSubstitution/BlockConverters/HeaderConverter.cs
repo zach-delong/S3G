@@ -1,9 +1,9 @@
 using System;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
-
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Markdown.BlockElement;
+
+using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
 {
