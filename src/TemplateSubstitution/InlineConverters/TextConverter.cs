@@ -7,7 +7,7 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace StaticSiteGenerator.TemplateSubstitution.InlineConverters
 {
     [TransientService]
-    public class TextConverter: IConverter<Text>
+    public class TextConverter: IHtmlConverter<Text>
     {
         public string Convert(Text inline)
         {

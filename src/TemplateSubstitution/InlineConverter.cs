@@ -10,7 +10,7 @@ using StaticSiteGenerator.TemplateSubstitution.InlineConverters;
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
-    public class InlineConverter: IConverter<IInlineElement>, IConverter<IList<IInlineElement>>
+    public class InlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
     {
         TextConverter TextConverter;
 

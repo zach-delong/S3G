@@ -11,11 +11,11 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
-    public class MarkdownBlockConverter: IConverter<IList<IBlockElement>>, IConverter<IBlockElement>
+    public class MarkdownBlockConverter: IHtmlConverter<IList<IBlockElement>>, IHtmlConverter<IBlockElement>
     {
-        private readonly IEnumerable<IConverter<IBlockElement>> BlockConverters;
+        private readonly IEnumerable<IHtmlConverter<IBlockElement>> BlockConverters;
 
-        public MarkdownBlockConverter(IEnumerable<IConverter<IBlockElement>> blockConverters)
+        public MarkdownBlockConverter(IEnumerable<IHtmlConverter<IBlockElement>> blockConverters)
         {
             BlockConverters = blockConverters;
         }
@@ -46,7 +46,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             return blockConverter.Convert(block);
         }
 
-        private IConverter<IBlockElement> GetConverterFor(Type t)
+        private IHtmlConverter<IBlockElement> GetConverterFor(Type t)
         {
             foreach(var converter in BlockConverters)
             {
@@ -59,7 +59,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             throw new Exception($"Could not find an HTML Writer for {t.Name}");
         }
 
-        private bool ConverterMatchesAttributeType(IConverter<IBlockElement> converter, Type t)
+        private bool ConverterMatchesAttributeType(IHtmlConverter<IBlockElement> converter, Type t)
         {
           var converterType = converter.GetType();
 

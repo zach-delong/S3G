@@ -9,7 +9,7 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
 {
     [HtmlConverterFor(nameof(Paragraph))]
-    public class ParagraphConverter: IConverter<IBlockElement>
+    public class ParagraphConverter: IHtmlConverter<IBlockElement>
     {
         private InlineConverter InlineConverter;
         private TemplateReader TemplateReader;

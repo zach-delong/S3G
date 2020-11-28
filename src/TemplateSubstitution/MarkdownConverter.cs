@@ -8,7 +8,7 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
-    public class MarkdownConverter: IConverter<IList<IBlockElement>>
+    public class MarkdownConverter: IHtmlConverter<IList<IBlockElement>>
     {
 
         MarkdownBlockConverter BlockConverter;

@@ -9,8 +9,8 @@ namespace StaticSiteGenerator.TemplateSubstitution
     {
         public static void AddHtmlConverters(this IServiceCollection services)
         {
-            services.AddTransient<IConverter<IBlockElement>, HeaderConverter>();
-            services.AddTransient<IConverter<IBlockElement>, ParagraphConverter>();
+            services.AddTransient<IHtmlConverter<IBlockElement>, HeaderConverter>();
+            services.AddTransient<IHtmlConverter<IBlockElement>, ParagraphConverter>();
         }
 
     }

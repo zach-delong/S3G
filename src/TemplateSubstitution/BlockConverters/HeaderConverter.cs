@@ -9,7 +9,7 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
 {
     [HtmlConverterFor(nameof(Header))]
-    public class HeaderConverter : IConverter<IBlockElement>
+    public class HeaderConverter : IHtmlConverter<IBlockElement>
     {
         private InlineConverter InlineConverter;
         private TemplateReader TemplateReader;
