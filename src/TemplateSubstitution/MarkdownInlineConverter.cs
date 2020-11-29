@@ -12,24 +12,40 @@ namespace StaticSiteGenerator.TemplateSubstitution
     [TransientService]
     public class MarkdownInlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
     {
-        TextConverter TextConverter;
+        IEnumerable<IHtmlConverter<IInlineElement>> InlineElementConverters;
 
-        public MarkdownInlineConverter(TextConverter textConverter)
+        public MarkdownInlineConverter(IEnumerable<IHtmlConverter<IInlineElement>> inlineElementConverters)
         {
-            TextConverter = textConverter;
+            InlineElementConverters = inlineElementConverters;
         }
 
         public string Convert(IInlineElement inline)
         {
-            switch(inline)
+            var inlineConverter = GetConverterFor(inline.GetType());
+
+            return inlineConverter.Convert(inline);
+        }
+
+        private IHtmlConverter<IInlineElement> GetConverterFor(Type t)
+        {
+            foreach(var converter in InlineElementConverters)
             {
-                case Text i:
-                    return TextConverter.Convert(i);
-                default:
-                    throw new ArgumentException(
-                        message: $"inline {inline.GetType()} is not a recognized inline element",
-                        paramName: nameof(inline));
+                if(ConverterMatchesAttributeType(converter, t))
+                {
+                    return converter;
+                }
             }
+
+            throw new Exception($"Could not find an HTML Writer for {t.Name}");
+        }
+
+        private bool ConverterMatchesAttributeType(IHtmlConverter<IInlineElement> converter, Type t)
+        {
+            var converterType = converter.GetType();
+
+            var attr = (HtmlConverterForAttribute) Attribute.GetCustomAttribute(converterType, typeof(HtmlConverterForAttribute));
+
+            return attr?.TypeName == t.Name;
         }
 
         public string Convert(IList<IInlineElement> inlines)

@@ -6,12 +6,13 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.TemplateSubstitution.InlineConverters
 {
-    [TransientService]
-    public class TextConverter: IHtmlConverter<Text>
+    [HtmlConverterFor(nameof(Text))]
+    public class TextConverter: IHtmlConverter<IInlineElement>
     {
-        public string Convert(Text inline)
+        public string Convert(IInlineElement inline)
         {
-            return inline.Content;
+            var textInline = (Text) inline;
+            return textInline.Content;
         }
     }
 }
