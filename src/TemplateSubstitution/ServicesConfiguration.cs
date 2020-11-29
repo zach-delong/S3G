@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
+
 using StaticSiteGenerator.Markdown.BlockElement;
+using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverters;
+using StaticSiteGenerator.TemplateSubstitution.InlineConverters;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
@@ -11,6 +14,8 @@ namespace StaticSiteGenerator.TemplateSubstitution
         {
             services.AddTransient<IHtmlConverter<IBlockElement>, HeaderConverter>();
             services.AddTransient<IHtmlConverter<IBlockElement>, ParagraphConverter>();
+
+            services.AddTransient<IHtmlConverter<IInlineElement>, TextConverter>();
         }
 
     }
