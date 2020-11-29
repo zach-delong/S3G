@@ -11,10 +11,10 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverters
     [HtmlConverterFor(nameof(Paragraph))]
     public class ParagraphConverter: IHtmlConverter<IBlockElement>
     {
-        private InlineConverter InlineConverter;
+        private MarkdownInlineConverter InlineConverter;
         private TemplateReader TemplateReader;
 
-        public ParagraphConverter(InlineConverter inlineConverter, TemplateReader reader)
+        public ParagraphConverter(MarkdownInlineConverter inlineConverter, TemplateReader reader)
         {
             InlineConverter = inlineConverter;
             TemplateReader = reader;

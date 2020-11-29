@@ -10,11 +10,11 @@ using StaticSiteGenerator.TemplateSubstitution.InlineConverters;
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
-    public class InlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
+    public class MarkdownInlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
     {
         TextConverter TextConverter;
 
-        public InlineConverter(TextConverter textConverter)
+        public MarkdownInlineConverter(TextConverter textConverter)
         {
             TextConverter = textConverter;
         }
