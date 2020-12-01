@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using CommandLine;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,18 +12,38 @@ namespace StaticSiteGenerator
         {
             try
             {
-                var service = new ServiceCollection();
-                service.AddCustomServices();
-
-                var serviceProvider = service.BuildServiceProvider();
-
-                serviceProvider.GetService<StaticSiteGenerator>().Start();
+                CommandLine.Parser.Default.ParseArguments<CliOptions>(args)
+                    .WithParsed(RunProgram)
+                    .WithNotParsed(OptionsErrors);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An exception was thrown");
                 Console.Write(ex);
             }
+        }
+
+        static void RunProgram(CliOptions o)
+        {
+            var serviceProvider = BuildDependencies(o);
+
+            serviceProvider.GetService<StaticSiteGenerator>().Start();
+        }
+
+        static IServiceProvider BuildDependencies(CliOptions options)
+        {
+            var service = new ServiceCollection();
+            service.AddCustomServices();
+
+            service.AddSingleton(options);
+
+            return service.BuildServiceProvider();
+        }
+
+        static void OptionsErrors(IEnumerable<Error> errors)
+        {
+            Console.WriteLine(errors);
+            throw new Exception("An error occurred while gathering options");
         }
 
     }
