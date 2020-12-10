@@ -24,3 +24,19 @@ compile your website into something beautiful.
 
 This project is not yet complete and has not yet been used for a production
 website. As such, it should not be considered commercial strength
+
+## Containerization
+
+This is an early prototype of containerization for me. You can run the project
+and the tests for the project by building the docker image (from the dockerfile) 
+```
+    sudo docker build -t s3g-image -f Dockerfile .
+```
+
+Then you can run the build and tests by running 
+```
+    sudo docker run -it --rm --name s3g-container s3g-image
+```
+
+Unfortunately for the moment, you will need to re-run the build and the run
+every time you make a code change.
