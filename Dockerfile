@@ -19,4 +19,4 @@ COPY src/ ./src/
 # copy tests
 COPY test/ ./test
 
-ENTRYPOINT dotnet run --project src && dotnet test ./test
+ENTRYPOINT  dotnet test ./test && dotnet run --project src
