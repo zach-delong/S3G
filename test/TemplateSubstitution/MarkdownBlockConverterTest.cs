@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 using StaticSiteGenerator.TemplateSubstitution;
+using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.Markdown.BlockElement;
 
 namespace Test.TemplateSubstitution
@@ -13,7 +14,7 @@ namespace Test.TemplateSubstitution
         public void ConverterCallsCorrectStrategyWhenExists()
         {
             TestConverter testConverter = new TestConverter();
-            var converter = new MarkdownBlockConverter(new List<IHtmlConverter<IBlockElement>> {
+            var converter = new MarkdownBlockConverter(new List<IBlockHtmlConverterStrategy> {
                     testConverter
                         });
 
@@ -27,7 +28,7 @@ namespace Test.TemplateSubstitution
         [Test]
         public void ConverterThrowsExceptionWhenNoMatchingStrategyExists()
         {
-            var converter = new MarkdownBlockConverter(new List<IHtmlConverter<IBlockElement>>());
+            var converter = new MarkdownBlockConverter(new List<IBlockHtmlConverterStrategy>());
 
             var block = new Header();
 
@@ -35,7 +36,7 @@ namespace Test.TemplateSubstitution
         }
 
         [HtmlConverterFor(nameof(Header))]
-         private class TestConverter: IHtmlConverter<IBlockElement>
+        private class TestConverter: IBlockHtmlConverterStrategy
          {
              public bool ConverterCalled = false;
 

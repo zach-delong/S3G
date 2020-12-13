@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-using StaticSiteGenerator.TemplateSubstitution.BlockConverters;
+using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
@@ -13,9 +13,9 @@ namespace StaticSiteGenerator.TemplateSubstitution
     [TransientService]
     public class MarkdownBlockConverter: IHtmlConverter<IList<IBlockElement>>, IHtmlConverter<IBlockElement>
     {
-        private readonly IEnumerable<IHtmlConverter<IBlockElement>> BlockConverters;
+        private readonly IEnumerable<IBlockHtmlConverterStrategy> BlockConverters;
 
-        public MarkdownBlockConverter(IEnumerable<IHtmlConverter<IBlockElement>> blockConverters)
+        public MarkdownBlockConverter(IEnumerable<IBlockHtmlConverterStrategy> blockConverters)
         {
             BlockConverters = blockConverters;
         }
