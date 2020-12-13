@@ -4,10 +4,10 @@ using StaticSiteGenerator.Markdown.InlineElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
-namespace StaticSiteGenerator.TemplateSubstitution.InlineConverters
+namespace StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies
 {
     [HtmlConverterFor(nameof(Text))]
-    public class TextConverter: IHtmlConverter<IInlineElement>
+    public class TextConverter: IInlineConverterStrategy
     {
         public string Convert(IInlineElement inline)
         {

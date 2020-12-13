@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.Markdown.InlineElement;
-using StaticSiteGenerator.TemplateSubstitution.InlineConverters;
+using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 
 namespace Test.TemplateSubstitution.InlineConverter
 {

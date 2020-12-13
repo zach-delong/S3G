@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
-using StaticSiteGenerator.TemplateSubstitution.InlineConverters;
+using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
@@ -15,7 +15,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             services.AddTransient<IBlockHtmlConverterStrategy, HeaderConverterStrategy>();
             services.AddTransient<IBlockHtmlConverterStrategy, ParagraphConverterStrategy>();
 
-            services.AddTransient<IHtmlConverter<IInlineElement>, TextConverter>();
+            services.AddTransient<IInlineConverterStrategy, TextConverter>();
         }
 
     }

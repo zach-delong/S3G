@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 using StaticSiteGenerator.TemplateSubstitution;
+using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using StaticSiteGenerator.Markdown.InlineElement;
 
 namespace Test.TemplateSubstitution
@@ -13,7 +14,7 @@ namespace Test.TemplateSubstitution
         public void ConverterCallsCorrectStrategyWhenExists()
         {
             TestConverter testConverter = new TestConverter();
-            var converter = new MarkdownInlineConverter(new List<IHtmlConverter<IInlineElement>> {
+            var converter = new MarkdownInlineConverter(new List<IInlineConverterStrategy> {
                     testConverter
                         });
 
@@ -27,7 +28,7 @@ namespace Test.TemplateSubstitution
         [Test]
         public void ConverterThrowsExceptionWhenNoMatchingStrategyExists()
         {
-            var converter = new MarkdownInlineConverter(new List<IHtmlConverter<IInlineElement>>());
+            var converter = new MarkdownInlineConverter(new List<IInlineConverterStrategy>());
 
             var block = new Text();
 
@@ -35,7 +36,7 @@ namespace Test.TemplateSubstitution
         }
 
         [HtmlConverterFor(nameof(Text))]
-         private class TestConverter: IHtmlConverter<IInlineElement>
+        private class TestConverter: IInlineConverterStrategy
          {
              public bool ConverterCalled = false;
 

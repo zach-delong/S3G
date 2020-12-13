@@ -5,16 +5,16 @@ using System.Collections.Generic;
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.Markdown.InlineElement;
 
-using StaticSiteGenerator.TemplateSubstitution.InlineConverters;
+using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
     [TransientService]
     public class MarkdownInlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
     {
-        IEnumerable<IHtmlConverter<IInlineElement>> InlineElementConverters;
+        IEnumerable<IInlineConverterStrategy> InlineElementConverters;
 
-        public MarkdownInlineConverter(IEnumerable<IHtmlConverter<IInlineElement>> inlineElementConverters)
+        public MarkdownInlineConverter(IEnumerable<IInlineConverterStrategy> inlineElementConverters)
         {
             InlineElementConverters = inlineElementConverters;
         }
