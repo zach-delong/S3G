@@ -1,6 +1,7 @@
 using System;
 
 using StaticSiteGenerator.TemplateSubstitution;
+using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Markdown.BlockElement;
 

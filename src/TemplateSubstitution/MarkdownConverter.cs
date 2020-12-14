@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using StaticSiteGenerator.Markdown.BlockElement;
+using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 

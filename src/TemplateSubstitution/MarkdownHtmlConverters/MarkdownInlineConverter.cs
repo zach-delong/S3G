@@ -7,7 +7,7 @@ using StaticSiteGenerator.Markdown.InlineElement;
 
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 
-namespace StaticSiteGenerator.TemplateSubstitution
+namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
 {
     [TransientService]
     public class MarkdownInlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
