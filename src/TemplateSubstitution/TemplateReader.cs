@@ -45,14 +45,14 @@ namespace StaticSiteGenerator.TemplateSubstitution
                 .GetFileName(filePath)
                 .Replace(".html", "");
 
-            var template = GetPropertTagWriterFor(name);
+            var template = GetProperTagWriterFor(name);
 
             template.Template = FileReader.ReadFile(filePath).ReadToEnd();
 
             return template;
         }
 
-        private TemplateTag GetPropertTagWriterFor(string fileName)
+        private TemplateTag GetProperTagWriterFor(string fileName)
         {
             try
             {
