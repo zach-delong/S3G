@@ -7,6 +7,7 @@ using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.Markdown.BlockElement;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+using System.Linq;
 
 namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
 {
@@ -22,21 +23,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
 
         public string Convert(IList<IBlockElement> blocks)
         {
-            var result = new StringBuilder();
-            foreach(var block in blocks)
-            {
-                try
-                {
-                    result.AppendLine(Convert(block));
-                }
-                catch(ArgumentException ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            return result.ToString();
+            return string.Join(Environment.NewLine, blocks.Select(b => Convert(b)));
         }
 
         public string Convert(IBlockElement block)
