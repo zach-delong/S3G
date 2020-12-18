@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  cmdline-dev:
+    build:
+      context: .
+    working_dir: /source_code
+    volumes:
+      - ".:/source_code"
+    command: sleep infinity

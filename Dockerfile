@@ -1,22 +1,11 @@
 # https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /source
 
-# copy csproj and restore as distinct layers
-COPY *.sln .
-COPY src/*.csproj ./src/
-RUN dotnet restore
+# Unsure if I actually need to add a user but we'll do it for now
+RUN useradd -m -s $(which bash) developer
 
-# Copy example stuff
-COPY exampleMarkdownDirectory/ ./exampleMarkdownDirectory/
+RUN mkdir /source_code
 
-# Copy templates
-COPY templates/ ./templates/
+RUN chown developer:developer /source_code
 
-# copy the remaining code 
-COPY src/ ./src/
-
-# copy tests
-COPY test/ ./test
-
-ENTRYPOINT  dotnet test ./test && dotnet run --project src
+USER developer
