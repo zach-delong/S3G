@@ -1,4 +1,4 @@
-using NUnit.Framework;
+using Xunit;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
@@ -7,19 +7,19 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
-using Test.Markdown.Doubles;
+using StaticSiteGenerator.UnitTests.Markdown.Doubles;
 
 namespace Test.Markdown.BlockConverter
 {
     public class HeaderConverterTest
     {
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        [TestCase(4)]
-        [TestCase(5)]
-        [TestCase(6)]
-        [Parallelizable(ParallelScope.Self)]
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        [InlineData(5)]
+        [InlineData(6)]
         public void ConversionTest(int headerLevel)
         {
             HeaderConverter converter = GetHeaderConverter();
@@ -30,7 +30,7 @@ namespace Test.Markdown.BlockConverter
 
             var result = (Header) converter.Convert(blockInput);
 
-            Assert.That(result.Level, Is.EqualTo(headerLevel));
+            Assert.Equal(result.Level, headerLevel);
         }
 
         private HeaderConverter GetHeaderConverter(){

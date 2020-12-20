@@ -5,7 +5,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.InlineElement;
 
-namespace Test.Markdown.Doubles
+namespace StaticSiteGenerator.UnitTests.Markdown.Doubles
 {
     public class TestInlineParser: IMarkdownInlineParser
     {
