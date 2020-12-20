@@ -1,4 +1,4 @@
-using NUnit.Framework;
+using Xunit;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 
 using StaticSiteGenerator.Markdown.InlineElement;
@@ -6,11 +6,11 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 
 namespace Test.Markdown.ImnlineConverter
 {
-    class  TextConverterTest
+    public class TextConverterTest
     {
-        [TestCase("sample text")]
-        [TestCase("")]
-        [Parallelizable(ParallelScope.Self)]
+        [Theory]
+        [InlineData("sample text")]
+        [InlineData("")]
         public void TestTextConverter(string markdownInput)
         {
             var inline = new TextRunInline() { Text=markdownInput };
@@ -18,7 +18,7 @@ namespace Test.Markdown.ImnlineConverter
 
             var result = textConverter.Convert(inline);
 
-            Assert.That(result.Content, Is.EqualTo(markdownInput));
+            Assert.Equal(markdownInput, result.Content);
         }
     }
 }
