@@ -31,7 +31,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 
                 var fileContents = fileReader.ReadFile(file.Path).ReadToEnd();
 
-                Assert.Equal(fileContents, "");
+                Assert.Equal("", fileContents);
             }
         }
 
