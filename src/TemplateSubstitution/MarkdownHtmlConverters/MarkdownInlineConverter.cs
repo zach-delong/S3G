@@ -19,7 +19,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
             InlineElementConverters = inlineElementConverters;
         }
 
-        public string Convert(IInlineElement inline)
+        public virtual string Convert(IInlineElement inline)
         {
             var inlineConverter = GetConverterFor(inline.GetType());
 
@@ -48,7 +48,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
             return attr?.TypeName == t.Name;
         }
 
-        public string Convert(IList<IInlineElement> inlines)
+        public virtual string Convert(IList<IInlineElement> inlines)
         {
             var result = new StringBuilder();
             foreach(var inline in inlines)

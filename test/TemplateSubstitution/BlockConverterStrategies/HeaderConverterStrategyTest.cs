@@ -1,0 +1,56 @@
+using System.Collections.Generic;
+
+using Moq;
+using NUnit.Framework;
+
+using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.Markdown.InlineElement;
+using StaticSiteGenerator.Markdown.BlockElement;
+using StaticSiteGenerator.TemplateSubstitution;
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
+using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
+using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
+
+namespace Test.TemplateSubstitution.BlockConverterStrategies
+{
+    public class TestHeaderBlockConverterStrategy
+    {
+        [Test]
+        public void Test()
+        {
+            var fileIteratorMock = new Mock<FileIterator>();
+            var fileReadermock = new Mock<FileReader>();
+
+            var inlineConverterMock = new Mock<MarkdownInlineConverter>(
+                new List<IInlineConverterStrategy>());
+
+            var templateReader = new Mock<TemplateReader>(
+                fileIteratorMock.Object,
+                fileReadermock.Object
+            );
+
+            inlineConverterMock
+                .Setup(c => c.Convert(It.IsAny<IList<IInlineElement>>()))
+                .Returns("TestText");
+
+            templateReader
+                .Setup(r => r.GetTemplateTagForType(It.IsAny<TagType>()))
+                .Returns(new TemplateTag {
+                    Template = "<h1>{{}}</h1>",
+                    Type = TagType.Header1
+                });
+
+            var converter = new HeaderConverterStrategy(
+                inlineConverterMock.Object,
+                templateReader.Object);
+
+            var headerBlock = new Header {
+                Inlines = new List<IInlineElement>()
+            };
+            var result = converter.Convert(headerBlock);
+
+            Assert.That(result, Is.EqualTo("<h1>TestText</h1>"));
+        }
+    }
+}

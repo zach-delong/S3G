@@ -24,7 +24,9 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
         public string Convert(IBlockElement block)
         {
             var template = TemplateReader.GetTemplateTagForType(TagType.Header1);
+            Console.WriteLine(template);
             var inlineText = InlineConverter.Convert(((Header)block).Inlines);
+            Console.WriteLine(inlineText);
             return template.ToHtml(inlineText);
         }
     }

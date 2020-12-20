@@ -82,7 +82,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
             }
         }
 
-        public TemplateTag GetTemplateTagForType(TagType type)
+        public virtual TemplateTag GetTemplateTagForType(TagType type)
         {
             try
             {
