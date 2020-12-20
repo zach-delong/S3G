@@ -1,17 +1,16 @@
 using System;
-using NUnit.Framework;
+using Xunit;
 
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
 using StaticSiteGenerator.Markdown.BlockElementConverter;
-using Test.Markdown.Doubles;
+using StaticSiteGenerator.UnitTests.Markdown.Doubles;
 
-namespace Test.Markdown.BlockConverter
+namespace StaticSiteGenerator.UnitTests.Markdown.BlockConverter
 {
     public class ParagraphConverterTest
     {
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        [Fact]
         public void ParagraphConverterCallsInlineConverterTest()
         {
             var testInlineParser = new TestInlineParser();
@@ -21,8 +20,7 @@ namespace Test.Markdown.BlockConverter
 
             converter.Convert(paragraph);
 
-            Assert.That(testInlineParser.ParseCalled, Is.True);
-
+            Assert.True(testInlineParser.ParseCalled);
         }
     }
 }
