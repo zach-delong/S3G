@@ -1,17 +1,17 @@
 using System;
-using NUnit.Framework;
+using Xunit;
 
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.FileManipulation.FileException;
 
-using Test.Helpers;
+using StaticSiteGenerator.UnitTests.Helpers;
 
-namespace Test.FileManipulation
+namespace StaticSiteGenerator.UnitTests.FileManipulation
 {
     public class FileReaderTest
     {
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        
+        [Fact]
         public void FileDoesNotExist()
         {
             var FileReader = new FileReader();
@@ -21,8 +21,8 @@ namespace Test.FileManipulation
             Assert.Throws<FileManipulationException>(() => { FileReader.ReadFile(filePath); });
         }
 
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        
+        [Fact]
         public void FileExistsButIsEmpty()
         {
             using(var file = TempFileHelper.GetTempTextFile())
@@ -31,12 +31,12 @@ namespace Test.FileManipulation
 
                 var fileContents = fileReader.ReadFile(file.Path).ReadToEnd();
 
-                Assert.That(fileContents, Is.Empty);
+                Assert.Equal(fileContents, "");
             }
         }
 
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        
+        [Fact]
         public void FileExists()
         {
             using(var file = TempFileHelper.GetTempTextFile())
@@ -51,7 +51,7 @@ namespace Test.FileManipulation
                 var fileContents = fileReader.ReadFile(file.Path).ReadToEnd();
 
 
-                Assert.That(fileContents, Does.Contain(contents));
+                Assert.Contains(contents, fileContents);
             }
         }
     }

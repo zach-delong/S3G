@@ -8,7 +8,7 @@ using StaticSiteGenerator.UnitTests.Helpers;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.FileManipulation.FileException;
 
-namespace StaticsiteGenerator.UnitTests.FileManipulation
+namespace StaticSiteGenerator.UnitTests.FileManipulation
 {
     public class FileIteratorTests
     {
