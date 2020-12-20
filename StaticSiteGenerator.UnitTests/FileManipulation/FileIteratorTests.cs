@@ -22,7 +22,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 
                 var result = fileIterator.GetFilesInDirectory(tempFolderPath.Path);
 
-                Assert.Equal(1, result.Count());
+                Assert.Single(result);
             }
         }
 
@@ -35,7 +35,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 
                 var result = fileIterator.GetFilesInDirectory(tempFolderPath.Path);
 
-                Assert.Equal(0, result.Count());
+                Assert.Empty(result);
             }
         }
 
