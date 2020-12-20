@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\StaticSiteGenerator.csproj" />
+    <ProjectReference Include="..\StaticSiteGenerator\StaticSiteGenerator.csproj" />
   </ItemGroup>
 
 </Project>
