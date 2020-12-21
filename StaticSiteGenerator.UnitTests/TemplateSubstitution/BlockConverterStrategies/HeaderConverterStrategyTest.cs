@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 using Moq;
-using NUnit.Framework;
+using Xunit;
 
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.Markdown.InlineElement;
@@ -16,7 +16,7 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
 {
     public class TestHeaderBlockConverterStrategy
     {
-        [Test]
+        [Fact]
         public void Test()
         {
             var fileIteratorMock = new Mock<FileIterator>();
@@ -50,7 +50,7 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
             };
             var result = converter.Convert(headerBlock);
 
-            Assert.That(result, Is.EqualTo("<h1>TestText</h1>"));
+            Assert.Equal("<h1>TestText</h1>", result);
         }
     }
 }
