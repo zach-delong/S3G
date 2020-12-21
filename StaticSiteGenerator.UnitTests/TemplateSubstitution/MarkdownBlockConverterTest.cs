@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
@@ -11,7 +11,7 @@ namespace Test.TemplateSubstitution
 {
     public class MarkdownBlockConverterTest
     {
-        [Test]
+        [Fact]
         public void ConverterCallsCorrectStrategyWhenExists()
         {
             TestConverter testConverter = new TestConverter();
@@ -23,10 +23,10 @@ namespace Test.TemplateSubstitution
 
             converter.Convert(block);
 
-            Assert.That(testConverter.ConverterCalled, Is.True);
+            Assert.True(testConverter.ConverterCalled);
         }
 
-        [Test]
+        [Fact]
         public void ConverterThrowsExceptionWhenNoMatchingStrategyExists()
         {
             var converter = new MarkdownBlockConverter(new List<IBlockHtmlConverterStrategy>());
