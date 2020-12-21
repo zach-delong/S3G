@@ -5,7 +5,7 @@ using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
-using NUnit.Framework;
+using Xunit;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 
 namespace Test.Markdown.Parser
@@ -13,8 +13,7 @@ namespace Test.Markdown.Parser
     public class MarkdownBlockParserTest
     {
 
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        [Fact]
         public void TestConversionWithExistingConverter()
         {
             var converter = new TestConverter();
@@ -26,11 +25,10 @@ namespace Test.Markdown.Parser
 
             parser.Parse(header);
 
-            Assert.That(converter.ConverterCalled, Is.True);
+            Assert.True(converter.ConverterCalled);
         }
 
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        [Fact]
         public void TestConversionThrowsExceptionWithoutValidConverter()
         {
             var parser = new MarkdownBlockParser(new List<IBlockElementConverter>());

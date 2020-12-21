@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
@@ -11,9 +11,7 @@ namespace Test.Markdown.Parser
 {
     public class MarkdownInlineParserTest
     {
-
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        [Fact]
         public void TestConversionWithExistingConverter()
         {
             var converter = new TestConverter();
@@ -25,11 +23,10 @@ namespace Test.Markdown.Parser
 
             parser.Parse(inline);
 
-            Assert.That(converter.ConverterCalled, Is.True);
+            Assert.True(converter.ConverterCalled);
         }
 
-        [Test]
-        [Parallelizable(ParallelScope.Self)]
+        [Fact]
         public void TestConversionThrowsExceptionWithoutValidConverter()
         {
             var parser = new MarkdownInlineParser(new List<IInlineElementConverter>());
