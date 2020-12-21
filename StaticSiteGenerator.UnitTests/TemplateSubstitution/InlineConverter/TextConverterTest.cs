@@ -1,14 +1,15 @@
-using NUnit.Framework;
+using Xunit;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 
-namespace Test.TemplateSubstitution.InlineConverter
+namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.InlineConverter
 {
     public class TextConverterTest
     {
-        [TestCase("This is some sample text")]
-        [TestCase("")]
+        [Theory]
+        [InlineData("This is some sample text")]
+        [InlineData("")]
         public void TestTextConverterCase(string input)
         {
 
@@ -20,7 +21,7 @@ namespace Test.TemplateSubstitution.InlineConverter
 
           var output = converter.Convert(TextElement);
 
-          Assert.That(output, Is.EqualTo(input));
+          Assert.Equal(output, input);
         }
     }
 }
