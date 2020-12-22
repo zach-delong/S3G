@@ -13,11 +13,11 @@ namespace StaticSiteGenerator.Markdown.Parser.InlineParser
     [TransientService]
     public class MarkdownInlineParser: IMarkdownInlineParser
     {
-        private readonly StrategyCollection Strategies;
+        private readonly StrategyCollection<IInlineElementConverter> Strategies;
 
         public MarkdownInlineParser(
             IEnumerable<IInlineElementConverter> converters,
-            StrategyCollection strategies
+            StrategyCollection<IInlineElementConverter> strategies
         )
         {
             Strategies = strategies;

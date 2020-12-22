@@ -13,12 +13,12 @@ namespace Test.Markdown.Parser
 {
     public class MarkdownInlineParserTest
     {
-        private Mock<StrategyCollection> GetMockStrategyCollection<T>(IDictionary<string, T> strategyMappings)
+        private Mock<StrategyCollection<T>> GetMockStrategyCollection<T>(IDictionary<string, T> strategyMappings)
         {
-            var mock = new Mock<StrategyCollection>();
+            var mock = new Mock<StrategyCollection<T>>();
 
             mock.Setup(c => c.GetConverterForType(It.IsAny<Type>()))
-                .Returns<Type>((p) => (IInlineElementConverter)strategyMappings[p.Name]);
+                .Returns<Type>((p) => (T)strategyMappings[p.Name]);
 
             return mock;
         }
@@ -29,7 +29,7 @@ namespace Test.Markdown.Parser
 
             var parser = new MarkdownInlineParser(new List<IInlineElementConverter> {
                     converter,
-                }, GetMockStrategyCollection(new Dictionary<string, IInlineElementConverter>{
+                }, GetMockStrategyCollection<IInlineElementConverter>(new Dictionary<string, IInlineElementConverter>{
                 { nameof(TextRunInline), converter }
             }).Object);
 
@@ -43,7 +43,7 @@ namespace Test.Markdown.Parser
         [Fact]
         public void TestConversionThrowsExceptionWithoutValidConverter()
         {
-            var parser = new MarkdownInlineParser(new List<IInlineElementConverter>(), new Mock<StrategyCollection>().Object);
+            var parser = new MarkdownInlineParser(new List<IInlineElementConverter>(), new Mock<StrategyCollection<IInlineElementConverter>>().Object);
 
             var inline = new TextRunInline();
 

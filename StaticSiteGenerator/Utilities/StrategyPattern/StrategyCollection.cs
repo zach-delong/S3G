@@ -7,13 +7,13 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace StaticSiteGenerator.Utilities.StrategyPattern
 {
     [TransientService]
-    public class StrategyCollection
+    public class StrategyCollection<T>
     {
-        private IDictionary<string, IInlineElementConverter> Strategies;
+        private IDictionary<string, T> Strategies;
 
-        public void SetCollection(IEnumerable<IInlineElementConverter> strategies)
+        public void SetCollection(IEnumerable<T> strategies)
         {
-            Strategies = new Dictionary<string, IInlineElementConverter>();
+            Strategies = new Dictionary<string, T>();
             foreach(var strategy in strategies)
             {
                 string typeName = getTypeName(strategy);
@@ -22,7 +22,7 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
             }
         }
 
-        private string getTypeName(IInlineElementConverter strategy)
+        private string getTypeName(T strategy)
         {
             var type = strategy.GetType();
 
@@ -38,7 +38,7 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
 
         }
 
-        public virtual IInlineElementConverter GetConverterForType(Type t)
+        public virtual T GetConverterForType(Type t)
         {
             if(!Strategies.ContainsKey(t.Name))
             {
