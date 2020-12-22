@@ -16,12 +16,10 @@ namespace StaticSiteGenerator.Markdown.Parser.InlineParser
         private readonly StrategyCollection<IInlineElementConverter> Strategies;
 
         public MarkdownInlineParser(
-            IEnumerable<IInlineElementConverter> converters,
             StrategyCollection<IInlineElementConverter> strategies
         )
         {
             Strategies = strategies;
-            Strategies.SetCollection(converters);
         }
 
         public IList<IInlineElement> Parse(IList<MarkdownInline> inlines)

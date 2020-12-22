@@ -11,6 +11,11 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
     {
         private IDictionary<string, T> Strategies;
 
+        public StrategyCollection(IEnumerable<T> strategies)
+        {
+            SetCollection(strategies);
+        }
+
         public void SetCollection(IEnumerable<T> strategies)
         {
             Strategies = new Dictionary<string, T>();

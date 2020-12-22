@@ -37,7 +37,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         [Fact]
         public void SetCollectionShouldMapTypesToImplementations()
         {
-            var strategyCollection = new StrategyCollection<IInlineElementConverter>();
+            var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
             var mockConverter = new FakeConverterWithAttribute();
             object dummyObject = new Object();
 
@@ -53,7 +53,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         [Fact]
         public void SetCollectionShouldPassOnEmptyList()
         {
-            var strategyCollection = new StrategyCollection<IInlineElementConverter>();
+            var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
 
             var exception = Record.Exception(() => strategyCollection.SetCollection(new List<IInlineElementConverter>()));
 
@@ -63,7 +63,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         [Fact]
         void SetCollectionShouldFailOnNullList()
         {
-            var strategyCollection = new StrategyCollection<IInlineElementConverter>();
+            var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
 
             Assert.Throws<NullReferenceException>(() => strategyCollection.SetCollection(null));
         }
@@ -71,7 +71,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         [Fact]
         void SetCollectionShouldThrowErrorOnTypeWithNoAttribute()
         {
-            var strategyCollection = new StrategyCollection<IInlineElementConverter>();
+            var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
             var mockConverter = new FakeConverterWithoutAttribute();
             object dummyObject = new Object();
 
@@ -86,7 +86,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         [Fact]
         void GetStrategyShouldThrowExceptionWhenTypeIsNotFound()
         {
-            var strategyCollection = new StrategyCollection<IInlineElementConverter>();
+            var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
             var mockConverter = new FakeConverterWithAttribute();
             object dummyObject = new Object();
 

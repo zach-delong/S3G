@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Xunit;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
@@ -13,23 +12,15 @@ namespace Test.Markdown.Parser
 {
     public class MarkdownInlineParserTest
     {
-        private Mock<StrategyCollection<T>> GetMockStrategyCollection<T>(IDictionary<string, T> strategyMappings)
-        {
-            var mock = new Mock<StrategyCollection<T>>();
+        private StrategyCollectionMockFactory StrategyCollectionFactory => new StrategyCollectionMockFactory();
 
-            mock.Setup(c => c.GetConverterForType(It.IsAny<Type>()))
-                .Returns<Type>((p) => (T)strategyMappings[p.Name]);
-
-            return mock;
-        }
         [Fact]
         public void TestConversionWithExistingConverter()
         {
             var converter = new TestConverter();
 
-            var parser = new MarkdownInlineParser(new List<IInlineElementConverter> {
-                    converter,
-                }, GetMockStrategyCollection<IInlineElementConverter>(new Dictionary<string, IInlineElementConverter>{
+            var parser = new MarkdownInlineParser(
+                StrategyCollectionFactory.Get<IInlineElementConverter>(new Dictionary<string, IInlineElementConverter> {
                 { nameof(TextRunInline), converter }
             }).Object);
 
@@ -43,7 +34,7 @@ namespace Test.Markdown.Parser
         [Fact]
         public void TestConversionThrowsExceptionWithoutValidConverter()
         {
-            var parser = new MarkdownInlineParser(new List<IInlineElementConverter>(), new Mock<StrategyCollection<IInlineElementConverter>>().Object);
+            var parser = new MarkdownInlineParser(new Mock<StrategyCollection<IInlineElementConverter>>(new List<IInlineElementConverter>()).Object);
 
             var inline = new TextRunInline();
 
