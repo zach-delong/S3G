@@ -38,7 +38,7 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
 
         }
 
-        public IInlineElementConverter GetConverterForType(Type t)
+        public virtual IInlineElementConverter GetConverterForType(Type t)
         {
             if(!Strategies.ContainsKey(t.Name))
             {

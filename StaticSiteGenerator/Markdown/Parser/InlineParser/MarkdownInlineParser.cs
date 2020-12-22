@@ -40,7 +40,7 @@ namespace StaticSiteGenerator.Markdown.Parser.InlineParser
         {
             var converter = Strategies.GetConverterForType(inline.GetType());
 
-            return converter.Convert(inline);
+            return converter?.Convert(inline);
         }
     }
 }
