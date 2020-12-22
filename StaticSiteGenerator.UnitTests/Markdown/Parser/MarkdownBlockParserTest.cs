@@ -7,6 +7,7 @@ using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using Xunit;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace Test.Markdown.Parser
 {
@@ -17,9 +18,7 @@ namespace Test.Markdown.Parser
         public void TestConversionWithExistingConverter()
         {
             var converter = new TestConverter();
-            var parser = new MarkdownBlockParser(new List<IBlockElementConverter> {
-                    converter,
-                });
+            var parser = new MarkdownBlockParser(new StrategyCollection<IBlockElementConverter>(new List<IBlockElementConverter> { converter }));
 
             var header = new HeaderBlock();
 
@@ -31,11 +30,11 @@ namespace Test.Markdown.Parser
         [Fact]
         public void TestConversionThrowsExceptionWithoutValidConverter()
         {
-            var parser = new MarkdownBlockParser(new List<IBlockElementConverter>());
+            var parser = new MarkdownBlockParser(new StrategyCollection<IBlockElementConverter>( new List<IBlockElementConverter>() ));
 
             var block = new HeaderBlock();
 
-            Assert.Throws<Exception>(() => { parser.Parse(block); });
+            Assert.Throws<StrategyNotFoundException>(() => { parser.Parse(block); });
         }
 
         [MarkdownConverterForAttribute(nameof(HeaderBlock))]
@@ -48,6 +47,5 @@ namespace Test.Markdown.Parser
                 return null;
             }
         }
-
     }
 }

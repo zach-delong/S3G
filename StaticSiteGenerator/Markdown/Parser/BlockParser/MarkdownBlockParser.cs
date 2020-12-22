@@ -8,6 +8,7 @@ using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Markdown.Parser.BlockParser
 {
@@ -15,9 +16,9 @@ namespace StaticSiteGenerator.Markdown.Parser.BlockParser
     [TransientService]
     public class MarkdownBlockParser: IMarkdownBlockParser
     {
-        IEnumerable<IBlockElementConverter> Converters;
+        StrategyCollection<IBlockElementConverter> Converters;
 
-        public MarkdownBlockParser(IEnumerable<IBlockElementConverter> converters)
+        public MarkdownBlockParser(StrategyCollection<IBlockElementConverter> converters)
         {
             Converters = converters;
         }
@@ -35,31 +36,9 @@ namespace StaticSiteGenerator.Markdown.Parser.BlockParser
 
         public IBlockElement Parse(MarkdownBlock block)
         {
-            var converter = GetElementConverterFor(block.GetType());
+            var converter = Converters.GetConverterForType(block.GetType());
 
             return converter.Convert(block);
-        }
-
-        private IBlockElementConverter GetElementConverterFor(Type type)
-        {
-            foreach(var converter in Converters)
-            {
-                if(ConverterHasMatchingAttributeType(converter, type)){
-                    return converter;
-                }
-            }
-
-            // TODO: should probably thow a custom exception type
-            throw new Exception($"Converter for type {type.Name} not found");
-        }
-
-        private bool ConverterHasMatchingAttributeType(IBlockElementConverter converter, Type type)
-        {
-            var converterType = converter.GetType();
-
-            var attribute = (MarkdownConverterForAttribute) Attribute.GetCustomAttribute(converterType, typeof(MarkdownConverterForAttribute));
-
-            return attribute?.TypeName == type.Name;
         }
     }
 }
