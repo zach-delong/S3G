@@ -26,8 +26,6 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
         {
             var type = strategy.GetType();
 
-            Console.WriteLine("Attributes:");
-
             StrategyForTypeAttribute attribute = (StrategyForTypeAttribute)TypeDescriptor
                 .GetAttributes(strategy)[typeof(StrategyForTypeAttribute)];
 
