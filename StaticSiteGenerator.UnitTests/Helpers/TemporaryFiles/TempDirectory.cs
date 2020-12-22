@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 
 namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles

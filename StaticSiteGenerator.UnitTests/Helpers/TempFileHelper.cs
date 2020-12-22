@@ -16,7 +16,6 @@ namespace StaticSiteGenerator.UnitTests.Helpers
 
         public static TempFile GetTempTextFile(string path)
         {
-            Console.WriteLine("Creating temp file");
             var tempFilePath = path + Guid.NewGuid().ToString() + ".txt";
 
             return new TempFile(tempFilePath);

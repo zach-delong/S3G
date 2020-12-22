@@ -1,5 +1,3 @@
-using System;
-using System.Text;
 using System.IO;
 
 namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles
@@ -8,14 +6,12 @@ namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles
     {
         public TempFile(string path): base(path)
         {
-            Console.WriteLine($"Created Temp File {Path}");
             var file = File.Create(path);
             file.Dispose();
         }
 
         public void WriteToFile(string contents)
         {
-            Console.WriteLine($"Writing to file {Path} {contents}");
             using (var file = File.AppendText(Path))
             {
                 file.WriteLine(contents);
@@ -24,7 +20,6 @@ namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles
 
         public override void Dispose()
         {
-            Console.WriteLine($"Disposing of {Path}");
             File.Delete(Path);
         }
     }

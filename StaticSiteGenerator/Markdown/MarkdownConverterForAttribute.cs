@@ -1,14 +1,9 @@
-using System;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Markdown
 {
-    public class MarkdownConverterForAttribute: System.Attribute
+    public class MarkdownConverterForAttribute : StrategyForTypeAttribute
     {
-        public string TypeName { get; set; }
-
-        public MarkdownConverterForAttribute(string typeName)
-        {
-            TypeName = typeName;
-        }
+        public MarkdownConverterForAttribute(string typeName) : base(typeName) { }
     }
 }

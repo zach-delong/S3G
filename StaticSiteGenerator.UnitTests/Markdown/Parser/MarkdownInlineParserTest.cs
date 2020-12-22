@@ -9,43 +9,43 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 
 namespace Test.Markdown.Parser
 {
-    public class MarkdownInlineParserTest
-    {
-        [Fact]
-        public void TestConversionWithExistingConverter()
-        {
-            var converter = new TestConverter();
-            var parser = new MarkdownInlineParser(new List<IInlineElementConverter> {
-                    converter,
-                });
+    // public class MarkdownInlineParserTest
+    // {
+    //     [Fact]
+    //     public void TestConversionWithExistingConverter()
+    //     {
+    //         var converter = new TestConverter();
+    //         var parser = new MarkdownInlineParser(new List<IInlineElementConverter> {
+    //                 converter,
+    //             });
 
-            var inline = new TextRunInline();
+    //         var inline = new TextRunInline();
 
-            parser.Parse(inline);
+    //         parser.Parse(inline);
 
-            Assert.True(converter.ConverterCalled);
-        }
+    //         Assert.True(converter.ConverterCalled);
+    //     }
 
-        [Fact]
-        public void TestConversionThrowsExceptionWithoutValidConverter()
-        {
-            var parser = new MarkdownInlineParser(new List<IInlineElementConverter>());
+    //     [Fact]
+    //     public void TestConversionThrowsExceptionWithoutValidConverter()
+    //     {
+    //         var parser = new MarkdownInlineParser(new List<IInlineElementConverter>());
 
-            var inline = new TextRunInline();
+    //         var inline = new TextRunInline();
 
-            Assert.Throws<Exception>(() => { parser.Parse(inline); });
-        }
+    //         Assert.Throws<Exception>(() => { parser.Parse(inline); });
+    //     }
 
-        [MarkdownConverterForAttribute(nameof(TextRunInline))]
-        private class TestConverter: IInlineElementConverter
-        {
-            public bool ConverterCalled = false;
-            public IInlineElement Convert(MarkdownInline inline)
-            {
-                ConverterCalled = true;
-                return null;
-            }
-        }
+    //     [MarkdownConverterForAttribute(nameof(TextRunInline))]
+    //     private class TestConverter: IInlineElementConverter
+    //     {
+    //         public bool ConverterCalled = false;
+    //         public IInlineElement Convert(MarkdownInline inline)
+    //         {
+    //             ConverterCalled = true;
+    //             return null;
+    //         }
+    //     }
 
-    }
+    // }
 }

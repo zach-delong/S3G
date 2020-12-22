@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Markdown.InlineElementConverter;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
@@ -13,18 +13,22 @@ namespace StaticSiteGenerator.Markdown.Parser.InlineParser
     [TransientService]
     public class MarkdownInlineParser: IMarkdownInlineParser
     {
-        private readonly IEnumerable<IInlineElementConverter> Converters;
+        private readonly StrategyCollection Strategies;
 
-        public MarkdownInlineParser(IEnumerable<IInlineElementConverter> converters)
+        public MarkdownInlineParser(
+            IEnumerable<IInlineElementConverter> converters,
+            StrategyCollection strategies
+        )
         {
-            Converters = converters;
+            Strategies = strategies;
+            Strategies.SetCollection(converters);
         }
 
         public IList<IInlineElement> Parse(IList<MarkdownInline> inlines)
         {
             var result = new List<IInlineElement>();
 
-            foreach(var inline in inlines)
+            foreach (var inline in inlines)
             {
                 result.Add(Parse(inline));
             }
@@ -34,32 +38,9 @@ namespace StaticSiteGenerator.Markdown.Parser.InlineParser
 
         public IInlineElement Parse(MarkdownInline inline)
         {
-            var converter = GetConvertersForType(inline.GetType());
+            var converter = Strategies.GetConverterForType(inline.GetType());
 
             return converter.Convert(inline);
-
-        }
-
-        public IInlineElementConverter GetConvertersForType(Type t)
-        {
-            foreach(var converter in Converters)
-            {
-                if(ConverterHasMatchingAttributeType(converter, t)){
-                    return converter;
-                }
-            }
-
-            // TODO: should probably thow a custom exception type
-            throw new Exception($"Converter for type {t.Name} not found");
-        }
-
-        private bool ConverterHasMatchingAttributeType(IInlineElementConverter converter, Type type)
-        {
-            var converterType = converter.GetType();
-
-            var attribute = (MarkdownConverterForAttribute) Attribute.GetCustomAttribute(converterType, typeof(MarkdownConverterForAttribute));
-
-            return attribute?.TypeName == type.Name;
         }
     }
 }
