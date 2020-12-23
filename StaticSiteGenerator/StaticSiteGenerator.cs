@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.TemplateSubstitution;
@@ -14,7 +13,7 @@ namespace StaticSiteGenerator
         private FileIterator fileIterator;
         private MarkdownFileParser MarkdownFileParser;
         private MarkdownConverter MarkdownConverter;
-        private TemplateReader TemplateReader;
+        private ITemplateReader TemplateReader;
 
         private CliOptions Options;
 
@@ -22,7 +21,7 @@ namespace StaticSiteGenerator
             FileIterator fileIterator,
             MarkdownFileParser markdownFileParser,
             MarkdownConverter markdownConverter,
-            TemplateReader templateReader,
+            ITemplateReader templateReader,
             CliOptions options
         ) {
             this.fileIterator = fileIterator;

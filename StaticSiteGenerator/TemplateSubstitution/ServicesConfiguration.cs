@@ -20,6 +20,8 @@ namespace StaticSiteGenerator.TemplateSubstitution
 
             services.AddTransient<IMarkdownBlockConverter, MarkdownBlockConverter>();
             services.AddTransient<IMarkdownInlineConverter, MarkdownInlineConverter>();
+
+            services.AddSingleton<ITemplateReader, TemplateReader>();
         }
 
     }

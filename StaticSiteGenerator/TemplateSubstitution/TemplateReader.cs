@@ -10,8 +10,7 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
-    [SingletonService]
-    public class TemplateReader
+    public class TemplateReader : ITemplateReader
     {
         readonly FileIterator FileIterator;
         readonly FileReader FileReader;
@@ -21,7 +20,8 @@ namespace StaticSiteGenerator.TemplateSubstitution
         public TemplateReader(
             FileIterator fileIterator,
             FileReader fileReader
-        ){
+        )
+        {
             FileIterator = fileIterator;
             FileReader = fileReader;
 
@@ -30,7 +30,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
 
         public IList<TemplateTag> ReadTemplate(string templatePath)
         {
-            foreach(var filePath in FileIterator.GetFilesInDirectory(templatePath))
+            foreach (var filePath in FileIterator.GetFilesInDirectory(templatePath))
             {
                 var template = ReadTemplateFile(filePath);
                 TemplateParts.Add(template);
@@ -63,15 +63,16 @@ namespace StaticSiteGenerator.TemplateSubstitution
 
                 return template;
             }
-            catch(ArgumentException ex){
+            catch (ArgumentException ex)
+            {
                 Console.WriteLine($"There was an exception when converting template file names into template types. {fileName} did not convert cleanly");
-                throw(ex);
+                throw (ex);
             }
         }
 
         private TagType GetTagTypeForString(string input)
         {
-            switch(input)
+            switch (input)
             {
                 case "h1":
                     return TagType.Header1;
@@ -89,7 +90,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
                 return TemplateParts
                     .Single(p => p.Type == type);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ArgumentException($"Could not find a template tag for the type {type}", ex);
             }
