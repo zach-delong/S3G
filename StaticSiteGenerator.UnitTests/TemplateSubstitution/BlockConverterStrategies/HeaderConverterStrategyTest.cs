@@ -12,18 +12,20 @@ using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using StaticSiteGenerator.Utilities.StrategyPattern;
+using Test.Markdown.Parser;
 
 namespace Test.TemplateSubstitution.BlockConverterStrategies
 {
     public class TestHeaderBlockConverterStrategy
     {
+        private StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
         [Fact]
         public void Test()
         {
             var fileIteratorMock = new Mock<FileIterator>();
             var fileReadermock = new Mock<FileReader>();
 
-            var strategyMock = new Mock<StrategyCollection<IInlineConverterStrategy>>(new List<IInlineConverterStrategy>());
+            var strategyMock = mockFactory.Get(new Dictionary<string, IInlineConverterStrategy>());
 
             var inlineConverterMock = new Mock<MarkdownInlineConverter>(strategyMock.Object);
 

@@ -6,14 +6,12 @@ using System.Collections.Generic;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.Markdown.BlockElement;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using System.Linq;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
 {
-    [TransientService]
-    public class MarkdownBlockConverter: IHtmlConverter<IList<IBlockElement>>, IHtmlConverter<IBlockElement>
+    public class MarkdownBlockConverter :  IMarkdownBlockConverter
     {
         private readonly StrategyCollection<IBlockHtmlConverterStrategy> BlockConverters;
 

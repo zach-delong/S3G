@@ -5,6 +5,7 @@ using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
+using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
@@ -16,6 +17,9 @@ namespace StaticSiteGenerator.TemplateSubstitution
             services.AddTransient<IBlockHtmlConverterStrategy, ParagraphConverterStrategy>();
 
             services.AddTransient<IInlineConverterStrategy, TextConverter>();
+
+            services.AddTransient<IMarkdownBlockConverter, MarkdownBlockConverter>();
+            services.AddTransient<IMarkdownInlineConverter, MarkdownInlineConverter>();
         }
 
     }

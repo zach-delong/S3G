@@ -10,8 +10,7 @@ using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
 {
-    [TransientService]
-    public class MarkdownInlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
+    public class MarkdownInlineConverter :  IMarkdownInlineConverter
     {
         StrategyCollection<IInlineConverterStrategy> InlineElementConverters;
 
@@ -30,13 +29,13 @@ namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
         public virtual string Convert(IList<IInlineElement> inlines)
         {
             var result = new StringBuilder();
-            foreach(var inline in inlines)
+            foreach (var inline in inlines)
             {
                 try
                 {
                     result.Append(Convert(inline));
                 }
-                catch(ArgumentException ex)
+                catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.ToString());
                     Console.WriteLine(ex.Message);

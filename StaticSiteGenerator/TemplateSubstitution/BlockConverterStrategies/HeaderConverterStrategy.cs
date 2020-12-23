@@ -12,10 +12,10 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
     [HtmlConverterFor(nameof(Header))]
     public class HeaderConverterStrategy: IBlockHtmlConverterStrategy
     {
-        private MarkdownInlineConverter InlineConverter;
+        private IMarkdownInlineConverter InlineConverter;
         private TemplateReader TemplateReader;
 
-        public HeaderConverterStrategy(MarkdownInlineConverter inlineConverter, TemplateReader reader)
+        public HeaderConverterStrategy(IMarkdownInlineConverter inlineConverter, TemplateReader reader)
         {
             InlineConverter = inlineConverter;
             TemplateReader = reader;

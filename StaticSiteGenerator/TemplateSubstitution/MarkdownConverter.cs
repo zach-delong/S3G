@@ -12,9 +12,9 @@ namespace StaticSiteGenerator.TemplateSubstitution
     public class MarkdownConverter: IHtmlConverter<IList<IBlockElement>>
     {
 
-        MarkdownBlockConverter BlockConverter;
+        IMarkdownBlockConverter BlockConverter;
 
-        public MarkdownConverter(MarkdownBlockConverter blockConverter)
+        public MarkdownConverter(IMarkdownBlockConverter blockConverter)
         {
             BlockConverter = blockConverter;
         }
