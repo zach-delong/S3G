@@ -6,46 +6,25 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.Markdown.InlineElement;
 
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
 {
     [TransientService]
     public class MarkdownInlineConverter: IHtmlConverter<IInlineElement>, IHtmlConverter<IList<IInlineElement>>
     {
-        IEnumerable<IInlineConverterStrategy> InlineElementConverters;
+        StrategyCollection<IInlineConverterStrategy> InlineElementConverters;
 
-        public MarkdownInlineConverter(IEnumerable<IInlineConverterStrategy> inlineElementConverters)
+        public MarkdownInlineConverter(StrategyCollection<IInlineConverterStrategy> inlineElementConverters)
         {
             InlineElementConverters = inlineElementConverters;
         }
 
         public virtual string Convert(IInlineElement inline)
         {
-            var inlineConverter = GetConverterFor(inline.GetType());
+            var inlineConverter = InlineElementConverters.GetConverterForType(inline.GetType());
 
             return inlineConverter.Convert(inline);
-        }
-
-        private IHtmlConverter<IInlineElement> GetConverterFor(Type t)
-        {
-            foreach(var converter in InlineElementConverters)
-            {
-                if(ConverterMatchesAttributeType(converter, t))
-                {
-                    return converter;
-                }
-            }
-
-            throw new Exception($"Could not find an HTML Writer for {t.Name}");
-        }
-
-        private bool ConverterMatchesAttributeType(IHtmlConverter<IInlineElement> converter, Type t)
-        {
-            var converterType = converter.GetType();
-
-            var attr = (HtmlConverterForAttribute) Attribute.GetCustomAttribute(converterType, typeof(HtmlConverterForAttribute));
-
-            return attr?.TypeName == t.Name;
         }
 
         public virtual string Convert(IList<IInlineElement> inlines)

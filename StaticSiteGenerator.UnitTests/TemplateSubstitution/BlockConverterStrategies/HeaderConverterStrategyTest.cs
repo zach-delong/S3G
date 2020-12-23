@@ -11,6 +11,7 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace Test.TemplateSubstitution.BlockConverterStrategies
 {
@@ -22,8 +23,9 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
             var fileIteratorMock = new Mock<FileIterator>();
             var fileReadermock = new Mock<FileReader>();
 
-            var inlineConverterMock = new Mock<MarkdownInlineConverter>(
-                new List<IInlineConverterStrategy>());
+            var strategyMock = new Mock<StrategyCollection<IInlineConverterStrategy>>(new List<IInlineConverterStrategy>());
+
+            var inlineConverterMock = new Mock<MarkdownInlineConverter>(strategyMock.Object);
 
             var templateReader = new Mock<TemplateReader>(
                 fileIteratorMock.Object,

@@ -12,7 +12,16 @@ namespace Test.Markdown.Parser
             var mock = new Mock<StrategyCollection<T>>(new List<T>());
 
             mock.Setup(c => c.GetConverterForType(It.IsAny<Type>()))
-                .Returns<Type>((p) => (T)strategyMappings[p.Name]);
+                .Returns<Type>((p) =>
+                {
+                    if(strategyMappings.TryGetValue(p.Name, out T value))
+                    {
+                        return value;
+                    }
+
+                    throw new StrategyNotFoundException();
+                }
+              );
 
             return mock;
         }

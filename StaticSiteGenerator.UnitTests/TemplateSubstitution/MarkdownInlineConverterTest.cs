@@ -6,18 +6,26 @@ using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using StaticSiteGenerator.Markdown.InlineElement;
+using StaticSiteGenerator.Utilities.StrategyPattern;
+using Test.Markdown.Parser;
 
 namespace Test.TemplateSubstitution
 {
     public class MarkdownInlineConverterTest
     {
+        private StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
+
         [Fact]
         public void ConverterCallsCorrectStrategyWhenExists()
         {
             TestConverter testConverter = new TestConverter();
-            var converter = new MarkdownInlineConverter(new List<IInlineConverterStrategy> {
-                    testConverter
-                        });
+            Dictionary<string, IInlineConverterStrategy> strategyMappings = new Dictionary<string, IInlineConverterStrategy>
+            {
+                { nameof(Text), testConverter }
+            };
+
+            Moq.Mock<StrategyCollection<IInlineConverterStrategy>> mock = mockFactory.Get<IInlineConverterStrategy>(strategyMappings);
+            var converter = new MarkdownInlineConverter(mock.Object);
 
             var inline = new Text();
 
@@ -26,26 +34,16 @@ namespace Test.TemplateSubstitution
             Assert.True(testConverter.ConverterCalled);
         }
 
-        [Fact]
-        public void ConverterThrowsExceptionWhenNoMatchingStrategyExists()
-        {
-            var converter = new MarkdownInlineConverter(new List<IInlineConverterStrategy>());
-
-            var block = new Text();
-
-            Assert.Throws<Exception>(() => { converter.Convert(block); });
-        }
-
         [HtmlConverterFor(nameof(Text))]
         private class TestConverter: IInlineConverterStrategy
-         {
-             public bool ConverterCalled = false;
+        {
+            public bool ConverterCalled = false;
 
-             public string Convert(IInlineElement _)
-             {
-                 ConverterCalled = true;
-                 return String.Empty;
-             }
-         }
+            public string Convert(IInlineElement _)
+            {
+                ConverterCalled = true;
+                return String.Empty;
+            }
+        }
       }
 }
