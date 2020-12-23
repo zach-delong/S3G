@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using StaticSiteGenerator.Markdown.InlineElementConverter;
+using System.Linq;
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.Utilities.StrategyPattern
@@ -18,13 +18,10 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
 
         public void SetCollection(IEnumerable<T> strategies)
         {
-            Strategies = new Dictionary<string, T>();
-            foreach(var strategy in strategies)
-            {
-                string typeName = getTypeName(strategy);
+            if(strategies == null) throw new ArgumentNullException("Strategies can not be null");
 
-                Strategies.Add(typeName, strategy);
-            }
+            Strategies = strategies
+                .ToDictionary(s => getTypeName(s));
         }
 
         private string getTypeName(T strategy)

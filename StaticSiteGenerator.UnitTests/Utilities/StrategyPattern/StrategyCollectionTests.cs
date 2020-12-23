@@ -65,7 +65,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         {
             var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
 
-            Assert.Throws<NullReferenceException>(() => strategyCollection.SetCollection(null));
+            Assert.Throws<ArgumentNullException>(() => strategyCollection.SetCollection(null));
         }
 
         [Fact]
