@@ -13,12 +13,18 @@ namespace Test.Markdown.Parser
 {
     public class MarkdownBlockParserTest
     {
+        StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
 
         [Fact]
         public void TestConversionWithExistingConverter()
         {
             var converter = new TestConverter();
-            var parser = new MarkdownBlockParser(new StrategyCollection<IBlockElementConverter>(new List<IBlockElementConverter> { converter }));
+            var mock = mockFactory.Get(new Dictionary<string, IBlockElementConverter>
+            {
+                { nameof(HeaderBlock), converter }
+            });
+
+            var parser = new MarkdownBlockParser(mock.Object);
 
             var header = new HeaderBlock();
 
@@ -30,7 +36,8 @@ namespace Test.Markdown.Parser
         [Fact]
         public void TestConversionThrowsExceptionWithoutValidConverter()
         {
-            var parser = new MarkdownBlockParser(new StrategyCollection<IBlockElementConverter>( new List<IBlockElementConverter>() ));
+            var mock = mockFactory.Get(new Dictionary<string, IBlockElementConverter>());
+            var parser = new MarkdownBlockParser(mock.Object);
 
             var block = new HeaderBlock();
 
