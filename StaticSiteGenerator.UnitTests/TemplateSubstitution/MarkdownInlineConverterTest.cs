@@ -34,6 +34,15 @@ namespace Test.TemplateSubstitution
             Assert.True(testConverter.ConverterCalled);
         }
 
+        [Fact]
+        public void ConverterThrowsExceptionWhenNoMatchingStrategyExists()
+        {
+            var converter = new MarkdownInlineConverter(mockFactory.Get(new Dictionary<string, IInlineConverterStrategy>()).Object);
+
+            var block = new Text();
+
+            Assert.Throws<StrategyNotFoundException>(() => { converter.Convert(block); });
+        }
         [HtmlConverterFor(nameof(Text))]
         private class TestConverter: IInlineConverterStrategy
         {

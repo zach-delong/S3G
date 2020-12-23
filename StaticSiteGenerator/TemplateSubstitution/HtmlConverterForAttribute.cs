@@ -1,14 +1,12 @@
 using System;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
-    public class HtmlConverterForAttribute: Attribute
+    public class HtmlConverterForAttribute: StrategyForTypeAttribute
     {
-        public string TypeName { get; set; }
-
-        public HtmlConverterForAttribute(string typeName)
+        public HtmlConverterForAttribute(string typeName): base(typeName)
         {
-            TypeName = typeName;
         }
     }
 }
