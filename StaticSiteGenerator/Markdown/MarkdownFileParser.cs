@@ -31,7 +31,7 @@ namespace StaticSiteGenerator.Markdown
         {
             var fileContents = FileParser.ReadFile(filePath);
 
-            var parsedContents = ParseMarkdownString(fileContents.ReadToEnd());
+            var parsedContents = ParseMarkdownString(fileContents);
 
             return parsedContents;
         }

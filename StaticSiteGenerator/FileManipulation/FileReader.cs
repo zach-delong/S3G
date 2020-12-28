@@ -11,13 +11,13 @@ namespace StaticSiteGenerator.FileManipulation
     [TransientService]
     public class FileReader
     {
-        public StreamReader ReadFile(string filePath)
+        public virtual string ReadFile(string filePath)
         {
             try
             {
                 var stream = new StreamReader(filePath);
 
-                return stream;
+                return stream.ReadToEnd();
             }
             catch(FileNotFoundException ex)
             {

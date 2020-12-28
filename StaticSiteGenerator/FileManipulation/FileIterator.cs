@@ -11,7 +11,7 @@ namespace StaticSiteGenerator.FileManipulation
     [TransientService]
     public class FileIterator
     {
-        public IEnumerable<string> GetFilesInDirectory(string directory)
+        public virtual IEnumerable<string> GetFilesInDirectory(string directory)
         {
             try
             {

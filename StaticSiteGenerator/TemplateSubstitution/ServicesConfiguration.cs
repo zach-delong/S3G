@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
@@ -21,7 +19,8 @@ namespace StaticSiteGenerator.TemplateSubstitution
             services.AddTransient<IMarkdownBlockConverter, MarkdownBlockConverter>();
             services.AddTransient<IMarkdownInlineConverter, MarkdownInlineConverter>();
 
-            services.AddSingleton<ITemplateReader, TemplateReader>();
+            services.AddTransient<ITemplateReader, TemplateReader>();
+            services.AddTransient<ITemplateTagCollection, TemplateTagCollection>();
         }
 
     }

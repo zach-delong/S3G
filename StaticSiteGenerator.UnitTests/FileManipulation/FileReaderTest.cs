@@ -29,7 +29,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
             {
                 var fileReader = new FileReader();
 
-                var fileContents = fileReader.ReadFile(file.Path).ReadToEnd();
+                var fileContents = fileReader.ReadFile(file.Path);
 
                 Assert.Equal("", fileContents);
             }
@@ -46,7 +46,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 
                 var fileReader = new FileReader();
 
-                var fileContents = fileReader.ReadFile(file.Path).ReadToEnd();
+                var fileContents = fileReader.ReadFile(file.Path);
 
 
                 Assert.Contains(contents, fileContents);

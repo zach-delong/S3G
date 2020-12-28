@@ -25,7 +25,7 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
         {
             var inlineConverterMock = GetInlineConverterMock("TestText");
 
-            Mock<ITemplateReader> templateReader = getTemplateReaderMock("<h1>{{}}</h1>", TagType.Header1);
+            Mock<ITemplateTagCollection> templateReader = getTemplateCollectionMock("<h1>{{}}</h1>", TagType.Header1);
 
             var converter = new HeaderConverterStrategy(
                 inlineConverterMock.Object,
@@ -40,12 +40,12 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
             Assert.Equal("<h1>TestText</h1>", result);
         }
 
-        private static Mock<ITemplateReader> getTemplateReaderMock(string template, TagType type)
+        private static Mock<ITemplateTagCollection> getTemplateCollectionMock(string template, TagType type)
         {
-            var templateReader = new Mock<ITemplateReader>();
+            var templateReader = new Mock<ITemplateTagCollection>();
 
             templateReader
-                .Setup(r => r.GetTemplateTagForType(It.IsAny<TagType>()))
+                .Setup(r => r.GetTagForType(It.IsAny<TagType>()))
                 .Returns(new TemplateTag
                 {
                     Template = template,

@@ -4,6 +4,7 @@ using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.TemplateSubstitution;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator
 {
@@ -21,13 +22,11 @@ namespace StaticSiteGenerator
             FileIterator fileIterator,
             MarkdownFileParser markdownFileParser,
             MarkdownConverter markdownConverter,
-            ITemplateReader templateReader,
             CliOptions options
         ) {
             this.fileIterator = fileIterator;
             this.MarkdownFileParser = markdownFileParser;
             this.MarkdownConverter = markdownConverter;
-            this.TemplateReader = templateReader;
             this.Options = options;
         }
 
@@ -36,8 +35,6 @@ namespace StaticSiteGenerator
             try
             {
                 var files = fileIterator.GetFilesInDirectory(Options.PathToMarkdownFiles);
-
-                TemplateReader.ReadTemplate($"templates/{Options.TemplateName}");
 
                 foreach(var file in files)
                 {

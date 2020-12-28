@@ -13,28 +13,25 @@ namespace StaticSiteGenerator.TemplateSubstitution
         readonly FileIterator FileIterator;
         readonly FileReader FileReader;
 
-        private IList<TemplateTag> TemplateParts;
+        public CliOptions Options { get; }
 
         public TemplateReader(
             FileIterator fileIterator,
-            FileReader fileReader
+            FileReader fileReader,
+            CliOptions options
         )
         {
             FileIterator = fileIterator;
             FileReader = fileReader;
-
-            TemplateParts = new List<TemplateTag>();
+            Options = options;
         }
 
-        public IList<TemplateTag> ReadTemplate(string templatePath)
+        public IEnumerable<TemplateTag> ReadTemplate()
         {
-            foreach (var filePath in FileIterator.GetFilesInDirectory(templatePath))
+            foreach (var filePath in FileIterator.GetFilesInDirectory($"templates/{Options.TemplateName}"))
             {
-                var template = ReadTemplateFile(filePath);
-                TemplateParts.Add(template);
+                yield return ReadTemplateFile(filePath);
             }
-
-            return TemplateParts;
         }
 
         public TemplateTag ReadTemplateFile(string filePath)
@@ -45,7 +42,7 @@ namespace StaticSiteGenerator.TemplateSubstitution
 
             var template = GetProperTagWriterFor(name);
 
-            template.Template = FileReader.ReadFile(filePath).ReadToEnd();
+            template.Template = FileReader.ReadFile(filePath);
 
             return template;
         }
@@ -78,19 +75,6 @@ namespace StaticSiteGenerator.TemplateSubstitution
                     return TagType.Paragraph;
                 default:
                     throw new ArgumentException(message: $"{input} is not a valid type for {nameof(TagType)}");
-            }
-        }
-
-        public virtual TemplateTag GetTemplateTagForType(TagType type)
-        {
-            try
-            {
-                return TemplateParts
-                    .Single(p => p.Type == type);
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException($"Could not find a template tag for the type {type}", ex);
             }
         }
     }

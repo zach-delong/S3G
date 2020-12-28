@@ -13,19 +13,20 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
     public class ParagraphConverterStrategy: IBlockHtmlConverterStrategy
     {
         private IMarkdownInlineConverter InlineConverter;
-        private ITemplateReader TemplateReader;
+        private ITemplateTagCollection TemplateTagCollection;
 
-        public ParagraphConverterStrategy(IMarkdownInlineConverter inlineConverter, ITemplateReader reader)
+        public ParagraphConverterStrategy(IMarkdownInlineConverter inlineConverter,
+                                          ITemplateTagCollection templateCollection)
         {
             InlineConverter = inlineConverter;
-            TemplateReader = reader;
+            TemplateTagCollection = templateCollection;
         }
         public string Convert(IBlockElement block)
         {
             var b = (Paragraph) block;
             var inlineText = InlineConverter.Convert(b.Inlines);
 
-            var template = TemplateReader.GetTemplateTagForType(TagType.Paragraph);
+            var template = TemplateTagCollection.GetTagForType(TagType.Paragraph);
 
             return template.ToHtml(inlineText);
         }

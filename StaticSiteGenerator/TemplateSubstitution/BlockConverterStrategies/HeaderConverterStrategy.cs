@@ -13,17 +13,18 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
     public class HeaderConverterStrategy: IBlockHtmlConverterStrategy
     {
         private IMarkdownInlineConverter InlineConverter;
-        private ITemplateReader TemplateReader;
+        private ITemplateTagCollection TemplateTagCollection;
 
-        public HeaderConverterStrategy(IMarkdownInlineConverter inlineConverter, ITemplateReader reader)
+        public HeaderConverterStrategy(IMarkdownInlineConverter inlineConverter,
+                                       ITemplateTagCollection reader)
         {
             InlineConverter = inlineConverter;
-            TemplateReader = reader;
+            TemplateTagCollection = reader;
         }
 
         public string Convert(IBlockElement block)
         {
-            var template = TemplateReader.GetTemplateTagForType(TagType.Header1);
+            var template = TemplateTagCollection.GetTagForType(TagType.Header1);
             Console.WriteLine(template);
             var inlineText = InlineConverter.Convert(((Header)block).Inlines);
             Console.WriteLine(inlineText);
