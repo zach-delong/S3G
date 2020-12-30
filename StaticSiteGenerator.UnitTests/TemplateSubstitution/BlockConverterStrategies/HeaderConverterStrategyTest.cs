@@ -13,6 +13,7 @@ using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using Test.Markdown.Parser;
+using StaticSiteGenerator.UnitTests.Doubles;
 
 namespace Test.TemplateSubstitution.BlockConverterStrategies
 {
@@ -27,9 +28,12 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
 
             Mock<ITemplateTagCollection> templateReader = getTemplateCollectionMock("<h1>{{}}</h1>", TagType.Header1);
 
-            var converter = new HeaderConverterStrategy(
+            var templateFillerMock = TemplateFillerMockFactory.Get();
+
+            var converter = new HeaderHtmlConverterStrategy(
                 inlineConverterMock.Object,
-                templateReader.Object);
+                templateReader.Object,
+                templateFillerMock.Object);
 
             var headerBlock = new Header
             {

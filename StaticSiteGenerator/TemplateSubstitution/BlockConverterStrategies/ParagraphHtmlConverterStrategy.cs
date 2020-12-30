@@ -1,34 +1,31 @@
-using System;
-
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
-
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
 {
     [HtmlConverterFor(nameof(Paragraph))]
-    public class ParagraphConverterStrategy: IBlockHtmlConverterStrategy
+    public class ParagraphHtmlConverterStrategy: IBlockHtmlConverterStrategy
     {
-        private IMarkdownInlineConverter InlineConverter;
-        private ITemplateTagCollection TemplateTagCollection;
+        private readonly IMarkdownInlineConverter InlineConverter;
+        private readonly ITemplateTagCollection TemplateTagCollection;
+        private readonly ITemplateFiller TemplateFiller;
 
-        public ParagraphConverterStrategy(IMarkdownInlineConverter inlineConverter,
-                                          ITemplateTagCollection templateCollection)
+        public ParagraphHtmlConverterStrategy(IMarkdownInlineConverter inlineConverter,
+                                          ITemplateTagCollection templateCollection,
+                                          ITemplateFiller templateFiller)
         {
             InlineConverter = inlineConverter;
             TemplateTagCollection = templateCollection;
+            TemplateFiller = templateFiller;
         }
         public string Convert(IBlockElement block)
         {
             var b = (Paragraph) block;
             var inlineText = InlineConverter.Convert(b.Inlines);
-
             var template = TemplateTagCollection.GetTagForType(TagType.Paragraph);
 
-            return template.ToHtml(inlineText);
+            return TemplateFiller.Fill(template, inlineText);
         }
     }
 }

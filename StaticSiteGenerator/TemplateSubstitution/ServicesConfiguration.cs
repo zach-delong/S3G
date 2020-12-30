@@ -11,8 +11,8 @@ namespace StaticSiteGenerator.TemplateSubstitution
     {
         public static void AddHtmlConverters(this IServiceCollection services)
         {
-            services.AddTransient<IBlockHtmlConverterStrategy, HeaderConverterStrategy>();
-            services.AddTransient<IBlockHtmlConverterStrategy, ParagraphConverterStrategy>();
+            services.AddTransient<IBlockHtmlConverterStrategy, HeaderHtmlConverterStrategy>();
+            services.AddTransient<IBlockHtmlConverterStrategy, ParagraphHtmlConverterStrategy>();
 
             services.AddTransient<IInlineConverterStrategy, TextConverter>();
 
@@ -21,6 +21,8 @@ namespace StaticSiteGenerator.TemplateSubstitution
 
             services.AddTransient<ITemplateReader, TemplateReader>();
             services.AddTransient<ITemplateTagCollection, TemplateTagCollection>();
+
+            services.AddTransient<ITemplateFiller, TemplateFiller>();
         }
 
     }
