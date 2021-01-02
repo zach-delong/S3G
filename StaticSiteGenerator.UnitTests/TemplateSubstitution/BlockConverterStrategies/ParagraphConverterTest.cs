@@ -18,11 +18,12 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
     {
         private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
         private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
+        private MarkdownInlineHtmlConverterMockFactory inlineConverterMockFactory => new MarkdownInlineHtmlConverterMockFactory();
 
         [Fact]
         public void Test()
         {
-            var inlineConverterMock = GetInlineConverterMock("TestText");
+            var inlineConverterMock = inlineConverterMockFactory.Get("TestText");
 
             Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
                 .Get(new List<TemplateTag> {
