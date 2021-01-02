@@ -48,15 +48,5 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
 
             Assert.Equal("<p>TestText</p>", result);
         }
-
-        private static Mock<IMarkdownInlineConverter> GetInlineConverterMock(string resultText)
-        {
-            var inlineConverterMock = new Mock<IMarkdownInlineConverter>();
-
-            inlineConverterMock
-                .Setup(c => c.Convert(It.IsAny<IList<IInlineElement>>()))
-                .Returns(resultText);
-            return inlineConverterMock;
-        }
     }
 }
