@@ -7,7 +7,6 @@ using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
-using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;
 
