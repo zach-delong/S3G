@@ -2,16 +2,12 @@ using System.Collections.Generic;
 
 using Moq;
 using Xunit;
-
-using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
-using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
-using StaticSiteGenerator.Utilities.StrategyPattern;
 using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;
 
