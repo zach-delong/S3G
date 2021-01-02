@@ -13,16 +13,24 @@ using StaticSiteGenerator.UnitTests.Doubles;
 
 namespace Test.TemplateSubstitution.BlockConverterStrategies
 {
+
     public class ParagraphConverterTest
     {
-        private StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
+        private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
+        private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
 
         [Fact]
         public void Test()
         {
             var inlineConverterMock = GetInlineConverterMock("TestText");
 
-            Mock<ITemplateTagCollection> templateReader = getTemplateCollectionMock("<p>{{}}</p>", TagType.Paragraph);
+            Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
+                .Get(new List<TemplateTag> {
+                        new TemplateTag {
+                            Template ="<p>{{}}</p>",
+                            Type = TagType.Paragraph
+                        }
+                    });
 
             var templateFillerMock = TemplateFillerMockFactory.Get();
 
@@ -38,20 +46,6 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
             var result = converter.Convert(headerBlock);
 
             Assert.Equal("<p>TestText</p>", result);
-        }
-
-        private static Mock<ITemplateTagCollection> getTemplateCollectionMock(string template, TagType type)
-        {
-            var templateReader = new Mock<ITemplateTagCollection>();
-
-            templateReader
-                .Setup(r => r.GetTagForType(It.IsAny<TagType>()))
-                .Returns(new TemplateTag
-                {
-                    Template = template,
-                    Type = type
-                });
-            return templateReader;
         }
 
         private static Mock<IMarkdownInlineConverter> GetInlineConverterMock(string resultText)

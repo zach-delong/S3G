@@ -7,22 +7,30 @@ using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
-using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;
 
 namespace Test.TemplateSubstitution.BlockConverterStrategies
 {
-    public class TestHeaderBlockConverterStrategy
+
+    public class TestHeaderBlockConverterStrategy : MarkdownInlineHtmlConverterMockFactory
     {
-        private StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
+        private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
+        private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
+        private MarkdownInlineHtmlConverterMockFactory inlineConverterMockFactory => new MarkdownInlineHtmlConverterMockFactory();
 
         [Fact]
         public void Test()
         {
-            var inlineConverterMock = GetInlineConverterMock("TestText");
+            var inlineConverterMock = inlineConverterMockFactory.Get("TestText");
 
-            Mock<ITemplateTagCollection> templateReader = getTemplateCollectionMock("<h1>{{}}</h1>", TagType.Header1);
+            Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
+                .Get(new List<TemplateTag> {
+                        new TemplateTag {
+                            Template ="<h1>{{}}</h1>",
+                            Type = TagType.Header1
+                        }
+                    });
 
             var templateFillerMock = TemplateFillerMockFactory.Get();
 
@@ -38,30 +46,6 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
             var result = converter.Convert(headerBlock);
 
             Assert.Equal("<h1>TestText</h1>", result);
-        }
-
-        private static Mock<ITemplateTagCollection> getTemplateCollectionMock(string template, TagType type)
-        {
-            var templateReader = new Mock<ITemplateTagCollection>();
-
-            templateReader
-                .Setup(r => r.GetTagForType(It.IsAny<TagType>()))
-                .Returns(new TemplateTag
-                {
-                    Template = template,
-                    Type = type
-                });
-            return templateReader;
-        }
-
-        private static Mock<IMarkdownInlineConverter> GetInlineConverterMock(string resultText)
-        {
-            var inlineConverterMock = new Mock<IMarkdownInlineConverter>();
-
-            inlineConverterMock
-                .Setup(c => c.Convert(It.IsAny<IList<IInlineElement>>()))
-                .Returns(resultText);
-            return inlineConverterMock;
         }
     }
 }
