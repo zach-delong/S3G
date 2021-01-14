@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using CommandLine;
-using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace StaticSiteGenerator
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
