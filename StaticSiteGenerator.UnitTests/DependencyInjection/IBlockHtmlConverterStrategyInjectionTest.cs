@@ -8,6 +8,7 @@ namespace StaticSiteGenerator.UnitTests.DependencyInjection
 {
     public class IBlockHtmlConverterStrategyInjectionTest
     {
+        [Fact]
         public void IBlockHtmlElementConverterInjectionTest()
         {
             var diContainer = Program.BuildDependencies(new CliOptions());

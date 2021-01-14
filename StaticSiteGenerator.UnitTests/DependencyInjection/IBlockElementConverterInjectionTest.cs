@@ -8,6 +8,7 @@ namespace StaticSiteGenerator.UnitTests.DependencyInjection
 {
     public class IBlockElementConverterInjectionTest
     {
+        [Fact]
         public void DiShouldReturnAllBlockElementConverters()
         {
             var diContainer = Program.BuildDependencies(new CliOptions());

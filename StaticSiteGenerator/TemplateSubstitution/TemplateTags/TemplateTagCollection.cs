@@ -5,24 +5,36 @@ namespace StaticSiteGenerator.TemplateSubstitution.TemplateTags
 {
     public class TemplateTagCollection : ITemplateTagCollection
     {
-        public ITemplateReader TemplateReader { get; }
+        private ITemplateReader TemplateReader { get; }
 
-        private IDictionary<TagType, TemplateTag> Tags;
+        // A local cache of "tags"
+        private IDictionary<TagType, TemplateTag> tags;
+
+        // The first time called, reads the template. Subsequent calls just return tags
+        private IDictionary<TagType, TemplateTag> Tags
+        {
+            get
+            {
+                if(tags != null) return tags;
+
+                tags = new Dictionary<TagType, TemplateTag>();
+
+                foreach (var template in TemplateReader.ReadTemplate())
+                {
+                    Add(template);
+                }
+                return tags;
+            }
+        }
 
         public TemplateTagCollection(ITemplateReader templateReader)
         {
             TemplateReader = templateReader;
-            Tags = new Dictionary<TagType, TemplateTag>();
-
-            foreach(var template in templateReader.ReadTemplate())
-            {
-                Add(template);
-            }
         }
 
         private void Add(TemplateTag tag)
         {
-            try { Tags.Add(tag.Type, tag); }
+            try { tags.Add(tag.Type, tag); }
             catch(Exception e) when (e is ArgumentException
                                    || e is ArgumentNullException
                                    || e is NotSupportedException)
