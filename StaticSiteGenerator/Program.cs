@@ -29,7 +29,7 @@ namespace StaticSiteGenerator
             serviceProvider.GetService<StaticSiteGenerator>().Start();
         }
 
-        static IServiceProvider BuildDependencies(CliOptions options)
+        public static IServiceProvider BuildDependencies(CliOptions options)
         {
             var service = new ServiceCollection();
             service.AddCustomServices();
