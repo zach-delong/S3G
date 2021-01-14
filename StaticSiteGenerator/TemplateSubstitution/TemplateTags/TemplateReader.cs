@@ -60,8 +60,9 @@ namespace StaticSiteGenerator.TemplateSubstitution
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine($"There was an exception when converting template file names into template types. {fileName} did not convert cleanly");
-                throw (ex);
+                string value = $"There was an exception when converting template file names into template types. {fileName} did not convert cleanly";
+                Console.WriteLine(value);
+                throw (new ArgumentException(value, ex));
             }
         }
 
