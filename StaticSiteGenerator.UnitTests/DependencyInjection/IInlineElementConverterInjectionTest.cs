@@ -3,7 +3,6 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace StaticSiteGenerator.UnitTests.DependencyInjection
 {
