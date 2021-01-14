@@ -21,8 +21,8 @@ namespace StaticSiteGenerator.UnitTests.DependencyInjection
             Assert.NotNull(converters[typeof(ParagraphConverter)]);
 
             Assert.Collection(converters,
-                              element => Assert.NotNull(element),
-                              element => Assert.NotNull(element));
+                              element => Assert.NotNull(element.Value),
+                              element => Assert.NotNull(element.Value));
         }
     }
 }
