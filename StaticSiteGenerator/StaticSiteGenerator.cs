@@ -14,7 +14,6 @@ namespace StaticSiteGenerator
         private FileIterator fileIterator;
         private MarkdownFileParser MarkdownFileParser;
         private MarkdownConverter MarkdownConverter;
-        private ITemplateReader TemplateReader;
 
         private CliOptions Options;
 
