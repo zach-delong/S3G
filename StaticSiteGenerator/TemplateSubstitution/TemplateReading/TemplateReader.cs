@@ -5,8 +5,9 @@ using System.Linq;
 using StaticSiteGenerator.FileManipulation;
 
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.TemplateSubstitution;
 
-namespace StaticSiteGenerator.TemplateSubstitution
+namespace StaticSiteGenerator.TemplateReading
 {
     public class TemplateReader : ITemplateReader
     {

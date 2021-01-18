@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Moq;
+using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 

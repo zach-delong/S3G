@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateTags
+namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateReading
 {
     public class ITemplateReaderTests
     {

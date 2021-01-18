@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator.TemplateSubstitution
