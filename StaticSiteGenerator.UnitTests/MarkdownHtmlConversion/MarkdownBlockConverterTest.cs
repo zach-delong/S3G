@@ -8,7 +8,7 @@ using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 
-namespace Test.TemplateSubstitution
+namespace Test.MarkdownHtmlConversion
 {
     public class MarkdownBlockConverterTest
     {

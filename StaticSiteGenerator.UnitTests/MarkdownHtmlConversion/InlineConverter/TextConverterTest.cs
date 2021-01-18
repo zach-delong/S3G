@@ -3,7 +3,7 @@ using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
 
-namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.InlineConverter
+namespace StaticSiteGenerator.UnitTests.MarkdownHtmlConversion.InlineConverter
 {
     public class TextConverterTest
     {

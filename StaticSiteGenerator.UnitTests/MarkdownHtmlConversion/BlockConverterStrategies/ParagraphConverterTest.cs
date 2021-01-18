@@ -9,14 +9,15 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
+using Test.TemplateSubstitution.BlockConverterStrategies;
 
-namespace Test.TemplateSubstitution.BlockConverterStrategies
+namespace Test.MarkdownHtmlconversion.BlockConverterStrategies
 {
 
-    public class TestHeaderBlockConverterStrategy : MarkdownInlineHtmlConverterMockFactory
+    public class ParagraphConverterTest
     {
-        private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
         private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
+        private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
         private MarkdownInlineHtmlConverterMockFactory inlineConverterMockFactory => new MarkdownInlineHtmlConverterMockFactory();
 
         [Fact]
@@ -27,25 +28,25 @@ namespace Test.TemplateSubstitution.BlockConverterStrategies
             Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
                 .Get(new List<TemplateTag> {
                         new TemplateTag {
-                            Template ="<h1>{{}}</h1>",
-                            Type = TagType.Header1
+                            Template ="<p>{{}}</p>",
+                            Type = TagType.Paragraph
                         }
                     });
 
             var templateFillerMock = TemplateFillerMockFactory.Get();
 
-            var converter = new HeaderHtmlConverterStrategy(
+            var converter = new ParagraphHtmlConverterStrategy(
                 inlineConverterMock.Object,
                 templateReader.Object,
                 templateFillerMock.Object);
 
-            var headerBlock = new Header
+            var headerBlock = new Paragraph
             {
                 Inlines = new List<IInlineElement>()
             };
             var result = converter.Convert(headerBlock);
 
-            Assert.Equal("<h1>TestText</h1>", result);
+            Assert.Equal("<p>TestText</p>", result);
         }
     }
 }
