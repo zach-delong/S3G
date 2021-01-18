@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
+using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 using Xunit;
 
 namespace StaticSiteGenerator.UnitTests.DependencyInjection

@@ -1,16 +1,13 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
-
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.Markdown.InlineElement;
-
-using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using StaticSiteGenerator.Utilities.StrategyPattern;
+using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
 
-namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
+namespace StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters
 {
-    public class MarkdownInlineConverter :  IMarkdownInlineConverter
+    public class MarkdownInlineConverter : IMarkdownInlineConverter
     {
         StrategyCollection<IInlineConverterStrategy> InlineElementConverters;
 

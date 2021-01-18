@@ -1,17 +1,14 @@
 using System;
-using System.IO;
-using System.Text;
 using System.Collections.Generic;
-
-using StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.Markdown.BlockElement;
 
 using System.Linq;
 using StaticSiteGenerator.Utilities.StrategyPattern;
+using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 
-namespace StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters
+namespace StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters
 {
-    public class MarkdownBlockConverter :  IMarkdownBlockConverter
+    public class MarkdownBlockConverter : IMarkdownBlockConverter
     {
         private readonly StrategyCollection<IBlockHtmlConverterStrategy> BlockConverters;
 

@@ -1,8 +1,8 @@
-using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using System.Collections.Generic;
 using System.Linq;
+using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
 
 namespace StaticSiteGenerator.UnitTests.DependencyInjection
 {

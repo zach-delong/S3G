@@ -1,4 +1,4 @@
-namespace StaticSiteGenerator.TemplateSubstitution
+namespace StaticSiteGenerator.MarkdownHtmlConversion
 {
     public interface IHtmlConverter<T>
     {

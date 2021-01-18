@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.TemplateSubstitution;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
@@ -11,8 +12,9 @@ public static class ServicesConfiguration
         services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
         services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
 
+        services.AddHtmlConverters();
         services.AddMarkdownConverters();
         services.AddMarkdownParsers();
-        services.AddHtmlConverters();
+        services.AddTemplateManagement();
     }
 }

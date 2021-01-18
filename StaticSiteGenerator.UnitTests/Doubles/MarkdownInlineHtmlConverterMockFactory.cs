@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using Moq;
 using StaticSiteGenerator.Markdown.InlineElement;
-using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
+using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 
 namespace Test.TemplateSubstitution.BlockConverterStrategies
 {

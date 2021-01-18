@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
-namespace StaticSiteGenerator.TemplateSubstitution
+namespace StaticSiteGenerator.MarkdownHtmlConversion
 {
     [TransientService]
-    public class MarkdownConverter: IHtmlConverter<IList<IBlockElement>>
+    public class MarkdownConverter : IHtmlConverter<IList<IBlockElement>>
     {
 
         IMarkdownBlockConverter BlockConverter;

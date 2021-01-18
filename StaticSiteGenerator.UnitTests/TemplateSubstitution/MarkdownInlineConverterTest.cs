@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
-
-using StaticSiteGenerator.TemplateSubstitution;
-using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
-using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using Test.Markdown.Parser;
+using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
+using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
+using StaticSiteGenerator.MarkdownHtmlConversion;
 
 namespace Test.TemplateSubstitution
 {

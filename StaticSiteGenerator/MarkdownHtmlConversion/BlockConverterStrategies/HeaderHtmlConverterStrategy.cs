@@ -1,8 +1,8 @@
-using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Markdown.BlockElement;
+using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 
-namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
+namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies
 {
     [HtmlConverterFor(nameof(Header))]
     public class HeaderHtmlConverterStrategy : IBlockHtmlConverterStrategy

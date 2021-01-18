@@ -1,7 +1,7 @@
 using Xunit;
-using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.Markdown.InlineElement;
-using StaticSiteGenerator.TemplateSubstitution.InlineConverterStrategies;
+using StaticSiteGenerator.MarkdownHtmlConversion;
+using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
 
 namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.InlineConverter
 {

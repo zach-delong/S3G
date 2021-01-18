@@ -1,11 +1,11 @@
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.TemplateSubstitution.MarkdownHtmlConverters;
+using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 
-namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
+namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies
 {
     [HtmlConverterFor(nameof(Paragraph))]
-    public class ParagraphHtmlConverterStrategy: IBlockHtmlConverterStrategy
+    public class ParagraphHtmlConverterStrategy : IBlockHtmlConverterStrategy
     {
         private readonly IMarkdownInlineConverter InlineConverter;
         private readonly ITemplateTagCollection TemplateTagCollection;
@@ -21,7 +21,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.BlockConverterStrategies
         }
         public string Convert(IBlockElement block)
         {
-            var b = (Paragraph) block;
+            var b = (Paragraph)block;
             var inlineText = InlineConverter.Convert(b.Inlines);
             var template = TemplateTagCollection.GetTagForType(TagType.Paragraph);
 
