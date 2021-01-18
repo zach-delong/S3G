@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
-using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
 
 namespace StaticSiteGenerator.TemplateSubstitution
 {
