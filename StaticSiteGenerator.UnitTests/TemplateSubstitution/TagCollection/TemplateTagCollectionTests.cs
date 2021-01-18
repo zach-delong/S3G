@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Moq;
 using StaticSiteGenerator.TemplateSubstitution;
+using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateTags
+namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TagCollection
 {
     public class TemplateTagCollectionTests
     {

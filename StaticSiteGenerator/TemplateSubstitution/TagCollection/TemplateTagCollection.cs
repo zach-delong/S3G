@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using StaticSiteGenerator.TemplateReading;
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.TemplateSubstitution.TemplateTags
+namespace StaticSiteGenerator.TemplateSubstitution.TagCollection
 {
     public class TemplateTagCollection : ITemplateTagCollection
     {
@@ -16,7 +17,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.TemplateTags
         {
             get
             {
-                if(tags != null) return tags;
+                if (tags != null) return tags;
 
                 tags = new Dictionary<TagType, TemplateTag>();
 
@@ -36,7 +37,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.TemplateTags
         private void Add(TemplateTag tag)
         {
             try { tags.Add(tag.Type, tag); }
-            catch(Exception e) when (e is ArgumentException
+            catch (Exception e) when (e is ArgumentException
                                    || e is ArgumentNullException
                                    || e is NotSupportedException)
             {
@@ -51,7 +52,7 @@ namespace StaticSiteGenerator.TemplateSubstitution.TemplateTags
             {
                 return Tags[type];
             }
-            catch(Exception e) when (e is ArgumentNullException
+            catch (Exception e) when (e is ArgumentNullException
                                      || e is KeyNotFoundException)
             {
                 throw new ArgumentException($"Could not find template for{type}");

@@ -4,6 +4,7 @@ using Moq;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using System.Linq;
+using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 
 namespace StaticSiteGenerator.UnitTests.Doubles
 {

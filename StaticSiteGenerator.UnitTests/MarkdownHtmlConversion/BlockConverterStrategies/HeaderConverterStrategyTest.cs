@@ -10,6 +10,7 @@ using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 using Test.TemplateSubstitution.BlockConverterStrategies;
+using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 
 namespace Test.MarkdownHtmlConversion.BlockConverterStrategies
 {
