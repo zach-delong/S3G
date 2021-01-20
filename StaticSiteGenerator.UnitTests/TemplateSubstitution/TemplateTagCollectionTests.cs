@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles;

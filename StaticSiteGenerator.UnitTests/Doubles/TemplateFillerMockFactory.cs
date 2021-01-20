@@ -1,6 +1,6 @@
 using Moq;
-using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator.UnitTests.Doubles
 {

@@ -4,7 +4,6 @@ using Moq;
 using Xunit;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;

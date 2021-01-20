@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using StaticSiteGenerator.TemplateSubstitution;
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator.TemplateReading
 {

@@ -1,3 +1,5 @@
+using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+
 namespace StaticSiteGenerator.TemplateSubstitution.TemplateFilling
 {
     public class TemplateFiller : ITemplateFiller

@@ -1,7 +1,4 @@
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
-using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-
-namespace StaticSiteGenerator.TemplateSubstitution
+namespace StaticSiteGenerator.TemplateSubstitution.TemplateTags
 {
     public class TemplateTag
     {
