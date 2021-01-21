@@ -8,9 +8,8 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.Markdown
 {
-
     [TransientService]
-    public class MarkdownFileParser
+    public class MarkdownFileParser : IMarkdownFileParser
     {
         FileReader FileParser;
         IMarkdownBlockParser MarkdownParser;
@@ -18,7 +17,8 @@ namespace StaticSiteGenerator.Markdown
         public MarkdownFileParser(
             FileReader fileParser,
             MarkdownBlockParser markdownParser
-        ){
+        )
+        {
             FileParser = fileParser;
             MarkdownParser = markdownParser;
         }

@@ -11,15 +11,15 @@ namespace StaticSiteGenerator
     public class StaticSiteGenerator
     {
         private FileIterator fileIterator;
-        private MarkdownFileParser MarkdownFileParser;
-        private MarkdownConverter MarkdownConverter;
+        private IMarkdownFileParser MarkdownFileParser;
+        private IMarkdownConverter MarkdownConverter;
 
         private CliOptions Options;
 
         public StaticSiteGenerator(
             FileIterator fileIterator,
-            MarkdownFileParser markdownFileParser,
-            MarkdownConverter markdownConverter,
+            IMarkdownFileParser markdownFileParser,
+            IMarkdownConverter markdownConverter,
             CliOptions options
         ) {
             this.fileIterator = fileIterator;
