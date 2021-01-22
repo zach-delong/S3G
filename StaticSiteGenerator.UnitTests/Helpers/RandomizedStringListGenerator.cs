@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StaticSiteGenerator.UnitTests.Helpers
 {
-    public class RandomStringListGenerator
+    public class RandomizedStringListGenerator
     {
         private char[] CharacterWhiteList = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 

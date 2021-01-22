@@ -12,7 +12,7 @@ namespace StaticSiteGenerator.UnitTests
 {
     public class StaticSiteGeneratorTests
     {
-        private RandomStringListGenerator FileNameGenerator => new RandomStringListGenerator();
+        private RandomizedStringListGenerator FileNameGenerator => new RandomizedStringListGenerator();
         private BlankMarkdownFileDictionaryGenerator MarkdownFileContentsMocker => new BlankMarkdownFileDictionaryGenerator();
 
         [Theory]
