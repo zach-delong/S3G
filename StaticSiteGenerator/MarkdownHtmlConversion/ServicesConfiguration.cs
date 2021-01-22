@@ -17,6 +17,8 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion
 
             services.AddTransient<IMarkdownBlockConverter, MarkdownBlockConverter>();
             services.AddTransient<IMarkdownInlineConverter, MarkdownInlineConverter>();
+
+            services.AddTransient<IMarkdownConverter, MarkdownConverter>();
         }
 
     }

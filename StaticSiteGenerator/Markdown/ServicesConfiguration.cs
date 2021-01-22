@@ -22,6 +22,8 @@ namespace StaticSiteGenerator.Markdown
         {
             services.AddTransient<IMarkdownInlineParser, MarkdownInlineParser>();
             services.AddTransient<IMarkdownBlockParser, MarkdownBlockParser>();
+
+            services.AddTransient<IMarkdownFileParser, MarkdownFileParser>();
         }
     }
 }
