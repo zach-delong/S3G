@@ -3,7 +3,7 @@ using StaticSiteGenerator.FileManipulation.FileWriting;
 
 namespace StaticSiteGenerator.HtmlWriting
 {
-    public class FileSystemHtmlWriter: IFileSystemHtmlWriter
+    public class FileSystemHtmlWriter: IHtmlFileWriter
     {
         public FileSystemHtmlWriter(IFileWriter writer)
         {

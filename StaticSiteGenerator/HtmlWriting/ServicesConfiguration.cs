@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using StaticSiteGenerator.Utilities.DependencyInjection;
 
 namespace StaticSiteGenerator.HtmlWriting
 {
@@ -6,8 +7,8 @@ namespace StaticSiteGenerator.HtmlWriting
     {
         public static void AddHtmlWriting(this IServiceCollection services)
         {
-            services.AddTransient<IFileSystemHtmlWriter, FileSystemHtmlWriter>();
-            services.AddTransient<IHtmlFileWriter, MarkdownHtmlFileWriter>();
+            services.AddTransient<IHtmlFileWriter, FileSystemHtmlWriter>();
+            services.Decorate<IHtmlFileWriter, MarkdownHtmlFileWriter>();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace StaticSiteGenerator.UnitTests.HtmlWriting
         [InlineData("md", "md")]
         public void foo(string inputFileName, string ExpectedFileName)
         {
-            var mock = new Mock<IFileSystemHtmlWriter>();
+            var mock = new Mock<IHtmlFileWriter>();
 
             IHtmlFileWriter writerUnderTest = new MarkdownHtmlFileWriter(mock.Object);
 
