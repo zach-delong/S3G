@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.TemplateSubstitution;
@@ -12,9 +14,11 @@ public static class ServicesConfiguration
         services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
         services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
 
+        services.AddFileManipulationServices();
         services.AddHtmlConverters();
         services.AddMarkdownConverters();
         services.AddMarkdownParsers();
         services.AddTemplateManagement();
+        services.AddHtmlWriting();
     }
 }
