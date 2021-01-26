@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.FileManipulation.FileWriting;
+using StaticSiteGenerator.Utilities.DependencyInjection;
 
 namespace StaticSiteGenerator.FileManipulation
 {
@@ -8,6 +9,7 @@ namespace StaticSiteGenerator.FileManipulation
         public static void AddFileManipulationServices(this IServiceCollection services)
         {
             services.AddTransient<IFileWriter, SystemFileWriter>();
+            services.Decorate<IFileWriter, OverwritingFileWriter>();
         }
     }
 }
