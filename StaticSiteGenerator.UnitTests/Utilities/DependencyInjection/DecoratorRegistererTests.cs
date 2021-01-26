@@ -5,7 +5,7 @@ using Xunit;
 
 namespace StaticSiteGenerator.UnitTests.DependencyInjection
 {
-    public class DeceratorRegistererTests
+    public class DecoratorRegistererTests
     {
         [Fact]
         public void DecoratorShouldOverrideExistingTypes()
