@@ -13,8 +13,6 @@ namespace StaticSiteGenerator.HtmlWriting
         {
             var pathWithoutMarkdown = filePath.Replace(".md", "", StringComparison.CurrentCultureIgnoreCase);
 
-            Console.WriteLine(pathWithoutMarkdown);
-
             HtmlFileWriter.Write(pathWithoutMarkdown, htmlString);
         }
     }
