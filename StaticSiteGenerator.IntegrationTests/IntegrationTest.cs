@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.FileManipulation.FileWriting;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests
+namespace StaticSiteGenerator.IntegrationTests
 {
     public class IntegrationTest
     {
@@ -21,22 +19,13 @@ namespace StaticSiteGenerator.UnitTests
                 {"input/file1.md", "# This is some text!" },
             };
 
-            var fileIteratorMock = new Mock<FileIterator>();
-
-            fileIteratorMock
-                .Setup(m => m.GetFilesInDirectory(It.IsAny<string>()))
-                .Returns<string>(s => fileDictionary.Keys.Where(k => k.Contains(s)));
-
-            var fileReaderMock = new Mock<FileReader>();
-
-            fileReaderMock
-                .Setup(m => m.ReadFile(It.IsAny<String>()))
-                .Returns<string>(s => fileDictionary[s]);
-
-            var fileWriterMock = new Mock<IFileWriter>();
-
             var services = new ServiceCollection();
             services.AddCustomServices();
+            services.OverrideFileReadingLayerWithDictionary(fileDictionary);
+
+            var fileWriterMock = new Mock<IFileWriter>();
+            services.Remove(services.First(desc => desc.ServiceType == typeof(IFileWriter)));
+            services.AddSingleton<IFileWriter>(fileWriterMock.Object);
 
             var cliOptions = new CliOptions()
             {
@@ -46,15 +35,6 @@ namespace StaticSiteGenerator.UnitTests
             };
 
             services.AddSingleton(cliOptions);
-
-
-            services.Remove(services.First(desc => desc.ServiceType == typeof(FileIterator)));
-            services.Remove(services.First(desc => desc.ServiceType == typeof(FileReader)));
-            services.Remove(services.First(desc => desc.ServiceType == typeof(IFileWriter)));
-
-            services.AddSingleton<FileIterator>(fileIteratorMock.Object);
-            services.AddSingleton<FileReader>(fileReaderMock.Object);
-            services.AddSingleton<IFileWriter>(fileWriterMock.Object);
 
             var sp = services.BuildServiceProvider();
 
