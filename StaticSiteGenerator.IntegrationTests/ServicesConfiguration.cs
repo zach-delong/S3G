@@ -9,9 +9,8 @@ namespace StaticSiteGenerator.IntegrationTests
 {
     public static class ServicesConfiguration
     {
-        public static void OverrideFileReadingLayerWithDictionary(
-            this IServiceCollection services,
-            IDictionary<string, string> fileDictionary)
+        public static void OverrideFileReadingLayerWithDictionary(this IServiceCollection services,
+                                                                  IDictionary<string, string> fileDictionary)
         {
 
             var fileIteratorMock = new Mock<FileIterator>();
@@ -40,6 +39,22 @@ namespace StaticSiteGenerator.IntegrationTests
             services.AddSingleton<IFileWriter>(fileWriterMock.Object);
 
             return fileWriterMock;
+        }
+
+        public static void MockCliOptions(this IServiceCollection services,
+                                          string templateName,
+                                          string markdownFileDirectoryName,
+                                          string pathToOutput)
+        {
+
+            var cliOptions = new CliOptions()
+            {
+                TemplateName = templateName,
+                PathToMarkdownFiles = markdownFileDirectoryName,
+                OutputLocation = pathToOutput
+            };
+
+            services.AddSingleton(cliOptions);
         }
     }
 }

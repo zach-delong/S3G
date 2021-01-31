@@ -8,7 +8,7 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies
         public string Convert(IInlineElement inline)
         {
             var textInline = (Text)inline;
-            return textInline.Content;
+            return textInline.Content.Trim();
         }
     }
 }
