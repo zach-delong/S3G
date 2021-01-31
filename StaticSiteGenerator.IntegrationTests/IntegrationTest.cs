@@ -21,8 +21,6 @@ namespace StaticSiteGenerator.UnitTests
                 {"input/file1.md", "# This is some text!" },
             };
 
-            var outputDirectory = new Dictionary<string, string>();
-
             var fileIteratorMock = new Mock<FileIterator>();
 
             fileIteratorMock
@@ -36,10 +34,6 @@ namespace StaticSiteGenerator.UnitTests
                 .Returns<string>(s => fileDictionary[s]);
 
             var fileWriterMock = new Mock<IFileWriter>();
-
-            fileWriterMock
-                .Setup(m => m.WriteFile(It.IsAny<string>(), It.IsAny<string>()))
-                .Callback<string, string>((string name, string contents) => outputDirectory[name] = contents);
 
             var services = new ServiceCollection();
             services.AddCustomServices();
@@ -66,12 +60,8 @@ namespace StaticSiteGenerator.UnitTests
 
             sp.GetService<StaticSiteGenerator>().Start();
 
-
-            foreach(var file in outputDirectory)
-            {
-                Console.WriteLine(file.Key);
-                Console.WriteLine(file.Value);
-            }
+            fileWriterMock
+                .Verify(m => m.WriteFile("output/file1.html", "<h1> This is some text!</h1>"));
         }
     }
 }
