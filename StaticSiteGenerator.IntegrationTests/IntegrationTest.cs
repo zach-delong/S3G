@@ -22,10 +22,7 @@ namespace StaticSiteGenerator.IntegrationTests
             var services = new ServiceCollection();
             services.AddCustomServices();
             services.OverrideFileReadingLayerWithDictionary(fileDictionary);
-
-            var fileWriterMock = new Mock<IFileWriter>();
-            services.Remove(services.First(desc => desc.ServiceType == typeof(IFileWriter)));
-            services.AddSingleton<IFileWriter>(fileWriterMock.Object);
+            var mockedFileWriter = services.MockFileWriter();
 
             var cliOptions = new CliOptions()
             {
@@ -40,7 +37,7 @@ namespace StaticSiteGenerator.IntegrationTests
 
             sp.GetService<StaticSiteGenerator>().Start();
 
-            fileWriterMock
+            mockedFileWriter
                 .Verify(m => m.WriteFile("output/file1.html", "<h1> This is some text!</h1>"));
         }
     }

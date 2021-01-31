@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.FileManipulation.FileWriting;
 
 namespace StaticSiteGenerator.IntegrationTests
 {
@@ -30,6 +31,15 @@ namespace StaticSiteGenerator.IntegrationTests
 
             services.AddSingleton<FileIterator>(fileIteratorMock.Object);
             services.AddSingleton<FileReader>(fileReaderMock.Object);
+        }
+
+        public static Mock<IFileWriter> MockFileWriter(this IServiceCollection services)
+        {
+            var fileWriterMock = new Mock<IFileWriter>();
+            services.Remove(services.First(desc => desc.ServiceType == typeof(IFileWriter)));
+            services.AddSingleton<IFileWriter>(fileWriterMock.Object);
+
+            return fileWriterMock;
         }
     }
 }
