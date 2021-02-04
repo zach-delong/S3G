@@ -26,7 +26,7 @@ namespace StaticSiteGenerator
 
         public override string ToString()
         {
-            return $"{nameof(PathToMarkdownFiles)}: {PathToMarkdownFiles}, {nameof(TemplateName)}: {TemplateName}"; 
+            return $"{nameof(PathToMarkdownFiles)}: {PathToMarkdownFiles}, {nameof(TemplateName)}: {TemplateName}, {nameof(OutputLocation)}: {OutputLocation}";
         }
     }
 }
