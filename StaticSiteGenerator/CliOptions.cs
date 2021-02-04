@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using CommandLine;
 namespace StaticSiteGenerator
 {
@@ -23,6 +25,10 @@ namespace StaticSiteGenerator
                 Default="output",
                 HelpText="The full path to the desired output folder")]
         public string OutputLocation { get; set; }
+
+        private string TemplateLocation => "templates";
+
+        public string TemplatePath => Path.Combine(TemplateLocation, TemplateName ?? String.Empty );
 
         public override string ToString()
         {
