@@ -17,7 +17,7 @@ namespace StaticSiteGenerator.IntegrationTests
 
             fileIteratorMock
                 .Setup(m => m.GetFilesInDirectory(It.IsAny<string>()))
-                .Returns<string>(s => fileDictionary.Keys.Where(k => k.Contains(s)));
+                .Returns<string>(s => fileDictionary.Keys.Where(k => k.StartsWith(s)));
 
             var fileReaderMock = new Mock<FileReader>();
 

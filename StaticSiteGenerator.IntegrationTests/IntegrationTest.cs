@@ -16,6 +16,7 @@ namespace StaticSiteGenerator.IntegrationTests
             {
                 {"templates/template/tag_templates/h1.html", "<h1>{{}}</h1>"},
                 {"templates/template/tag_templates/p.html", "<p>{{}}</p>"},
+                {"templates/template/site_template.html", "<html>{{}}</html>"},
                 {"input/file1.md", "# This is some text!" },
             };
 
@@ -30,8 +31,10 @@ namespace StaticSiteGenerator.IntegrationTests
 
             sp.GetService<StaticSiteGenerator>().Start();
 
+            var expectedContent = @"<html><h1>This is some text!</h1></html>";
+
             mockedFileWriter
-                .Verify(m => m.WriteFile("output/file1.html", "<h1>This is some text!</h1>"));
+                .Verify(m => m.WriteFile("output/file1.html", expectedContent));
         }
 
         [Fact]
@@ -41,6 +44,7 @@ namespace StaticSiteGenerator.IntegrationTests
             var fileDictionary = new Dictionary<string, string>()
             {
                 {"templates/template/tag_templates/p.html", "<p>{{}}</p>"},
+                {"templates/template/site_template.html", "<html>{{}}</html>"},
                 {"input/file1.md", "This is some text!" },
             };
 
@@ -55,8 +59,9 @@ namespace StaticSiteGenerator.IntegrationTests
 
             sp.GetService<StaticSiteGenerator>().Start();
 
+            var expectedContent = @"<html><p>This is some text!</p></html>";
             mockedFileWriter
-                .Verify(m => m.WriteFile("output/file1.html", "<p>This is some text!</p>"));
+                .Verify(m => m.WriteFile("output/file1.html", expectedContent));
         }
     }
 }

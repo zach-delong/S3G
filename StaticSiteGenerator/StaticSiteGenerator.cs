@@ -6,6 +6,7 @@ using StaticSiteGenerator.FileManipulation;
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.HtmlWriting;
 using System.IO;
+using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 
 namespace StaticSiteGenerator
 {
@@ -20,18 +21,22 @@ namespace StaticSiteGenerator
 
         public readonly IHtmlFileWriter HtmlFileWriter;
 
+        public ISiteTemplateFiller SiteTemplateFiller { get; }
+
         public StaticSiteGenerator(
             FileIterator fileIterator,
             IMarkdownFileParser markdownFileParser,
             IMarkdownConverter markdownConverter,
             CliOptions options,
-            IHtmlFileWriter fileWriter
+            IHtmlFileWriter fileWriter,
+            ISiteTemplateFiller templateFiller
         ) {
             this.fileIterator = fileIterator;
             this.MarkdownFileParser = markdownFileParser;
             this.MarkdownConverter = markdownConverter;
             this.Options = options;
             this.HtmlFileWriter = fileWriter;
+            this.SiteTemplateFiller = templateFiller;
         }
 
         public void Start()
@@ -46,6 +51,8 @@ namespace StaticSiteGenerator
                     var contents = MarkdownFileParser.ReadFile(file);
 
                     var convertedFile = MarkdownConverter.Convert(contents);
+
+                    convertedFile = SiteTemplateFiller.FillSiteTemplate(convertedFile);
 
                     HtmlFileWriter.Write(Path.Combine(Options.OutputLocation,
                                                       Path.GetFileName(file)),
