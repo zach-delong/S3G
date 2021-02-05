@@ -14,8 +14,8 @@ namespace StaticSiteGenerator.IntegrationTests
             // A dictionary mapping file paths to contents
             var fileDictionary = new Dictionary<string, string>()
             {
-                {"templates/template/h1.html", "<h1>{{}}</h1>"},
-                {"templates/template/p.html", "<p>{{}}</p>"},
+                {"templates/template/tag_templates/h1.html", "<h1>{{}}</h1>"},
+                {"templates/template/tag_templates/p.html", "<p>{{}}</p>"},
                 {"input/file1.md", "# This is some text!" },
             };
 
@@ -40,7 +40,7 @@ namespace StaticSiteGenerator.IntegrationTests
             // A dictionary mapping file paths to contents
             var fileDictionary = new Dictionary<string, string>()
             {
-                {"templates/template/p.html", "<p>{{}}</p>"},
+                {"templates/template/tag_templates/p.html", "<p>{{}}</p>"},
                 {"input/file1.md", "This is some text!" },
             };
 

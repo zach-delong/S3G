@@ -28,7 +28,7 @@ namespace StaticSiteGenerator.TemplateReading
 
         public IEnumerable<TemplateTag> ReadTemplate()
         {
-            foreach (var filePath in FileIterator.GetFilesInDirectory(Options.TemplatePath))
+            foreach (var filePath in FileIterator.GetFilesInDirectory(Path.Combine(Options.TemplatePath, "tag_templates")))
             {
                 yield return ReadTemplateFile(filePath);
             }
