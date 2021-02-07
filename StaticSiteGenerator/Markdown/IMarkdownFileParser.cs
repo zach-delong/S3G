@@ -6,5 +6,6 @@ namespace StaticSiteGenerator.Markdown
     public interface IMarkdownFileParser
     {
         IList<IBlockElement> ReadFile(string filePath);
+        IEnumerable<IMarkdownFile> ReadFiles(IEnumerable<string> filePaths);
     }
 }

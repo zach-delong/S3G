@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using StaticSiteGenerator.FileManipulation.FileWriting;
+using StaticSiteGenerator.MarkdownHtmlConversion;
 
 namespace StaticSiteGenerator.HtmlWriting
 {
@@ -30,6 +32,14 @@ namespace StaticSiteGenerator.HtmlWriting
             }
 
             return namedHtmlFilePath;
+        }
+
+        public void Write(IEnumerable<IHtmlFile> files)
+        {
+            foreach(var file in files)
+            {
+                Write(file.Name, file.HtmlContent);
+            }
         }
     }
 }

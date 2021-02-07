@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using StaticSiteGenerator.HtmlWriting;
-using StaticSiteGenerator.Markdown.BlockElement;
+using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
@@ -46,10 +46,10 @@ namespace StaticSiteGenerator.UnitTests
             siteGenerator.Start();
 
             mockFileIterator.Verify(m => m.GetFilesInDirectory(It.IsAny<string>()));
-            mockFileParser.Verify(m => m.ReadFile(It.IsAny<string>()), Times.Exactly(numberOfFiles));
-            mockMarkdownConverter.Verify(m => m.Convert(It.IsAny<IList<IBlockElement>>()), Times.Exactly(numberOfFiles));
-            mockFileWriter.Verify(m => m.Write(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(numberOfFiles));
-            mockSiteTemplater.Verify(m => m.FillSiteTemplate(It.IsAny<string>()), Times.Exactly(numberOfFiles));
+            mockFileParser.Verify(m => m.ReadFiles(It.IsAny<IEnumerable<string>>()));
+            mockMarkdownConverter.Verify(m => m.Convert(It.IsAny<IEnumerable<IMarkdownFile>>()));
+            mockFileWriter.Verify(m => m.Write(It.IsAny<IEnumerable<IHtmlFile>>()));
+            mockSiteTemplater.Verify(m => m.FillSiteTemplate(It.IsAny<IEnumerable<IHtmlFile>>()));
         }
     }
 }

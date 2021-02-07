@@ -3,8 +3,7 @@ using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using Microsoft.Toolkit.Parsers.Markdown;
-
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
+using System;
 
 namespace StaticSiteGenerator.Markdown
 {
@@ -29,6 +28,21 @@ namespace StaticSiteGenerator.Markdown
             var parsedContents = ParseMarkdownString(fileContents);
 
             return parsedContents;
+        }
+
+        public IEnumerable<IMarkdownFile> ReadFiles(IEnumerable<string> filePaths)
+        {
+            Console.WriteLine("Beginning converting files");
+            foreach(var filePath in filePaths)
+            {
+                Console.WriteLine($"(0) Starting converting file {filePath}");
+                yield return new MarkdownFile
+                {
+                    Elements = ReadFile(filePath),
+                    Name = filePath
+                };
+                Console.WriteLine($"(0) Done converting file {filePath}");
+            }
         }
 
         private IList<IBlockElement> ParseMarkdownString(string markdownFileContents)

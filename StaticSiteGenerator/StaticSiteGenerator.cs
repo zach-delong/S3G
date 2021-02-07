@@ -45,20 +45,13 @@ namespace StaticSiteGenerator
             {
                 var files = fileIterator.GetFilesInDirectory(Options.PathToMarkdownFiles);
 
+                var fileContents = MarkdownFileParser.ReadFiles(files);
 
-                foreach(var file in files)
-                {
-                    var contents = MarkdownFileParser.ReadFile(file);
+                var htmlFiles = MarkdownConverter.Convert(fileContents);
 
-                    var convertedFile = MarkdownConverter.Convert(contents);
+                htmlFiles = SiteTemplateFiller.FillSiteTemplate(htmlFiles);
 
-                    convertedFile = SiteTemplateFiller.FillSiteTemplate(convertedFile);
-
-                    HtmlFileWriter.Write(Path.Combine(Options.OutputLocation,
-                                                      Path.GetFileName(file)),
-                                         convertedFile);
-                }
-
+                HtmlFileWriter.Write(htmlFiles);
             }
             catch (Exception ex)
             {
