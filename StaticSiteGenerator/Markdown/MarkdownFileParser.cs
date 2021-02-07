@@ -32,16 +32,16 @@ namespace StaticSiteGenerator.Markdown
 
         public IEnumerable<IMarkdownFile> ReadFiles(IEnumerable<string> filePaths)
         {
-            Console.WriteLine("Beginning converting files");
+            // Console.WriteLine("Beginning converting files");
             foreach(var filePath in filePaths)
             {
-                Console.WriteLine($"(0) Starting converting file {filePath}");
+                // Console.WriteLine($"(0) Starting converting file {filePath}");
                 yield return new MarkdownFile
                 {
                     Elements = ReadFile(filePath),
                     Name = filePath
                 };
-                Console.WriteLine($"(0) Done converting file {filePath}");
+                // Console.WriteLine($"(0) Done converting file {filePath}");
             }
         }
 

@@ -29,20 +29,20 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion
 
         public IEnumerable<IHtmlFile> Convert(IEnumerable<IMarkdownFile> markdownFiles)
         {
-            Console.WriteLine("Starting conversion of files");
+            // Console.WriteLine("Starting conversion of files");
             foreach (var file in markdownFiles)
             {
-                Console.WriteLine($"(1) Starting conversion of file {file.Name}");
+                // Console.WriteLine($"(1) Starting conversion of file {file.Name}");
                 yield return new HtmlFile
                 {
                     HtmlContent = Convert(file.Elements),
                     Name = Path.Combine(Options.OutputLocation,
                                         Path.GetFileName(file.Name))
                 };
-                Console.WriteLine($"(1) Done converting file {file.Name}");
+                // Console.WriteLine($"(1) Done converting file {file.Name}");
             }
 
-            Console.WriteLine("Done converting files");
+            // Console.WriteLine("Done converting files");
         }
     }
 }
