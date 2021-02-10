@@ -2,7 +2,7 @@ using System;
 using Moq;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 
-namespace StaticSiteGenerator.UnitTests.Doubles
+namespace StaticSiteGenerator.UnitTests.Doubles.Markdown
 {
     public static class MarkdownConverterMockFactory
     {

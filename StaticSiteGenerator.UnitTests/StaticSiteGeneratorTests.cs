@@ -5,7 +5,7 @@ using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
-using StaticSiteGenerator.UnitTests.Doubles;
+using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.UnitTests.Helpers;
 using Xunit;

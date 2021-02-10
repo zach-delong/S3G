@@ -4,7 +4,7 @@ using Moq;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.BlockElement;
 
-namespace StaticSiteGenerator.UnitTests.Doubles
+namespace StaticSiteGenerator.UnitTests.Doubles.Markdown
 {
     public static class MarkdownFileParserMockFactory
     {
