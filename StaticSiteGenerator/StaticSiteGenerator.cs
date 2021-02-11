@@ -5,7 +5,6 @@ using StaticSiteGenerator.FileManipulation;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.HtmlWriting;
-using System.IO;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 
 namespace StaticSiteGenerator
