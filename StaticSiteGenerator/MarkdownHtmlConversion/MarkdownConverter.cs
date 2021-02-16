@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using StaticSiteGenerator.Markdown;
@@ -33,7 +34,7 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion
                 yield return new HtmlFile
                 {
                     HtmlContent = Convert(file.Elements),
-                    Name = Path.Combine(Options.OutputLocation,
+                    Name = Path.Combine(Options.OutputLocation ?? String.Empty,
                                         Path.GetFileName(file.Name))
                 };
                 // Console.WriteLine($"(1) Done converting file {file.Name}");
