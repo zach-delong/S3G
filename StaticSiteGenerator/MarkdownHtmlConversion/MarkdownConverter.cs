@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
-
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.MarkdownHtmlConversion
 {
