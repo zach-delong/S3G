@@ -26,8 +26,6 @@ namespace StaticSiteGenerator.UnitTests
         {
             IEnumerable<string> result = FileNameGenerator.GetStrings(numberOfFiles).ToList();
             var mockFileIterator = FileIteratorMockFactory.Get(result);
-
-            var mockFileParser = MarkdownFileParserMockFactory.Get(MarkdownFileContentsMocker.GetBlankBlockListForFilesWithNames(result));
             var mockMarkdownConverter = MarkdownConverterMockFactory.Get();
             var mockFileWriter = new Mock<IHtmlFileWriter>();
             var mockSiteTemplater = new Mock<ISiteTemplateFiller>();
@@ -35,11 +33,13 @@ namespace StaticSiteGenerator.UnitTests
             mockSiteTemplater.Setup(m => m.FillSiteTemplate(It.IsAny<string>()))
                              .Returns<string>(s => s);
 
+
+            var mockFileParser = MarkdownFileParserMockFactory.Get(MarkdownFileContentsMocker.GetBlankBlockListForFilesWithNames(result));
             var siteGenerator = new StaticSiteGenerator(
                 mockFileIterator.Object,
                 mockFileParser.Object,
                 mockMarkdownConverter.Object,
-                new CliOptions { OutputLocation="foo" },
+                new CliOptions { OutputLocation = "foo" },
                 mockFileWriter.Object,
                 mockSiteTemplater.Object);
 
