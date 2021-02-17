@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Moq;
 using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using Xunit;
@@ -36,14 +39,51 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             Assert.All(result, f => f.Name.Contains(outputLocation ?? String.Empty));
         }
 
+        [Fact]
         public void ConverterShouldNotEnumerate()
         {
-            throw new NotImplementedException();
+            var cliOptions = new CliOptions();
+            var mock = MockFactory.Get();
+
+            var converter = new MarkdownConverter(mock.Object, cliOptions);
+
+            var markdownFile = new MarkdownFile
+            {
+                Name = "test.md"
+            };
+
+            var result = converter.Convert(new List<IMarkdownFile> { markdownFile, markdownFile});
+
+            mock.Verify(m => m.Convert(It.IsAny<IList<IBlockElement>>()), Times.Never());
         }
 
-        public void ConvertershouldEnumerateWhenManuallyEnumerated()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(4)]
+        public void ConvertershouldEnumerateWhenManuallyEnumerated(int numFiles)
         {
-            throw new NotImplementedException();
+            var cliOptions = new CliOptions();
+            var mock = MockFactory.Get();
+
+            var converter = new MarkdownConverter(mock.Object, cliOptions);
+
+            var markdownFile = new MarkdownFile
+            {
+                Name = "test.md"
+            };
+
+            var list = new List<IMarkdownFile>();
+
+            for (var i = 0; i < numFiles; i++)
+            {
+                list.Add(markdownFile);
+            }
+
+            var result = converter.Convert(list)
+                                  .ToList();
+
+            mock.Verify(m => m.Convert(It.IsAny<IList<IBlockElement>>()), Times.Exactly(numFiles));
         }
     }
 }
