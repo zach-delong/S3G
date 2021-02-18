@@ -7,6 +7,7 @@ using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Markdown.InlineElementConverter;
 using Moq;
 using StaticSiteGenerator.Utilities.StrategyPattern;
+using System.Linq;
 
 namespace Test.Markdown.Parser
 {
@@ -29,6 +30,32 @@ namespace Test.Markdown.Parser
             parser.Parse(inline);
 
             Assert.True(converter.ConverterCalled);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        public void TestConversionOfSetWithExistingConverter(int countOfElements)
+        {
+            var converter = new TestConverter();
+
+            var parser = new MarkdownInlineParser(
+                StrategyCollectionFactory.Get<IInlineElementConverter>(new Dictionary<string, IInlineElementConverter> {
+                { nameof(TextRunInline), converter }
+            }).Object);
+
+            var input = new List<MarkdownInline>();
+
+
+            foreach(var _ in Enumerable.Range(1, countOfElements))
+            {
+                input.Add(new TextRunInline());
+            }
+
+            parser.Parse(input).ToList();
+
+            Assert.Equal((countOfElements > 0) ? true : false, converter.ConverterCalled);
         }
 
         [Fact]
