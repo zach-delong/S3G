@@ -8,19 +8,23 @@ using StaticSiteGenerator.TemplateSubstitution;
 
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
-public static class ServicesConfiguration
+namespace StaticSiteGenerator
 {
-    public static void AddCustomServices(this IServiceCollection services)
+    public static class ServicesConfiguration
     {
-        services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
-        services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
+        public static void AddCustomServices(this IServiceCollection services)
+        {
+            services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
+            services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
 
-        services.AddFileManipulationServices();
-        services.AddHtmlConverters();
-        services.AddMarkdownConverters();
-        services.AddMarkdownParsers();
-        services.AddTemplateManagement();
-        services.AddHtmlWriting();
-        services.AddSiteTemplateServices();
+            services.AddFileManipulationServices();
+            services.AddHtmlConverters();
+            services.AddMarkdownConverters();
+            services.AddMarkdownParsers();
+            services.AddTemplateManagement();
+            services.AddHtmlWriting();
+            services.AddSiteTemplateServices();
+        }
     }
 }
+
