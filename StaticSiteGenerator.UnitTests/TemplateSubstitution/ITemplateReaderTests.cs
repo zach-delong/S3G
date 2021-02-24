@@ -32,7 +32,8 @@ namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateReading
 
             var reader = GetReader(listOfFiles, fileContents);
 
-            var result = reader.ReadTemplate();
+            // To list so that the enumerable actually enumerates
+            var result = reader.ReadTemplate().ToList();
 
             Assert.NotEmpty(result);
         }
