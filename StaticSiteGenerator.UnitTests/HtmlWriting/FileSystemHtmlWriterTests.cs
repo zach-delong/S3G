@@ -13,10 +13,10 @@ namespace StaticSiteGenerator.UnitTests.HtmlWriting
         private FileWriterMockFactory FileWriterMockFactory => new FileWriterMockFactory();
 
         [Theory]
-        [InlineData("testFile", "testFile.html")]
+        [InlineData("testFile", "testFile")]
         [InlineData("testFile.html", "testFile.html")]
-        [InlineData("", ".html")]
-        [InlineData("a", "a.html")]
+        [InlineData("", "")]
+        [InlineData("a", "a")]
         public void InputFileShouldBeWrittenAsHtml(string inputFileName, string ExpectedFileName)
         {
             var mock = FileWriterMockFactory.Get();

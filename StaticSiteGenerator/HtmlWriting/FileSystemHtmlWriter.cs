@@ -17,28 +17,14 @@ namespace StaticSiteGenerator.HtmlWriting
 
         public void Write(string filePath, string htmlString)
         {
-            string htmlFilePath = EnsureHtmlFileExtension(filePath);
-
-            Writer.WriteFile(htmlFilePath, htmlString);
-        }
-
-        private static string EnsureHtmlFileExtension(string filePath)
-        {
-            var namedHtmlFilePath = filePath;
-
-            if (!namedHtmlFilePath.EndsWith(HtmlFileExtension))
-            {
-                namedHtmlFilePath += HtmlFileExtension;
-            }
-
-            return namedHtmlFilePath;
+            Writer.WriteFile(filePath, htmlString);
         }
 
         public void Write(IEnumerable<IHtmlFile> files)
         {
-            foreach(var file in files)
+            foreach (var file in files)
             {
-                Write(file.Name, file.HtmlContent);
+                Write($"{ file.Name }.{ file.FileExtension }", file.HtmlContent);
             }
         }
     }

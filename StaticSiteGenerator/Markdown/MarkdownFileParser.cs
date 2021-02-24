@@ -3,6 +3,7 @@ using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using Microsoft.Toolkit.Parsers.Markdown;
+using System.IO;
 
 namespace StaticSiteGenerator.Markdown
 {
@@ -38,8 +39,9 @@ namespace StaticSiteGenerator.Markdown
                 yield return new MarkdownFile
                 {
                     Elements = ReadFile(filePath),
-                    Name = filePath
+                    Name = Path.GetFileNameWithoutExtension(filePath)
                 };
+
                 // Console.WriteLine($"(0) Done converting file {filePath}");
             }
         }

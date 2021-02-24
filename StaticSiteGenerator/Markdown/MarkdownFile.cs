@@ -7,5 +7,6 @@ namespace StaticSiteGenerator.Markdown
     {
         public IList<IBlockElement> Elements { get; set; }
         public string Name { get; set; }
+        public string FileExtension => ".md";
     }
 }

@@ -15,16 +15,14 @@ namespace StaticSiteGenerator.HtmlWriting
 
         public void Write(string filePath, string htmlString)
         {
-            var pathWithoutMarkdown = filePath.Replace(".md", "", StringComparison.CurrentCultureIgnoreCase);
-
-            HtmlFileWriter.Write(pathWithoutMarkdown, htmlString);
+            HtmlFileWriter.Write(filePath, htmlString);
         }
 
         public void Write(IEnumerable<IHtmlFile> files)
         {
             foreach(var file in files)
             {
-                Write(file.Name, file.HtmlContent);
+                Write($"{ file.Name }.{ file.FileExtension }", file.HtmlContent);
             }
         }
     }
