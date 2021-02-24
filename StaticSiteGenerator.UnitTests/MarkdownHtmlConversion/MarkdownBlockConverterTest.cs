@@ -13,10 +13,11 @@ namespace Test.MarkdownHtmlConversion
     public class MarkdownBlockConverterTest
     {
         StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
+
         [Fact]
         public void ConverterCallsCorrectStrategyWhenExists()
         {
-            TestConverter testConverter = new TestConverter();
+            TestHeaderConverter testConverter = new TestHeaderConverter();
             var dict = new Dictionary<string, IBlockHtmlConverterStrategy> {
                 { nameof(Header), testConverter }
             };
@@ -31,6 +32,32 @@ namespace Test.MarkdownHtmlConversion
         }
 
         [Fact]
+        public void ConverterWorksOnLists()
+        {
+            TestHeaderConverter testConverter = new TestHeaderConverter();
+            TestParagraphConverter testPConverter = new TestParagraphConverter();
+
+            var dict = new Dictionary<string, IBlockHtmlConverterStrategy> {
+                { nameof(Header), testConverter },
+                { nameof(Paragraph), testPConverter }
+            };
+
+            var mock = mockFactory.Get<IBlockHtmlConverterStrategy>(dict);
+            var converter = new MarkdownBlockConverter(mock.Object);
+
+            var blocks = new List<IBlockElement> {
+                new Header(),
+                new Paragraph()
+            };
+
+
+            converter.Convert(blocks);
+
+            Assert.True(testConverter.ConverterCalled);
+            Assert.True(testPConverter.ConverterCalled);
+        }
+
+        [Fact]
         public void ConverterThrowsExceptionWhenNoMatchingStrategyExists()
         {
             var converter = new MarkdownBlockConverter(mockFactory.Get(new Dictionary<string, IBlockHtmlConverterStrategy>()).Object);
@@ -41,7 +68,7 @@ namespace Test.MarkdownHtmlConversion
         }
 
         [HtmlConverterFor(nameof(Header))]
-        private class TestConverter: IBlockHtmlConverterStrategy
+        private class TestHeaderConverter: IBlockHtmlConverterStrategy
          {
              public bool ConverterCalled = false;
 
@@ -51,5 +78,17 @@ namespace Test.MarkdownHtmlConversion
                  return String.Empty;
              }
          }
+
+        [HtmlConverterFor(nameof(Paragraph))]
+        private class TestParagraphConverter : IBlockHtmlConverterStrategy
+        {
+            public bool ConverterCalled = false;
+
+            public string Convert(IBlockElement _)
+            {
+                ConverterCalled = true;
+                return String.Empty;
+            }
+        }
       }
 }
