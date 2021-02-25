@@ -23,10 +23,6 @@ namespace StaticSiteGenerator.FileManipulation
             {
                 throw new FileManipulationException($"Error, the file {filePath} was not found when attempting to read it", ex);
             }
-            catch(IOException ex)
-            {
-                throw new FileManipulationException($"Error, the file {filePath} could not be opened for Reading. Perhaps there is resource contention?", ex);
-            }
         }
     }
 }

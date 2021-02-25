@@ -10,7 +10,6 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 {
     public class FileReaderTest
     {
-        
         [Fact]
         public void FileDoesNotExist()
         {
@@ -21,7 +20,6 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
             Assert.Throws<FileManipulationException>(() => { FileReader.ReadFile(filePath); });
         }
 
-        
         [Fact]
         public void FileExistsButIsEmpty()
         {
@@ -35,7 +33,6 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
             }
         }
 
-        
         [Fact]
         public void FileExists()
         {
