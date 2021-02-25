@@ -11,9 +11,5 @@ namespace StaticSiteGenerator.FileManipulation.FileException
         public FileAlreadyExistsException(string message) : base(message)
         {
         }
-
-        public FileAlreadyExistsException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
     }
 }
