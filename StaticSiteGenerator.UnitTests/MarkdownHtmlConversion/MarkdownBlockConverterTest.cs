@@ -14,8 +14,11 @@ namespace Test.MarkdownHtmlConversion
     {
         StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
 
-        [Fact]
-        public void ConverterCallsCorrectStrategyWhenExists()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        public void ConverterCallsCorrectStrategyWhenExists(int numberOfElements)
         {
             TestHeaderConverter testConverter = new TestHeaderConverter();
             var dict = new Dictionary<string, IBlockHtmlConverterStrategy> {
@@ -26,9 +29,20 @@ namespace Test.MarkdownHtmlConversion
 
             var block = new Header();
 
-            converter.Convert(block);
+            var listOfElements = new List<IBlockElement>();
 
-            Assert.True(testConverter.ConverterCalled);
+            for (var i = 0; i < numberOfElements; i++) {
+                listOfElements.Add(block);
+            }
+
+   	    converter.Convert(listOfElements);
+
+            if(numberOfElements > 0){
+                Assert.True(testConverter.ConverterCalled);
+            }
+            else{
+                Assert.False(testConverter.ConverterCalled);
+            }
         }
 
         [Fact]
