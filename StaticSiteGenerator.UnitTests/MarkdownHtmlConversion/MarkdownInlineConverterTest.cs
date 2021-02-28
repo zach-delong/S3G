@@ -14,8 +14,11 @@ namespace Test.MarkdownHtmlConversion
     {
         private StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
 
-        [Fact]
-        public void ConverterCallsCorrectStrategyWhenExists()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void ConverterCallsCorrectStrategyWhenExists(int numInlines)
         {
             TestConverter testConverter = new TestConverter();
             Dictionary<string, IInlineConverterStrategy> strategyMappings = new Dictionary<string, IInlineConverterStrategy>
@@ -24,13 +27,28 @@ namespace Test.MarkdownHtmlConversion
             };
 
             Moq.Mock<StrategyCollection<IInlineConverterStrategy>> mock = mockFactory.Get<IInlineConverterStrategy>(strategyMappings);
+
             var converter = new MarkdownInlineConverter(mock.Object);
 
             var inline = new Text();
 
-            converter.Convert(inline);
+            var inlines = new List<IInlineElement>();
 
-            Assert.True(testConverter.ConverterCalled);
+            for (var i = 0; i < numInlines; i++)
+            {
+                inlines.Add(inline);
+            }
+
+            converter.Convert(inlines);
+
+            if(numInlines > 0)
+            {
+                Assert.True(testConverter.ConverterCalled);
+            }
+            else
+            {
+                Assert.False(testConverter.ConverterCalled);
+            }
         }
 
         [Fact]
@@ -43,7 +61,7 @@ namespace Test.MarkdownHtmlConversion
             Assert.Throws<StrategyNotFoundException>(() => { converter.Convert(block); });
         }
         [HtmlConverterFor(nameof(Text))]
-        private class TestConverter: IInlineConverterStrategy
+        private class TestConverter : IInlineConverterStrategy
         {
             public bool ConverterCalled = false;
 
@@ -53,5 +71,5 @@ namespace Test.MarkdownHtmlConversion
                 return String.Empty;
             }
         }
-      }
+    }
 }
