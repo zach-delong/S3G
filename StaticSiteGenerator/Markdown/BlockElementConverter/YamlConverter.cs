@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
+    [MarkdownConverterFor(nameof(YamlHeaderBlock))]
     public class YamlConverter: IBlockElementConverter
     {
         public YamlConverter() {  }

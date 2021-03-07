@@ -17,6 +17,7 @@ namespace StaticSiteGenerator.Markdown
 
             services.AddTransient<IBlockElementConverter, HeaderConverter>();
             services.AddTransient<IBlockElementConverter, ParagraphConverter>();
+            services.AddTransient<IBlockElementConverter, YamlConverter>();
         }
 
         public static void AddMarkdownParsers(this IServiceCollection services)
