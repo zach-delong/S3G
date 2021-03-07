@@ -52,10 +52,9 @@ namespace StaticSiteGenerator.Markdown.Parser
 
             parsedMarkdownDocument.Parse(markdownFileContents);
 
-            // TODO: this name doesn't make sense
-            var localMarkdownFile = MarkdownParser.Parse(parsedMarkdownDocument.Blocks);
+            var interalMarkdownTypedFile = MarkdownParser.Parse(parsedMarkdownDocument.Blocks);
 
-            return localMarkdownFile;
+            return interalMarkdownTypedFile;
         }
 
     }
