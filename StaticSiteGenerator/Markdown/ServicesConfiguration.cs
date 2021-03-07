@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
-using StaticSiteGenerator.Markdown;
-using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using StaticSiteGenerator.Markdown.InlineElementConverter;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
+
+using StaticSiteGenerator.Markdown.Parser;
+using StaticSiteGenerator.Markdown.Parser.InlineParser;
 
 namespace StaticSiteGenerator.Markdown
 {

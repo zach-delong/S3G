@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Moq;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.BlockElement;
+using StaticSiteGenerator.Markdown.Parser;
 
 namespace StaticSiteGenerator.UnitTests.Doubles.Markdown
 {

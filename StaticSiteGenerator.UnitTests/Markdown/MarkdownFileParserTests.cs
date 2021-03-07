@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using Moq;
-using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.Markdown.Parser;
 using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.UnitTests.Helpers;

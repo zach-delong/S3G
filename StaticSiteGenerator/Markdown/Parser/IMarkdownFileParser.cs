@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using StaticSiteGenerator.Markdown.BlockElement;
 
-namespace StaticSiteGenerator.Markdown
+namespace StaticSiteGenerator.Markdown.Parser
 {
     public interface IMarkdownFileParser
     {

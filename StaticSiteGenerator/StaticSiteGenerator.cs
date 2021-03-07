@@ -6,6 +6,7 @@ using StaticSiteGenerator.FileManipulation;
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
+using StaticSiteGenerator.Markdown.Parser;
 
 namespace StaticSiteGenerator
 {

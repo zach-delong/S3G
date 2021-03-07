@@ -5,7 +5,7 @@ using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using Microsoft.Toolkit.Parsers.Markdown;
 using System.IO;
 
-namespace StaticSiteGenerator.Markdown
+namespace StaticSiteGenerator.Markdown.Parser
 {
     public class MarkdownFileParser : IMarkdownFileParser
     {
@@ -33,7 +33,7 @@ namespace StaticSiteGenerator.Markdown
         public IEnumerable<IMarkdownFile> ReadFiles(IEnumerable<string> filePaths)
         {
             // Console.WriteLine("Beginning converting files");
-            foreach(var filePath in filePaths)
+            foreach (var filePath in filePaths)
             {
                 // Console.WriteLine($"(0) Starting converting file {filePath}");
                 yield return new MarkdownFile
@@ -52,7 +52,10 @@ namespace StaticSiteGenerator.Markdown
 
             parsedMarkdownDocument.Parse(markdownFileContents);
 
-            return MarkdownParser.Parse(parsedMarkdownDocument.Blocks);
+            // TODO: this name doesn't make sense
+            var localMarkdownFile = MarkdownParser.Parse(parsedMarkdownDocument.Blocks);
+
+            return localMarkdownFile;
         }
 
     }
