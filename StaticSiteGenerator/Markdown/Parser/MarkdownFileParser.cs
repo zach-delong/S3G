@@ -36,11 +36,13 @@ namespace StaticSiteGenerator.Markdown.Parser
             foreach (var filePath in filePaths)
             {
                 // Console.WriteLine($"(0) Starting converting file {filePath}");
-                yield return new MarkdownFile
+                var file = new MarkdownFile
                 {
                     Elements = ReadFile(filePath),
                     Name = Path.GetFileNameWithoutExtension(filePath)
                 };
+
+                yield return file;
 
                 // Console.WriteLine($"(0) Done converting file {filePath}");
             }
