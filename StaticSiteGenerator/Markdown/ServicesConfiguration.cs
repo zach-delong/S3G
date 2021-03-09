@@ -6,6 +6,8 @@ using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using StaticSiteGenerator.Markdown.Parser;
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
+using StaticSiteGenerator.Markdown.YamlMetadata.YamlMetadataProcessorStrategies;
+using StaticSiteGenerator.Markdown.YamlMetadata;
 
 namespace StaticSiteGenerator.Markdown
 {
@@ -26,6 +28,12 @@ namespace StaticSiteGenerator.Markdown
             services.AddTransient<IMarkdownBlockParser, MarkdownBlockParser>();
 
             services.AddTransient<IMarkdownFileParser, MarkdownFileParser>();
+        }
+
+        public static void AddYamalConverters(this IServiceCollection services)
+        {
+            services.AddTransient<IYamlMetadataProcessorStrategy, PublishDateProcessor>();
+            services.AddTransient<IYamlMetadataProcessor, YamlMetadataProcessor>();
         }
     }
 }

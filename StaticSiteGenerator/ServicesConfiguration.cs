@@ -5,7 +5,7 @@ using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating;
 using StaticSiteGenerator.TemplateSubstitution;
-
+using StaticSiteGenerator.Utilities.Date;
 using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator
@@ -18,12 +18,15 @@ namespace StaticSiteGenerator
             services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
 
             services.AddFileManipulationServices();
+            services.AddYamalConverters();
             services.AddHtmlConverters();
             services.AddMarkdownConverters();
             services.AddMarkdownParsers();
             services.AddTemplateManagement();
             services.AddHtmlWriting();
             services.AddSiteTemplateServices();
+
+            services.AddTransient<IDateParser, DateParser>();
         }
     }
 }

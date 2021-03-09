@@ -4,26 +4,32 @@ using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using Microsoft.Toolkit.Parsers.Markdown;
 using System.IO;
+using StaticSiteGenerator.Markdown.YamlMetadata;
+using System.Linq;
+using System;
 
 namespace StaticSiteGenerator.Markdown.Parser
 {
     public class MarkdownFileParser : IMarkdownFileParser
     {
-        FileReader FileParser;
-        IMarkdownBlockParser MarkdownParser;
+        private readonly FileReader fileParser;
+        private readonly IMarkdownBlockParser markdownParser;
+        private readonly IYamlMetadataProcessor yamlMetadataProcessor;
 
         public MarkdownFileParser(
             FileReader fileParser,
-            IMarkdownBlockParser markdownParser
+            IMarkdownBlockParser markdownParser,
+            IYamlMetadataProcessor yamlMetadataProcessor
         )
         {
-            FileParser = fileParser;
-            MarkdownParser = markdownParser;
+            this.fileParser = fileParser;
+            this.markdownParser = markdownParser;
+            this.yamlMetadataProcessor = yamlMetadataProcessor;
         }
 
         public IList<IBlockElement> ReadFile(string filePath)
         {
-            var fileContents = FileParser.ReadFile(filePath);
+            var fileContents = fileParser.ReadFile(filePath);
 
             var parsedContents = ParseMarkdownString(fileContents);
 
@@ -35,12 +41,25 @@ namespace StaticSiteGenerator.Markdown.Parser
             // Console.WriteLine("Beginning converting files");
             foreach (var filePath in filePaths)
             {
-                // Console.WriteLine($"(0) Starting converting file {filePath}");
-                var file = new MarkdownFile
+                Console.WriteLine($"(0) Starting converting file {filePath}");
+                IMarkdownFile file = new MarkdownFile
                 {
                     Elements = ReadFile(filePath),
                     Name = Path.GetFileNameWithoutExtension(filePath)
                 };
+
+                file = yamlMetadataProcessor.ParseYamlMetadata(file);
+
+
+                // TODO: I would like to put the yaml metadata in the HTML
+                // files, but I need to do that in a separate step. For now,
+                // lets just discard the information so the HTML converters
+                // don't fail
+                if (file?.Elements != null)
+                {
+                    file.Elements = file.Elements.Where(e => e.GetType().Name != nameof(YamlHeader))
+                                                 .ToList();
+                }
 
                 yield return file;
 
@@ -54,7 +73,7 @@ namespace StaticSiteGenerator.Markdown.Parser
 
             parsedMarkdownDocument.Parse(markdownFileContents);
 
-            var interalMarkdownTypedFile = MarkdownParser.Parse(parsedMarkdownDocument.Blocks);
+            var interalMarkdownTypedFile = markdownParser.Parse(parsedMarkdownDocument.Blocks);
 
             return interalMarkdownTypedFile;
         }
