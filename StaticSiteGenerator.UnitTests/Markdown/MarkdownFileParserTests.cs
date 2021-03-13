@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using Moq;
+using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.Parser;
 using StaticSiteGenerator.Markdown.Parser.BlockParser;
+using StaticSiteGenerator.Markdown.YamlMetadata;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.UnitTests.Helpers;
 using Xunit;
@@ -27,8 +29,9 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             // Arrange
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
             var mockMarkdownParser = new Mock<IMarkdownBlockParser>();
+            var mockYamlMetadataProcessor = new Mock<IYamlMetadataProcessor>();
 
-            var fileParser = new MarkdownFileParser(mockReader.Object, mockMarkdownParser.Object);
+            var fileParser = new MarkdownFileParser(mockReader.Object, mockMarkdownParser.Object, mockYamlMetadataProcessor.Object);
 
             // Act
             var result = fileParser.ReadFiles(new List<string>());
@@ -36,6 +39,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             //Assert
             mockReader.Verify(m => m.ReadFile(It.IsAny<string>()), Times.Never());
             mockMarkdownParser.Verify(m => m.Parse(It.IsAny<IList<MarkdownBlock>>()), Times.Never());
+            mockYamlMetadataProcessor.Verify(m => m.ParseYamlMetadata(It.IsAny<IMarkdownFile>()), Times.Never());
         }
 
         [Theory]
@@ -50,8 +54,9 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             // Arrange
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
             var mockMarkdownParser = new Mock<IMarkdownBlockParser>();
+            var mockYamlMetadataProcessor = new Mock<IYamlMetadataProcessor>();
 
-            var fileParser = new MarkdownFileParser(mockReader.Object, mockMarkdownParser.Object);
+            var fileParser = new MarkdownFileParser(mockReader.Object, mockMarkdownParser.Object, mockYamlMetadataProcessor.Object);
 
             // Act
             var result = fileParser.ReadFiles(fileNames)
@@ -60,6 +65,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             //Assert
             mockReader.Verify(m => m.ReadFile(It.IsAny<string>()), Times.Exactly(numberOfFiles));
             mockMarkdownParser.Verify(m => m.Parse(It.IsAny<IList<MarkdownBlock>>()), Times.Exactly(numberOfFiles));
+            mockYamlMetadataProcessor.Verify(m => m.ParseYamlMetadata(It.IsAny<IMarkdownFile>()), Times.Exactly(numberOfFiles));
         }
     }
 }
