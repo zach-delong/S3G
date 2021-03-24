@@ -15,7 +15,7 @@ namespace StaticSiteGenerator.FileManipulation
         {
             try
             {
-                return Directory.GetFiles(directory);
+                return Directory.EnumerateFiles(directory);
             }
             catch(DirectoryNotFoundException ex)
             {
