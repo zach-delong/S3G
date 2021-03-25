@@ -14,11 +14,23 @@ namespace StaticSiteGenerator.UnitTests.Helpers
             return new TempDirectory(tempFolderPath);
         }
 
+        public static TempDirectory GetTempFolder(TempDirectory directory)
+        {
+            var tempFolderPath = Path.Combine(directory.Path, Guid.NewGuid().ToString());
+
+            return new TempDirectory(tempFolderPath);
+        }
+
         public static TempFile GetTempTextFile(string path)
         {
-            var tempFilePath = path + Guid.NewGuid().ToString() + ".txt";
+            var tempFilePath = Path.Combine(path, Guid.NewGuid().ToString() + ".txt" );
 
             return new TempFile(tempFilePath);
+        }
+
+        public static TempFile GetTempTextFile(TempDirectory directory)
+        {
+            return GetTempTextFile(directory.Path);
         }
 
         public static TempFile GetTempTextFile()
