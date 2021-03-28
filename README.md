@@ -38,6 +38,8 @@ website. As such, it should not be considered commercial strength
 
 ## Containerization
 
+These instructions are out of date, though they may still work.
+
 This is an early prototype of containerization for me. You can run the project
 and the tests for the project by building the docker image (from the dockerfile) 
 ```
