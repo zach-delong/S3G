@@ -25,6 +25,17 @@ compile your website into something beautiful.
 This project is not yet complete and has not yet been used for a production
 website. As such, it should not be considered commercial strength
 
+### Ongoing tasks
+
+- [ ] Implement mechanism for copying images
+- [ ] Clean up DI implementation and remove references to attribute-based DI
+- [ ] Create some mechanism for implementing "types" (pages, posts, categories, etc)
+- [ ] Create a mechanism for generating a home or index page
+- [ ] Output YAML comments to HTML files (as comments, for debugging) (yaml attributes are already being parsed)
+- [ ] Set up code coverage to generate on build
+- [ ] Set up a docker image for development
+- [ ] Set up a docker image for running in production
+
 ## Containerization
 
 This is an early prototype of containerization for me. You can run the project
