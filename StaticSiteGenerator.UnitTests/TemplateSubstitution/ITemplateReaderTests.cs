@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.FileManipulation.FileListing;
 using StaticSiteGenerator.TemplateReading;
-using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using Xunit;
@@ -15,15 +14,15 @@ namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateReading
 
         List<string> listOfFiles = new List<string>
         {
-                "h1.html",
-                "p.html"
+                "templates/tag_templates/h1.html",
+                "templates/tag_templates/p.html"
         };
 
 
         Dictionary<string, string> fileContents = new Dictionary<string, string>
         {
-            {"h1.html", "h1 test content"},
-            {"p.html", "p test content"}
+            {"templates/tag_templates/h1.html", "h1 test content"},
+            {"templates/tag_templates/p.html", "p test content"}
         };
 
         [Fact]
@@ -39,12 +38,17 @@ namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateReading
         }
 
         [Fact]
-        public void TemplateReaerShouldLoadWhenFilecontentsIsEmpty()
+        public void TemplateReaerShouldLoadWhenFileContentsIsEmpty()
         {
-            var reader = GetReader(new List<string> { "h1.html" },
-                                   new Dictionary<string, string> { { "h1.html", "" } });
+            var reader = GetReader(new List<string> { "templates/tag_templates/h1.html" },
+                                   new Dictionary<string, string> { { "templates/tag_templates/h1.html", "" } });
 
             var result = reader.ReadTemplate();
+
+            foreach(var r in result)
+            {
+                System.Console.WriteLine(r);
+            }
 
             Assert.Empty(result.First(t => t.Type == TagType.Header1).Template);
         }
@@ -64,13 +68,13 @@ namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateReading
             IEnumerable<string> listOfFiles,
             IDictionary<string, string> fileNameToContents)
         {
-            Mock<FileIterator> fileIteratorMock = FileIteratorMockFactory.Get(listOfFiles);
+            Mock<IDirectoryEnumerator> directoryEnumeratorMock = DirectoryEnumeratorMockFactory.Get(listOfFiles);
 
             var fileReaderMock = FileReaderMockFactory.Get(fileNameToContents);
 
             var mockOptions = new Mock<CliOptions>();
 
-            return new TemplateReader(fileIteratorMock.Object,
+            return new TemplateReader(directoryEnumeratorMock.Object,
                                       fileReaderMock.Object,
                                       mockOptions.Object);
         }

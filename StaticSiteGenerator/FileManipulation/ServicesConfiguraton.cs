@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using StaticSiteGenerator.FileManipulation.FileListing;
 using StaticSiteGenerator.FileManipulation.FileWriting;
 using StaticSiteGenerator.Utilities.DependencyInjection;
 
@@ -10,6 +11,8 @@ namespace StaticSiteGenerator.FileManipulation
         {
             services.AddTransient<IFileWriter, SystemFileWriter>();
             services.Decorate<IFileWriter, OverwritingFileWriter>();
+
+            services.AddTransient<IDirectoryEnumerator, DeferredExecutionDirectoryEnumerator>();
         }
     }
 }

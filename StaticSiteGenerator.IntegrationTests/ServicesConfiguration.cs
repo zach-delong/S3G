@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.FileManipulation.FileListing;
 using StaticSiteGenerator.FileManipulation.FileWriting;
 
 namespace StaticSiteGenerator.IntegrationTests
@@ -13,11 +14,11 @@ namespace StaticSiteGenerator.IntegrationTests
                                                                   IDictionary<string, string> fileDictionary)
         {
 
-            var fileIteratorMock = new Mock<FileIterator>();
+            var fileIteratorMock = new Mock<IDirectoryEnumerator>();
 
             fileIteratorMock
-                .Setup(m => m.GetFilesInDirectory(It.IsAny<string>()))
-                .Returns<string>(s => fileDictionary.Keys.Where(k => k.StartsWith(s)));
+                .Setup(m => m.GetFiles(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns<string, string>(( path, _ ) => fileDictionary.Keys.Where(k => k.StartsWith(path)));
 
             var fileReaderMock = new Mock<FileReader>();
 
@@ -25,10 +26,10 @@ namespace StaticSiteGenerator.IntegrationTests
                 .Setup(m => m.ReadFile(It.IsAny<string>()))
                 .Returns<string>(s => fileDictionary[s]);
 
-            services.Remove(services.First(desc => desc.ServiceType == typeof(FileIterator)));
+            services.Remove(services.First(desc => desc.ServiceType == typeof(IDirectoryEnumerator)));
             services.Remove(services.First(desc => desc.ServiceType == typeof(FileReader)));
 
-            services.AddSingleton<FileIterator>(fileIteratorMock.Object);
+            services.AddSingleton<IDirectoryEnumerator>(fileIteratorMock.Object);
             services.AddSingleton<FileReader>(fileReaderMock.Object);
         }
 

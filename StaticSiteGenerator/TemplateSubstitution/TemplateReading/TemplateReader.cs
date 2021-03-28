@@ -1,34 +1,34 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using StaticSiteGenerator.FileManipulation;
 
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.FileManipulation.FileListing;
 
 namespace StaticSiteGenerator.TemplateReading
 {
     public class TemplateReader : ITemplateReader
     {
-        readonly FileIterator FileIterator;
+        readonly IDirectoryEnumerator DirectoryEnumerator;
         readonly FileReader FileReader;
 
         public CliOptions Options { get; }
 
         public TemplateReader(
-            FileIterator fileIterator,
+            IDirectoryEnumerator directoryEnumerator,
             FileReader fileReader,
             CliOptions options
         )
         {
-            FileIterator = fileIterator;
+            DirectoryEnumerator = directoryEnumerator;
             FileReader = fileReader;
             Options = options;
         }
 
         public IEnumerable<TemplateTag> ReadTemplate()
         {
-            foreach (var filePath in FileIterator.GetFilesInDirectory(Path.Combine(Options.TemplatePath, "tag_templates")))
+            foreach (var filePath in DirectoryEnumerator.GetFiles(Path.Combine(Options.TemplatePath, "tag_templates"), "*.html"))
             {
                 yield return ReadTemplateFile(filePath);
             }
@@ -40,14 +40,14 @@ namespace StaticSiteGenerator.TemplateReading
                 .GetFileName(filePath)
                 .Replace(".html", "");
 
-            var template = GetProperTagWriterFor(name);
+            var template = GetTagWriterFor(name);
 
             template.Template = FileReader.ReadFile(filePath);
 
             return template;
         }
 
-        private TemplateTag GetProperTagWriterFor(string fileName)
+        private TemplateTag GetTagWriterFor(string fileName)
         {
             try
             {

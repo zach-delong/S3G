@@ -7,15 +7,16 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Markdown.Parser;
+using StaticSiteGenerator.FileManipulation.FileListing;
 
 namespace StaticSiteGenerator
 {
     [TransientService]
     public class StaticSiteGenerator
     {
-        private FileIterator fileIterator;
-        private IMarkdownFileParser MarkdownFileParser;
-        private IMarkdownConverter MarkdownConverter;
+        private readonly IDirectoryEnumerator directoryLister;
+        private readonly IMarkdownFileParser MarkdownFileParser;
+        private readonly IMarkdownConverter MarkdownConverter;
 
         private CliOptions Options;
 
@@ -24,14 +25,14 @@ namespace StaticSiteGenerator
         public ISiteTemplateFiller SiteTemplateFiller { get; }
 
         public StaticSiteGenerator(
-            FileIterator fileIterator,
+            IDirectoryEnumerator directoryLister,
             IMarkdownFileParser markdownFileParser,
             IMarkdownConverter markdownConverter,
             CliOptions options,
             IHtmlFileWriter fileWriter,
             ISiteTemplateFiller templateFiller
         ) {
-            this.fileIterator = fileIterator;
+            this.directoryLister = directoryLister;
             this.MarkdownFileParser = markdownFileParser;
             this.MarkdownConverter = markdownConverter;
             this.Options = options;
@@ -43,9 +44,9 @@ namespace StaticSiteGenerator
         {
             try
             {
-                var files = fileIterator.GetFilesInDirectory(Options.PathToMarkdownFiles);
+                var fileNames = directoryLister.GetFiles(Options.PathToMarkdownFiles, "*.md");
 
-                var fileContents = MarkdownFileParser.ReadFiles(files);
+                var fileContents = MarkdownFileParser.ReadFiles(fileNames);
 
                 var htmlFiles = MarkdownConverter.Convert(fileContents);
 

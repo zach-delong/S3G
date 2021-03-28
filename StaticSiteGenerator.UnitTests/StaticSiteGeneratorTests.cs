@@ -25,7 +25,7 @@ namespace StaticSiteGenerator.UnitTests
         public void TestSiteGeneratorRun(int numberOfFiles)
         {
             IEnumerable<string> result = FileNameGenerator.GetStrings(numberOfFiles).ToList();
-            var mockFileIterator = FileIteratorMockFactory.Get(result);
+            var mockFileIterator = DirectoryEnumeratorMockFactory.Get(result);
             var mockMarkdownConverter = MarkdownConverterMockFactory.Get();
             var mockFileWriter = new Mock<IHtmlFileWriter>();
             var mockSiteTemplater = new Mock<ISiteTemplateFiller>();
@@ -45,7 +45,7 @@ namespace StaticSiteGenerator.UnitTests
 
             siteGenerator.Start();
 
-            mockFileIterator.Verify(m => m.GetFilesInDirectory(It.IsAny<string>()));
+            mockFileIterator.Verify(m => m.GetFiles(It.IsAny<string>(), "*.md"));
             mockFileParser.Verify(m => m.ReadFiles(It.IsAny<IEnumerable<string>>()));
             mockMarkdownConverter.Verify(m => m.Convert(It.IsAny<IEnumerable<IMarkdownFile>>()));
             mockFileWriter.Verify(m => m.Write(It.IsAny<IEnumerable<IHtmlFile>>()));
