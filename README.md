@@ -7,6 +7,17 @@ homepage"). The primary difference is that I wanted something written in .NET,
 and I wanted an opportunity to play with the new .NET versions that are coming
 out. As of this writing, the project is written for .NET 5.
 
+## Contributing
+
+Right now, I am not taking contributions for this project.  That may change at
+sosme point in the future, but as of right now, I do not have time to fully
+maintain this project as a collaborative work. 
+
+That said, you are welcome to fork the project and use it but it is currently 
+in a prototype state, and while it has come a long way it still has quite far 
+to go and I make no promises about interface stability or backwards incompatible 
+changes as of now.
+
 ## Overall design
 
 Fundamentally, this project is intended to be used with Docker (eventually) or
@@ -27,14 +38,17 @@ website. As such, it should not be considered commercial strength
 
 ### Ongoing tasks
 
-- [ ] Implement mechanism for copying images
-- [ ] Clean up DI implementation and remove references to attribute-based DI
-- [ ] Create some mechanism for implementing "types" (pages, posts, categories, etc)
-- [ ] Create a mechanism for generating a home or index page
+- [ ] Set up a docker image for development (with docker compose)
+- [ ] Set up a docker image for running in production 
+- [ ] Implement more robust file path handling
+- [ ] Fully implement conversion strategies for the remaining markdown tag types
+- [ ] Fully implement a default template for the remaining markdown tag types
 - [ ] Output YAML comments to HTML files (as comments, for debugging) (yaml attributes are already being parsed)
+- [ ] Clean up DI implementation and remove references to attribute-based DI
+- [ ] Implement mechanism for copying images
+- [ ] Create some mechanism for implementing page "types" (pages, posts, categories, etc)
+- [ ] Create a mechanism for generating a home or index page
 - [ ] Set up code coverage to generate on build
-- [ ] Set up a docker image for development
-- [ ] Set up a docker image for running in production
 
 ## Containerization
 
