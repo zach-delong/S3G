@@ -10,7 +10,7 @@ out. As of this writing, the project is written for .NET 5.
 ## Contributing
 
 Right now, I am not taking contributions for this project.  That may change at
-sosme point in the future, but as of right now, I do not have time to fully
+some point in the future, but as of right now, I do not have time to fully
 maintain this project as a collaborative work. 
 
 That said, you are welcome to fork the project and use it but it is currently 
