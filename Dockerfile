@@ -1,18 +1,17 @@
 # https://hub.docker.com/_/microsoft-dotnet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS s3g-test
-RUN useradd -m -s $(which bash) developer
-USER developer
-RUN chown developer:developer /home/developer
 
-WORKDIR /home/developer/source_code
+WORKDIR /source
 COPY . ./
 
 RUN dotnet test
 
-RUN dotnet publish -c relase -o /app 
+RUN dotnet publish -c release -o /app
 
+# TODO: This is currently broken
+# It doesn't have the input files or a location for the output in the image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS s3g
 WORKDIR /app
-COPY --from=s3g-test /home/developer/developer/source_code ./
+COPY --from=s3g-test /app ./
 
 ENTRYPOINT ["dotnet", "StaticSiteGenerator.dll"]
