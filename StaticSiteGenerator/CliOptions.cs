@@ -8,7 +8,7 @@ namespace StaticSiteGenerator
         [Option('p',
                 "pathToMarkdown",
                 Required = false,
-                Default = "exampleMarkdownDirectory",
+                Default = "markdownInput",
                 HelpText = "The path to the markdown files to be parsed")]
         public string PathToMarkdownFiles { get; set; }
 
