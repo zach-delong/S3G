@@ -8,8 +8,6 @@ RUN dotnet test
 
 RUN dotnet publish -c release -o /app
 
-# TODO: This is currently broken
-# It doesn't have the input files or a location for the output in the image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS s3g
 WORKDIR /app
 

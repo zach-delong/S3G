@@ -38,8 +38,8 @@ website. As such, it should not be considered commercial strength
 
 ### Ongoing tasks
 
-- [ ] Set up a docker image for development (with docker compose)
-- [ ] Set up a docker image for running in production 
+- [x] Set up a docker image for development (with docker compose)
+- [x] Set up a docker image for running in production 
 - [ ] Implement more robust file path handling
 - [ ] Fully implement conversion strategies for the remaining markdown tag types
 - [ ] Fully implement a default template for the remaining markdown tag types
