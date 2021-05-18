@@ -33,9 +33,13 @@ namespace StaticSiteGenerator.IntegrationTests
             services.AddSingleton<FileReader>(fileReaderMock.Object);
         }
 
-        public static Mock<IFileWriter> MockFileWriter(this IServiceCollection services)
+        public static Mock<IFileWriter> MockFileWriter(this IServiceCollection services, IDictionary<string, string> fileCache)
         {
             var fileWriterMock = new Mock<IFileWriter>();
+
+            fileWriterMock.Setup(fw => fw.WriteFile(It.IsAny<string>(), It.IsAny<string>()))
+                .Callback((string name, string content) => fileCache[name] = content);
+
             services.Remove(services.First(desc => desc.ServiceType == typeof(IFileWriter)));
             services.AddSingleton<IFileWriter>(fileWriterMock.Object);
 
