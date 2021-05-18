@@ -40,8 +40,8 @@ website. As such, it should not be considered commercial strength
 
 - [x] Set up a docker image for development (with docker compose)
 - [x] Set up a docker image for running in production 
-- [ ] Refactor integration tests to mount DI container in abase class
-- [ ] Refactor integration tests to live in separate classes
+- [x] Refactor integration tests to mount DI container in abase class
+- [x] Refactor integration tests to live in separate classes
 - [ ] Remove references to attribute-based DI
 - [ ] Implement more robust file path handling
 - [ ] Fully implement conversion strategies for the remaining markdown tag types
