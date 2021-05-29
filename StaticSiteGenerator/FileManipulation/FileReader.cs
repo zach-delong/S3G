@@ -2,13 +2,10 @@ using System;
 using System.IO;
 using System.Text;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
-
 using StaticSiteGenerator.FileManipulation.FileException;
 
 namespace StaticSiteGenerator.FileManipulation
 {
-    [TransientService]
     public class FileReader
     {
         public virtual string ReadFile(string filePath)

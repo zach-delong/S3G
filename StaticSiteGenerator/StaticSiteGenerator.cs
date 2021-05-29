@@ -3,7 +3,6 @@ using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.FileManipulation;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Markdown.Parser;
@@ -11,7 +10,6 @@ using StaticSiteGenerator.FileManipulation.FileListing;
 
 namespace StaticSiteGenerator
 {
-    [TransientService]
     public class StaticSiteGenerator
     {
         private readonly IDirectoryEnumerator directoryLister;

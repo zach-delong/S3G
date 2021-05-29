@@ -7,13 +7,11 @@ using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Markdown.Parser.BlockParser
 {
 
-    [TransientService]
     public class MarkdownBlockParser: IMarkdownBlockParser
     {
         StrategyCollection<IBlockElementConverter> Converters;

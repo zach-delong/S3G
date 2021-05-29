@@ -3,13 +3,10 @@ using System;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using StaticSiteGenerator.Markdown.BlockElement;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
-
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
 
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
-    [TransientService]
     [MarkdownConverterFor(nameof(HeaderBlock))]
     public class HeaderConverter: IBlockElementConverter
     {

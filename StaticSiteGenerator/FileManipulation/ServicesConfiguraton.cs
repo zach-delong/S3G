@@ -13,6 +13,8 @@ namespace StaticSiteGenerator.FileManipulation
             services.Decorate<IFileWriter, OverwritingFileWriter>();
 
             services.AddTransient<IDirectoryEnumerator, DeferredExecutionDirectoryEnumerator>();
+
+            services.AddTransient<FileReader>();
         }
     }
 }

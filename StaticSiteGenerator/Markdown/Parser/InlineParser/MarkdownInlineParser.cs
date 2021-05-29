@@ -5,12 +5,8 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
-
 namespace StaticSiteGenerator.Markdown.Parser.InlineParser
 {
-
-    [TransientService]
     public class MarkdownInlineParser: IMarkdownInlineParser
     {
         private readonly StrategyCollection<IInlineElementConverter> Strategies;

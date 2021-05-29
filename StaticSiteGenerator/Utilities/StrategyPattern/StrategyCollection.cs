@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 
 namespace StaticSiteGenerator.Utilities.StrategyPattern
 {
-    [TransientService]
     public class StrategyCollection<T>
     {
         private IDictionary<string, T> Strategies;
