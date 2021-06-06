@@ -13,9 +13,9 @@ git clean -dfx
 dotnet test --collect 'XPlat Code Coverage'
 
 
-# We need to locate somehow the coverage files and sort them into what the
-# reportgenerator command can actually use.
+# We need to locate somehow the coverage files. The ReportGenerator command uses
+# a semicolon delimited list of paths, so we use transliterate to change the
+# newline delimited output of the find command into a semicolon delimited one.
 coverageFilePaths=$(find . -type f -name "$coverageFileName" | tr "\n" ";")
-formattedFilePaths="${coverageFilePaths%?}"
 
-reportgenerator "-reports:$formattedFilePaths" "-targetdir:$outputDirectory"
+reportgenerator "-reports:$coverageFilePaths" "-targetdir:$outputDirectory"
