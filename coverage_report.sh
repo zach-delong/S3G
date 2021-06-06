@@ -12,7 +12,6 @@ git clean -dfx
 # project in the solution.
 dotnet test --collect 'XPlat Code Coverage'
 
-
 # We need to locate somehow the coverage files. The ReportGenerator command uses
 # a semicolon delimited list of paths, so we use transliterate to change the
 # newline delimited output of the find command into a semicolon delimited one.
