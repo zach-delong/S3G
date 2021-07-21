@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using Moq;
 using StaticSiteGenerator.Markdown;
@@ -30,8 +31,12 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
             var mockMarkdownParser = new Mock<IMarkdownBlockParser>();
             var mockYamlMetadataProcessor = new Mock<IYamlMetadataProcessor>();
+            var mockedLogger = new Mock<ILogger<MarkdownFileParser>>();
 
-            var fileParser = new MarkdownFileParser(mockReader.Object, mockMarkdownParser.Object, mockYamlMetadataProcessor.Object);
+            var fileParser = new MarkdownFileParser(mockReader.Object,
+                                                    mockMarkdownParser.Object,
+                                                    mockYamlMetadataProcessor.Object,
+                                                    mockedLogger.Object);
 
             // Act
             var result = fileParser.ReadFiles(new List<string>());
@@ -55,8 +60,12 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
             var mockMarkdownParser = new Mock<IMarkdownBlockParser>();
             var mockYamlMetadataProcessor = new Mock<IYamlMetadataProcessor>();
+            var mockLogger = new Mock<ILogger<MarkdownFileParser>>();
 
-            var fileParser = new MarkdownFileParser(mockReader.Object, mockMarkdownParser.Object, mockYamlMetadataProcessor.Object);
+            var fileParser = new MarkdownFileParser(mockReader.Object,
+                                                    mockMarkdownParser.Object,
+                                                    mockYamlMetadataProcessor.Object,
+                                                    mockLogger.Object);
 
             // Act
             var result = fileParser.ReadFiles(fileNames)

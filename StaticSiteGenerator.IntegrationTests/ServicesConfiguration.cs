@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Moq;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.FileManipulation.FileListing;
@@ -31,6 +32,8 @@ namespace StaticSiteGenerator.IntegrationTests
 
             services.AddSingleton<IDirectoryEnumerator>(fileIteratorMock.Object);
             services.AddSingleton<FileReader>(fileReaderMock.Object);
+
+            services.AddLogging(builder => builder.ClearProviders());
         }
 
         public static Mock<IFileWriter> MockFileWriter(this IServiceCollection services, IDictionary<string, string> fileCache)

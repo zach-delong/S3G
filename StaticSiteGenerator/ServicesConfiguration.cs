@@ -1,6 +1,6 @@
+using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Serilog;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown;
@@ -34,18 +34,11 @@ namespace StaticSiteGenerator
 
         public static void AddLogging(this IServiceCollection services)
         {
-            Log.Logger = new LoggerConfiguration()
-                // TODO: This appears to be the only way to specify the minimum level 
-                // It should probably respect the MS format (below)
-                .MinimumLevel.Verbose() 
-                .Enrich.FromLogContext()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
-
             services.AddLogging(loggingBuilder =>
             {
-                loggingBuilder.AddSerilog()
-                    .SetMinimumLevel(LogLevel.Trace); // TODO Serilog appears to ignore this.
+                loggingBuilder
+                    .SetMinimumLevel(LogLevel.Trace)
+                    .AddFile($"{Path.GetTempPath()}{Path.DirectorySeparatorChar}s3g-log{Path.DirectorySeparatorChar}log.txt", append: true);
             });
         }
     }
