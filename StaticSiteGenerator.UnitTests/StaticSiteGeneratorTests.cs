@@ -9,6 +9,7 @@ using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.UnitTests.Helpers;
 using Xunit;
+using Microsoft.Extensions.Logging;
 
 namespace StaticSiteGenerator.UnitTests
 {
@@ -29,6 +30,7 @@ namespace StaticSiteGenerator.UnitTests
             var mockMarkdownConverter = MarkdownConverterMockFactory.Get();
             var mockFileWriter = new Mock<IHtmlFileWriter>();
             var mockSiteTemplater = new Mock<ISiteTemplateFiller>();
+            var mockLogger = new Mock<ILogger<StaticSiteGenerator>>();
 
             mockSiteTemplater.Setup(m => m.FillSiteTemplate(It.IsAny<string>()))
                              .Returns<string>(s => s);
@@ -41,7 +43,8 @@ namespace StaticSiteGenerator.UnitTests
                 mockMarkdownConverter.Object,
                 new CliOptions { OutputLocation = "foo" },
                 mockFileWriter.Object,
-                mockSiteTemplater.Object);
+                mockSiteTemplater.Object,
+                mockLogger.Object);
 
             siteGenerator.Start();
 

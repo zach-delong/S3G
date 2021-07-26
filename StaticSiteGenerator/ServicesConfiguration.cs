@@ -1,4 +1,6 @@
+using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown;
@@ -26,6 +28,18 @@ namespace StaticSiteGenerator
             services.AddUtilities();
             services.AddTransient<IDateParser, DateParser>();
             services.AddTransient<StaticSiteGenerator>();
+
+            services.AddLogging();
+        }
+
+        public static void AddLogging(this IServiceCollection services)
+        {
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder
+                    .SetMinimumLevel(LogLevel.Trace)
+                    .AddFile($"{Path.GetTempPath()}{Path.DirectorySeparatorChar}s3g-log{Path.DirectorySeparatorChar}log.txt", append: true);
+            });
         }
     }
 }

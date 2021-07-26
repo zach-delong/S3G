@@ -7,6 +7,7 @@ using System.IO;
 using StaticSiteGenerator.Markdown.YamlMetadata;
 using System.Linq;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace StaticSiteGenerator.Markdown.Parser
 {
@@ -15,33 +16,39 @@ namespace StaticSiteGenerator.Markdown.Parser
         private readonly FileReader fileParser;
         private readonly IMarkdownBlockParser markdownParser;
         private readonly IYamlMetadataProcessor yamlMetadataProcessor;
+        private readonly ILogger<MarkdownFileParser> logger;
 
         public MarkdownFileParser(
             FileReader fileParser,
             IMarkdownBlockParser markdownParser,
-            IYamlMetadataProcessor yamlMetadataProcessor
+            IYamlMetadataProcessor yamlMetadataProcessor,
+            ILogger<MarkdownFileParser> logger
         )
         {
             this.fileParser = fileParser;
             this.markdownParser = markdownParser;
             this.yamlMetadataProcessor = yamlMetadataProcessor;
+            this.logger = logger;
         }
 
         public IList<IBlockElement> ReadFile(string filePath)
         {
+            logger.LogTrace($"Reading file: {filePath}");
             var fileContents = fileParser.ReadFile(filePath);
 
+            logger.LogTrace($"Read file contents: {fileContents?.Substring(0, ((fileContents.Length > 50) ? 50 : fileContents.Length)) ?? String.Empty}");
             var parsedContents = ParseMarkdownString(fileContents);
 
+            logger.LogTrace($"Succesfully converted {filePath} into Block Elements");
             return parsedContents;
         }
 
         public IEnumerable<IMarkdownFile> ReadFiles(IEnumerable<string> filePaths)
         {
-            // Console.WriteLine("Beginning converting files");
+            logger.LogInformation("Starting to convert string contents to Markdown");
             foreach (var filePath in filePaths)
             {
-                // Console.WriteLine($"(0) Starting converting file {filePath}");
+                logger.LogTrace($"Starting to convert file {filePath}");
                 IMarkdownFile file = new MarkdownFile
                 {
                     Elements = ReadFile(filePath),
@@ -63,7 +70,7 @@ namespace StaticSiteGenerator.Markdown.Parser
 
                 yield return file;
 
-                // Console.WriteLine($"(0) Done converting file {filePath}");
+                logger.LogTrace($"Converted file: {filePath}");
             }
         }
 

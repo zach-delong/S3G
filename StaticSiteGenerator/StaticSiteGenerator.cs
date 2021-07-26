@@ -7,6 +7,7 @@ using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Markdown.Parser;
 using StaticSiteGenerator.FileManipulation.FileListing;
+using Microsoft.Extensions.Logging;
 
 namespace StaticSiteGenerator
 {
@@ -19,6 +20,7 @@ namespace StaticSiteGenerator
         private CliOptions Options;
 
         public readonly IHtmlFileWriter HtmlFileWriter;
+        private readonly ILogger<StaticSiteGenerator> logger;
 
         public ISiteTemplateFiller SiteTemplateFiller { get; }
 
@@ -28,7 +30,8 @@ namespace StaticSiteGenerator
             IMarkdownConverter markdownConverter,
             CliOptions options,
             IHtmlFileWriter fileWriter,
-            ISiteTemplateFiller templateFiller
+            ISiteTemplateFiller templateFiller,
+            ILogger<StaticSiteGenerator> logger
         ) {
             this.directoryLister = directoryLister;
             this.MarkdownFileParser = markdownFileParser;
@@ -36,12 +39,14 @@ namespace StaticSiteGenerator
             this.Options = options;
             this.HtmlFileWriter = fileWriter;
             this.SiteTemplateFiller = templateFiller;
+            this.logger = logger;
         }
 
         public void Start()
         {
             try
             {
+                logger.LogTrace("Starting conversion of static site.");
                 var fileNames = directoryLister.GetFiles(Options.PathToMarkdownFiles, "*.md");
 
                 var fileContents = MarkdownFileParser.ReadFiles(fileNames);
@@ -51,6 +56,7 @@ namespace StaticSiteGenerator
                 htmlFiles = SiteTemplateFiller.FillSiteTemplate(htmlFiles);
 
                 HtmlFileWriter.Write(htmlFiles);
+                logger.LogTrace("Finished conversion of static site.");
             }
             catch (Exception ex)
             {
