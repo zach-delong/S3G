@@ -38,20 +38,9 @@ website. As such, it should not be considered commercial strength
 
 ### Ongoing tasks
 
-- [x] Set up a docker image for development (with docker compose)
-- [x] Set up a docker image for running in production 
-- [x] Refactor integration tests to mount DI container in abase class
-- [x] Refactor integration tests to live in separate classes
-- [x] Remove references to attribute-based DI
-- [x] Clean up DI implementation and remove references to attribute-based DI
-- [ ] Implement more robust file path handling
-- [ ] Fully implement conversion strategies for the remaining markdown tag types
-- [ ] Fully implement a default template for the remaining markdown tag types
-- [ ] Output YAML comments to HTML files (as comments, for debugging) (yaml attributes are already being parsed)
-- [ ] Implement mechanism for copying images
-- [ ] Create some mechanism for implementing page "types" (pages, posts, categories, etc)
-- [ ] Create a mechanism for generating a home or index page
-- [ ] Set up code coverage to generate on build
+- [ ] Covert common *.md tags to HTML
+- [ ] Copy non *.md files to the output directory
+- [ ] Build a homepage with treeview navigation
 
 ## Containerization
 
