@@ -47,7 +47,7 @@ website. As such, it should not be considered commercial strength
 - [ ] Fully implement conversion strategies for the remaining markdown tag types
 - [ ] Fully implement a default template for the remaining markdown tag types
 - [ ] Output YAML comments to HTML files (as comments, for debugging) (yaml attributes are already being parsed)
-- [ ] Clean up DI implementation and remove references to attribute-based DI
+- [x] Clean up DI implementation and remove references to attribute-based DI
 - [ ] Implement mechanism for copying images
 - [ ] Create some mechanism for implementing page "types" (pages, posts, categories, etc)
 - [ ] Create a mechanism for generating a home or index page
