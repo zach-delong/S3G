@@ -1,8 +1,9 @@
 using System;
 
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.BlockElement;
+using Markdig.Syntax;
+using Microsoft.Extensions.Logging;
 
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
@@ -11,17 +12,25 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
     {
         private readonly IMarkdownInlineParser Parser;
 
-        public ParagraphConverter(IMarkdownInlineParser parser)
+        public ParagraphConverter(
+            IMarkdownInlineParser parser,
+            ILogger<ParagraphConverter> logger)
         {
             Parser = parser;
+            Logger = logger;
         }
 
-        public IBlockElement Convert(MarkdownBlock block)
+        private ILogger<ParagraphConverter> Logger { get; }
+
+        public IBlockElement Convert(IBlock block)
         {
-            ParagraphBlock b = (ParagraphBlock)block;
+            Markdig.Syntax.ParagraphBlock paragraph = (Markdig.Syntax.ParagraphBlock)block;
+
+            Logger.LogDebug($"The paragraph being parsed: {paragraph.Lines}");
+
             return new Paragraph
             {
-                Inlines = Parser.Parse(b.Inlines)
+                Inlines = Parser.Parse(paragraph.Inline)
             };
         }
     }

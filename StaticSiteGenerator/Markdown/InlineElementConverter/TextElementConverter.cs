@@ -1,17 +1,18 @@
 using StaticSiteGenerator.Markdown.InlineElement;
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
+using Markdig.Syntax.Inlines;
 
 namespace StaticSiteGenerator.Markdown.InlineElementConverter
 {
-    [MarkdownConverterForAttribute(nameof(TextRunInline))]
+    [MarkdownConverterForAttribute(nameof(LiteralInline))]
     public class TextElementConverter: IInlineElementConverter
     {
-        public IInlineElement Convert(MarkdownInline inline)
+        public IInlineElement Convert(IInline inline)
         {
-            var textRun = (TextRunInline)inline;
+            var textRun = (LiteralInline)inline;
 
-            return new Text {
-                Content = textRun.Text
+            return new Text
+            {
+                Content = Markdig.Markdown.ToPlainText(textRun.Content.Text)
             };
         }
     }

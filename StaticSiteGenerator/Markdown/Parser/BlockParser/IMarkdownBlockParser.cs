@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using Markdig.Syntax;
 
 using StaticSiteGenerator.Markdown.BlockElement;
 
@@ -8,6 +7,6 @@ namespace StaticSiteGenerator.Markdown.Parser.BlockParser
 {
     public interface IMarkdownBlockParser
     {
-        public IList<IBlockElement> Parse(IList<MarkdownBlock> blocks);
+        public IList<IBlockElement> Parse(MarkdownDocument document);
     }
 }

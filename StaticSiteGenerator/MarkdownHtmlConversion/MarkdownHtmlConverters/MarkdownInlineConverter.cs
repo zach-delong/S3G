@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
+using Microsoft.Extensions.Logging;
 
 namespace StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters
 {
@@ -11,10 +12,15 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters
     {
         StrategyCollection<IInlineConverterStrategy> InlineElementConverters;
 
-        public MarkdownInlineConverter(StrategyCollection<IInlineConverterStrategy> inlineElementConverters)
+        public MarkdownInlineConverter(
+            StrategyCollection<IInlineConverterStrategy> inlineElementConverters,
+            ILogger<MarkdownInlineConverter> logger)
         {
             InlineElementConverters = inlineElementConverters;
+            Logger = logger;
         }
+
+        private ILogger<MarkdownInlineConverter> Logger { get; }
 
         public virtual string Convert(IInlineElement inline)
         {
@@ -34,8 +40,8 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters
                 }
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine(ex.ToString());
-                    Console.WriteLine(ex.Message);
+                    Logger.LogError(ex.ToString());
+                    Logger.LogError(ex.Message);
                 }
             }
 

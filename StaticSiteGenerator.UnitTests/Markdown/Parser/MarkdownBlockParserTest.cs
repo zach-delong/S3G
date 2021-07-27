@@ -6,14 +6,16 @@ using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using Xunit;
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using StaticSiteGenerator.Utilities.StrategyPattern;
+using StaticSiteGenerator.UnitTests.Doubles;
+using Markdig.Syntax;
 
 namespace Test.Markdown.Parser
 {
     public class MarkdownBlockParserTest
     {
         StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
+        LoggerMockFactory loggerMockFactory => new LoggerMockFactory();
 
         [Fact]
         public void TestConversionWithExistingConverter()
@@ -21,12 +23,15 @@ namespace Test.Markdown.Parser
             var converter = new TestConverter();
             var mock = mockFactory.Get(new Dictionary<string, IBlockElementConverter>
             {
-                { nameof(HeaderBlock), converter }
+                { nameof(HeadingBlock), converter }
             });
+            var logger = loggerMockFactory.Get<MarkdownBlockParser>();
 
-            var parser = new MarkdownBlockParser(mock.Object);
+            var parser = new MarkdownBlockParser(
+                mock.Object,
+                logger.Object);
 
-            var header = new HeaderBlock();
+            var header = new HeadingBlock(null);
 
             parser.Parse(header);
 
@@ -37,18 +42,19 @@ namespace Test.Markdown.Parser
         public void TestConversionThrowsExceptionWithoutValidConverter()
         {
             var mock = mockFactory.Get(new Dictionary<string, IBlockElementConverter>());
-            var parser = new MarkdownBlockParser(mock.Object);
+            var loggerMock = loggerMockFactory.Get<MarkdownBlockParser>();
+            var parser = new MarkdownBlockParser(mock.Object, loggerMock.Object);
 
-            var block = new HeaderBlock();
+            var block = new HeadingBlock(null);
 
             Assert.Throws<StrategyNotFoundException>(() => { parser.Parse(block); });
         }
 
-        [MarkdownConverterForAttribute(nameof(HeaderBlock))]
+        [MarkdownConverterForAttribute(nameof(HeadingBlock))]
         private class TestConverter: IBlockElementConverter
         {
             public bool ConverterCalled = false;
-            public IBlockElement Convert(MarkdownBlock block)
+            public IBlockElement Convert(IBlock block)
             {
                 ConverterCalled = true;
                 return null;

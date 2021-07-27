@@ -17,7 +17,6 @@ namespace StaticSiteGenerator
         public static void AddCustomServices(this IServiceCollection services)
         {
             services.AddFileManipulationServices();
-            services.AddYamalConverters();
             services.AddHtmlConverters();
             services.AddMarkdownConverters();
             services.AddMarkdownParsers();
@@ -38,7 +37,9 @@ namespace StaticSiteGenerator
             {
                 loggingBuilder
                     .SetMinimumLevel(LogLevel.Trace)
-                    .AddFile($"{Path.GetTempPath()}{Path.DirectorySeparatorChar}s3g-log{Path.DirectorySeparatorChar}log.txt", append: true);
+                    .AddFile($"{Path.GetTempPath()}{Path.DirectorySeparatorChar}s3g-log{Path.DirectorySeparatorChar}log.txt", append: true)
+                    .SetMinimumLevel(LogLevel.Debug)
+                    .AddConsole();
             });
         }
     }

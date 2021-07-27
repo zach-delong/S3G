@@ -7,12 +7,14 @@ using Test.Markdown.Parser;
 using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
 using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 using StaticSiteGenerator.MarkdownHtmlConversion;
+using StaticSiteGenerator.UnitTests.Doubles;
 
 namespace Test.MarkdownHtmlConversion
 {
     public class MarkdownInlineConverterTest
     {
         private StrategyCollectionMockFactory mockFactory => new StrategyCollectionMockFactory();
+        private LoggerMockFactory logMockFactory => new LoggerMockFactory();
 
         [Theory]
         [InlineData(0)]
@@ -26,9 +28,10 @@ namespace Test.MarkdownHtmlConversion
                 { nameof(Text), testConverter }
             };
 
-            Moq.Mock<StrategyCollection<IInlineConverterStrategy>> mock = mockFactory.Get<IInlineConverterStrategy>(strategyMappings);
+            var mock = mockFactory.Get<IInlineConverterStrategy>(strategyMappings);
+            var loggerMock = logMockFactory.Get<MarkdownInlineConverter>();
 
-            var converter = new MarkdownInlineConverter(mock.Object);
+            var converter = new MarkdownInlineConverter(mock.Object, loggerMock.Object);
 
             var inline = new Text();
 
@@ -54,7 +57,10 @@ namespace Test.MarkdownHtmlConversion
         [Fact]
         public void ConverterThrowsExceptionWhenNoMatchingStrategyExists()
         {
-            var converter = new MarkdownInlineConverter(mockFactory.Get(new Dictionary<string, IInlineConverterStrategy>()).Object);
+            var strategyCollection = mockFactory.Get(new Dictionary<string, IInlineConverterStrategy>()).Object;
+            var logger = logMockFactory.Get<MarkdownInlineConverter>().Object;
+
+            var converter = new MarkdownInlineConverter(strategyCollection, logger);
 
             var block = new Text();
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using StaticSiteGenerator.Markdown.InlineElementConverter;
 using StaticSiteGenerator.Markdown.InlineElement;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
+using Markdig.Syntax.Inlines;
 
 namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
 {
@@ -20,7 +21,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         [FakeStrategyMapper(nameof(Object))]
         private class FakeConverterWithAttribute : IInlineElementConverter
         {
-            public IInlineElement Convert(MarkdownInline inline)
+            public IInlineElement Convert(IInline inline)
             {
                 throw new NotImplementedException();
             }
@@ -28,7 +29,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
 
         private class FakeConverterWithoutAttribute : IInlineElementConverter
         {
-            public IInlineElement Convert(MarkdownInline inline)
+            public IInlineElement Convert(IInline inline)
             {
                 throw new NotImplementedException();
             }

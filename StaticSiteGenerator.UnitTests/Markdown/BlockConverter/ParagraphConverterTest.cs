@@ -1,20 +1,23 @@
 using System;
 using Xunit;
 
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 using StaticSiteGenerator.UnitTests.Markdown.Doubles;
+using StaticSiteGenerator.UnitTests.Doubles;
+using Markdig.Syntax;
 
 namespace StaticSiteGenerator.UnitTests.Markdown.BlockConverter
 {
     public class ParagraphConverterTest
     {
+        private LoggerMockFactory loggerMockFactory => new LoggerMockFactory();
+
         [Fact]
         public void ParagraphConverterCallsInlineConverterTest()
         {
             var testInlineParser = new TestInlineParser();
-            ParagraphConverter converter = new ParagraphConverter(testInlineParser);
+            var logger = loggerMockFactory.Get<ParagraphConverter>().Object;
+            ParagraphConverter converter = new ParagraphConverter(testInlineParser, logger);
 
             var paragraph = new ParagraphBlock();
 

@@ -1,13 +1,11 @@
-using System;
-
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using Markdig.Syntax;
 using StaticSiteGenerator.Markdown.BlockElement;
 
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
 
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
-    [MarkdownConverterFor(nameof(HeaderBlock))]
+    [MarkdownConverterFor(nameof(HeadingBlock))]
     public class HeaderConverter: IBlockElementConverter
     {
 
@@ -17,15 +15,14 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
             InlineParser = inlineParser;
         }
 
-        public IBlockElement Convert(MarkdownBlock block)
+        public IBlockElement Convert(IBlock block)
         {
-            HeaderBlock b = (HeaderBlock)block;
+            Markdig.Syntax.HeadingBlock header = (Markdig.Syntax.HeadingBlock)block;
             return new Header
             {
-                Level = (byte)b.HeaderLevel,
-
-                Inlines = InlineParser.Parse(b.Inlines)
-            };
+                Level = (byte)header.Level,
+                Inlines = InlineParser.Parse(header.Inline)
+        };
         }
     }
 }

@@ -1,9 +1,7 @@
-using StaticSiteGenerator.Markdown;
 using System.Collections.Generic;
-
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.InlineElement;
+using Markdig.Syntax.Inlines;
 
 namespace StaticSiteGenerator.UnitTests.Markdown.Doubles
 {
@@ -11,7 +9,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown.Doubles
     {
         public bool ParseCalled = false;
 
-        public IList<IInlineElement> Parse(IList<MarkdownInline> inlines){
+        public IList<IInlineElement> Parse(ContainerInline inlines){
             ParseCalled = true;
             return null;
         }

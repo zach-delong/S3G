@@ -1,13 +1,9 @@
 using Xunit;
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
-using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-
-using StaticSiteGenerator.Markdown.InlineElement;
-using StaticSiteGenerator.Markdown.InlineElementConverter;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using StaticSiteGenerator.UnitTests.Markdown.Doubles;
+using Markdig.Syntax;
 
 namespace Test.Markdown.BlockConverter
 {
@@ -24,16 +20,17 @@ namespace Test.Markdown.BlockConverter
         {
             HeaderConverter converter = GetHeaderConverter();
 
-            var blockInput = new HeaderBlock {
-                HeaderLevel = headerLevel
-            };
+            var blockInput = new HeadingBlock(null);
 
-            var result = (Header) converter.Convert(blockInput);
+            blockInput.Level = headerLevel;
+
+            var result = (Header)converter.Convert(blockInput);
 
             Assert.Equal(result.Level, headerLevel);
         }
 
-        private HeaderConverter GetHeaderConverter(){
+        private HeaderConverter GetHeaderConverter()
+        {
             return new HeaderConverter(new TestInlineParser());
         }
 

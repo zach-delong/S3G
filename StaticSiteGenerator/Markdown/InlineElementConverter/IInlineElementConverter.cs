@@ -1,10 +1,10 @@
 using StaticSiteGenerator.Markdown.InlineElement;
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
+using Markdig.Syntax.Inlines;
 
 namespace StaticSiteGenerator.Markdown.InlineElementConverter
 {
     public interface IInlineElementConverter
     {
-        IInlineElement Convert(MarkdownInline inline);
+        IInlineElement Convert(IInline inline);
     }
 }

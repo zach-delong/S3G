@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
-
 using StaticSiteGenerator.Markdown.InlineElement;
+using Markdig.Syntax.Inlines;
 
 namespace StaticSiteGenerator.Markdown.Parser.InlineParser
 {
     public interface IMarkdownInlineParser
     {
-        IList<IInlineElement> Parse(IList<MarkdownInline> inlines);
+        IList<IInlineElement> Parse(ContainerInline inlines);
     }
 }
