@@ -5,6 +5,7 @@ using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.FileManipulation.FileException;
 
 using StaticSiteGenerator.UnitTests.Helpers;
+using System.IO.Abstractions;
 
 namespace StaticSiteGenerator.UnitTests.FileManipulation
 {
@@ -13,7 +14,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
         [Fact]
         public void FileDoesNotExist()
         {
-            var FileReader = new FileReader();
+            var FileReader = new FileReader(new FileSystem());
 
             var filePath = "NonExistantFileName.txt";
 
@@ -25,7 +26,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
         {
             using(var file = TempFileHelper.GetTempTextFile())
             {
-                var fileReader = new FileReader();
+                var fileReader = new FileReader(new FileSystem());
 
                 var fileContents = fileReader.ReadFile(file.Path);
 
@@ -41,7 +42,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                 var contents = "Test File Contents";
                 file.WriteToFile(contents);
 
-                var fileReader = new FileReader();
+                var fileReader = new FileReader(new FileSystem());
 
                 var fileContents = fileReader.ReadFile(file.Path);
 

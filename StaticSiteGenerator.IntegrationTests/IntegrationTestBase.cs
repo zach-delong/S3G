@@ -1,28 +1,32 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO.Abstractions.TestingHelpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace StaticSiteGenerator.IntegrationTests
 {
-    public class IntegrationTestBase
+    public abstract class IntegrationTestBase
     {
-        protected IDictionary<string, string> FileSystemCache = new ConcurrentDictionary<string, string>();
+        protected IDictionary<string, MockFileData> FileSystemCache = new Dictionary<string, MockFileData>();
 
-        protected IServiceProvider ServiceProvider
+        private IServiceProvider provider;
+        public IServiceProvider ServiceProvider
         {
             get
             {
-                ServiceCollection serviceCollection = new ServiceCollection();
-
-                serviceCollection.AddCustomServices();
-                serviceCollection.OverrideFileReadingLayerWithDictionary(FileSystemCache);
-                serviceCollection.MockFileWriter(FileSystemCache);
-                serviceCollection.MockCliOptions("template", "input", "output");
-
-                return serviceCollection.BuildServiceProvider();
+                return provider ?? (provider = GetNewServiceProvider());
             }
         }
 
+        private IServiceProvider GetNewServiceProvider()
+        {
+            ServiceCollection serviceCollection = new ServiceCollection();
+
+            serviceCollection.AddCustomServices();
+            serviceCollection.OverrideFileReadingLayerWithDictionary(FileSystemCache);
+            serviceCollection.MockCliOptions("template", "input", "output");
+
+            return serviceCollection.BuildServiceProvider();
+        }
     }
 }
