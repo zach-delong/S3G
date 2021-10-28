@@ -9,12 +9,12 @@ namespace StaticSiteGenerator.FileManipulation.FileListing
     /// </summary
     public class DeferredExecutionDirectoryEnumerator : IDirectoryEnumerator
     {
+        private readonly IFileSystem FileSystem;
+
         public DeferredExecutionDirectoryEnumerator(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
         }
-
-        private IFileSystem FileSystem { get; }
 
         public IEnumerable<string> GetChildren(string path, string pattern)
         {
