@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
+using System.Linq;
 using Moq;
 using StaticSiteGenerator.FileManipulation;
 
@@ -10,9 +11,7 @@ namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation
     {
         public static Mock<FileReader> Get(IDictionary<string, string> fileNameToResults)
         {
-            var cache = GetFileDataDictionary(fileNameToResults);
-
-            var fileSystem = new MockFileSystem(cache);
+            var fileSystem = new MockFileSystem(GetFileDataDictionary(fileNameToResults));
 
             var mock = new Mock<FileReader>(fileSystem);
 
@@ -27,13 +26,7 @@ namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation
 
         private static IDictionary<string, MockFileData> GetFileDataDictionary(IDictionary<string, string> fileNameToResults)
         {
-            var cache = new Dictionary<string, MockFileData>();
-            foreach (var kvp in fileNameToResults)
-            {
-                cache.Add(kvp.Key, new MockFileData(kvp.Value));
-            }
-
-            return cache;
+            return fileNameToResults.ToDictionary(d => d.Key, d => new MockFileData(d.Value));
         }
     }
 }
