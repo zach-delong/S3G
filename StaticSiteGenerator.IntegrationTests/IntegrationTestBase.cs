@@ -14,7 +14,7 @@ namespace StaticSiteGenerator.IntegrationTests
         {
             get
             {
-                return provider ?? (provider = GetNewServiceProvider());
+                return provider ??=  GetNewServiceProvider();
             }
         }
 
