@@ -10,13 +10,7 @@ namespace StaticSiteGenerator.IntegrationTests
         protected IDictionary<string, MockFileData> FileSystemCache = new Dictionary<string, MockFileData>();
 
         private IServiceProvider provider;
-        public IServiceProvider ServiceProvider
-        {
-            get
-            {
-                return provider ??=  GetNewServiceProvider();
-            }
-        }
+        public IServiceProvider ServiceProvider => provider ??= GetNewServiceProvider();
 
         private IServiceProvider GetNewServiceProvider()
         {
