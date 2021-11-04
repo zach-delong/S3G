@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO.Abstractions;
 using System.Linq;
 using StaticSiteGenerator.FileManipulation.FileListing;
 using StaticSiteGenerator.UnitTests.Helpers;
@@ -35,7 +36,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                     folders.Add(item);
                 }
 
-                var sut = new DeferredExecutionDirectoryEnumerator();
+                var sut = new DeferredExecutionDirectoryEnumerator(new FileSystem());
 
                 var result = sut.GetChildren(directory.Path, "*").ToList();
 
@@ -63,7 +64,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                     files.Add(item: item);
                 }
 
-                var sut = new DeferredExecutionDirectoryEnumerator();
+                var sut = new DeferredExecutionDirectoryEnumerator(new FileSystem());
 
                 var result = sut.GetFiles(directory.Path, "*").ToList();
 
@@ -90,7 +91,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                     folders.Add(item: item);
                 }
 
-                var sut = new DeferredExecutionDirectoryEnumerator();
+                var sut = new DeferredExecutionDirectoryEnumerator(new FileSystem());
 
                 var result = sut.GetDirectories(directory.Path, "*").ToList();
 

@@ -1,5 +1,7 @@
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO.Abstractions.TestingHelpers;
+using StaticSiteGenerator.IntegrationTests.Utilities;
 
 namespace StaticSiteGenerator.IntegrationTests.Tests
 {
@@ -8,17 +10,18 @@ namespace StaticSiteGenerator.IntegrationTests.Tests
         [Fact]
         public void ParagraphShouldParseCorrectly()
         {
-            FileSystemCache.Add("templates/template/tag_templates/p.html", "<p>{{}}</p>");
-            FileSystemCache.Add("templates/template/site_template.html", "<html>{{}}</html>");
-            FileSystemCache.Add("input/file1.md", "This is some text!");
+            FileSystemCache.Add("templates/template/tag_templates/p.html", new MockFileData("<p>{{}}</p>"));
+            FileSystemCache.Add("templates/template/site_template.html", new MockFileData("<html>{{}}</html>"));
+            FileSystemCache.Add("output/.tmp", new MockFileData(""));
+            FileSystemCache.Add("input/file1.md", new MockFileData("This is some text!"));
 
             ServiceProvider.GetService<StaticSiteGenerator>().Start();
 
             const string expectedContent = @"<html><p>This is some text!</p></html>";
             const string expectedName = "output/file1.html";
 
-            Assert.True(FileSystemCache.ContainsKey(expectedName));
-            Assert.Equal(expectedContent, FileSystemCache[expectedName]);
+            Assert.True(this.FileExists(expectedName));
+            Assert.Equal(expectedContent, this.ReadFileContents(expectedName));
         }
     }
 }
