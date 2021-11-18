@@ -6,9 +6,9 @@ using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using Xunit;
-using StaticSiteGenerator.Utilities.StrategyPattern;
 using StaticSiteGenerator.UnitTests.Doubles;
 using Markdig.Syntax;
+using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 
 namespace Test.Markdown.Parser
 {

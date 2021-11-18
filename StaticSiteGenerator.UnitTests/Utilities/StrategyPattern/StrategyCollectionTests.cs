@@ -6,6 +6,7 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 using StaticSiteGenerator.Markdown.InlineElement;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using Markdig.Syntax.Inlines;
+using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 
 namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
 {
@@ -21,7 +22,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
         [FakeStrategyMapper(nameof(Object))]
         private class FakeConverterWithAttribute : IInlineElementConverter
         {
-            public IInlineElement Convert(IInline inline)
+            public IInlineElement Execute(IInline inline)
             {
                 throw new NotImplementedException();
             }
@@ -29,7 +30,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
 
         private class FakeConverterWithoutAttribute : IInlineElementConverter
         {
-            public IInlineElement Convert(IInline inline)
+            public IInlineElement Execute(IInline inline)
             {
                 throw new NotImplementedException();
             }
@@ -46,7 +47,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
                     mockConverter
             });
 
-            var strategy = strategyCollection.GetConverterForType(dummyObject.GetType());
+            var strategy = strategyCollection.GetStrategyForType(dummyObject.GetType());
 
             Assert.IsType(mockConverter.GetType(), strategy);
         }
@@ -97,7 +98,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern
 
             Assert.Throws<StrategyNotFoundException>(() =>
             {
-                var strategy = strategyCollection.GetConverterForType(mockConverter.GetType());
+                var strategy = strategyCollection.GetStrategyForType(mockConverter.GetType());
             });
 
         }

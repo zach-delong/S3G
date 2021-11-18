@@ -6,7 +6,7 @@ namespace StaticSiteGenerator.Markdown.InlineElementConverter
     [MarkdownConverterForAttribute(nameof(LiteralInline))]
     public class TextElementConverter: IInlineElementConverter
     {
-        public IInlineElement Convert(IInline inline)
+        public IInlineElement Execute(IInline inline)
         {
             var textRun = (LiteralInline)inline;
 

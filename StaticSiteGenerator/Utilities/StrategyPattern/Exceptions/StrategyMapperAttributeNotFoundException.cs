@@ -1,6 +1,6 @@
 using System;
 
-namespace StaticSiteGenerator.Utilities.StrategyPattern
+namespace StaticSiteGenerator.Utilities.StrategyPattern.Exceptions
 {
     public class StrategyMapperAttributeNotFoundException : Exception
     {

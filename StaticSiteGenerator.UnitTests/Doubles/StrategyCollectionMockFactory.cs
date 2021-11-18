@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Moq;
 using StaticSiteGenerator.Utilities.StrategyPattern;
+using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 
 namespace Test.Markdown.Parser
 {
@@ -11,7 +12,7 @@ namespace Test.Markdown.Parser
         {
             var mock = new Mock<StrategyCollection<T>>(new List<T>());
 
-            mock.Setup(c => c.GetConverterForType(It.IsAny<Type>()))
+            mock.Setup(c => c.GetStrategyForType(It.IsAny<Type>()))
                 .Returns<Type>((p) =>
                 {
                     if(strategyMappings.TryGetValue(p.Name, out T value))

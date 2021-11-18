@@ -17,6 +17,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown.BlockConverter
         {
             var testInlineParser = new TestInlineParser();
             var logger = loggerMockFactory.Get<ParagraphConverter>().Object;
+
             ParagraphConverter converter = new ParagraphConverter(testInlineParser, logger);
 
             var paragraph = new ParagraphBlock();

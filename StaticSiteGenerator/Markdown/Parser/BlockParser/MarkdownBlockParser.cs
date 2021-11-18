@@ -38,7 +38,7 @@ namespace StaticSiteGenerator.Markdown.Parser.BlockParser
         public IBlockElement Parse(IBlock block)
         {
             Logger.LogDebug($"Attempting to convert block from {block.GetType()}");
-            var converter = Converters.GetConverterForType(block.GetType());
+            var converter = Converters.GetStrategyForType(block.GetType());
 
             return converter.Convert(block);
         }

@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using StaticSiteGenerator.Markdown.InlineElement;
 using Markdig.Syntax.Inlines;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Markdown.Parser.InlineParser
 {
-    public interface IMarkdownInlineParser
+    public interface IMarkdownInlineParser: IStrategyExcecutor<IInline, IInlineElement>
     {
-        IList<IInlineElement> Parse(ContainerInline inlines);
     }
 }

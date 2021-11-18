@@ -21,7 +21,7 @@ namespace Test.Markdown.ImnlineConverter
             };
             var textConverter = new TextElementConverter();
 
-            var result = textConverter.Convert(inline);
+            var result = textConverter.Execute(inline);
 
             Assert.Equal(markdownInput, result.Content.Replace("\n", ""));
         }

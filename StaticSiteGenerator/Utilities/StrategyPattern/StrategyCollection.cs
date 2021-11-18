@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 
 namespace StaticSiteGenerator.Utilities.StrategyPattern
 {
@@ -12,6 +13,10 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
         public StrategyCollection(IEnumerable<T> strategies)
         {
             SetCollection(strategies);
+        }
+
+        public StrategyCollection()
+        {
         }
 
         public void SetCollection(IEnumerable<T> strategies)
@@ -38,7 +43,7 @@ namespace StaticSiteGenerator.Utilities.StrategyPattern
 
         }
 
-        public virtual T GetConverterForType(Type t)
+        public virtual T GetStrategyForType(Type t)
         {
             if(!Strategies.ContainsKey(t.Name))
             {

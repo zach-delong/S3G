@@ -1,7 +1,10 @@
+using System;
+using System.Linq;
 using Markdig.Syntax;
+using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.BlockElement;
-
-using StaticSiteGenerator.Markdown.Parser.InlineParser;
+using StaticSiteGenerator.Markdown.InlineElement;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
@@ -9,8 +12,9 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
     public class HeaderConverter: IBlockElementConverter
     {
 
-        private readonly IMarkdownInlineParser InlineParser;
-        public HeaderConverter(IMarkdownInlineParser inlineParser)
+        private readonly IStrategyExcecutor<IInline, IInlineElement> InlineParser;
+
+        public HeaderConverter(IStrategyExcecutor<IInline, IInlineElement> inlineParser)
         {
             InlineParser = inlineParser;
         }
@@ -21,8 +25,8 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
             return new Header
             {
                 Level = (byte)header.Level,
-                Inlines = InlineParser.Parse(header.Inline)
-        };
+                Inlines = InlineParser.Process(header.Inline)?.ToList()
+            };
         }
     }
 }

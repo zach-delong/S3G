@@ -24,7 +24,7 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters
 
         public string Convert(IBlockElement block)
         {
-            var blockConverter = BlockConverters.GetConverterForType(block.GetType());
+            var blockConverter = BlockConverters.GetStrategyForType(block.GetType());
 
             return blockConverter.Convert(block);
         }

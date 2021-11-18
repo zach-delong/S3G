@@ -24,7 +24,7 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters
 
         public virtual string Convert(IInlineElement inline)
         {
-            var inlineConverter = InlineElementConverters.GetConverterForType(inline.GetType());
+            var inlineConverter = InlineElementConverters.GetStrategyForType(inline.GetType());
 
             return inlineConverter.Convert(inline);
         }

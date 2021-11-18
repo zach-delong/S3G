@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Xunit;
 using StaticSiteGenerator.Markdown.BlockElement;
 using Test.Markdown.Parser;
-using StaticSiteGenerator.Utilities.StrategyPattern;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 using StaticSiteGenerator.MarkdownHtmlConversion;
+using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 
 namespace Test.MarkdownHtmlConversion
 {

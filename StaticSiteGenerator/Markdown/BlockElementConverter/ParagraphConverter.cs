@@ -4,16 +4,20 @@ using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.BlockElement;
 using Markdig.Syntax;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using Markdig.Syntax.Inlines;
+using StaticSiteGenerator.Utilities.StrategyPattern;
+using StaticSiteGenerator.Markdown.InlineElement;
 
 namespace StaticSiteGenerator.Markdown.BlockElementConverter
 {
     [MarkdownConverterFor(nameof(ParagraphBlock))]
     public class ParagraphConverter: IBlockElementConverter
     {
-        private readonly IMarkdownInlineParser Parser;
+        private readonly IStrategyExcecutor<IInline, IInlineElement> Parser;
 
         public ParagraphConverter(
-            IMarkdownInlineParser parser,
+            IStrategyExcecutor<IInline, IInlineElement> parser,
             ILogger<ParagraphConverter> logger)
         {
             Parser = parser;
@@ -30,7 +34,7 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
 
             return new Paragraph
             {
-                Inlines = Parser.Parse(paragraph.Inline)
+                Inlines = Parser.Process(paragraph.Inline)?.ToList()
             };
         }
     }

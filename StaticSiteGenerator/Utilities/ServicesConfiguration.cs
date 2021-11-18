@@ -8,6 +8,7 @@ namespace StaticSiteGenerator.Utilities
         public static void AddUtilities(this IServiceCollection services)
         {
             services.AddTransient(typeof(StrategyCollection<>), typeof(StrategyCollection<>));
+            services.AddTransient(typeof(IStrategyExcecutor<,>), typeof(GenericStrategyExecutor<,>));
         }
     }
 }

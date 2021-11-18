@@ -5,6 +5,9 @@ using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using StaticSiteGenerator.Markdown.Parser;
 using StaticSiteGenerator.Markdown.Parser.InlineParser;
+using StaticSiteGenerator.Utilities.StrategyPattern;
+using Markdig.Syntax.Inlines;
+using StaticSiteGenerator.Markdown.InlineElement;
 
 namespace StaticSiteGenerator.Markdown
 {
@@ -12,7 +15,7 @@ namespace StaticSiteGenerator.Markdown
     {
         public static void AddMarkdownConverters(this IServiceCollection services)
         {
-            services.AddTransient<IInlineElementConverter, TextElementConverter>();
+            services.AddTransient<IStrategy<IInline, IInlineElement>, TextElementConverter>();
 
             services.AddTransient<IBlockElementConverter, HeaderConverter>();
             services.AddTransient<IBlockElementConverter, ParagraphConverter>();
@@ -20,7 +23,6 @@ namespace StaticSiteGenerator.Markdown
 
         public static void AddMarkdownParsers(this IServiceCollection services)
         {
-            services.AddTransient<IMarkdownInlineParser, MarkdownInlineParser>();
             services.AddTransient<IMarkdownBlockParser, MarkdownBlockParser>();
 
             services.AddTransient<IMarkdownFileParser, MarkdownFileParser>();
