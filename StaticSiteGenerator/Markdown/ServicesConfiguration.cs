@@ -4,7 +4,6 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using StaticSiteGenerator.Markdown.Parser;
-using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.InlineElement;

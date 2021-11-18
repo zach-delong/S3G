@@ -1,6 +1,5 @@
 using System;
 
-using StaticSiteGenerator.Markdown.Parser.InlineParser;
 using StaticSiteGenerator.Markdown.BlockElement;
 using Markdig.Syntax;
 using Microsoft.Extensions.Logging;
