@@ -31,7 +31,7 @@ namespace Test.Markdown.BlockConverter
             blockInput.Level = headerLevel;
             blockInput.Inline = new ContainerInline();
 
-            var result = (Header)converter.Convert(blockInput);
+            var result = (Header)converter.Execute(blockInput);
 
             Assert.Equal(result.Level, headerLevel);
         }

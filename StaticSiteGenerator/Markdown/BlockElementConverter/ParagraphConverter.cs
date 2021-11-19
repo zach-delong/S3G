@@ -25,7 +25,7 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
 
         private ILogger<ParagraphConverter> Logger { get; }
 
-        public IBlockElement Convert(IBlock block)
+        public IBlockElement Execute(IBlock block)
         {
             Markdig.Syntax.ParagraphBlock paragraph = (Markdig.Syntax.ParagraphBlock)block;
 

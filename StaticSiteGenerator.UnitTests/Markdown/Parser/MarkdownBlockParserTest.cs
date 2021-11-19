@@ -54,7 +54,7 @@ namespace Test.Markdown.Parser
         private class TestConverter: IBlockElementConverter
         {
             public bool ConverterCalled = false;
-            public IBlockElement Convert(IBlock block)
+            public IBlockElement Execute(IBlock block)
             {
                 ConverterCalled = true;
                 return null;

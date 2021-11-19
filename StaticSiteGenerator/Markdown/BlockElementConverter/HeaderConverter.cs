@@ -19,7 +19,7 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
             InlineParser = inlineParser;
         }
 
-        public IBlockElement Convert(IBlock block)
+        public IBlockElement Execute(IBlock block)
         {
             Markdig.Syntax.HeadingBlock header = (Markdig.Syntax.HeadingBlock)block;
             return new Header

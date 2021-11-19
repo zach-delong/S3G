@@ -22,7 +22,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown.BlockConverter
 
             var paragraph = new ParagraphBlock();
 
-            converter.Convert(paragraph);
+            converter.Execute(paragraph);
 
             Assert.True(testInlineParser.ParseCalled);
         }

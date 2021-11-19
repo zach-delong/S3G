@@ -40,7 +40,7 @@ namespace StaticSiteGenerator.Markdown.Parser.BlockParser
             Logger.LogDebug($"Attempting to convert block from {block.GetType()}");
             var converter = Converters.GetStrategyForType(block.GetType());
 
-            return converter.Convert(block);
+            return converter.Execute(block);
         }
     }
 }
