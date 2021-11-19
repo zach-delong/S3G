@@ -4,7 +4,6 @@ using StaticSiteGenerator.Markdown.BlockElementConverter;
 
 using StaticSiteGenerator.UnitTests.Markdown.Doubles;
 using Markdig.Syntax;
-using System;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.InlineElement;
