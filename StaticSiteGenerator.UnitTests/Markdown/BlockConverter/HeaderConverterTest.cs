@@ -39,7 +39,7 @@ namespace Test.Markdown.BlockConverter
         private HeaderConverter GetHeaderConverter()
         {
             var parser = new TestInlineParser();
-            return new HeaderConverter((IStrategyExcecutor<IInlineElement, IInline>)parser);
+            return new HeaderConverter((IStrategyExecutor<IInlineElement, IInline>)parser);
         }
     }
 }

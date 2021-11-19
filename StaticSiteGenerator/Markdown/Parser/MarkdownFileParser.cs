@@ -13,12 +13,12 @@ namespace StaticSiteGenerator.Markdown.Parser
     public class MarkdownFileParser : IMarkdownFileParser
     {
         private readonly FileReader fileParser;
-        private readonly IStrategyExcecutor<IBlockElement, IBlock> markdownParser;
+        private readonly IStrategyExecutor<IBlockElement, IBlock> markdownParser;
         private readonly ILogger<MarkdownFileParser> logger;
 
         public MarkdownFileParser(
             FileReader fileParser,
-            IStrategyExcecutor<IBlockElement, IBlock> markdownParser,
+            IStrategyExecutor<IBlockElement, IBlock> markdownParser,
             ILogger<MarkdownFileParser> logger
         )
         {

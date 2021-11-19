@@ -13,10 +13,10 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
     [MarkdownConverterFor(nameof(ParagraphBlock))]
     public class ParagraphConverter: IBlockElementConverter
     {
-        private readonly IStrategyExcecutor<IInlineElement, IInline> Parser;
+        private readonly IStrategyExecutor<IInlineElement, IInline> Parser;
 
         public ParagraphConverter(
-            IStrategyExcecutor<IInlineElement, IInline> parser,
+            IStrategyExecutor<IInlineElement, IInline> parser,
             ILogger<ParagraphConverter> logger)
         {
             Parser = parser;

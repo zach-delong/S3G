@@ -29,7 +29,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
 
             // Arrange
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
-            var mockMarkdownParser = new Mock<IStrategyExcecutor<IBlockElement, IBlock>>();
+            var mockMarkdownParser = new Mock<IStrategyExecutor<IBlockElement, IBlock>>();
             var mockedLogger = new Mock<ILogger<MarkdownFileParser>>();
 
             var fileParser = new MarkdownFileParser(mockReader.Object,
@@ -55,7 +55,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
 
             // Arrange
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
-            var mockMarkdownParser = new Mock<IStrategyExcecutor<IBlockElement, IBlock>>();
+            var mockMarkdownParser = new Mock<IStrategyExecutor<IBlockElement, IBlock>>();
             var mockLogger = new Mock<ILogger<MarkdownFileParser>>();
 
             var fileParser = new MarkdownFileParser(mockReader.Object,
