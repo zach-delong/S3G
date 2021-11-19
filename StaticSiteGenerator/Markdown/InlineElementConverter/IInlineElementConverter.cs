@@ -4,7 +4,7 @@ using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Markdown.InlineElementConverter
 {
-    public interface IInlineElementConverter: IStrategy<IInline, IInlineElement>
+    public interface IInlineElementConverter: IStrategy<IInlineElement, IInline>
     {
         new IInlineElement Execute(IInline inline);
     }

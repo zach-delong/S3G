@@ -12,9 +12,9 @@ namespace StaticSiteGenerator.Markdown.BlockElementConverter
     public class HeaderConverter: IBlockElementConverter
     {
 
-        private readonly IStrategyExcecutor<IInline, IInlineElement> InlineParser;
+        private readonly IStrategyExcecutor<IInlineElement, IInline> InlineParser;
 
-        public HeaderConverter(IStrategyExcecutor<IInline, IInlineElement> inlineParser)
+        public HeaderConverter(IStrategyExcecutor<IInlineElement, IInline> inlineParser)
         {
             InlineParser = inlineParser;
         }

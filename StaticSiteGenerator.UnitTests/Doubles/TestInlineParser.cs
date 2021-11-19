@@ -6,7 +6,7 @@ using Markdig.Syntax.Inlines;
 
 namespace StaticSiteGenerator.UnitTests.Markdown.Doubles
 {
-    public class TestInlineParser: IStrategyExcecutor<IInline, IInlineElement>
+    public class TestInlineParser: IStrategyExcecutor<IInlineElement, IInline>
     {
         public bool ParseCalled = false;
 

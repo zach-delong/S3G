@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace StaticSiteGenerator.Utilities.StrategyPattern
 {
-    public class GenericStrategyExecutor<input, result> : IStrategyExcecutor<input, result>
+    public class GenericStrategyExecutor<result, input> : IStrategyExcecutor<result, input>
     {
-        private readonly StrategyCollection<IStrategy<input, result>> strategies;
+        private readonly StrategyCollection<IStrategy<result, input>> strategies;
 
-        public GenericStrategyExecutor(StrategyCollection<IStrategy<input, result>> strategies)
+        public GenericStrategyExecutor(StrategyCollection<IStrategy<result, input>> strategies)
         {
             this.strategies = strategies;
         }

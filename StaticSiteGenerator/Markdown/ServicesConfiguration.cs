@@ -14,7 +14,7 @@ namespace StaticSiteGenerator.Markdown
     {
         public static void AddMarkdownConverters(this IServiceCollection services)
         {
-            services.AddTransient<IStrategy<IInline, IInlineElement>, TextElementConverter>();
+            services.AddTransient<IStrategy<IInlineElement, IInline>, TextElementConverter>();
 
             services.AddTransient<IBlockElementConverter, HeaderConverter>();
             services.AddTransient<IBlockElementConverter, ParagraphConverter>();
