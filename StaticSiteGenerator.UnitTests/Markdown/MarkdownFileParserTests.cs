@@ -4,10 +4,11 @@ using Markdig.Syntax;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.Markdown.Parser;
-using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.UnitTests.Helpers;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 using Xunit;
 
 namespace StaticSiteGenerator.UnitTests.Markdown
@@ -28,7 +29,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
 
             // Arrange
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
-            var mockMarkdownParser = new Mock<IMarkdownBlockParser>();
+            var mockMarkdownParser = new Mock<IStrategyExcecutor<IBlockElement, IBlock>>();
             var mockedLogger = new Mock<ILogger<MarkdownFileParser>>();
 
             var fileParser = new MarkdownFileParser(mockReader.Object,
@@ -40,7 +41,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
 
             //Assert
             mockReader.Verify(m => m.ReadFile(It.IsAny<string>()), Times.Never());
-            mockMarkdownParser.Verify(m => m.Parse(It.IsAny<MarkdownDocument>()), Times.Never());
+            mockMarkdownParser.Verify(m => m.Process(It.IsAny<MarkdownDocument>()), Times.Never());
         }
 
         [Theory]
@@ -54,7 +55,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
 
             // Arrange
             var mockReader = FileReaderMockFactory.Get(fileNames.ToDictionary(name => name, name => ""));
-            var mockMarkdownParser = new Mock<IMarkdownBlockParser>();
+            var mockMarkdownParser = new Mock<IStrategyExcecutor<IBlockElement, IBlock>>();
             var mockLogger = new Mock<ILogger<MarkdownFileParser>>();
 
             var fileParser = new MarkdownFileParser(mockReader.Object,
@@ -67,7 +68,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
 
             //Assert
             mockReader.Verify(m => m.ReadFile(It.IsAny<string>()), Times.Exactly(numberOfFiles));
-            mockMarkdownParser.Verify(m => m.Parse(It.IsAny<MarkdownDocument>()), Times.Exactly(numberOfFiles));
+            mockMarkdownParser.Verify(m => m.Process(It.IsAny<MarkdownDocument>()), Times.Exactly(numberOfFiles));
         }
     }
 }

@@ -1,22 +1,24 @@
 using System.Collections.Generic;
 using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.Markdown.Parser.BlockParser;
 using System.IO;
 using System;
 using Microsoft.Extensions.Logging;
+using StaticSiteGenerator.Utilities.StrategyPattern;
+using Markdig.Syntax;
+using System.Linq;
 
 namespace StaticSiteGenerator.Markdown.Parser
 {
     public class MarkdownFileParser : IMarkdownFileParser
     {
         private readonly FileReader fileParser;
-        private readonly IMarkdownBlockParser markdownParser;
+        private readonly IStrategyExcecutor<IBlockElement, IBlock> markdownParser;
         private readonly ILogger<MarkdownFileParser> logger;
 
         public MarkdownFileParser(
             FileReader fileParser,
-            IMarkdownBlockParser markdownParser,
+            IStrategyExcecutor<IBlockElement, IBlock> markdownParser,
             ILogger<MarkdownFileParser> logger
         )
         {
@@ -59,9 +61,9 @@ namespace StaticSiteGenerator.Markdown.Parser
         {
             var document = Markdig.Markdown.Parse(markdownFileContents);
 
-            var interalMarkdownTypedFile = markdownParser.Parse(document);
+            var interalMarkdownTypedFile = markdownParser.Process(document);
 
-            return interalMarkdownTypedFile;
+            return interalMarkdownTypedFile.ToList();
         }
 
     }
