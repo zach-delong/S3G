@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.MarkdownHtmlConversion
 {
     public class MarkdownConverter : IMarkdownConverter
     {
 
-        readonly IMarkdownBlockConverter BlockConverter;
+        readonly IStrategyExecutor<string, IBlockElement> BlockConverter;
 
         public readonly CliOptions Options;
 
-        public MarkdownConverter(IMarkdownBlockConverter blockConverter, CliOptions options)
+        public MarkdownConverter(IStrategyExecutor<string, IBlockElement> blockConverter, CliOptions options)
         {
             BlockConverter = blockConverter;
             Options = options;
@@ -22,7 +22,7 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion
 
         public string Convert(IList<IBlockElement> markdownFile)
         {
-            return BlockConverter.Convert(markdownFile);
+            return String.Join(Environment.NewLine, BlockConverter.Process(markdownFile));
         }
 
         public IEnumerable<IHtmlFile> Convert(IEnumerable<IMarkdownFile> markdownFiles)

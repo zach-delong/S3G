@@ -1,8 +1,10 @@
 
 using Microsoft.Extensions.DependencyInjection;
+using StaticSiteGenerator.Markdown.BlockElement;
+using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
-using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.MarkdownHtmlConversion
 {
@@ -10,13 +12,10 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion
     {
         public static void AddHtmlConverters(this IServiceCollection services)
         {
-            services.AddTransient<IBlockHtmlConverterStrategy, HeaderHtmlConverterStrategy>();
-            services.AddTransient<IBlockHtmlConverterStrategy, ParagraphHtmlConverterStrategy>();
+            services.AddTransient<IStrategy<string, IBlockElement>, HeaderHtmlConverterStrategy>();
+            services.AddTransient<IStrategy<string, IBlockElement>, ParagraphHtmlConverterStrategy>();
 
-            services.AddTransient<IInlineConverterStrategy, TextConverter>();
-
-            services.AddTransient<IMarkdownBlockConverter, MarkdownBlockConverter>();
-            services.AddTransient<IMarkdownInlineConverter, MarkdownInlineConverter>();
+            services.AddTransient<IStrategy<string, IInlineElement>, TextConverter>();
 
             services.AddTransient<IMarkdownConverter, MarkdownConverter>();
         }

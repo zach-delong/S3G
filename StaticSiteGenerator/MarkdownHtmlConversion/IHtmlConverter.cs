@@ -1,8 +1,7 @@
+using StaticSiteGenerator.Utilities.StrategyPattern;
+
 namespace StaticSiteGenerator.MarkdownHtmlConversion
 {
-    public interface IHtmlConverter<T>
-    {
-        string Convert(T foo);
-
-    }
+    public interface IHtmlConverter<input>: IStrategy<string, input>
+    {}
 }

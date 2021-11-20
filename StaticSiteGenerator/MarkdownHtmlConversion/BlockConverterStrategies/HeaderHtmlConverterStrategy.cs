@@ -1,20 +1,23 @@
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
+using StaticSiteGenerator.Utilities.StrategyPattern;
+using StaticSiteGenerator.Markdown.InlineElement;
+using System.Linq;
+using System;
 
 namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies
 {
     [HtmlConverterFor(nameof(Header))]
     public class HeaderHtmlConverterStrategy : IBlockHtmlConverterStrategy
     {
-        private readonly IMarkdownInlineConverter InlineConverter;
+        private readonly IStrategyExecutor<string, IInlineElement> InlineConverter;
         private readonly ITemplateTagCollection TemplateTagCollection;
 
         public readonly ITemplateFiller TemplateFiller;
 
-        public HeaderHtmlConverterStrategy(IMarkdownInlineConverter inlineConverter,
+        public HeaderHtmlConverterStrategy(IStrategyExecutor<string, IInlineElement> inlineConverter,
                                        ITemplateTagCollection templateCollection,
                                        ITemplateFiller templateFiller)
         {
@@ -23,12 +26,12 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies
             TemplateFiller = templateFiller;
         }
 
-        public string Convert(IBlockElement block)
+        public string Execute(IBlockElement block)
         {
             var template = TemplateTagCollection.GetTagForType(TagType.Header1);
-            var inlineText = InlineConverter.Convert(((Header)block).Inlines);
+            var inlineText = InlineConverter.Process(((Header)block).Inlines).ToList();
 
-            return TemplateFiller.Fill(template, inlineText);
+            return TemplateFiller.Fill(template, String.Join(Environment.NewLine, inlineText));
         }
     }
 }

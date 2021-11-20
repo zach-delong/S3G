@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-
 using Moq;
 using Xunit;
 using StaticSiteGenerator.Markdown.InlineElement;
@@ -8,22 +7,21 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
-using Test.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 
 namespace Test.MarkdownHtmlConversion.BlockConverterStrategies
 {
 
-    public class TestHeaderBlockConverterStrategy
+    public class HeaderConverterStrategyTest
     {
         private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
         private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
-        private MarkdownInlineHtmlConverterMockFactory inlineConverterMockFactory => new MarkdownInlineHtmlConverterMockFactory();
+        private StrategyExecutorMockFactory inlineConverterMockFactory => new StrategyExecutorMockFactory();
 
         [Fact]
         public void Test()
         {
-            var inlineConverterMock = inlineConverterMockFactory.Get("TestText");
+            var inlineConverterMock = inlineConverterMockFactory.Get<string, IInlineElement>(new [] { "TestText" });
 
             Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
                 .Get(new List<TemplateTag> {
@@ -44,7 +42,7 @@ namespace Test.MarkdownHtmlConversion.BlockConverterStrategies
             {
                 Inlines = new List<IInlineElement>()
             };
-            var result = converter.Convert(headerBlock);
+            var result = converter.Execute(headerBlock);
 
             Assert.Equal("<h1>TestText</h1>", result);
         }

@@ -19,7 +19,7 @@ namespace StaticSiteGenerator.UnitTests.MarkdownHtmlConversion.InlineConverter
               Content = input
           };
 
-          var output = converter.Convert(TextElement);
+          var output = converter.Execute(TextElement);
 
           Assert.Equal(output, input);
         }

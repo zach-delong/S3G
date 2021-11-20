@@ -54,7 +54,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
 
             var result = converter.Convert(new List<IMarkdownFile> { markdownFile, markdownFile});
 
-            mock.Verify(m => m.Convert(It.IsAny<IList<IBlockElement>>()), Times.Never());
+            mock.Verify(m => m.Process(It.IsAny<IList<IBlockElement>>()), Times.Never());
         }
 
         [Theory]
@@ -83,7 +83,7 @@ namespace StaticSiteGenerator.UnitTests.Markdown
             var result = converter.Convert(list)
                                   .ToList();
 
-            mock.Verify(m => m.Convert(It.IsAny<IList<IBlockElement>>()), Times.Exactly(numFiles));
+            mock.Verify(m => m.Process(It.IsAny<IList<IBlockElement>>()), Times.Exactly(numFiles));
         }
     }
 }

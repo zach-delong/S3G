@@ -8,7 +8,6 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using Test.Markdown.Parser;
 using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
-using Test.TemplateSubstitution.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 
 namespace Test.MarkdownHtmlconversion.BlockConverterStrategies
@@ -18,12 +17,12 @@ namespace Test.MarkdownHtmlconversion.BlockConverterStrategies
     {
         private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
         private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
-        private MarkdownInlineHtmlConverterMockFactory inlineConverterMockFactory => new MarkdownInlineHtmlConverterMockFactory();
+        private StrategyExecutorMockFactory inlineConverterMockFactory => new StrategyExecutorMockFactory();
 
         [Fact]
         public void Test()
         {
-            var inlineConverterMock = inlineConverterMockFactory.Get("TestText");
+            var inlineConverterMock = inlineConverterMockFactory.Get<string, IInlineElement>(new [] { "TestText" });
 
             Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
                 .Get(new List<TemplateTag> {
@@ -44,7 +43,7 @@ namespace Test.MarkdownHtmlconversion.BlockConverterStrategies
             {
                 Inlines = new List<IInlineElement>()
             };
-            var result = converter.Convert(headerBlock);
+            var result = converter.Execute(headerBlock);
 
             Assert.Equal("<p>TestText</p>", result);
         }

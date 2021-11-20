@@ -1,15 +1,14 @@
-using System.Collections.Generic;
 using Moq;
 using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
+using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.UnitTests.Doubles.Markdown
 {
     public class MarkdownBlockConverterMockFactory
     {
-        public Mock<IMarkdownBlockConverter> Get()
+        public Mock<IStrategyExecutor<string, IBlockElement>> Get()
         {
-            var mock = new Mock<IMarkdownBlockConverter>();
+            var mock = new Mock<IStrategyExecutor<string, IBlockElement>>();
 
             return mock;
         }

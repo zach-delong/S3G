@@ -1,20 +1,22 @@
+using StaticSiteGenerator.Utilities.StrategyPattern;
 using StaticSiteGenerator.Markdown.BlockElement;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.MarkdownHtmlConversion.MarkdownHtmlConverters;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
 using System;
+using StaticSiteGenerator.Markdown.InlineElement;
+using System.Linq;
 
 namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies
 {
     [HtmlConverterFor(nameof(Paragraph))]
     public class ParagraphHtmlConverterStrategy : IBlockHtmlConverterStrategy
     {
-        private readonly IMarkdownInlineConverter InlineConverter;
+        private readonly IStrategyExecutor<string, IInlineElement> InlineConverter;
         private readonly ITemplateTagCollection TemplateTagCollection;
         private readonly ITemplateFiller TemplateFiller;
 
-        public ParagraphHtmlConverterStrategy(IMarkdownInlineConverter inlineConverter,
+        public ParagraphHtmlConverterStrategy(IStrategyExecutor<string, IInlineElement> inlineConverter,
                                           ITemplateTagCollection templateCollection,
                                           ITemplateFiller templateFiller)
         {
@@ -22,14 +24,15 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies
             TemplateTagCollection = templateCollection;
             TemplateFiller = templateFiller;
         }
-        public string Convert(IBlockElement block)
+
+        public string Execute(IBlockElement block)
         {
             var b = (Paragraph)block;
             var inlineText = String.Empty;
 
             if (b.Inlines != null)
             {
-                inlineText = InlineConverter.Convert(b.Inlines);
+                inlineText = string.Join(Environment.NewLine, InlineConverter.Process(b.Inlines).ToList());
             }
 
             var template = TemplateTagCollection.GetTagForType(TagType.Paragraph);
