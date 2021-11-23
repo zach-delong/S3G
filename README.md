@@ -44,18 +44,9 @@ website. As such, it should not be considered commercial strength
 
 ## Containerization
 
-These instructions are out of date, though they may still work.
-
-This is an early prototype of containerization for me. You can run the project
-and the tests for the project by building the docker image (from the dockerfile) 
-```
-    sudo docker build -t s3g-image -f Dockerfile .
-```
-
-Then you can run the build and tests by running 
-```
-    sudo docker run -it --rm --name s3g-container s3g-image
-```
-
-Unfortunately for the moment, you will need to re-run the build and the run
-every time you make a code change.
+The containerization is still in a prototype stage, but you can build the
+project using the included dockerfile. The `build.sh` script should build the
+project, run unit tests, and run integration tests. It will also produce an
+image you could use to run the code if you mounted your own site and output
+directory, but you'll have to write your own container to consume this one for
+now.
