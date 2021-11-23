@@ -38,8 +38,8 @@ website. As such, it should not be considered commercial strength
 
 ### Ongoing tasks
 
-- [ ] Covert common *.md tags to HTML
 - [ ] Copy non *.md files to the output directory
+- [ ] Covert common *.md tags to HTML
 - [ ] Build a homepage with treeview navigation
 
 ## Containerization
