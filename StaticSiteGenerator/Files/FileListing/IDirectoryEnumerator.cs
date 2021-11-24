@@ -24,5 +24,7 @@ namespace StaticSiteGenerator.Files.FileListing
         /// given directory that match the given pattern
         /// </summary
         public IEnumerable<string> GetChildren(string path, string pattern);
+
+        public IEnumerable<IFileSystemObject> ListAllContents(string path);
     }
 }

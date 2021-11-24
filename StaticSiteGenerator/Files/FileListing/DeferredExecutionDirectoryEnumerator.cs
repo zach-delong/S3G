@@ -38,5 +38,22 @@ namespace StaticSiteGenerator.Files.FileListing
         {
             return FileSystem.Directory.EnumerateFiles(path, pattern);
         }
+
+        public IEnumerable<IFileSystemObject> ListAllContents(string path)
+        {
+            foreach(var pointer in FileSystem.Directory.EnumerateFileSystemEntries(path))
+            {
+                var attrs = FileSystem.File.GetAttributes(pointer);
+
+                if(attrs.HasFlag(FileAttributes.Directory))
+                {
+                    yield return new Folder(pointer);
+                }
+                else 
+                {
+                    yield return new File(pointer);
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,10 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Abstractions;
+using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
+using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.UnitTests.Helpers;
 using StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
@@ -98,6 +102,35 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                 Assert.Equal(numberOfTestFolders, result.Count);
 
                 folders.ForEach((file) => file.Dispose());
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(TestCaseData))]
+        public void foo(MockFileSystem fileSystem, string pathToExamine, int expectedFiles, int expectedFolders)
+        {
+            // TODO: how should I mock that?
+            var sut = new DeferredExecutionDirectoryEnumerator(fileSystem);
+
+            var objects = sut.ListAllContents(pathToExamine);
+
+            var files = objects.Count(o => o.GetType() == typeof(File));
+            var folders = objects.Count(o => o.GetType() == typeof(Folder));
+
+            Assert.Equal(expectedFiles, files);
+            Assert.Equal(expectedFolders, folders);
+        }
+
+        public static IEnumerable<object[]> TestCaseData
+        {
+            get
+            {
+                var mock = new MockFileSystem();
+
+                mock.AddDirectory("foo");
+                mock.AddFile("bar.txt", new MockFileData("bar!"));
+
+                yield return new object[] { mock, "./", 1, 2 /* note, we always have a /temp directory */ };
             }
         }
     }
