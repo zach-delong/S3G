@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using StaticSiteGenerator.FileManipulation.FileListing;
+using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;

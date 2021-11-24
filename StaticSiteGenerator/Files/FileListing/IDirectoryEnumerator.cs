@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace StaticSiteGenerator.FileManipulation.FileListing
+namespace StaticSiteGenerator.Files.FileListing
 {
     /// <summary>
     /// Given a path to a directory, give a list of items in that directory

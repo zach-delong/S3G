@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using StaticSiteGenerator.FileManipulation;
 using StaticSiteGenerator.Markdown.BlockElement;
 using System.IO;
 using System;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using Markdig.Syntax;
 using System.Linq;
+using StaticSiteGenerator.Files;
 
 namespace StaticSiteGenerator.Markdown.Parser
 {

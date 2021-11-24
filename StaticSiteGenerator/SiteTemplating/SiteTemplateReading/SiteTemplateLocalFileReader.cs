@@ -1,5 +1,5 @@
 using System.IO;
-using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.Files;
 
 namespace StaticSiteGenerator.SiteTemplating.SiteTemplateReading
 {

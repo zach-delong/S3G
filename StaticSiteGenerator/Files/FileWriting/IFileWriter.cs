@@ -1,4 +1,4 @@
-namespace StaticSiteGenerator.FileManipulation.FileWriting
+namespace StaticSiteGenerator.Files.FileWriting
 {
     public interface IFileWriter
     {

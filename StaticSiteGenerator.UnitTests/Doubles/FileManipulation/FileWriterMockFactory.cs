@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Moq;
-using StaticSiteGenerator.FileManipulation.FileException;
-using StaticSiteGenerator.FileManipulation.FileWriting;
+using StaticSiteGenerator.Files.FileException;
+using StaticSiteGenerator.Files.FileWriting;
 
 namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation
 {

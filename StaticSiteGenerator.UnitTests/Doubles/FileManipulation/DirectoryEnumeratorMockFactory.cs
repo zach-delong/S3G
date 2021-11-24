@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Moq;
-using StaticSiteGenerator.FileManipulation;
-using StaticSiteGenerator.FileManipulation.FileListing;
+using StaticSiteGenerator.Files.FileListing;
 
 namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation
 {

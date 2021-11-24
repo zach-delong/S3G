@@ -1,10 +1,10 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using StaticSiteGenerator.FileManipulation;
 
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.FileManipulation.FileListing;
+using StaticSiteGenerator.Files.FileListing;
+using StaticSiteGenerator.Files;
 
 namespace StaticSiteGenerator.TemplateReading
 {

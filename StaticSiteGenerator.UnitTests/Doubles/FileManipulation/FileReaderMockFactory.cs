@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using Moq;
-using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.Files;
 
 namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation
 {

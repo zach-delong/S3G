@@ -1,11 +1,9 @@
-using System;
 using Xunit;
 
-using StaticSiteGenerator.FileManipulation;
-using StaticSiteGenerator.FileManipulation.FileException;
-
+using StaticSiteGenerator.Files;
 using StaticSiteGenerator.UnitTests.Helpers;
 using System.IO.Abstractions;
+using StaticSiteGenerator.Files.FileException;
 
 namespace StaticSiteGenerator.UnitTests.FileManipulation
 {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
-using StaticSiteGenerator.FileManipulation.FileListing;
+using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.UnitTests.Helpers;
 using StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
 using Xunit;

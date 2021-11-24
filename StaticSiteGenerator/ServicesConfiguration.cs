@@ -1,7 +1,7 @@
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using StaticSiteGenerator.FileManipulation;
+using StaticSiteGenerator.Files;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.MarkdownHtmlConversion;

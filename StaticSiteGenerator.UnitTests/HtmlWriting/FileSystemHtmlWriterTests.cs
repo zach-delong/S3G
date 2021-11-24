@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using StaticSiteGenerator.FileManipulation.FileException;
+using StaticSiteGenerator.Files.FileException;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;

@@ -1,9 +1,9 @@
 using System.IO.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
-using StaticSiteGenerator.FileManipulation.FileListing;
-using StaticSiteGenerator.FileManipulation.FileWriting;
+using StaticSiteGenerator.Files.FileListing;
+using StaticSiteGenerator.Files.FileWriting;
 
-namespace StaticSiteGenerator.FileManipulation
+namespace StaticSiteGenerator.Files
 {
     public static class ServicesConfiguration
     {

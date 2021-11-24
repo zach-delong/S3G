@@ -1,13 +1,11 @@
 using System;
-using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.MarkdownHtmlConversion;
-using StaticSiteGenerator.FileManipulation;
 
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Markdown.Parser;
-using StaticSiteGenerator.FileManipulation.FileListing;
 using Microsoft.Extensions.Logging;
+using StaticSiteGenerator.Files.FileListing;
 
 namespace StaticSiteGenerator
 {

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using StaticSiteGenerator.FileManipulation.FileWriting;
+using StaticSiteGenerator.Files.FileWriting;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 
 namespace StaticSiteGenerator.HtmlWriting

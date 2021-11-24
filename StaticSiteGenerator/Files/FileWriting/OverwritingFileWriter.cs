@@ -1,7 +1,7 @@
 using System.IO;
 using System.IO.Abstractions;
 
-namespace StaticSiteGenerator.FileManipulation.FileWriting
+namespace StaticSiteGenerator.Files.FileWriting
 {
     public class OverwritingFileWriter : IFileWriter
     {

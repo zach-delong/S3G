@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 
-namespace StaticSiteGenerator.FileManipulation.FileListing
+namespace StaticSiteGenerator.Files.FileListing
 {
     /// <summary>
     /// Given a path and pattern, return an iterable containing the contents of that directory.

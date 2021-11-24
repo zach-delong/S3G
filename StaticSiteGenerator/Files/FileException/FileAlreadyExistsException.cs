@@ -1,6 +1,6 @@
 using System;
 
-namespace StaticSiteGenerator.FileManipulation.FileException
+namespace StaticSiteGenerator.Files.FileException
 {
     public class FileAlreadyExistsException : Exception
     {

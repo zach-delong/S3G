@@ -1,9 +1,8 @@
 using System.IO;
 using System.IO.Abstractions;
+using StaticSiteGenerator.Files.FileException;
 
-using StaticSiteGenerator.FileManipulation.FileException;
-
-namespace StaticSiteGenerator.FileManipulation
+namespace StaticSiteGenerator.Files
 {
     public class FileReader
     {
