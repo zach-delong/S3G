@@ -107,9 +107,8 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 
         [Theory]
         [MemberData(nameof(TestCaseData))]
-        public void foo(MockFileSystem fileSystem, string pathToExamine, int expectedFiles, int expectedFolders)
+        public void ListAllContentsTests(MockFileSystem fileSystem, string pathToExamine, int expectedFiles, int expectedFolders)
         {
-            // TODO: how should I mock that?
             var sut = new DeferredExecutionDirectoryEnumerator(fileSystem);
 
             var objects = sut.ListAllContents(pathToExamine);
@@ -131,6 +130,15 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                 mock.AddFile("bar.txt", new MockFileData("bar!"));
 
                 yield return new object[] { mock, "./", 1, 2 /* note, we always have a /temp directory */ };
+
+                var mockWithSubfolders = new MockFileSystem();
+                
+                mockWithSubfolders.AddDirectory("foo");
+                mockWithSubfolders.AddDirectory("foo/bar");
+                mockWithSubfolders.AddFile("foo/bar/file1.txt", new MockFileData("this is only a test"));
+                mockWithSubfolders.AddFile("foo/file2.txt", new MockFileData("This is also only a test"));
+                
+                yield return new object[] { mockWithSubfolders, "./", 2, 3 };
             }
         }
     }

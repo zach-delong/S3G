@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
+using System.Linq;
 
 namespace StaticSiteGenerator.Files.FileListing
 {
@@ -41,17 +42,27 @@ namespace StaticSiteGenerator.Files.FileListing
 
         public IEnumerable<IFileSystemObject> ListAllContents(string path)
         {
-            foreach(var pointer in FileSystem.Directory.EnumerateFileSystemEntries(path))
-            {
-                var attrs = FileSystem.File.GetAttributes(pointer);
+            Stack<string> pathsToExplore = new Stack<string>();
 
-                if(attrs.HasFlag(FileAttributes.Directory))
+            pathsToExplore.Push(path);
+            
+            while(pathsToExplore.Any())
+            {
+                var p = pathsToExplore.Pop();
+
+                foreach(var fileSystemObject in FileSystem.Directory.GetFileSystemEntries(p))
                 {
-                    yield return new Folder(pointer);
-                }
-                else 
-                {
-                    yield return new File(pointer);
+                    var attrs = FileSystem.File.GetAttributes(fileSystemObject);
+
+                    if(attrs.HasFlag(FileAttributes.Directory))
+                    {
+                        pathsToExplore.Push(fileSystemObject);
+                        yield return new Folder(fileSystemObject);
+                    }
+                    else 
+                    {
+                        yield return new File(fileSystemObject);
+                    }
                 }
             }
         }
