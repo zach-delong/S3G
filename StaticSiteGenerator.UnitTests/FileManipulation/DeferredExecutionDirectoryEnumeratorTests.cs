@@ -107,7 +107,12 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 
         [Theory]
         [MemberData(nameof(TestCaseData))]
-        public void ListAllContentsTests(MockFileSystem fileSystem, string pathToExamine, int expectedFiles, int expectedFolders)
+        public void ListAllContentsTests(
+            MockFileSystem fileSystem, 
+            string pathToExamine, 
+            int expectedFiles, 
+            int expectedFolders,
+            int expectedMarkdownFiles)
         {
             var sut = new DeferredExecutionDirectoryEnumerator(fileSystem);
 
@@ -115,9 +120,11 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
 
             var files = objects.Count(o => o.GetType() == typeof(File));
             var folders = objects.Count(o => o.GetType() == typeof(Folder));
+            var markdownFiles = objects.Count(o => o.GetType() == typeof(MarkdownFile));
 
             Assert.Equal(expectedFiles, files);
             Assert.Equal(expectedFolders, folders);
+            Assert.Equal(expectedMarkdownFiles, markdownFiles);
         }
 
         public static IEnumerable<object[]> TestCaseData
@@ -129,7 +136,7 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                 mock.AddDirectory("foo");
                 mock.AddFile("bar.txt", new MockFileData("bar!"));
 
-                yield return new object[] { mock, "./", 1, 2 /* note, we always have a /temp directory */ };
+                yield return new object[] { mock, "./", 1, 2 /* note, we always have a /temp directory */, 0 };
 
                 var mockWithSubfolders = new MockFileSystem();
                 
@@ -138,7 +145,14 @@ namespace StaticSiteGenerator.UnitTests.FileManipulation
                 mockWithSubfolders.AddFile("foo/bar/file1.txt", new MockFileData("this is only a test"));
                 mockWithSubfolders.AddFile("foo/file2.txt", new MockFileData("This is also only a test"));
                 
-                yield return new object[] { mockWithSubfolders, "./", 2, 3 };
+                yield return new object[] { mockWithSubfolders, "./", 2, 3, 0 };
+
+                var mockWithMarkdownFiles = new MockFileSystem();
+                
+                mockWithMarkdownFiles.AddFile("a.md", "#Heading1");
+                mockWithMarkdownFiles.AddFile("b.md", "#Heading1");
+
+                yield return new object[] { mockWithMarkdownFiles, "./", 0, 1, 2};
             }
         }
     }

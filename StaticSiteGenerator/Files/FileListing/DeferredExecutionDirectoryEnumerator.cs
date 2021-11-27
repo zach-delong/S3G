@@ -50,18 +50,22 @@ namespace StaticSiteGenerator.Files.FileListing
             {
                 var p = pathsToExplore.Pop();
 
-                foreach(var fileSystemObject in FileSystem.Directory.GetFileSystemEntries(p))
+                foreach(var filePath in FileSystem.Directory.GetFileSystemEntries(p))
                 {
-                    var attrs = FileSystem.File.GetAttributes(fileSystemObject);
+                    var attrs = FileSystem.File.GetAttributes(filePath);
 
                     if(attrs.HasFlag(FileAttributes.Directory))
                     {
-                        pathsToExplore.Push(fileSystemObject);
-                        yield return new Folder(fileSystemObject);
+                        pathsToExplore.Push(filePath);
+                        yield return new Folder(filePath);
+                    }
+                    else if(filePath.ToLower().EndsWith(".md"))
+                    {
+                        yield return new MarkdownFile(filePath);
                     }
                     else 
                     {
-                        yield return new File(fileSystemObject);
+                        yield return new File(filePath);
                     }
                 }
             }
