@@ -10,7 +10,7 @@ using StaticSiteGenerator.UnitTests.Helpers;
 using StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.FileManipulation
+namespace StaticSiteGenerator.UnitTests.Files
 {
     public class DeferredExecutionDirectoryEnumeratorTests
     {

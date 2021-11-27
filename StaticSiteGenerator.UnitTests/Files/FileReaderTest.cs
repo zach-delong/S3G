@@ -5,7 +5,7 @@ using StaticSiteGenerator.UnitTests.Helpers;
 using System.IO.Abstractions;
 using StaticSiteGenerator.Files.FileException;
 
-namespace StaticSiteGenerator.UnitTests.FileManipulation
+namespace StaticSiteGenerator.UnitTests.Filese
 {
     public class FileReaderTest
     {
