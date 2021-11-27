@@ -1,5 +1,12 @@
 #! /bin/sh
-
+###
+# This script requires both Coverlet.Collector to be added to your test projects 
+# (https://www.nuget.org/packages/coverlet.collector/)
+# But also requires the report generator package to be installed
+# (https://www.nuget.org/packages/dotnet-reportgenerator-globaltool)
+# See below for more information
+# (https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=linux)
+###
 coverageFileName="coverage.cobertura.xml"
 outputDirectory="./CoverageReport"
 # Since we don't want to include multiple test runs data in our analysis, we
