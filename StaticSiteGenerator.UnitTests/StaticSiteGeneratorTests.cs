@@ -30,14 +30,14 @@ namespace StaticSiteGenerator.UnitTests
             var mockMarkdownConverter = MarkdownConverterMockFactory.Get();
             var mockFileWriter = new Mock<IHtmlFileWriter>();
             var mockSiteTemplater = new Mock<ISiteTemplateFiller>();
-            var mockLogger = new Mock<ILogger<StaticSiteGenerator>>();
+            var mockLogger = new Mock<ILogger<Generator>>();
 
             mockSiteTemplater.Setup(m => m.FillSiteTemplate(It.IsAny<string>()))
                              .Returns<string>(s => s);
 
 
             var mockFileParser = MarkdownFileParserMockFactory.Get(MarkdownFileContentsMocker.GetBlankBlockListForFilesWithNames(result));
-            var siteGenerator = new StaticSiteGenerator(
+            var siteGenerator = new Generator(
                 mockFileIterator.Object,
                 mockFileParser.Object,
                 mockMarkdownConverter.Object,

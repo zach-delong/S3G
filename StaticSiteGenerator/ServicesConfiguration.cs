@@ -26,7 +26,7 @@ namespace StaticSiteGenerator
 
             services.AddUtilities();
             services.AddTransient<IDateParser, DateParser>();
-            services.AddTransient<StaticSiteGenerator>();
+            services.AddTransient<Generator>();
 
             services.AddLogging();
         }

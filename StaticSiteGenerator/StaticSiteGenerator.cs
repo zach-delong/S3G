@@ -9,7 +9,7 @@ using StaticSiteGenerator.Files.FileListing;
 
 namespace StaticSiteGenerator
 {
-    public class StaticSiteGenerator
+    public class Generator
     {
         private readonly IDirectoryEnumerator directoryLister;
         private readonly IMarkdownFileParser MarkdownFileParser;
@@ -18,18 +18,18 @@ namespace StaticSiteGenerator
         private CliOptions Options;
 
         public readonly IHtmlFileWriter HtmlFileWriter;
-        private readonly ILogger<StaticSiteGenerator> logger;
+        private readonly ILogger<Generator> logger;
 
         public ISiteTemplateFiller SiteTemplateFiller { get; }
 
-        public StaticSiteGenerator(
+        public Generator(
             IDirectoryEnumerator directoryLister,
             IMarkdownFileParser markdownFileParser,
             IMarkdownConverter markdownConverter,
             CliOptions options,
             IHtmlFileWriter fileWriter,
             ISiteTemplateFiller templateFiller,
-            ILogger<StaticSiteGenerator> logger
+            ILogger<Generator> logger
         ) {
             this.directoryLister = directoryLister;
             this.MarkdownFileParser = markdownFileParser;

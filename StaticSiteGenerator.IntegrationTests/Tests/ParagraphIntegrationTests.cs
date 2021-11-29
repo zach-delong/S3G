@@ -15,7 +15,7 @@ namespace StaticSiteGenerator.IntegrationTests.Tests
             FileSystemCache.Add("output/.tmp", new MockFileData(""));
             FileSystemCache.Add("input/file1.md", new MockFileData("This is some text!"));
 
-            ServiceProvider.GetService<StaticSiteGenerator>().Start();
+            ServiceProvider.GetService<Generator>().Start();
 
             const string expectedContent = @"<html><p>This is some text!</p></html>";
             const string expectedName = "output/file1.html";

@@ -26,7 +26,7 @@ namespace StaticSiteGenerator
         {
             var serviceProvider = BuildDependencies(o);
 
-            serviceProvider.GetService<StaticSiteGenerator>().Start();
+            serviceProvider.GetService<Generator>().Start();
         }
 
         public static IServiceProvider BuildDependencies(CliOptions options)
