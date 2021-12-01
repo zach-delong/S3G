@@ -6,38 +6,29 @@ using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Markdown.Parser;
 using Microsoft.Extensions.Logging;
 using StaticSiteGenerator.Files.FileListing;
+using StaticSiteGenerator.Utilities.StrategyPattern;
+using StaticSiteGenerator.Files;
+using System.Linq;
 
 namespace StaticSiteGenerator
 {
     public class Generator
     {
         private readonly IDirectoryEnumerator directoryLister;
-        private readonly IMarkdownFileParser MarkdownFileParser;
-        private readonly IMarkdownConverter MarkdownConverter;
-
-        private CliOptions Options;
-
-        public readonly IHtmlFileWriter HtmlFileWriter;
+        private readonly CliOptions Options;
         private readonly ILogger<Generator> logger;
-
-        public ISiteTemplateFiller SiteTemplateFiller { get; }
+        private readonly IStrategyExecutor<object, IFileSystemObject> converter;
 
         public Generator(
             IDirectoryEnumerator directoryLister,
-            IMarkdownFileParser markdownFileParser,
-            IMarkdownConverter markdownConverter,
             CliOptions options,
-            IHtmlFileWriter fileWriter,
-            ISiteTemplateFiller templateFiller,
-            ILogger<Generator> logger
+            ILogger<Generator> logger,
+            IStrategyExecutor<object, IFileSystemObject> converter
         ) {
             this.directoryLister = directoryLister;
-            this.MarkdownFileParser = markdownFileParser;
-            this.MarkdownConverter = markdownConverter;
             this.Options = options;
-            this.HtmlFileWriter = fileWriter;
-            this.SiteTemplateFiller = templateFiller;
             this.logger = logger;
+            this.converter = converter;
         }
 
         public void Start()
@@ -45,15 +36,12 @@ namespace StaticSiteGenerator
             try
             {
                 logger.LogTrace("Starting conversion of static site.");
-                var fileNames = directoryLister.GetFiles(Options.PathToMarkdownFiles, "*.md");
 
-                var fileContents = MarkdownFileParser.ReadFiles(fileNames);
+                var fileNames = directoryLister.ListAllContents(Options.PathToMarkdownFiles );
 
-                var htmlFiles = MarkdownConverter.Convert(fileContents);
+                converter.Process(fileNames)
+                         .ToList();
 
-                htmlFiles = SiteTemplateFiller.FillSiteTemplate(htmlFiles);
-
-                HtmlFileWriter.Write(htmlFiles);
                 logger.LogTrace("Finished conversion of static site.");
             }
             catch (Exception ex)

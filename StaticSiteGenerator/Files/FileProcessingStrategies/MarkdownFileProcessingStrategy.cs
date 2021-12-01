@@ -44,7 +44,7 @@ namespace StaticSiteGenerator.Files.FileProcessingStrategies
 
             var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
             var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, input.Name);
-            var outputFilePath = fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot);
+            var outputFilePath = fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
 
             fileWriter.Write(outputFilePath, htmlFile);
 

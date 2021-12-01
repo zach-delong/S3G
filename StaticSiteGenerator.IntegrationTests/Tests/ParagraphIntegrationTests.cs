@@ -18,7 +18,7 @@ namespace StaticSiteGenerator.IntegrationTests.Tests
             ServiceProvider.GetService<Generator>().Start();
 
             const string expectedContent = @"<html><p>This is some text!</p></html>";
-            const string expectedName = "output/file1.html";
+            const string expectedName = "/output/file1.html";
 
             Assert.True(this.FileExists(expectedName));
             Assert.Equal(expectedContent, this.ReadFileContents(expectedName));
