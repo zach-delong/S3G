@@ -10,10 +10,10 @@ namespace StaticSiteGenerator.IntegrationTests
     public static class ServicesConfiguration
     {
         public static void OverrideFileReadingLayerWithDictionary(this IServiceCollection services,
-                                                                  IDictionary<string, MockFileData> fileDictionary)
+                                                                  MockFileSystem fileDictionary)
         {
             services.Remove(services.First(desc => desc.ServiceType == typeof(IFileSystem)));
-            services.AddSingleton<IFileSystem>(new MockFileSystem(fileDictionary));
+            services.AddSingleton<IFileSystem>(fileDictionary);
 
             services.AddLogging(builder => builder.ClearProviders());
         }

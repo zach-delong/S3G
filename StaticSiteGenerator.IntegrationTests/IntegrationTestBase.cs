@@ -7,7 +7,7 @@ namespace StaticSiteGenerator.IntegrationTests
 {
     public abstract class IntegrationTestBase
     {
-        protected IDictionary<string, MockFileData> FileSystemCache = new Dictionary<string, MockFileData>();
+        protected MockFileSystem FileSystemCache = new MockFileSystem();
 
         private IServiceProvider provider;
         public IServiceProvider ServiceProvider => provider ??= GetNewServiceProvider();
