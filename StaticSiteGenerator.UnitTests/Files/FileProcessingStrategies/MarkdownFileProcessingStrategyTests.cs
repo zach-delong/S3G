@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
+using System.Linq;
 using Moq;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Files.FileProcessingStrategies;
@@ -14,6 +16,7 @@ namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
 {
     public class MarkdownFileProcessingStrategyTests
     {
+        [Fact]
         public void Test()
         {
             var fs = new MockFileSystem();
@@ -24,16 +27,19 @@ namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
             var mockMarkdownConverter = new Mock<IMarkdownConverter>();
             mockMarkdownConverter.Setup(c => c.Convert(It.IsAny<IList<IBlockElement>>()))
                                  .Returns("<h1>Hello<h1>");
+
             var mockHtmlFileWriter = new Mock<IHtmlFileWriter>();
             mockHtmlFileWriter.Setup(w => w.Write(It.IsAny<string>(), It.IsAny<string>()))
                               .Callback<string, string>((path, contents) => fs.AddFile(path, contents));
+
             var mockSiteTemplateFiller = new Mock<ISiteTemplateFiller>();
             mockSiteTemplateFiller.Setup(f => f.FillSiteTemplate(It.IsAny<string>()))
                                   .Returns("<html><h1>Hello</h1></html>");
+
             var cliOptions = new CliOptions
             {
-                PathToMarkdownFiles = "input/",
-                OutputLocation = "output/"
+                PathToMarkdownFiles = "input",
+                OutputLocation = "output"
             };
 
             var sut = new MarkdownFileProcessingStrategy(
@@ -45,11 +51,11 @@ namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
                 fs
             );
 
-            sut.Execute(new MarkdownFile("input/foo.MD"));
+            sut.Execute(new MarkdownFile("input/foo.md"));
 
-            var file = fs.GetFile("input/foo.md");
+            var file = fs.GetFile("output/foo.html");
 
-            Assert.Equal("", file.TextContents);
+            Assert.Equal("<html><h1>Hello</h1></html>", file.TextContents);
         }
     }
 }
