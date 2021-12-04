@@ -9,7 +9,7 @@ namespace StaticSiteGenerator.UnitTests.Doubles.Markdown
 {
     public static class MarkdownFileParserMockFactory
     {
-        public static Mock<IMarkdownFileParser> Get(IDictionary<string, IList<IBlockElement>> input)
+        public static Mock<IMarkdownFileParser> Get(IDictionary<string, IMarkdownFile> input)
         {
             var mock = new Mock<IMarkdownFileParser>();
 

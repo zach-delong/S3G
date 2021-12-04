@@ -40,14 +40,14 @@ namespace StaticSiteGenerator.Files.FileProcessingStrategies
 
             var htmlFile = markdownConverter.Convert(fileContents);
 
-            htmlFile = templateFiller.FillSiteTemplate(htmlFile);
+            htmlFile.HtmlContent = templateFiller.FillSiteTemplate(htmlFile.HtmlContent);
 
             var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
             var fileRootPath = fileSystem.Path.GetFullPath(input.Name);
             var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, fileRootPath);
             var outputFilePath = fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
 
-            fileWriter.Write(outputFilePath, htmlFile);
+            fileWriter.Write(outputFilePath, htmlFile.HtmlContent);
 
             return null;
         }

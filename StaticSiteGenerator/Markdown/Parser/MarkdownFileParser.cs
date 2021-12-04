@@ -27,34 +27,25 @@ namespace StaticSiteGenerator.Markdown.Parser
             this.logger = logger;
         }
 
-        public IList<IBlockElement> ReadFile(string filePath)
+        public IMarkdownFile ReadFile(string filePath)
         {
+            logger.LogInformation("Starting to convert string contents to Markdown");
+            logger.LogTrace($"Starting to convert file {filePath}");
+
             logger.LogTrace($"Reading file: {filePath}");
             var fileContents = fileParser.ReadFile(filePath);
-
             logger.LogTrace($"Read file contents: {fileContents?.Substring(0, ((fileContents.Length > 50) ? 50 : fileContents.Length)) ?? String.Empty}");
             var parsedContents = ParseMarkdownString(fileContents);
 
-            logger.LogTrace($"Succesfully converted {filePath} into Block Elements");
-            return parsedContents;
-        }
-
-        public IEnumerable<IMarkdownFile> ReadFiles(IEnumerable<string> filePaths)
-        {
-            logger.LogInformation("Starting to convert string contents to Markdown");
-            foreach (var filePath in filePaths)
+            IMarkdownFile file = new MarkdownFile
             {
-                logger.LogTrace($"Starting to convert file {filePath}");
-                IMarkdownFile file = new MarkdownFile
-                {
-                    Elements = ReadFile(filePath),
-                    Name = Path.GetFileNameWithoutExtension(filePath)
-                };
+                Elements = parsedContents,
+                Name = Path.GetFileNameWithoutExtension(filePath)
+            };
 
-                yield return file;
+            logger.LogTrace($"Converted file: {filePath}");
 
-                logger.LogTrace($"Converted file: {filePath}");
-            }
+            return file;
         }
 
         private IList<IBlockElement> ParseMarkdownString(string markdownFileContents)
@@ -65,6 +56,5 @@ namespace StaticSiteGenerator.Markdown.Parser
 
             return interalMarkdownTypedFile.ToList();
         }
-
     }
 }

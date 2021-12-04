@@ -20,27 +20,24 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion
             Options = options;
         }
 
-        public string Convert(IList<IBlockElement> markdownFile)
+        private string Convert(IList<IBlockElement> markdownFile)
         {
             return String.Join(Environment.NewLine, BlockConverter.Process(markdownFile));
         }
 
-        public IEnumerable<IHtmlFile> Convert(IEnumerable<IMarkdownFile> markdownFiles)
+        public IHtmlFile Convert(IMarkdownFile markdownFile)
         {
             // Console.WriteLine("Starting conversion of files");
-            foreach (var file in markdownFiles)
+            // Console.WriteLine($"(1) Starting conversion of file {file.Name}");
+            return new HtmlFile
             {
-                // Console.WriteLine($"(1) Starting conversion of file {file.Name}");
-                yield return new HtmlFile
-                {
-                    HtmlContent = Convert(file.Elements),
-                    Name = Path.Combine(Options.OutputLocation ?? String.Empty,
-                                        Path.GetFileName(file.Name))
-                };
-                // Console.WriteLine($"(1) Done converting file {file.Name}");
-            }
-
-            // Console.WriteLine("Done converting files");
+                HtmlContent = Convert(markdownFile.Elements),
+                Name = Path.Combine(Options.OutputLocation ?? String.Empty,
+                                            Path.GetFileName(markdownFile.Name))
+            };
+            // Console.WriteLine($"(1) Done converting file {file.Name}");
         }
+
+        // Console.WriteLine("Done converting files");
     }
 }

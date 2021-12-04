@@ -6,7 +6,6 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion
 {
     public interface IMarkdownConverter
     {
-        string Convert(IList<IBlockElement> markdownFile);
-        IEnumerable<IHtmlFile> Convert(IEnumerable<IMarkdownFile> markdownFiles);
+        IHtmlFile Convert(IMarkdownFile markdownFile);
     }
 }
