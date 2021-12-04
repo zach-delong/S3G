@@ -14,17 +14,9 @@ namespace StaticSiteGenerator.Files.FileListing
         public IEnumerable<string> GetFiles(string path, string pattern);
 
         /// <summary>
-        /// Given a path and a pattern, get all directories (not files) in the
-        /// directory that match the given pattern
+        /// Given a path, returns all folders and files in the path, "recursively"
+        /// Will always give you back folders before the files inside them
         /// </summary
-        public IEnumerable<string> GetDirectories(string path, string pattern);
-
-        /// <summary>
-        /// Given a path and a pattern, get all directories or files in the
-        /// given directory that match the given pattern
-        /// </summary
-        public IEnumerable<string> GetChildren(string path, string pattern);
-
         public IEnumerable<IFileSystemObject> ListAllContents(string path);
     }
 }
