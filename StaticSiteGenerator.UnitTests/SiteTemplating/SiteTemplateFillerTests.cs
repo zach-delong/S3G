@@ -32,28 +32,5 @@ namespace StaticSiteGenerator.UnitTests.SiteTemplating
 
             Assert.Equal("<html></html>", result);
         }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(3)]
-        public void SiteTemplateFillerShouldEnumerateCorrectly(int num)
-        {
-            var mock = MockFactory.Get("<html></html>");
-
-            var sut = new SiteTemplateFiller(mock.Object);
-
-            var templates = new List<IHtmlFile>();
-
-            for (var i = 0; i < num; i++)
-            {
-                templates.Add(new HtmlFile());
-            }
-
-            var result = sut.FillSiteTemplate(templates);
-
-            Assert.All(result, item => Assert.Equal("<html></html>", item.HtmlContent));
-        }
-
     }
 }
