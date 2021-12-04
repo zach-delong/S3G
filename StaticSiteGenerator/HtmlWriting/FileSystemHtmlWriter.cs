@@ -19,13 +19,5 @@ namespace StaticSiteGenerator.HtmlWriting
         {
             Writer.WriteFile(filePath, htmlString);
         }
-
-        public void Write(IEnumerable<IHtmlFile> files)
-        {
-            foreach (var file in files)
-            {
-                Write($"{ file.Name }.{ file.FileExtension }", file.HtmlContent);
-            }
-        }
     }
 }
