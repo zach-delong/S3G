@@ -3,7 +3,7 @@ using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Files.FileProcessingStrategies
 {
-    [FileProcessorForType(nameof(Folder))]
+    [FileProcessorForType(nameof(FolderFileSystemObject))]
     public class FolderProcessingStrategy : IStrategy<object, IFileSystemObject>
     {
         private readonly IFileSystem system;
@@ -17,7 +17,7 @@ namespace StaticSiteGenerator.Files.FileProcessingStrategies
 
         public object Execute(IFileSystemObject input)
         {
-            var rootPathToInputFile = system.Path.GetFullPath(input.Name);
+            var rootPathToInputFile = system.Path.GetFullPath(input.FullPath);
             var rootPathToInputRoot = system.Path.GetFullPath(options.PathToMarkdownFiles);
 
             var inputPathRelativeToInputRoot = system.Path.GetRelativePath(rootPathToInputRoot, rootPathToInputFile);

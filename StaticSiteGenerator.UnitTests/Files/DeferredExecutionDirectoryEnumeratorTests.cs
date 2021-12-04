@@ -118,9 +118,9 @@ namespace StaticSiteGenerator.UnitTests.Files
 
             var objects = sut.ListAllContents(pathToExamine);
 
-            var files = objects.Count(o => o.GetType() == typeof(File));
-            var folders = objects.Count(o => o.GetType() == typeof(Folder));
-            var markdownFiles = objects.Count(o => o.GetType() == typeof(MarkdownFile));
+            var files = objects.Count(o => o.GetType() == typeof(FileFileSystemObject));
+            var folders = objects.Count(o => o.GetType() == typeof(FolderFileSystemObject));
+            var markdownFiles = objects.Count(o => o.GetType() == typeof(MarkdownFileSystemObject));
 
             Assert.Equal(expectedFiles, files);
             Assert.Equal(expectedFolders, folders);

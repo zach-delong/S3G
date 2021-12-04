@@ -45,7 +45,7 @@ namespace StaticSiteGenerator.Files.FileListing
             Stack<string> pathsToExplore = new Stack<string>();
 
             pathsToExplore.Push(path);
-            
+
             while(pathsToExplore.Any())
             {
                 var p = pathsToExplore.Pop();
@@ -54,18 +54,20 @@ namespace StaticSiteGenerator.Files.FileListing
                 {
                     var attrs = FileSystem.File.GetAttributes(filePath);
 
+                    var rootPathToInputFile = FileSystem.Path.GetFullPath(filePath);
+
                     if(attrs.HasFlag(FileAttributes.Directory))
                     {
+                        yield return new FolderFileSystemObject(rootPathToInputFile);
                         pathsToExplore.Push(filePath);
-                        yield return new Folder(filePath);
                     }
                     else if(filePath.ToLower().EndsWith(".md"))
                     {
-                        yield return new MarkdownFile(filePath);
+                        yield return new MarkdownFileSystemObject(rootPathToInputFile);
                     }
-                    else 
+                    else
                     {
-                        yield return new File(filePath);
+                        yield return new FileFileSystemObject(rootPathToInputFile);
                     }
                 }
             }

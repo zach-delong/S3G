@@ -7,7 +7,7 @@ using StaticSiteGenerator.Utilities.StrategyPattern;
 
 namespace StaticSiteGenerator.Files.FileProcessingStrategies
 {
-    [FileProcessorForType(nameof(MarkdownFile))]
+    [FileProcessorForType(nameof(MarkdownFileSystemObject))]
     public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObject>
     {
         private readonly IMarkdownFileParser markdownFileParser;
@@ -36,15 +36,15 @@ namespace StaticSiteGenerator.Files.FileProcessingStrategies
 
         public object Execute(IFileSystemObject input)
         {
-            var fileContents = markdownFileParser.ReadFile(input.Name);
+            var fileContents = markdownFileParser.ReadFile(input.FullPath);
 
             var htmlFile = markdownConverter.Convert(fileContents);
 
             htmlFile.HtmlContent = templateFiller.FillSiteTemplate(htmlFile.HtmlContent);
 
             var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
-            var fileRootPath = fileSystem.Path.GetFullPath(input.Name);
-            var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, fileRootPath);
+
+            var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, input.FullPath);
             var outputFilePath = fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
 
             fileWriter.Write(outputFilePath, htmlFile.HtmlContent);

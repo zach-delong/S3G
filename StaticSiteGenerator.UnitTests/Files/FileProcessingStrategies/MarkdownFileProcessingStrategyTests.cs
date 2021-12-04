@@ -23,7 +23,7 @@ namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
             var fs = new MockFileSystem();
             var mockFileParser = MarkdownFileParserMockFactory.Get(new Dictionary<string, IMarkdownFile>
             {
-                {"input/foomd.md", new StaticSiteGenerator.Markdown.MarkdownFile { Elements = new List<IBlockElement> { new Header { Level= 1, Text = "Hello" }}}}
+                {"/input/foomd.md", new StaticSiteGenerator.Markdown.MarkdownFile { Elements = new List<IBlockElement> { new Header { Level= 1, Text = "Hello" }}}}
             });
 
             var mockMarkdownConverter = new Mock<IMarkdownConverter>();
@@ -53,7 +53,7 @@ namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
                 fs
             );
 
-            sut.Execute(new StaticSiteGenerator.Files.MarkdownFile("input/foomd.md"));
+            sut.Execute(new StaticSiteGenerator.Files.MarkdownFileSystemObject("/input/foomd.md"));
 
 
             var file = fs.GetFile("output/foomd.html");

@@ -30,7 +30,7 @@ namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
 
             foreach(var file in targetFileNames)
             {
-                sut.Execute(new StaticSiteGenerator.Files.File(file));
+                sut.Execute(new FileFileSystemObject(file));
             }
 
             var success = fs.AllFiles.Any(d => d == pathToCheck);

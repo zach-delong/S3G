@@ -31,7 +31,7 @@ namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
 
             foreach(var folder in targetFolderNames)
             {
-                sut.Execute(new Folder(folder));
+                sut.Execute(new FolderFileSystemObject(folder));
             }
 
             var success = fs.AllDirectories.Any(d => d == pathToCheck);
