@@ -29,7 +29,8 @@ compile your website into something beautiful.
 
 - Convert all common tags from Markdown to HTML
 - Support templating (user-defined site templates)
-- Compile and distribute a binary for convenient prototyping (homebrew? synaptic?)
+- Compile and distribute a binary for convenient prototyping (homebrew?
+  synaptic?)
 
 ## Status
 
@@ -43,12 +44,3 @@ website. As such, it should not be considered commercial strength
 - [ ] Consider consolidating test projects into one project
 - [ ] Covert common *.md tags to HTML
 - [ ] Build a homepage with treeview navigation
-
-## Containerization
-
-The containerization is still in a prototype stage, but you can build the
-project using the included dockerfile. The `build.sh` script should build the
-project, run unit tests, and run integration tests. It will also produce an
-image you could use to run the code if you mounted your own site and output
-directory, but you'll have to write your own container to consume this one for
-now.
