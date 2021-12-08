@@ -30,7 +30,7 @@ compile your website into something beautiful.
 - Convert all common tags from Markdown to HTML
 - Support templating (user-defined site templates)
 - Compile and distribute a binary for convenient prototyping (homebrew?
-  synaptic?)
+synaptic?)
 
 ## Status
 
@@ -39,7 +39,7 @@ website. As such, it should not be considered commercial strength
 
 ### Ongoing tasks
 
-- [x] Copy non *.md files to the output directory
+- [X] Copy non *.md files to the output directory
 - [ ] Reorganize namespaces 
 - [ ] Consider consolidating test projects into one project
 - [ ] Covert common *.md tags to HTML
