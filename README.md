@@ -38,7 +38,9 @@ website. As such, it should not be considered commercial strength
 
 ### Ongoing tasks
 
-- [ ] Copy non *.md files to the output directory
+- [x] Copy non *.md files to the output directory
+- [ ] Reorganize namespaces 
+- [ ] Consider consolidating test projects into one project
 - [ ] Covert common *.md tags to HTML
 - [ ] Build a homepage with treeview navigation
 
