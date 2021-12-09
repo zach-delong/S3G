@@ -17,5 +17,10 @@ namespace StaticSiteGenerator.HtmlWriting
         {
             HtmlFileWriter.Write(filePath, htmlString);
         }
+
+        public void Write(IHtmlFile file)
+        {
+            Write($"{file.Name}.{file.FileExtension}", file.HtmlContent);
+        }
     }
 }
