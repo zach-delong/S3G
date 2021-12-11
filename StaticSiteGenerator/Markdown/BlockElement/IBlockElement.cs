@@ -1,7 +1,6 @@
-namespace StaticSiteGenerator.Markdown.BlockElement
+namespace StaticSiteGenerator.Markdown.BlockElement;
+
+public interface IBlockElement
 {
-    public interface IBlockElement
-    {
-        string Content { get; }
-    }
+    string Content { get; }
 }
