@@ -1,19 +1,18 @@
 using StaticSiteGenerator.Markdown.InlineElement;
 using Markdig.Syntax.Inlines;
 
-namespace StaticSiteGenerator.Markdown.InlineElementConverter
-{
-    [MarkdownConverterForAttribute(nameof(LiteralInline))]
-    public class TextElementConverter: IInlineElementConverter
-    {
-        public IInlineElement Execute(IInline inline)
-        {
-            var textRun = (LiteralInline)inline;
+namespace StaticSiteGenerator.Markdown.InlineElementConverter;
 
-            return new Text
-            {
-                Content = Markdig.Markdown.ToPlainText(textRun.Content.Text)
-            };
-        }
+[MarkdownConverterForAttribute(nameof(LiteralInline))]
+public class TextElementConverter : IInlineElementConverter
+{
+    public IInlineElement Execute(IInline inline)
+    {
+        var textRun = (LiteralInline)inline;
+
+        return new Text
+        {
+            Content = Markdig.Markdown.ToPlainText(textRun.Content.Text)
+        };
     }
 }
