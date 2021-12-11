@@ -1,7 +1,6 @@
-namespace StaticSiteGenerator.Files.FileWriting
+namespace StaticSiteGenerator.Files.FileWriting;
+
+public interface IFileWriter
 {
-    public interface IFileWriter
-    {
-        public void WriteFile(string fileName, string contents);
-    }
+    public void WriteFile(string fileName, string contents);
 }
