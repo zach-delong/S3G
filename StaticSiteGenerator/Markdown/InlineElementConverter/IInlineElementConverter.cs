@@ -2,10 +2,9 @@ using StaticSiteGenerator.Markdown.InlineElement;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.Markdown.InlineElementConverter
+namespace StaticSiteGenerator.Markdown.InlineElementConverter;
+
+public interface IInlineElementConverter : IStrategy<IInlineElement, IInline>
 {
-    public interface IInlineElementConverter: IStrategy<IInlineElement, IInline>
-    {
-        new IInlineElement Execute(IInline inline);
-    }
+    new IInlineElement Execute(IInline inline);
 }
