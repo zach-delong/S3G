@@ -1,29 +1,28 @@
 using System.IO;
 using System.IO.Abstractions;
 
-namespace StaticSiteGenerator.Files.FileWriting
+namespace StaticSiteGenerator.Files.FileWriting;
+
+public class OverwritingFileWriter : IFileWriter
 {
-    public class OverwritingFileWriter : IFileWriter
+    private readonly IFileSystem FileSystem;
+
+    public OverwritingFileWriter(IFileSystem fileSystem)
     {
-        private readonly IFileSystem FileSystem;
+        FileSystem = fileSystem;
+    }
 
-        public OverwritingFileWriter(IFileSystem fileSystem)
+    public void WriteFile(string fileName, string contents)
+    {
+        if (FileSystem.File.Exists(fileName))
         {
-            FileSystem = fileSystem;
+            FileSystem.File.Delete(fileName);
         }
 
-        public void WriteFile(string fileName, string contents)
+        using (var writer = FileSystem.File.CreateText(fileName))
         {
-            if (FileSystem.File.Exists(fileName))
-            {
-                FileSystem.File.Delete(fileName);
-            }
-
-            using (var writer = FileSystem.File.CreateText(fileName))
-            {
-                writer.Write(contents);
-            }
-
+            writer.Write(contents);
         }
+
     }
 }
