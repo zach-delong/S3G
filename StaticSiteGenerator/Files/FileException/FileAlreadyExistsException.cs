@@ -1,15 +1,14 @@
 using System;
 
-namespace StaticSiteGenerator.Files.FileException
-{
-    public class FileAlreadyExistsException : Exception
-    {
-        public FileAlreadyExistsException()
-        {
-        }
+namespace StaticSiteGenerator.Files.FileException;
 
-        public FileAlreadyExistsException(string message) : base(message)
-        {
-        }
+public class FileAlreadyExistsException : Exception
+{
+    public FileAlreadyExistsException()
+    {
+    }
+
+    public FileAlreadyExistsException(string message) : base(message)
+    {
     }
 }
