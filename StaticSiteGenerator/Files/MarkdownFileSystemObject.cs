@@ -1,9 +1,8 @@
-namespace StaticSiteGenerator.Files
+namespace StaticSiteGenerator.Files;
+
+public class MarkdownFileSystemObject : FileFileSystemObject
 {
-    public class MarkdownFileSystemObject : FileFileSystemObject
+    public MarkdownFileSystemObject(string path) : base(path)
     {
-        public MarkdownFileSystemObject(string path) : base(path)
-        {
-        }
     }
 }
