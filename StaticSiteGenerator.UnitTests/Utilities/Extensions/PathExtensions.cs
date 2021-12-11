@@ -1,12 +1,11 @@
 using System.IO.Abstractions;
 
-namespace StaticSiteGenerator.UnitTests.Utilities.Extensions
+namespace StaticSiteGenerator.UnitTests.Utilities.Extensions;
+
+public static class PathExtensions
 {
-    public static class PathExtensions
+    public static string GetSystemRoot(this IPath p)
     {
-        public static string GetSystemRoot(this IPath p)
-        {
-            return p.GetPathRoot(p.GetTempPath());
-        }
+        return p.GetPathRoot(p.GetTempPath());
     }
 }

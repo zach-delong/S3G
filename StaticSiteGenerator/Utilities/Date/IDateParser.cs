@@ -1,9 +1,8 @@
 using System;
 
-namespace StaticSiteGenerator.Utilities.Date
+namespace StaticSiteGenerator.Utilities.Date;
+
+public interface IDateParser
 {
-    public interface IDateParser
-    {
-        bool TryParse(string value, out DateTime result);
-    }
+    bool TryParse(string value, out DateTime result);
 }

@@ -1,9 +1,8 @@
-namespace StaticSiteGenerator.MarkdownHtmlConversion
+namespace StaticSiteGenerator.MarkdownHtmlConversion;
+
+public interface IHtmlFile
 {
-    public interface IHtmlFile
-    {
-        public string HtmlContent { get; set; }
-        public string Name { get; set; }
-        public string FileExtension { get; }
-    }
+    public string HtmlContent { get; set; }
+    public string Name { get; set; }
+    public string FileExtension { get; }
 }

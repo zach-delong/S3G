@@ -1,26 +1,25 @@
 using System.IO;
 
-namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles
+namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
+
+public class TempFile : TempFileObject
 {
-    public class TempFile: TempFileObject
+    public TempFile(string path) : base(path)
     {
-        public TempFile(string path): base(path)
-        {
-            var file = File.Create(path);
-            file.Dispose();
-        }
+        var file = File.Create(path);
+        file.Dispose();
+    }
 
-        public void WriteToFile(string contents)
+    public void WriteToFile(string contents)
+    {
+        using (var file = File.AppendText(Path))
         {
-            using (var file = File.AppendText(Path))
-            {
-                file.WriteLine(contents);
-            }
+            file.WriteLine(contents);
         }
+    }
 
-        public override void Dispose()
-        {
-            File.Delete(Path);
-        }
+    public override void Dispose()
+    {
+        File.Delete(Path);
     }
 }

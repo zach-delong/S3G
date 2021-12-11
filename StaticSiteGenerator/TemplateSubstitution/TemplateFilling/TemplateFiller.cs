@@ -1,12 +1,11 @@
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.TemplateSubstitution.TemplateFilling
+namespace StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
+
+public class TemplateFiller : ITemplateFiller
 {
-    public class TemplateFiller : ITemplateFiller
+    public string Fill(TemplateTag tag, string content)
     {
-        public string Fill(TemplateTag tag, string content)
-        {
-            return tag.Template.Replace("{{}}", content);
-        }
+        return tag.Template.Replace("{{}}", content);
     }
 }

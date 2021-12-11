@@ -3,25 +3,25 @@ using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
 
-namespace StaticSiteGenerator.UnitTests.MarkdownHtmlConversion.InlineConverter
+namespace StaticSiteGenerator.UnitTests.MarkdownHtmlConversion.InlineConverter;
+
+public class TextConverterTest
 {
-    public class TextConverterTest
+    [Theory]
+    [InlineData("This is some sample text")]
+    [InlineData("")]
+    public void TestTextConverterCase(string input)
     {
-        [Theory]
-        [InlineData("This is some sample text")]
-        [InlineData("")]
-        public void TestTextConverterCase(string input)
+
+        IHtmlConverter<IInlineElement> converter = new TextConverter();
+
+        var TextElement = new Text
         {
+            Content = input
+        };
 
-          IHtmlConverter<IInlineElement> converter = new TextConverter();
+        var output = converter.Execute(TextElement);
 
-          var TextElement = new Text {
-              Content = input
-          };
-
-          var output = converter.Execute(TextElement);
-
-          Assert.Equal(output, input);
-        }
+        Assert.Equal(output, input);
     }
 }

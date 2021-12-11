@@ -1,7 +1,6 @@
-namespace StaticSiteGenerator.Utilities.StrategyPattern
+namespace StaticSiteGenerator.Utilities.StrategyPattern;
+
+public interface IStrategy<result, input>
 {
-    public interface IStrategy<result, input>
-    {
-        result Execute(input input);
-    }
+    result Execute(input input);
 }

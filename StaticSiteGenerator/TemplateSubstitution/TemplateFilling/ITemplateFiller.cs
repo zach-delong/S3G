@@ -1,9 +1,8 @@
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.TemplateSubstitution.TemplateFilling
+namespace StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
+
+public interface ITemplateFiller
 {
-    public interface ITemplateFiller
-    {
-        string Fill(TemplateTag tag, string content);
-    }
+    string Fill(TemplateTag tag, string content);
 }

@@ -7,37 +7,36 @@ using System;
 using StaticSiteGenerator.Markdown.InlineElement;
 using System.Linq;
 
-namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies
+namespace StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
+
+[HtmlConverterFor(nameof(Paragraph))]
+public class ParagraphHtmlConverterStrategy : IBlockHtmlConverterStrategy
 {
-    [HtmlConverterFor(nameof(Paragraph))]
-    public class ParagraphHtmlConverterStrategy : IBlockHtmlConverterStrategy
+    private readonly IStrategyExecutor<string, IInlineElement> InlineConverter;
+    private readonly ITemplateTagCollection TemplateTagCollection;
+    private readonly ITemplateFiller TemplateFiller;
+
+    public ParagraphHtmlConverterStrategy(IStrategyExecutor<string, IInlineElement> inlineConverter,
+                                      ITemplateTagCollection templateCollection,
+                                      ITemplateFiller templateFiller)
     {
-        private readonly IStrategyExecutor<string, IInlineElement> InlineConverter;
-        private readonly ITemplateTagCollection TemplateTagCollection;
-        private readonly ITemplateFiller TemplateFiller;
+        InlineConverter = inlineConverter;
+        TemplateTagCollection = templateCollection;
+        TemplateFiller = templateFiller;
+    }
 
-        public ParagraphHtmlConverterStrategy(IStrategyExecutor<string, IInlineElement> inlineConverter,
-                                          ITemplateTagCollection templateCollection,
-                                          ITemplateFiller templateFiller)
+    public string Execute(IBlockElement block)
+    {
+        var b = (Paragraph)block;
+        var inlineText = String.Empty;
+
+        if (b.Inlines != null)
         {
-            InlineConverter = inlineConverter;
-            TemplateTagCollection = templateCollection;
-            TemplateFiller = templateFiller;
+            inlineText = string.Join(Environment.NewLine, InlineConverter.Process(b.Inlines).ToList());
         }
 
-        public string Execute(IBlockElement block)
-        {
-            var b = (Paragraph)block;
-            var inlineText = String.Empty;
+        var template = TemplateTagCollection.GetTagForType(TagType.Paragraph);
 
-            if (b.Inlines != null)
-            {
-                inlineText = string.Join(Environment.NewLine, InlineConverter.Process(b.Inlines).ToList());
-            }
-
-            var template = TemplateTagCollection.GetTagForType(TagType.Paragraph);
-
-            return TemplateFiller.Fill(template, inlineText);
-        }
+        return TemplateFiller.Fill(template, inlineText);
     }
 }

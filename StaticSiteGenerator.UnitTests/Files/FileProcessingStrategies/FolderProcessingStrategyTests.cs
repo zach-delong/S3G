@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using StaticSiteGenerator.Files;
@@ -8,91 +6,90 @@ using StaticSiteGenerator.Files.FileProcessingStrategies;
 using StaticSiteGenerator.UnitTests.Utilities.Extensions;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies
+namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies;
+
+public class FolderProcessingStrategyTests
 {
-    public class FolderProcessingStrategyTests
+    [Theory]
+    [MemberData(nameof(TestCaseData))]
+    public void Test(
+        MockFileSystem fs,
+        string outputLocation,
+        string inputLocation,
+        string[] targetFolderNames,
+        string pathToCheck)
     {
-        [Theory]
-        [MemberData(nameof(TestCaseData))]
-        public void Test(
-            MockFileSystem fs,
-            string outputLocation,
-            string inputLocation,
-            string[] targetFolderNames,
-            string pathToCheck)
+        var options = new CliOptions
         {
-            var options = new CliOptions 
-            { 
-                OutputLocation = outputLocation,
-                PathToMarkdownFiles = inputLocation
-            };
+            OutputLocation = outputLocation,
+            PathToMarkdownFiles = inputLocation
+        };
 
-            var sut = new FolderProcessingStrategy(fs, options);
+        var sut = new FolderProcessingStrategy(fs, options);
 
-            foreach(var folder in targetFolderNames)
-            {
-                sut.Execute(new FolderFileSystemObject(folder));
-            }
-
-            var success = fs.AllDirectories.Any(d => d == pathToCheck);
-
-            Assert.True(success);
+        foreach (var folder in targetFolderNames)
+        {
+            sut.Execute(new FolderFileSystemObject(folder));
         }
 
-        public static IEnumerable<object[]> TestCaseData
+        var success = fs.AllDirectories.Any(d => d == pathToCheck);
+
+        Assert.True(success);
+    }
+
+    public static IEnumerable<object[]> TestCaseData
+    {
+        get
         {
-            get
+            var system1 = new MockFileSystem();
+
+            system1.Directory.SetCurrentDirectory(system1.Path.GetSystemRoot());
+            system1.AddDirectory("outputLocation");
+            system1.AddDirectory(system1.Path.Combine("inputLocation", "newFolder"));
+
+            // Relative paths all the way down
+            yield return new object[]
             {
-                var system1 = new MockFileSystem();
-
-                system1.Directory.SetCurrentDirectory(system1.Path.GetSystemRoot());
-                system1.AddDirectory("outputLocation");
-                system1.AddDirectory(system1.Path.Combine("inputLocation", "newFolder"));
-
-                // Relative paths all the way down
-                yield return new object[]
-                {
                     system1,
                     "outputLocation",
                     "inputLocation",
                     new string[] { "inputLocation/newFolder" },
                     $"{system1.Path.GetSystemRoot()}{system1.Path.Join("outputLocation", "newFolder")}"
-                };
+            };
 
-                var system2 = new MockFileSystem();
+            var system2 = new MockFileSystem();
 
-                system2.AddDirectory("workspace");
-                system2.AddDirectory(system2.Path.Combine("workspace", "input"));
-                system2.AddDirectory(system2.Path.Combine("workspace", "input", "target"));
-                system2.AddDirectory(system2.Path.Combine("workspace", "output"));
-                system2.Directory.SetCurrentDirectory(system2.Path.Combine(system2.Path.GetSystemRoot(), "workspace"));
+            system2.AddDirectory("workspace");
+            system2.AddDirectory(system2.Path.Combine("workspace", "input"));
+            system2.AddDirectory(system2.Path.Combine("workspace", "input", "target"));
+            system2.AddDirectory(system2.Path.Combine("workspace", "output"));
+            system2.Directory.SetCurrentDirectory(system2.Path.Combine(system2.Path.GetSystemRoot(), "workspace"));
 
-                // Relative path in a subfolder
-                yield return new object[]
-                {
+            // Relative path in a subfolder
+            yield return new object[]
+            {
                     system2,
-                    "output", 
+                    "output",
                     "input",
                     new string[] { "input/target" },
                     system2.Path.Combine(system2.Path.GetSystemRoot(), "workspace", "output", "target")
-                };
+            };
 
-                var system3 = new MockFileSystem();
-                system3.AddDirectory("workspace");
-                system3.AddDirectory(system3.Path.Combine("workspace", "input"));
-                system3.AddDirectory(system3.Path.Combine("workspace", "output"));
-                system3.Directory.SetCurrentDirectory(system3.Path.Combine(system3.Path.GetSystemRoot(), "workspace"));
+            var system3 = new MockFileSystem();
+            system3.AddDirectory("workspace");
+            system3.AddDirectory(system3.Path.Combine("workspace", "input"));
+            system3.AddDirectory(system3.Path.Combine("workspace", "output"));
+            system3.Directory.SetCurrentDirectory(system3.Path.Combine(system3.Path.GetSystemRoot(), "workspace"));
 
-                // Note the absolute path for the target directory!
-                yield return new object[]
-                {
+            // Note the absolute path for the target directory!
+            yield return new object[]
+            {
                     system3,
                     "/workspace/output",
                     "/workspace/input",
                     new string[] { "input/target" },
                     system3.Path.Combine(system3.Path.GetSystemRoot(), "workspace", "output", "target")
-                };
-            }
+            };
         }
     }
 }

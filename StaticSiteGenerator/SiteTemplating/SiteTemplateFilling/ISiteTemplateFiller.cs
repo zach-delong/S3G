@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using StaticSiteGenerator.MarkdownHtmlConversion;
+namespace StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 
-namespace StaticSiteGenerator.SiteTemplating.SiteTemplateFilling
+public interface ISiteTemplateFiller
 {
-    public interface ISiteTemplateFiller
-    {
-        public string FillSiteTemplate(string contents);
-    }
+    public string FillSiteTemplate(string contents);
 }

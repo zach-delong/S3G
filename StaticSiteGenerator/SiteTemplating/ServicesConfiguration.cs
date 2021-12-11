@@ -2,14 +2,13 @@ using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
 
-namespace StaticSiteGenerator.SiteTemplating
+namespace StaticSiteGenerator.SiteTemplating;
+
+public static class ServicesConfiguration
 {
-    public static class ServicesConfiguration
+    public static void AddSiteTemplateServices(this IServiceCollection services)
     {
-        public static void AddSiteTemplateServices(this IServiceCollection services)
-        {
-            services.AddTransient<ISiteTemplateReader, SiteTemplateLocalFileReader>();
-            services.AddTransient<ISiteTemplateFiller, SiteTemplateFiller>();
-        }
+        services.AddTransient<ISiteTemplateReader, SiteTemplateLocalFileReader>();
+        services.AddTransient<ISiteTemplateFiller, SiteTemplateFiller>();
     }
 }

@@ -1,15 +1,14 @@
 using System;
 
-namespace StaticSiteGenerator.Utilities.StrategyPattern.Exceptions
-{
-    public class StrategyNotFoundException : Exception
-    {
-        public StrategyNotFoundException()
-        {
-        }
+namespace StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 
-        public StrategyNotFoundException(string message) : base(message)
-        {
-        }
+public class StrategyNotFoundException : Exception
+{
+    public StrategyNotFoundException()
+    {
+    }
+
+    public StrategyNotFoundException(string message) : base(message)
+    {
     }
 }

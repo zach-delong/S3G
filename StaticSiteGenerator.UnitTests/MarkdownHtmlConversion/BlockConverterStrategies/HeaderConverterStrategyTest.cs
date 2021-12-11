@@ -9,42 +9,40 @@ using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 
-namespace Test.MarkdownHtmlConversion.BlockConverterStrategies
+namespace Test.MarkdownHtmlConversion.BlockConverterStrategies;
+
+public class HeaderConverterStrategyTest
 {
+    private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
+    private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
+    private StrategyExecutorMockFactory inlineConverterMockFactory => new StrategyExecutorMockFactory();
 
-    public class HeaderConverterStrategyTest
+    [Fact]
+    public void Test()
     {
-        private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
-        private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
-        private StrategyExecutorMockFactory inlineConverterMockFactory => new StrategyExecutorMockFactory();
+        var inlineConverterMock = inlineConverterMockFactory.Get<string, IInlineElement>(new[] { "TestText" });
 
-        [Fact]
-        public void Test()
-        {
-            var inlineConverterMock = inlineConverterMockFactory.Get<string, IInlineElement>(new [] { "TestText" });
-
-            Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
-                .Get(new List<TemplateTag> {
+        Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
+            .Get(new List<TemplateTag> {
                         new TemplateTag {
                             Template ="<h1>{{}}</h1>",
                             Type = TagType.Header1
                         }
-                    });
+                });
 
-            var templateFillerMock = TemplateFillerMockFactory.Get();
+        var templateFillerMock = TemplateFillerMockFactory.Get();
 
-            var converter = new HeaderHtmlConverterStrategy(
-                inlineConverterMock.Object,
-                templateReader.Object,
-                templateFillerMock.Object);
+        var converter = new HeaderHtmlConverterStrategy(
+            inlineConverterMock.Object,
+            templateReader.Object,
+            templateFillerMock.Object);
 
-            var headerBlock = new Header
-            {
-                Inlines = new List<IInlineElement>()
-            };
-            var result = converter.Execute(headerBlock);
+        var headerBlock = new Header
+        {
+            Inlines = new List<IInlineElement>()
+        };
+        var result = converter.Execute(headerBlock);
 
-            Assert.Equal("<h1>TestText</h1>", result);
-        }
+        Assert.Equal("<h1>TestText</h1>", result);
     }
 }

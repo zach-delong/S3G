@@ -1,9 +1,8 @@
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.TemplateSubstitution.TagCollection
+namespace StaticSiteGenerator.TemplateSubstitution.TagCollection;
+
+public interface ITemplateTagCollection
 {
-    public interface ITemplateTagCollection
-    {
-        TemplateTag GetTagForType(TagType type);
-    }
+    TemplateTag GetTagForType(TagType type);
 }

@@ -1,23 +1,22 @@
 using System.IO.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace StaticSiteGenerator.IntegrationTests.Utilities
+namespace StaticSiteGenerator.IntegrationTests.Utilities;
+
+public static class IntegrationTestBaseTestUtils
 {
-    public static class IntegrationTestBaseTestUtils
+    public static bool FileExists(this IntegrationTestBase testBase, string pathToFile)
     {
-        public static bool FileExists(this IntegrationTestBase testBase, string pathToFile)
-        {
-            var fileSystem = testBase.ServiceProvider.GetService<IFileSystem>();
+        var fileSystem = testBase.ServiceProvider.GetService<IFileSystem>();
 
-            return fileSystem.File.Exists(pathToFile);
-        }
+        return fileSystem.File.Exists(pathToFile);
+    }
 
-        public static string ReadFileContents(this IntegrationTestBase testBase, string pathToFile)
-        {
-            var fileSystem = testBase.ServiceProvider.GetService<IFileSystem>();
+    public static string ReadFileContents(this IntegrationTestBase testBase, string pathToFile)
+    {
+        var fileSystem = testBase.ServiceProvider.GetService<IFileSystem>();
 
-            return fileSystem.File.ReadAllText(pathToFile);
-        }
+        return fileSystem.File.ReadAllText(pathToFile);
     }
 }
 

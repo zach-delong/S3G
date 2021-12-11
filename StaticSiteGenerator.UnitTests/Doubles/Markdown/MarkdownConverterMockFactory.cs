@@ -1,16 +1,14 @@
-using System;
 using Moq;
 using StaticSiteGenerator.MarkdownHtmlConversion;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.Markdown
-{
-    public static class MarkdownConverterMockFactory
-    {
-        public static Mock<IMarkdownConverter> Get()
-        {
-            var mock = new Mock<IMarkdownConverter>();
+namespace StaticSiteGenerator.UnitTests.Doubles.Markdown;
 
-            return mock;
-        }
+public static class MarkdownConverterMockFactory
+{
+    public static Mock<IMarkdownConverter> Get()
+    {
+        var mock = new Mock<IMarkdownConverter>();
+
+        return mock;
     }
 }

@@ -1,7 +1,6 @@
-namespace StaticSiteGenerator.SiteTemplating.SiteTemplateReading
+namespace StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
+
+public interface ISiteTemplateReader
 {
-    public interface ISiteTemplateReader
-    {
-        public string ReadTemplate();
-    }
+    public string ReadTemplate();
 }

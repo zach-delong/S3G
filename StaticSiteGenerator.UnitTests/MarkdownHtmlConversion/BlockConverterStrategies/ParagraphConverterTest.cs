@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-
 using Moq;
 using Xunit;
 using StaticSiteGenerator.Markdown.InlineElement;
@@ -10,42 +9,40 @@ using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.MarkdownHtmlConversion.BlockConverterStrategies;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 
-namespace Test.MarkdownHtmlconversion.BlockConverterStrategies
+namespace Test.MarkdownHtmlconversion.BlockConverterStrategies;
+
+public class ParagraphConverterTest
 {
+    private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
+    private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
+    private StrategyExecutorMockFactory inlineConverterMockFactory => new StrategyExecutorMockFactory();
 
-    public class ParagraphConverterTest
+    [Fact]
+    public void Test()
     {
-        private TemplateCollectionMockFactory templateCollectionMockFactory => new TemplateCollectionMockFactory();
-        private StrategyCollectionMockFactory strategyCollectionMockFactory => new StrategyCollectionMockFactory();
-        private StrategyExecutorMockFactory inlineConverterMockFactory => new StrategyExecutorMockFactory();
+        var inlineConverterMock = inlineConverterMockFactory.Get<string, IInlineElement>(new[] { "TestText" });
 
-        [Fact]
-        public void Test()
-        {
-            var inlineConverterMock = inlineConverterMockFactory.Get<string, IInlineElement>(new [] { "TestText" });
-
-            Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
-                .Get(new List<TemplateTag> {
+        Mock<ITemplateTagCollection> templateReader = templateCollectionMockFactory
+            .Get(new List<TemplateTag> {
                         new TemplateTag {
                             Template ="<p>{{}}</p>",
                             Type = TagType.Paragraph
                         }
-                    });
+                });
 
-            var templateFillerMock = TemplateFillerMockFactory.Get();
+        var templateFillerMock = TemplateFillerMockFactory.Get();
 
-            var converter = new ParagraphHtmlConverterStrategy(
-                inlineConverterMock.Object,
-                templateReader.Object,
-                templateFillerMock.Object);
+        var converter = new ParagraphHtmlConverterStrategy(
+            inlineConverterMock.Object,
+            templateReader.Object,
+            templateFillerMock.Object);
 
-            var headerBlock = new Paragraph
-            {
-                Inlines = new List<IInlineElement>()
-            };
-            var result = converter.Execute(headerBlock);
+        var headerBlock = new Paragraph
+        {
+            Inlines = new List<IInlineElement>()
+        };
+        var result = converter.Execute(headerBlock);
 
-            Assert.Equal("<p>TestText</p>", result);
-        }
+        Assert.Equal("<p>TestText</p>", result);
     }
 }

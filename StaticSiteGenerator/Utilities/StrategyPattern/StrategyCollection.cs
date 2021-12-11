@@ -4,53 +4,52 @@ using System.ComponentModel;
 using System.Linq;
 using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 
-namespace StaticSiteGenerator.Utilities.StrategyPattern
+namespace StaticSiteGenerator.Utilities.StrategyPattern;
+
+public class StrategyCollection<T>
 {
-    public class StrategyCollection<T>
+    private IDictionary<string, T> Strategies;
+
+    public StrategyCollection(IEnumerable<T> strategies)
     {
-        private IDictionary<string, T> Strategies;
+        SetCollection(strategies);
+    }
 
-        public StrategyCollection(IEnumerable<T> strategies)
+    public StrategyCollection()
+    {
+    }
+
+    public void SetCollection(IEnumerable<T> strategies)
+    {
+        if (strategies == null) throw new ArgumentNullException("Strategies can not be null");
+
+        Strategies = strategies
+            .ToDictionary(s => getTypeName(s));
+    }
+
+    private string getTypeName(T strategy)
+    {
+        var type = strategy.GetType();
+
+        StrategyForTypeAttribute attribute = (StrategyForTypeAttribute)TypeDescriptor
+            .GetAttributes(strategy)[typeof(StrategyForTypeAttribute)];
+
+        if (attribute == null)
         {
-            SetCollection(strategies);
+            throw new StrategyMapperAttributeNotFoundException($"on type {type.Name}");
         }
 
-        public StrategyCollection()
+        return attribute.TypeName;
+
+    }
+
+    public virtual T GetStrategyForType(Type t)
+    {
+        if (!Strategies.ContainsKey(t.Name))
         {
+            throw new StrategyNotFoundException($"Converter for type {t.Name} not found");
         }
 
-        public void SetCollection(IEnumerable<T> strategies)
-        {
-            if(strategies == null) throw new ArgumentNullException("Strategies can not be null");
-
-            Strategies = strategies
-                .ToDictionary(s => getTypeName(s));
-        }
-
-        private string getTypeName(T strategy)
-        {
-            var type = strategy.GetType();
-
-            StrategyForTypeAttribute attribute = (StrategyForTypeAttribute)TypeDescriptor
-                .GetAttributes(strategy)[typeof(StrategyForTypeAttribute)];
-
-            if(attribute == null)
-            {
-                throw new StrategyMapperAttributeNotFoundException($"on type {type.Name}");
-            }
-
-            return attribute.TypeName;
-
-        }
-
-        public virtual T GetStrategyForType(Type t)
-        {
-            if(!Strategies.ContainsKey(t.Name))
-            {
-                throw new StrategyNotFoundException($"Converter for type {t.Name} not found");
-            }
-
-            return Strategies[t.Name];
-        }
+        return Strategies[t.Name];
     }
 }

@@ -1,36 +1,33 @@
-using System.Collections.Generic;
-using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.SiteTemplating
+namespace StaticSiteGenerator.UnitTests.SiteTemplating;
+
+public class SiteTemplateFillerTests
 {
-    public class SiteTemplateFillerTests
+    private SiteTemplateReaderMockFactory MockFactory => new SiteTemplateReaderMockFactory();
+    [Fact]
+    public void SiteTemplateFillerShouldFillWithCachedTemplate()
     {
-        private SiteTemplateReaderMockFactory MockFactory => new SiteTemplateReaderMockFactory();
-        [Fact]
-        public void SiteTemplateFillerShouldFillWithCachedTemplate()
-        {
-            var mock = MockFactory.Get("<html>{{}}</html>");
+        var mock = MockFactory.Get("<html>{{}}</html>");
 
-            var sut = new SiteTemplateFiller(mock.Object);
+        var sut = new SiteTemplateFiller(mock.Object);
 
-            var result = sut.FillSiteTemplate("asdf");
+        var result = sut.FillSiteTemplate("asdf");
 
-            Assert.Equal("<html>asdf</html>", result);
-        }
+        Assert.Equal("<html>asdf</html>", result);
+    }
 
-        [Fact]
-        public void SiteTemplateShouldNotFillWithoutMustache()
-        {
-            var mock = MockFactory.Get("<html></html>");
+    [Fact]
+    public void SiteTemplateShouldNotFillWithoutMustache()
+    {
+        var mock = MockFactory.Get("<html></html>");
 
-            var sut = new SiteTemplateFiller(mock.Object);
+        var sut = new SiteTemplateFiller(mock.Object);
 
-            var result = sut.FillSiteTemplate("asdf");
+        var result = sut.FillSiteTemplate("asdf");
 
-            Assert.Equal("<html></html>", result);
-        }
+        Assert.Equal("<html></html>", result);
     }
 }

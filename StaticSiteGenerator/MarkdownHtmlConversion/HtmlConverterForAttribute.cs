@@ -1,12 +1,10 @@
-using System;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.MarkdownHtmlConversion
+namespace StaticSiteGenerator.MarkdownHtmlConversion;
+
+public class HtmlConverterForAttribute : StrategyForTypeAttribute
 {
-    public class HtmlConverterForAttribute : StrategyForTypeAttribute
+    public HtmlConverterForAttribute(string typeName) : base(typeName)
     {
-        public HtmlConverterForAttribute(string typeName) : base(typeName)
-        {
-        }
     }
 }

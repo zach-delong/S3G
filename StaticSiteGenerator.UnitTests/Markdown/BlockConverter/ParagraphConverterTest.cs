@@ -1,29 +1,27 @@
 using Xunit;
-
 using StaticSiteGenerator.Markdown.BlockElementConverter;
 using StaticSiteGenerator.UnitTests.Markdown.Doubles;
 using StaticSiteGenerator.UnitTests.Doubles;
 using Markdig.Syntax;
 
-namespace StaticSiteGenerator.UnitTests.Markdown.BlockConverter
+namespace StaticSiteGenerator.UnitTests.Markdown.BlockConverter;
+
+public class ParagraphConverterTest
 {
-    public class ParagraphConverterTest
+    private LoggerMockFactory loggerMockFactory => new LoggerMockFactory();
+
+    [Fact]
+    public void ParagraphConverterCallsInlineConverterTest()
     {
-        private LoggerMockFactory loggerMockFactory => new LoggerMockFactory();
+        var testInlineParser = new TestInlineParser();
+        var logger = loggerMockFactory.Get<ParagraphConverter>().Object;
 
-        [Fact]
-        public void ParagraphConverterCallsInlineConverterTest()
-        {
-            var testInlineParser = new TestInlineParser();
-            var logger = loggerMockFactory.Get<ParagraphConverter>().Object;
+        ParagraphConverter converter = new ParagraphConverter(testInlineParser, logger);
 
-            ParagraphConverter converter = new ParagraphConverter(testInlineParser, logger);
+        var paragraph = new ParagraphBlock();
 
-            var paragraph = new ParagraphBlock();
+        converter.Execute(paragraph);
 
-            converter.Execute(paragraph);
-
-            Assert.True(testInlineParser.ParseCalled);
-        }
+        Assert.True(testInlineParser.ParseCalled);
     }
 }

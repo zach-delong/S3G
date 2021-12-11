@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.TemplateReading
+namespace StaticSiteGenerator.TemplateReading;
+
+public interface ITemplateReader
 {
-    public interface ITemplateReader
-    {
-        IEnumerable<TemplateTag> ReadTemplate();
-    }
+    IEnumerable<TemplateTag> ReadTemplate();
 }
