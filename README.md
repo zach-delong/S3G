@@ -40,6 +40,7 @@ website. As such, it should not be considered commercial strength
 ### Ongoing tasks
 
 - [X] Copy non *.md files to the output directory
+- [ ] Update to .NET 6
 - [ ] Reorganize namespaces 
 - [ ] Consider consolidating test projects into one project
 - [ ] Covert common *.md tags to HTML
