@@ -1,7 +1,6 @@
-namespace StaticSiteGenerator.Files 
+namespace StaticSiteGenerator.Files;
+
+public interface IFileSystemObject
 {
-    public interface IFileSystemObject
-    {
-        public string FullPath { get; }
-    }
+    public string FullPath { get; }
 }
