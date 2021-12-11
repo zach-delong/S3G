@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using StaticSiteGenerator.MarkdownHtmlConversion;
+namespace StaticSiteGenerator.HtmlWriting;
 
-namespace StaticSiteGenerator.HtmlWriting
+public interface IHtmlFileWriter
 {
-    public interface IHtmlFileWriter
-    {
-        void Write(string filePath, string htmlString);
-    }
+    void Write(string filePath, string htmlString);
 }
