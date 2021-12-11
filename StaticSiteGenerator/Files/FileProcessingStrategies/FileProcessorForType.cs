@@ -1,11 +1,10 @@
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.Files.FileProcessingStrategies
+namespace StaticSiteGenerator.Files.FileProcessingStrategies;
+
+public class FileProcessorForType : StrategyForTypeAttribute
 {
-    public class FileProcessorForType : StrategyForTypeAttribute
+    public FileProcessorForType(string typeName) : base(typeName)
     {
-        public FileProcessorForType(string typeName) : base(typeName)
-        {
-        }
     }
 }
