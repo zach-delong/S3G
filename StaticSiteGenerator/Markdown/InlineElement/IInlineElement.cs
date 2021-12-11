@@ -1,7 +1,6 @@
-namespace StaticSiteGenerator.Markdown.InlineElement
+namespace StaticSiteGenerator.Markdown.InlineElement;
+
+public interface IInlineElement
 {
-    public interface IInlineElement
-    {
-        public string Content { get; }
-    }
+    public string Content { get; }
 }
