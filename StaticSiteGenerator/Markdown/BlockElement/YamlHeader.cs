@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 
-namespace StaticSiteGenerator.Markdown.BlockElement
+namespace StaticSiteGenerator.Markdown.BlockElement;
+
+public class YamlHeader : IBlockElement
 {
-    public class YamlHeader: IBlockElement
-    {
-        public YamlHeader() { }
+    public YamlHeader() { }
 
-        public IDictionary<YamlAttributeType, string> Attributes { get; set; }
+    public IDictionary<YamlAttributeType, string> Attributes { get; set; }
 
-        public string Content => throw new System.NotImplementedException();
-    }
+    public string Content => throw new System.NotImplementedException();
 }
