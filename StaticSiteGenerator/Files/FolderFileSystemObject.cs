@@ -1,11 +1,10 @@
-namespace StaticSiteGenerator.Files
+namespace StaticSiteGenerator.Files;
+
+public class FolderFileSystemObject : IFileSystemObject
 {
-    public class FolderFileSystemObject: IFileSystemObject
+    public FolderFileSystemObject(string path)
     {
-        public FolderFileSystemObject(string path)
-        {
-            FullPath = path;
-        }
-        public string FullPath { get; }
+        FullPath = path;
     }
+    public string FullPath { get; }
 }
