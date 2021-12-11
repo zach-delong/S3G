@@ -1,14 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.Utilities.DependencyInjection;
 
-namespace StaticSiteGenerator.HtmlWriting
+namespace StaticSiteGenerator.HtmlWriting;
+
+public static class ServicesConfiguration
 {
-    public static class ServicesConfiguration
+    public static void AddHtmlWriting(this IServiceCollection services)
     {
-        public static void AddHtmlWriting(this IServiceCollection services)
-        {
-            services.AddTransient<IHtmlFileWriter, FileSystemHtmlWriter>();
-            services.Decorate<IHtmlFileWriter, MarkdownHtmlFileWriter>();
-        }
+        services.AddTransient<IHtmlFileWriter, FileSystemHtmlWriter>();
+        services.Decorate<IHtmlFileWriter, MarkdownHtmlFileWriter>();
     }
 }
