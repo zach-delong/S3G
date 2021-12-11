@@ -3,54 +3,53 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 
-namespace StaticSiteGenerator.Files.FileListing
+namespace StaticSiteGenerator.Files.FileListing;
+
+/// <summary>
+/// Given a path and pattern, return an iterable containing the contents of that directory.
+/// </summary
+public class DeferredExecutionDirectoryEnumerator : IDirectoryEnumerator
 {
-    /// <summary>
-    /// Given a path and pattern, return an iterable containing the contents of that directory.
-    /// </summary
-    public class DeferredExecutionDirectoryEnumerator : IDirectoryEnumerator
+    private readonly IFileSystem FileSystem;
+
+    public DeferredExecutionDirectoryEnumerator(IFileSystem fileSystem)
     {
-        private readonly IFileSystem FileSystem;
+        FileSystem = fileSystem;
+    }
 
-        public DeferredExecutionDirectoryEnumerator(IFileSystem fileSystem)
+    public IEnumerable<string> GetFiles(string path, string pattern)
+    {
+        return FileSystem.Directory.EnumerateFiles(path, pattern);
+    }
+
+    public IEnumerable<IFileSystemObject> ListAllContents(string path)
+    {
+        Stack<string> pathsToExplore = new Stack<string>();
+
+        pathsToExplore.Push(path);
+
+        while (pathsToExplore.Any())
         {
-            FileSystem = fileSystem;
-        }
+            var p = pathsToExplore.Pop();
 
-        public IEnumerable<string> GetFiles(string path, string pattern)
-        {
-            return FileSystem.Directory.EnumerateFiles(path, pattern);
-        }
-
-        public IEnumerable<IFileSystemObject> ListAllContents(string path)
-        {
-            Stack<string> pathsToExplore = new Stack<string>();
-
-            pathsToExplore.Push(path);
-
-            while(pathsToExplore.Any())
+            foreach (var filePath in FileSystem.Directory.GetFileSystemEntries(p))
             {
-                var p = pathsToExplore.Pop();
+                var attrs = FileSystem.File.GetAttributes(filePath);
 
-                foreach(var filePath in FileSystem.Directory.GetFileSystemEntries(p))
+                var rootPathToInputFile = FileSystem.Path.GetFullPath(filePath);
+
+                if (attrs.HasFlag(FileAttributes.Directory))
                 {
-                    var attrs = FileSystem.File.GetAttributes(filePath);
-
-                    var rootPathToInputFile = FileSystem.Path.GetFullPath(filePath);
-
-                    if(attrs.HasFlag(FileAttributes.Directory))
-                    {
-                        yield return new FolderFileSystemObject(rootPathToInputFile);
-                        pathsToExplore.Push(filePath);
-                    }
-                    else if(filePath.ToLower().EndsWith(".md"))
-                    {
-                        yield return new MarkdownFileSystemObject(rootPathToInputFile);
-                    }
-                    else
-                    {
-                        yield return new FileFileSystemObject(rootPathToInputFile);
-                    }
+                    yield return new FolderFileSystemObject(rootPathToInputFile);
+                    pathsToExplore.Push(filePath);
+                }
+                else if (filePath.ToLower().EndsWith(".md"))
+                {
+                    yield return new MarkdownFileSystemObject(rootPathToInputFile);
+                }
+                else
+                {
+                    yield return new FileFileSystemObject(rootPathToInputFile);
                 }
             }
         }
