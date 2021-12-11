@@ -3,47 +3,46 @@ using System.Collections.Generic;
 using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace StaticSiteGenerator
+namespace StaticSiteGenerator;
+
+public class Program
 {
-    public class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        try
         {
-            try
-            {
-                CommandLine.Parser.Default.ParseArguments<CliOptions>(args)
-                    .WithParsed(RunProgram)
-                    .WithNotParsed(OptionsErrors);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An exception was thrown");
-                Console.Write(ex);
-            }
+            CommandLine.Parser.Default.ParseArguments<CliOptions>(args)
+                .WithParsed(RunProgram)
+                .WithNotParsed(OptionsErrors);
         }
-
-        static void RunProgram(CliOptions o)
+        catch (Exception ex)
         {
-            var serviceProvider = BuildDependencies(o);
-
-            serviceProvider.GetService<Generator>().Start();
+            Console.WriteLine($"An exception was thrown");
+            Console.Write(ex);
         }
-
-        public static IServiceProvider BuildDependencies(CliOptions options)
-        {
-            var service = new ServiceCollection();
-            service.AddCustomServices();
-
-            service.AddSingleton(options);
-
-            return service.BuildServiceProvider();
-        }
-
-        static void OptionsErrors(IEnumerable<Error> errors)
-        {
-            Console.WriteLine(errors);
-            throw new Exception("An error occurred while gathering options");
-        }
-
     }
+
+    static void RunProgram(CliOptions o)
+    {
+        var serviceProvider = BuildDependencies(o);
+
+        serviceProvider.GetService<Generator>().Start();
+    }
+
+    public static IServiceProvider BuildDependencies(CliOptions options)
+    {
+        var service = new ServiceCollection();
+        service.AddCustomServices();
+
+        service.AddSingleton(options);
+
+        return service.BuildServiceProvider();
+    }
+
+    static void OptionsErrors(IEnumerable<Error> errors)
+    {
+        Console.WriteLine(errors);
+        throw new Exception("An error occurred while gathering options");
+    }
+
 }
