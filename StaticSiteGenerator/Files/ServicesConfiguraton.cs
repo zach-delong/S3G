@@ -5,22 +5,21 @@ using StaticSiteGenerator.Files.FileProcessingStrategies;
 using StaticSiteGenerator.Files.FileWriting;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.Files
+namespace StaticSiteGenerator.Files;
+
+public static class ServicesConfiguration
 {
-    public static class ServicesConfiguration
+    public static void AddFileManipulationServices(this IServiceCollection services)
     {
-        public static void AddFileManipulationServices(this IServiceCollection services)
-        {
-            services.AddTransient<IFileSystem, FileSystem>();
-            services.AddTransient<IFileWriter, OverwritingFileWriter>();
+        services.AddTransient<IFileSystem, FileSystem>();
+        services.AddTransient<IFileWriter, OverwritingFileWriter>();
 
-            services.AddTransient<IDirectoryEnumerator, DeferredExecutionDirectoryEnumerator>();
+        services.AddTransient<IDirectoryEnumerator, DeferredExecutionDirectoryEnumerator>();
 
-            services.AddTransient<FileReader>();
+        services.AddTransient<FileReader>();
 
-            services.AddTransient<IStrategy<object, IFileSystemObject>, FileProcessingStrategy>();
-            services.AddTransient<IStrategy<object, IFileSystemObject>, FolderProcessingStrategy>();
-            services.AddTransient<IStrategy<object, IFileSystemObject>, MarkdownFileProcessingStrategy>();
-        }
+        services.AddTransient<IStrategy<object, IFileSystemObject>, FileProcessingStrategy>();
+        services.AddTransient<IStrategy<object, IFileSystemObject>, FolderProcessingStrategy>();
+        services.AddTransient<IStrategy<object, IFileSystemObject>, MarkdownFileProcessingStrategy>();
     }
 }
