@@ -11,34 +11,41 @@ public class Generator
 {
     private readonly IDirectoryEnumerator directoryLister;
     private readonly CliOptions Options;
-    private readonly ILogger<Generator> logger;
     private readonly IStrategyExecutor<object, IFileSystemObject> converter;
+
+    public delegate void OnSiteStart();
+    public delegate void OnSiteDone();
+
+    private readonly OnSiteStart BeforeStart;
+    private readonly OnSiteDone afterEnd;
 
     public Generator(
         IDirectoryEnumerator directoryLister,
         CliOptions options,
-        ILogger<Generator> logger,
-        IStrategyExecutor<object, IFileSystemObject> converter
+        IStrategyExecutor<object, IFileSystemObject> converter,
+        OnSiteStart beforeStart,
+        OnSiteDone afterEnd
     )
     {
         this.directoryLister = directoryLister;
         this.Options = options;
-        this.logger = logger;
         this.converter = converter;
+        this.BeforeStart = beforeStart;
+        this.afterEnd = afterEnd;
     }
 
     public void Start()
     {
         try
         {
-            logger.LogTrace("Starting conversion of static site.");
+            BeforeStart?.Invoke();
 
             var fileNames = directoryLister.ListAllContents(Options.PathToMarkdownFiles);
 
             converter.Process(fileNames)
                      .ToList();
 
-            logger.LogTrace("Finished conversion of static site.");
+            afterEnd?.Invoke();
         }
         catch (Exception ex)
         {
