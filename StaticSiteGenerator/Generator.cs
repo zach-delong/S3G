@@ -17,7 +17,7 @@ public class Generator
     public delegate void OnSiteDone();
 
     private readonly OnSiteStart BeforeStart;
-    private readonly OnSiteDone afterEnd;
+    private readonly OnSiteDone AfterEnd;
 
     public Generator(
         IDirectoryEnumerator directoryLister,
@@ -31,7 +31,7 @@ public class Generator
         this.Options = options;
         this.converter = converter;
         this.BeforeStart = beforeStart;
-        this.afterEnd = afterEnd;
+        this.AfterEnd = afterEnd;
     }
 
     public void Start()
@@ -45,7 +45,7 @@ public class Generator
             converter.Process(fileNames)
                      .ToList();
 
-            afterEnd?.Invoke();
+            AfterEnd?.Invoke();
         }
         catch (Exception ex)
         {
