@@ -3,7 +3,7 @@ using StaticSiteGenerator.Markdown.InlineElementConverter;
 using Markdig.Syntax.Inlines;
 using Markdig.Helpers;
 
-namespace Test.Markdown.ImnlineConverter;
+namespace StaticSiteGenerator.UnitTests.Markdown.InlineConverter;
 
 public class TextConverterTest
 {
