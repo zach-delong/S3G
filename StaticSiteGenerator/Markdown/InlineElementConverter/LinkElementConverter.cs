@@ -7,11 +7,25 @@ namespace StaticSiteGenerator.Markdown.InlineElementConverter;
 [MarkdownConverterForAttribute(nameof(LinkInline))]
 public class LinkElementConverter : IInlineElementConverter
 {
+    public delegate void BeforeLinkConversion(LinkInline input);
+    public delegate void AfterLinkConversion(LinkInline input, LinkElement output);
+
+    private BeforeLinkConversion PreLinkConversion;
+    private AfterLinkConversion PostLinkConversion;
+
+    public LinkElementConverter(
+        BeforeLinkConversion preLinkConversion = null,
+        AfterLinkConversion postLinkConversion = null)
+    {
+        PreLinkConversion = preLinkConversion;
+        PostLinkConversion = postLinkConversion;
+    }
+
     public IInlineElement Execute(IInline inline)
     {
         var element = (LinkInline)inline;
 
-        if(element.IsImage)
+        if (element.IsImage)
         {
             return ConvertImage(element);
         }
@@ -23,11 +37,18 @@ public class LinkElementConverter : IInlineElementConverter
 
     public IInlineElement ConvertLink(LinkInline inline)
     {
-        return new LinkElement
+        PreLinkConversion?.Invoke(inline);
+
+        var result = new LinkElement
         {
             Text = inline.Title,
             Link = inline.Url
         };
+
+        PostLinkConversion?.Invoke(inline, result);
+
+        return result;
+
     }
 
     public IInlineElement ConvertImage(LinkInline inline)
