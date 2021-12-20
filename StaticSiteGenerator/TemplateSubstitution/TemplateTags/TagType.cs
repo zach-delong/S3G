@@ -7,5 +7,7 @@ public enum TagType
     [Description("h1")]
     Header1,
     [Description("p")]
-    Paragraph
+    Paragraph,
+    [Description("link")]
+    Link
 }
