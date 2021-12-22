@@ -9,6 +9,7 @@ namespace StaticSiteGenerator.MarkdownHtmlConversion.InlineConverterStrategies;
 public delegate void BeforeLinkTemplateFilling(LinkElement input);
 public delegate void AfterLinkTemplateFilling(LinkElement input, string html);
 
+[HtmlConverterFor(nameof(LinkElement))]
 public class LinkConverter : IInlineConverterStrategy
 {
     private readonly LinkInlineModelConverter ModelConverter;

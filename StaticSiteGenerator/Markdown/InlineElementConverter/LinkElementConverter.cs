@@ -41,7 +41,9 @@ public class LinkElementConverter : IInlineElementConverter
 
         var result = new LinkElement
         {
-            Text = inline.Title,
+            // TODO: There could be any inline under an anchor, 
+            // so we need to handle that differently...
+            Text = ((LiteralInline)inline.FirstChild).Content.ToString(),
             Link = inline.Url
         };
 

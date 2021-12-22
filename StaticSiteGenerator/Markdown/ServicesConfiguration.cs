@@ -16,6 +16,7 @@ public static class ServicesConfiguration
     public static void AddMarkdownConverters(this IServiceCollection services)
     {
         services.AddTransient<IStrategy<IInlineElement, IInline>, TextElementConverter>();
+        services.AddTransient<IStrategy<IInlineElement, IInline>, LinkElementConverter>();
 
         services.AddTransient<IStrategy<IBlockElement, IBlock>, HeaderConverter>();
         services.AddTransient<IStrategy<IBlockElement, IBlock>, ParagraphConverter>();

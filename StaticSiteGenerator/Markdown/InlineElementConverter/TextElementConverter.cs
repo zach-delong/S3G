@@ -12,7 +12,7 @@ public class TextElementConverter : IInlineElementConverter
 
         return new Text
         {
-            Content = Markdig.Markdown.ToPlainText(textRun.Content.Text)
+            Content = Markdig.Markdown.ToPlainText(textRun.Content.ToString())
         };
     }
 }
