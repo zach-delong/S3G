@@ -18,8 +18,6 @@ public static class ServicesConfiguration
         services.AddTransient<IStrategy<string, IInlineElement>, TextConverter>();
         services.AddTransient<IStrategy<string, IInlineElement>, LinkConverter>();
 
-        services.AddTransient<IMarkdownConverter, MarkdownConverter>();
-
         services.AddTransient<LinkInlineModelConverter>();
     }
 

@@ -1,6 +1,8 @@
+using StaticSiteGenerator.MarkdownHtmlConversion;
+
 namespace StaticSiteGenerator.Markdown.Parser;
 
 public interface IMarkdownFileParser
 {
-    IMarkdownFile ReadFile(string filePath);
+    IHtmlFile ReadFile(string filePath);
 }

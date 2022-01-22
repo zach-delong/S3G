@@ -8,7 +8,7 @@ namespace StaticSiteGenerator.IntegrationTests.Tests;
 public class Header1IntegrationTests : IntegrationTestBase
 {
     [Fact]
-    public void Header1ShoulsParseCorrectly()
+    public void Header1ShouldParseCorrectly()
     {
         FileSystemCache.AddFile("templates/template/tag_templates/h1.html", new MockFileData("<h1>{{}}</h1>"));
         FileSystemCache.AddFile("templates/template/tag_templates/p.html", new MockFileData("<p>{{}}</p>"));
@@ -18,7 +18,7 @@ public class Header1IntegrationTests : IntegrationTestBase
 
         ServiceProvider.GetService<Generator>().Start();
 
-        const string expectedFileContent = @"<html><h1>This is some text!</h1></html>";
+        const string expectedFileContent = "<html><h1>This is some text!</h1>\n</html>";
         const string expectedFileName = "/output/file1.html";
 
         Assert.True(this.FileExists(expectedFileName));

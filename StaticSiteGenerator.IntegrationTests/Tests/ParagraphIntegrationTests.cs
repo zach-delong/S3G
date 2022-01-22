@@ -17,7 +17,7 @@ public class ParagraphIntegrationTests : IntegrationTestBase
 
         ServiceProvider.GetService<Generator>().Start();
 
-        const string expectedContent = @"<html><p>This is some text!</p></html>";
+        const string expectedContent = "<html><p>This is some text!</p>\n</html>";
         const string expectedName = "/output/file1.html";
 
         Assert.True(this.FileExists(expectedName));

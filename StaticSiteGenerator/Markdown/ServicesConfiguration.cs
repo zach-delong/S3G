@@ -8,7 +8,9 @@ using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.InlineElement;
 using StaticSiteGenerator.Markdown.BlockElement;
 using Markdig.Syntax;
+using Markdig.Renderers;
 using StaticSiteGenerator.Markdown.Renderers;
+using Markdig;
 
 namespace StaticSiteGenerator.Markdown;
 
@@ -23,6 +25,9 @@ public static class ServicesConfiguration
         services.AddTransient<IStrategy<IBlockElement, IBlock>, ParagraphConverter>();
 
         services.AddTransient<ICustomRenderer, LiteralRenderer>();
+        services.AddTransient<CustomExtension>();
+        services.AddTransient<MarkdownConverter>();
+        services.AddTransient<CustomMarkdownPipelineFactory>();
     }
 
     public static void AddMarkdownParsers(this IServiceCollection services)

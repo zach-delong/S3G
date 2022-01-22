@@ -23,7 +23,7 @@ public class LinkIntegrationTests: IntegrationTestBase
 
         ServiceProvider.GetService<Generator>().Start();
 
-        const string expectedFileContent = "<html><p>This is some\n<a href='https://www.google.com'>text!</a></p></html>";
+        const string expectedFileContent = "<html><p>This is some <a href=\"https://www.google.com\">text!</a></p>\n</html>";
         const string expectedFileName = "/output/file1.html";
 
         Assert.True(this.FileExists(expectedFileName));
