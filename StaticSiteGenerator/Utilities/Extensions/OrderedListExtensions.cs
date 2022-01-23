@@ -6,7 +6,7 @@ namespace StaticSiteGenerator.Utilities.Extensions;
 
 public static class OrderedListExtensions
 {
-    public static void Replace(this OrderedList<IMarkdownObjectRenderer> t,
+    public static void ReplaceOrAdd(this OrderedList<IMarkdownObjectRenderer> t,
                                Type toReplace,
                                IMarkdownObjectRenderer replaceWith)
     {
@@ -19,6 +19,11 @@ public static class OrderedListExtensions
                 t.Insert(i, replaceWith);
                 found = true;
             }
+        }
+
+        if(!found)
+        {
+            t.Add(replaceWith);
         }
     }
 }

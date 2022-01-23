@@ -25,7 +25,7 @@ public class CustomExtension : IMarkdownExtension
 
         foreach(var r in customRenderers)
         {
-            htmlRenderer.ObjectRenderers.Replace(r.Replaces, r);
+            htmlRenderer.ObjectRenderers.ReplaceOrAdd(r.Replaces, r);
         }
     }
 }

@@ -17,7 +17,7 @@ public class OrderedListExtensionsTests
                             IMarkdownObjectRenderer replaceWith,
                             int? expectedIndex)
     {
-        targetList.Replace(targetType, replaceWith);
+        targetList.ReplaceOrAdd(targetType, replaceWith);
 
         if(expectedIndex != null)
         {
