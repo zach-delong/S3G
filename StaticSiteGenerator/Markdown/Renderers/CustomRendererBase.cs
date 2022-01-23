@@ -6,5 +6,5 @@ namespace StaticSiteGenerator.Markdown.Renderers;
 
 public abstract class CustomRendererBase<T>: HtmlObjectRenderer<T>, ICustomRenderer where T: MarkdownObject
 {
-    public Type Replaces => typeof(T);
+    public Type Replaces => typeof(HtmlObjectRenderer<T>);
 }

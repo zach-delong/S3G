@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Markdig;
-using Markdig.Helpers;
 using Markdig.Renderers;
 using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.Renderers;

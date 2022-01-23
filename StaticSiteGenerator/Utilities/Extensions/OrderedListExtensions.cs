@@ -13,7 +13,7 @@ public static class OrderedListExtensions
         var found = false;
         for (var i = 0; i < t.Count && !found; i++)
         {
-            if (t[i].GetType().Name == toReplace.Name)
+            if (t[i].GetType().BaseType.Name == toReplace.Name)
             {
                 t.RemoveAt(i);
                 t.Insert(i, replaceWith);

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using Markdig.Helpers;
 using Markdig.Renderers;
+using Markdig.Renderers.Html;
 using Markdig.Renderers.Html.Inlines;
+using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Utilities.Extensions;
 using Xunit;
 
@@ -34,7 +36,7 @@ public class OrderedListExtensionsTests
             yield return new object[]
             {
                 new OrderedList<IMarkdownObjectRenderer>(),
-                typeof(LiteralInlineRenderer),
+                typeof(HtmlObjectRenderer<LiteralInline>),
                 null,
                 null
             };
@@ -45,7 +47,7 @@ public class OrderedListExtensionsTests
                 {
                     new LiteralInlineRenderer()
                 },
-                typeof(LiteralInlineRenderer),
+                typeof(HtmlObjectRenderer<LiteralInline>),
                 null,
                 0
             };
