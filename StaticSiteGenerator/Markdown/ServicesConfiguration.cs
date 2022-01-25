@@ -23,6 +23,7 @@ public static class ServicesConfiguration
         services.AddTransient<IStrategy<IBlockElement, IBlock>, ParagraphConverter>();
 
         services.AddTransient<ICustomRenderer, LiteralRenderer>();
+        services.AddTransient<ICustomRenderer, ParagraphRenderer>();
         services.AddTransient<ICustomRenderer, HeaderRenderer>();
         services.AddTransient<CustomExtension>();
         services.AddTransient<MarkdownConverter>();
