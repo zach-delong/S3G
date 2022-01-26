@@ -5,22 +5,24 @@ using Markdig.Renderers;
 using Markdig.Syntax.Inlines;
 using Moq;
 using StaticSiteGenerator.Markdown.Renderers;
+using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using Xunit;
 
 namespace StaticSiteGenerator.UnitTests.Markdown.Renderers;
 
 public class LiteralRendererTests
 {
+
+    public HtmlStringWriterFactory writerFactory => new HtmlStringWriterFactory();
     [Theory]
     [MemberData(nameof(TestData))]
     public void Test(LiteralInline input)
     {
-        var writer = new StringWriter();
         var sut = new LiteralRenderer();
 
-        var rendererMock = new Mock<HtmlRenderer>(writer);
+        var (renderer, writer) = writerFactory.Get();
 
-        sut.Write(rendererMock.Object, input);
+        sut.Write(renderer, input);
 
         if(input != null)
             Assert.Equal(input?.Content.ToString(), writer.ToString());
