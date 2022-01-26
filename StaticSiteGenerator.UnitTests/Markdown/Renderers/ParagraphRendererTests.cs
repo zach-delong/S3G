@@ -2,16 +2,19 @@ using System.Collections.Generic;
 using System.IO;
 using Markdig.Renderers;
 using Markdig.Syntax;
-using Moq;
 using StaticSiteGenerator.Markdown.Renderers;
-using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.UnitTests.Doubles.Markdown;
+using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
 namespace StaticSiteGenerator.UnitTests.Markdown.Renderers;
 
 public class ParagraphRendererTests
 {
+    MockTemplateTagCollectionFactory tagCollectionFactory => new MockTemplateTagCollectionFactory();
+    HtmlStringWriterFactory htmlWriterFactory => new HtmlStringWriterFactory();
+
     [Theory]
     [MemberData(nameof(TestData))]
     public void Test(ParagraphBlock inputBlock, string expectedOutput)
@@ -21,18 +24,13 @@ public class ParagraphRendererTests
             Template = "<p property='thing'>{{}}</p>"
         };
 
-        var tags = new Mock<ITemplateTagCollection>();
-
-        tags
-            .Setup(c => c.GetTagForType(It.IsAny<TagType>()))
-            .Returns(resultTag);
+        var tags = tagCollectionFactory.Get(resultTag);
 
         var sut = new ParagraphRenderer(tags.Object);
 
-        StringWriter writer = new StringWriter();
-        var htmlRenderer = new HtmlRenderer(writer);
+        var (renderer, writer) = htmlWriterFactory.Get();
 
-        sut.Write(htmlRenderer, inputBlock);
+        sut.Write(renderer, inputBlock);
 
         Assert.Equal(expectedOutput, writer.ToString());
     }
