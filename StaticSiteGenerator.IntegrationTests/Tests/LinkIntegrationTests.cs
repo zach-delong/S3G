@@ -13,7 +13,7 @@ public class LinkIntegrationTests: IntegrationTestBase
         FileSystemCache.AddFile("templates/template/tag_templates/p.html",
                                 new MockFileData("<p>{{}}</p>"));
         FileSystemCache.AddFile("templates/template/tag_templates/link.html",
-                                new MockFileData("<a href='{{url}}'>{{display_text}}</a>"));
+                                new MockFileData("<a class='foo' href='{{url}}'>{{display_text}}</a>"));
         FileSystemCache.AddFile("templates/template/site_template.html",
                                 new MockFileData("<html>{{}}</html>"));
 
@@ -23,13 +23,13 @@ public class LinkIntegrationTests: IntegrationTestBase
 
         ServiceProvider.GetService<Generator>().Start();
 
-        const string expectedFileContent = "<html><p>This is some <a href=\"https://www.google.com\">text!</a></p></html>";
+        const string expectedFileContent = "<html><p>This is some <a class='foo' href='https://www.google.com\'>text!</a></p></html>";
         const string expectedFileName = "/output/file1.html";
 
         Assert.True(this.FileExists(expectedFileName));
         Assert.Equal(
-            expectedFileContent, 
-            this.ReadFileContents(expectedFileName), 
+            expectedFileContent,
+            this.ReadFileContents(expectedFileName),
             ignoreCase: true);
     }
 }
