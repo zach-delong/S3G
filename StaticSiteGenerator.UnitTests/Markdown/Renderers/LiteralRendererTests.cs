@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.IO;
 using Markdig.Helpers;
-using Markdig.Renderers;
 using Markdig.Syntax.Inlines;
-using Moq;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using Xunit;

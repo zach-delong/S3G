@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
-using Markdig.Renderers;
 using Markdig.Syntax;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
