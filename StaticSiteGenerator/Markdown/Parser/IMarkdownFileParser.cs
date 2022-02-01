@@ -1,4 +1,4 @@
-using StaticSiteGenerator.MarkdownHtmlConversion;
+using StaticSiteGenerator.HtmlWriting;
 
 namespace StaticSiteGenerator.Markdown.Parser;
 

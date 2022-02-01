@@ -1,4 +1,4 @@
-namespace StaticSiteGenerator.MarkdownHtmlConversion;
+namespace StaticSiteGenerator.HtmlWriting;
 
 public class HtmlFile : IHtmlFile
 {

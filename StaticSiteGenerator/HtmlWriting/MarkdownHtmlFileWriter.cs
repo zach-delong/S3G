@@ -1,5 +1,3 @@
-using StaticSiteGenerator.MarkdownHtmlConversion;
-
 namespace StaticSiteGenerator.HtmlWriting;
 
 public class MarkdownHtmlFileWriter : IHtmlFileWriter

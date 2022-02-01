@@ -1,7 +1,6 @@
 using System.IO.Abstractions;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
-using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 

@@ -1,30 +1,24 @@
-using StaticSiteGenerator.Markdown.BlockElement;
 using System.IO;
 using System;
 using Microsoft.Extensions.Logging;
-using StaticSiteGenerator.Utilities.StrategyPattern;
-using Markdig.Syntax;
 using StaticSiteGenerator.Files;
-using StaticSiteGenerator.MarkdownHtmlConversion;
+using StaticSiteGenerator.HtmlWriting;
 
 namespace StaticSiteGenerator.Markdown.Parser;
 
 public class MarkdownFileParser : IMarkdownFileParser
 {
     private readonly FileReader fileParser;
-    private readonly IStrategyExecutor<IBlockElement, IBlock> markdownParser;
     private readonly ILogger<MarkdownFileParser> logger;
     private readonly MarkdownConverter markdownConverter;
 
     public MarkdownFileParser(
         FileReader fileParser,
-        IStrategyExecutor<IBlockElement, IBlock> markdownParser,
         ILogger<MarkdownFileParser> logger,
         MarkdownConverter markdownConverter
     )
     {
         this.fileParser = fileParser;
-        this.markdownParser = markdownParser;
         this.logger = logger;
         this.markdownConverter = markdownConverter;
     }

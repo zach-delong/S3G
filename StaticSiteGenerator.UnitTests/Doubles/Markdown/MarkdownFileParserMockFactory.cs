@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Moq;
+using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
-using StaticSiteGenerator.MarkdownHtmlConversion;
 
 namespace StaticSiteGenerator.UnitTests.Doubles.Markdown;
 
