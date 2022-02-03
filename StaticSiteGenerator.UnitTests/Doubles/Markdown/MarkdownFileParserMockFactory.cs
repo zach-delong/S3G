@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Moq;
-using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
 
 namespace StaticSiteGenerator.UnitTests.Doubles.Markdown;
 
 public static class MarkdownFileParserMockFactory
 {
-    public static Mock<IMarkdownFileParser> Get(IDictionary<string, IMarkdownFile> input)
+    public static Mock<IMarkdownFileParser> Get(IDictionary<string, IHtmlFile> input)
     {
         var mock = new Mock<IMarkdownFileParser>();
 

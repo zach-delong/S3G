@@ -1,7 +1,6 @@
 using System.IO.Abstractions;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
-using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
@@ -11,7 +10,6 @@ namespace StaticSiteGenerator.Files.FileProcessingStrategies;
 public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObject>
 {
     private readonly IMarkdownFileParser markdownFileParser;
-    private readonly IMarkdownConverter markdownConverter;
     private readonly IHtmlFileWriter fileWriter;
     private readonly ISiteTemplateFiller templateFiller;
     private readonly CliOptions options;
@@ -19,7 +17,6 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
 
     public MarkdownFileProcessingStrategy(
         IMarkdownFileParser markdownFileParser,
-        IMarkdownConverter markdownConverter,
         IHtmlFileWriter fileWriter,
         ISiteTemplateFiller templateFiller,
         CliOptions options,
@@ -27,7 +24,6 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
     )
     {
         this.markdownFileParser = markdownFileParser;
-        this.markdownConverter = markdownConverter;
         this.fileWriter = fileWriter;
         this.templateFiller = templateFiller;
         this.options = options;
@@ -36,9 +32,7 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
 
     public object Execute(IFileSystemObject input)
     {
-        var fileContents = markdownFileParser.ReadFile(input.FullPath);
-
-        var htmlFile = markdownConverter.Convert(fileContents);
+        var htmlFile = markdownFileParser.ReadFile(input.FullPath);
 
         htmlFile.HtmlContent = templateFiller.FillSiteTemplate(htmlFile.HtmlContent);
 

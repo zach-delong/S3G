@@ -2,10 +2,8 @@ using Xunit;
 using System;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using System.Collections.Generic;
-using StaticSiteGenerator.Markdown.InlineElementConverter;
-using StaticSiteGenerator.Markdown.InlineElement;
-using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
+using StaticSiteGenerator.Files;
 
 namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern;
 
@@ -19,17 +17,17 @@ public class StrategyCollectionTests
     }
 
     [FakeStrategyMapper(nameof(Object))]
-    private class FakeConverterWithAttribute : IInlineElementConverter
+    private class FakeConverterWithAttribute : IStrategy<object, IFileSystemObject>
     {
-        public IInlineElement Execute(IInline inline)
+        public object Execute(IFileSystemObject input)
         {
             throw new NotImplementedException();
         }
     }
 
-    private class FakeConverterWithoutAttribute : IInlineElementConverter
+    private class FakeConverterWithoutAttribute : IStrategy<object, IFileSystemObject>
     {
-        public IInlineElement Execute(IInline inline)
+        public object Execute(IFileSystemObject input)
         {
             throw new NotImplementedException();
         }
@@ -38,11 +36,11 @@ public class StrategyCollectionTests
     [Fact]
     public void SetCollectionShouldMapTypesToImplementations()
     {
-        var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
+        var strategyCollection = new StrategyCollection<IStrategy<object, IFileSystemObject>>(new List<IStrategy<object, IFileSystemObject>>());
         var mockConverter = new FakeConverterWithAttribute();
         object dummyObject = new Object();
 
-        strategyCollection.SetCollection(new List<IInlineElementConverter>() {
+        strategyCollection.SetCollection(new List<IStrategy<object, IFileSystemObject>>() {
                     mockConverter
             });
 
@@ -54,9 +52,9 @@ public class StrategyCollectionTests
     [Fact]
     public void SetCollectionShouldPassOnEmptyList()
     {
-        var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
+        var strategyCollection = new StrategyCollection<IStrategy<object, IFileSystemObject>>(new List<IStrategy<object, IFileSystemObject>>());
 
-        var exception = Record.Exception(() => strategyCollection.SetCollection(new List<IInlineElementConverter>()));
+        var exception = Record.Exception(() => strategyCollection.SetCollection(new List<IStrategy<object, IFileSystemObject>>()));
 
         Assert.Null(exception);
     }
@@ -64,7 +62,7 @@ public class StrategyCollectionTests
     [Fact]
     void SetCollectionShouldFailOnNullList()
     {
-        var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
+        var strategyCollection = new StrategyCollection<IStrategy<object, IFileSystemObject>>(new List<IStrategy<object, IFileSystemObject>>());
 
         Assert.Throws<ArgumentNullException>(() => strategyCollection.SetCollection(null));
     }
@@ -72,13 +70,13 @@ public class StrategyCollectionTests
     [Fact]
     void SetCollectionShouldThrowErrorOnTypeWithNoAttribute()
     {
-        var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
+        var strategyCollection = new StrategyCollection<IStrategy<object, IFileSystemObject>>(new List<IStrategy<object, IFileSystemObject>>());
         var mockConverter = new FakeConverterWithoutAttribute();
         object dummyObject = new Object();
 
         Assert.Throws<StrategyMapperAttributeNotFoundException>(() =>
         {
-            strategyCollection.SetCollection(new List<IInlineElementConverter>() {
+            strategyCollection.SetCollection(new List<IStrategy<object, IFileSystemObject>>() {
                         mockConverter
             });
         });
@@ -87,11 +85,11 @@ public class StrategyCollectionTests
     [Fact]
     void GetStrategyShouldThrowExceptionWhenTypeIsNotFound()
     {
-        var strategyCollection = new StrategyCollection<IInlineElementConverter>(new List<IInlineElementConverter>());
+        var strategyCollection = new StrategyCollection<IStrategy<object, IFileSystemObject>>(new List<IStrategy<object, IFileSystemObject>>());
         var mockConverter = new FakeConverterWithAttribute();
         object dummyObject = new Object();
 
-        strategyCollection.SetCollection(new List<IInlineElementConverter>() {
+        strategyCollection.SetCollection(new List<IStrategy<object, IFileSystemObject>>() {
                     mockConverter
             });
 

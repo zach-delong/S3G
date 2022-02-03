@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown;
-using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.Utilities;
@@ -18,7 +17,6 @@ public static class ServicesConfiguration
     public static void AddCustomServices(this IServiceCollection services)
     {
         services.AddFileManipulationServices();
-        services.AddHtmlConverters();
         services.AddMarkdownConverters();
         services.AddMarkdownParsers();
         services.AddTemplateManagement();

@@ -3,9 +3,6 @@ using System.IO.Abstractions.TestingHelpers;
 using Moq;
 using StaticSiteGenerator.Files.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
-using StaticSiteGenerator.Markdown;
-using StaticSiteGenerator.Markdown.BlockElement;
-using StaticSiteGenerator.MarkdownHtmlConversion;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using Xunit;
@@ -18,14 +15,10 @@ public class MarkdownFileProcessingStrategyTests
     public void Test()
     {
         var fs = new MockFileSystem();
-        var mockFileParser = MarkdownFileParserMockFactory.Get(new Dictionary<string, IMarkdownFile>
+        var mockFileParser = MarkdownFileParserMockFactory.Get(new Dictionary<string, IHtmlFile>
             {
-                {"/input/foomd.md", new StaticSiteGenerator.Markdown.MarkdownFile { Elements = new List<IBlockElement> { new Header { Level= 1, Text = "Hello" }}}}
+                {"/input/foomd.md", new HtmlFile { Name = "output/foo", HtmlContent = "<h1>Hello<h1>" }}
             });
-
-        var mockMarkdownConverter = new Mock<IMarkdownConverter>();
-        mockMarkdownConverter.Setup(c => c.Convert(It.IsAny<IMarkdownFile>()))
-                             .Returns(new HtmlFile { Name = "output/foo", HtmlContent = "<h1>Hello<h1>" });
 
         var mockHtmlFileWriter = new Mock<IHtmlFileWriter>();
         mockHtmlFileWriter.Setup(w => w.Write(It.IsAny<string>(), It.IsAny<string>()))
@@ -43,7 +36,6 @@ public class MarkdownFileProcessingStrategyTests
 
         var sut = new MarkdownFileProcessingStrategy(
             mockFileParser.Object,
-            mockMarkdownConverter.Object,
             mockHtmlFileWriter.Object,
             mockSiteTemplateFiller.Object,
             cliOptions,
