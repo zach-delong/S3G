@@ -6,6 +6,16 @@ public enum TagType
 {
     [Description("h1")]
     Header1,
+    [Description("h2")]
+    Header2,
+    [Description("h3")]
+    Header3,
+    [Description("h4")]
+    Header4,
+    [Description("h5")]
+    Header5,
+    [Description("h6")]
+    Header6,
     [Description("p")]
     Paragraph,
     [Description("link")]

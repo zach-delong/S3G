@@ -72,6 +72,16 @@ public class TemplateReader : ITemplateReader
         {
             case "h1":
                 return TagType.Header1;
+            case "h2":
+                return TagType.Header2;
+            case "h3":
+                return TagType.Header3;
+            case "h4":
+                return TagType.Header4;
+            case "h5":
+                return TagType.Header5;
+            case "h6":
+                return TagType.Header6;
             case "p":
                 return TagType.Paragraph;
             case "link":
