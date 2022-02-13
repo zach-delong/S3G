@@ -19,5 +19,7 @@ public enum TagType
     [Description("p")]
     Paragraph,
     [Description("link")]
-    Link
+    Link,
+    [Description("image")]
+    Image
 }

@@ -86,6 +86,8 @@ public class TemplateReader : ITemplateReader
                 return TagType.Paragraph;
             case "link":
                 return TagType.Link;
+            case "image":
+                return TagType.Image;
             default:
                 throw new ArgumentException(message: $"{input} is not a valid type for {nameof(TagType)}");
         }
