@@ -1,7 +1,6 @@
 using Markdig.Renderers;
 using Markdig.Syntax;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
-using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Utilities;
 
 namespace StaticSiteGenerator.Markdown.Renderers;
