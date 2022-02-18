@@ -21,5 +21,11 @@ public enum TagType
     [Description("link")]
     Link,
     [Description("image")]
-    Image
+    Image,
+    [Description("ordered_list")]
+    OrderedList,
+    [Description("unordered_list")]
+    UnorderedList,
+    [Description("list_item")]
+    ListItem
 }

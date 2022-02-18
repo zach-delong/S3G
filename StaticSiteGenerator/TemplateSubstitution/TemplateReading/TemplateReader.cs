@@ -88,6 +88,12 @@ public class TemplateReader : ITemplateReader
                 return TagType.Link;
             case "image":
                 return TagType.Image;
+            case "ol":
+                return TagType.OrderedList;
+            case "ul":
+                return TagType.UnorderedList;
+            case "li":
+                return TagType.ListItem;
             default:
                 throw new ArgumentException(message: $"{input} is not a valid type for {nameof(TagType)}");
         }

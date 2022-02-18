@@ -13,6 +13,7 @@ public static class ServicesConfiguration
         services.AddTransient<ICustomRenderer, ParagraphRenderer>();
         services.AddTransient<ICustomRenderer, HeaderRenderer>();
         services.AddTransient<ICustomRenderer, LinkRenderer>();
+        services.AddTransient<ICustomRenderer, ListRenderer>();
 
         services.AddTransient<CustomExtension>();
         services.AddTransient<MarkdownConverter>();
