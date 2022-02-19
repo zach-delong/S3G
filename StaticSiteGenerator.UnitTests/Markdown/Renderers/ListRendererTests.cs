@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Markdig.Helpers;
 using Markdig.Syntax;
-using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
