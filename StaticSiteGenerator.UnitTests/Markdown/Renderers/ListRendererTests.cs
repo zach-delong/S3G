@@ -55,20 +55,20 @@ public class ListRendererTests
             };
 
             var orderedListWithOneItem = new ListBlock(null) { IsOrdered = true };
-            orderedListWithOneItem.Add(getListItemWithText("Test Content"));
+            orderedListWithOneItem.Add("Test Content");
 
             var unorderedListWithOneItem = new ListBlock(null) { IsOrdered = false };
-            unorderedListWithOneItem.Add(getListItemWithText("Test Content"));
+            unorderedListWithOneItem.Add("Test Content");
 
             var unorderedListWithThreeItems = new ListBlock(null) { IsOrdered = false };
-            unorderedListWithThreeItems.Add(getListItemWithText("Item 1"));
-            unorderedListWithThreeItems.Add(getListItemWithText("Item 2"));
-            unorderedListWithThreeItems.Add(getListItemWithText("Item 3"));
+            unorderedListWithThreeItems.Add("Item 1");
+            unorderedListWithThreeItems.Add("Item 2");
+            unorderedListWithThreeItems.Add("Item 3");
 
             var orderedListWithThreeItems = new ListBlock(null) { IsOrdered = true};
-            orderedListWithThreeItems.Add(getListItemWithText("Item 1"));
-            orderedListWithThreeItems.Add(getListItemWithText("Item 2"));
-            orderedListWithThreeItems.Add(getListItemWithText("Item 3"));
+            orderedListWithThreeItems.Add("Item 1");
+            orderedListWithThreeItems.Add("Item 2");
+            orderedListWithThreeItems.Add("Item 3");
 
             yield return new object[]
             {
@@ -125,16 +125,5 @@ public class ListRendererTests
                 "<ol><li><p>Item 1</p>\n</li><li><p>Item 2</p>\n</li><li><p>Item 3</p>\n</li></ol>"
             };
         }
-    }
-
-    private static ListItemBlock getListItemWithText(string content)
-    {
-        var item = new ListItemBlock(null);
-        var paragraph = new ParagraphBlock(null);
-
-        paragraph.AddText(content);
-
-        item.Add(paragraph);
-        return item;
     }
 }

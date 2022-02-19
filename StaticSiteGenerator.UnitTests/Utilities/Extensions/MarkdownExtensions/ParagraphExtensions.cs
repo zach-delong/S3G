@@ -6,7 +6,7 @@ namespace StaticSiteGenerator.UnitTests.Utilities.Extensions.MarkdownExtensions;
 
 public static class ParagraphExtensions
 {
-    public static void AddText(this ParagraphBlock block, string text)
+    public static void Add(this ParagraphBlock block, string text)
     {
         block.Inline ??= new ContainerInline();
 
