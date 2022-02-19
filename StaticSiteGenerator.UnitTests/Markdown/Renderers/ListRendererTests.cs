@@ -6,6 +6,7 @@ using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
+using StaticSiteGenerator.UnitTests.Utilities.Extensions.MarkdownExtensions;
 using Xunit;
 
 namespace StaticSiteGenerator.UnitTests.Markdown.Renderers;
@@ -130,8 +131,8 @@ public class ListRendererTests
     {
         var item = new ListItemBlock(null);
         var paragraph = new ParagraphBlock(null);
-        paragraph.Inline = new ContainerInline();
-        paragraph.Inline.AppendChild(new LiteralInline { Content = new StringSlice(content) });
+
+        paragraph.AddText(content);
 
         item.Add(paragraph);
         return item;
