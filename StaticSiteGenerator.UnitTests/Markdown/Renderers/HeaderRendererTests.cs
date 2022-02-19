@@ -5,6 +5,7 @@ using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
+using StaticSiteGenerator.UnitTests.Utilities.Extensions.MarkdownExtensions;
 using StaticSiteGenerator.Utilities;
 using Xunit;
 
@@ -96,6 +97,17 @@ public class HeaderRendererTests
                 new HeadingBlock(null) { Level = 100 } ,
                 tagCollectionFactory.Get(new TemplateTag { Template = "<h6 property='thing'>{{}}</h6>" }).Object,
                 "<h6 property='thing'></h6>"
+            };
+
+            var headingWithText = new HeadingBlock(null);
+            headingWithText.Level = 3;
+            headingWithText.Add("This is a heading");
+
+            yield return new object[]
+            {
+                headingWithText,
+                tagCollectionFactory.Get(new TemplateTag { Template = "<h3 class='stuff'>{{}}</h3>"}).Object,
+                "<h3 class='stuff'>This is a heading</h3>"
             };
         }
     }
