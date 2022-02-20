@@ -9,14 +9,12 @@ public class Program
     static void Main(string[] args)
     {
         CommandLine.Parser.Default.ParseArguments<CliOptions>(args)
-            .WithParsed(RunProgram);
-    }
+            .WithParsed((CliOptions o) =>
+            {
+                var serviceProvider = BuildDependencies(o);
 
-    static void RunProgram(CliOptions o)
-    {
-        var serviceProvider = BuildDependencies(o);
-
-        serviceProvider.GetService<Generator>().Start();
+                serviceProvider.GetService<Generator>().Start();
+            });
     }
 
     public static IServiceProvider BuildDependencies(CliOptions options)
