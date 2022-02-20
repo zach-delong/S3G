@@ -15,14 +15,24 @@ public class ITemplateReaderTests
     List<string> listOfFiles = new List<string>
         {
                 "templates/tag_templates/h1.html",
-                "templates/tag_templates/p.html"
+                "templates/tag_templates/p.html",
+                "templates/tag_templates/h2.html",
+                "templates/tag_templates/h3.html",
+                "templates/tag_templates/h4.html",
+                "templates/tag_templates/h5.html",
+                "templates/tag_templates/h6.html",
         };
 
 
     Dictionary<string, string> fileContents = new Dictionary<string, string>
         {
             {"templates/tag_templates/h1.html", "h1 test content"},
-            {"templates/tag_templates/p.html", "p test content"}
+            {"templates/tag_templates/p.html", "p test content"},
+            {"templates/tag_templates/h2.html", "h2 test content"},
+            {"templates/tag_templates/h3.html", "h3 test content"},
+            {"templates/tag_templates/h4.html", "h4 test content"},
+            {"templates/tag_templates/h5.html", "h5 test content"},
+            {"templates/tag_templates/h6.html", "h6 test content"},
         };
 
     [Fact]
