@@ -5,7 +5,7 @@ directory full of markdown files into a blog. Heavily inspired by projects like
 [Jekyl](https://jekyllrb.com "Jekyl homepage") or [Hugo](https://gohugo.io "Hugo
 homepage"). The primary difference is that I wanted something written in .NET,
 and I wanted an opportunity to play with the new .NET versions that are coming
-out. As of this writing, the project is written for .NET 5.
+out. As of this writing, the project is written for .NET 6.
 
 ## Contributing
 
@@ -40,8 +40,8 @@ website. As such, it should not be considered commercial strength
 ### Ongoing tasks
 
 - [X] Copy non *.md files to the output directory
-- [ ] Update to .NET 6
+- [X] Update to .NET 6
+- [ ] Covert common *.md tags to HTML
 - [ ] Reorganize namespaces 
 - [ ] Consider consolidating test projects into one project
-- [ ] Covert common *.md tags to HTML
 - [ ] Build a homepage with treeview navigation
