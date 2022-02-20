@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,16 +8,8 @@ public class Program
 {
     static void Main(string[] args)
     {
-        try
-        {
-            CommandLine.Parser.Default.ParseArguments<CliOptions>(args)
-                .WithParsed(RunProgram);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An exception was thrown");
-            Console.Write(ex);
-        }
+        CommandLine.Parser.Default.ParseArguments<CliOptions>(args)
+            .WithParsed(RunProgram);
     }
 
     static void RunProgram(CliOptions o)
