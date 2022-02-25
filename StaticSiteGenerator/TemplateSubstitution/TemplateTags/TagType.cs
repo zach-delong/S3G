@@ -27,5 +27,9 @@ public enum TagType
     [Description("unordered_list")]
     UnorderedList,
     [Description("list_item")]
-    ListItem
+    ListItem,
+    [Description("i")]
+    Italic,
+    [Description("b")]
+    Bold
 }

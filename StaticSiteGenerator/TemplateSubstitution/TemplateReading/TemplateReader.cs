@@ -94,6 +94,10 @@ public class TemplateReader : ITemplateReader
                 return TagType.UnorderedList;
             case "li":
                 return TagType.ListItem;
+            case "i":
+                return TagType.Italic;
+            case "b":
+                return TagType.Bold;
             default:
                 throw new ArgumentException(message: $"{input} is not a valid type for {nameof(TagType)}");
         }
