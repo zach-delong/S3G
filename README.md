@@ -41,7 +41,7 @@ website. As such, it should not be considered commercial strength
 
 - [X] Copy non *.md files to the output directory
 - [X] Update to .NET 6
-- [ ] Covert common *.md tags to HTML
+- [X] Covert common *.md tags to HTML
 - [ ] Reorganize namespaces 
 - [ ] Consider consolidating test projects into one project
 - [ ] Build a homepage with treeview navigation
