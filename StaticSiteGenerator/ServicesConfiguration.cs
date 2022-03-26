@@ -35,9 +35,9 @@ public static class ServicesConfiguration
         services.AddLogging(loggingBuilder =>
         {
             loggingBuilder
-                .SetMinimumLevel(LogLevel.Trace)
-                .AddFile($"{Path.GetTempPath()}{Path.DirectorySeparatorChar}s3g-log{Path.DirectorySeparatorChar}log.txt", append: true)
                 .SetMinimumLevel(LogLevel.Debug)
+                .AddFile($"{Path.GetTempPath()}{Path.DirectorySeparatorChar}s3g-log{Path.DirectorySeparatorChar}log.txt", append: true)
+                .SetMinimumLevel(LogLevel.Information)
                 .AddConsole();
         });
     }
@@ -49,12 +49,12 @@ public static class ServicesConfiguration
         services.AddTransient<OnSiteStart>((sp) =>
         {
             var logger = sp.GetService<ILogger<Generator>>();
-            return () => logger.LogDebug("Starting site conversion");
+            return () => logger.LogInformation("Starting site conversion");
         });
 
         services.AddTransient<OnSiteDone>((sp) => {
             var logger = sp.GetService<ILogger<Generator>>();
-            return () => logger.LogDebug("Done converting site");
+            return () => logger.LogInformation("Done converting site");
         });
     }
 }
