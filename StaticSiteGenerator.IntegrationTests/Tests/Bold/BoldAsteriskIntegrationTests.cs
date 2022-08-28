@@ -1,6 +1,3 @@
-using Xunit;
-using XunitAssert = Xunit.Assert;
-using Microsoft.Extensions.DependencyInjection;
 using System.IO.Abstractions.TestingHelpers;
 using StaticSiteGenerator.IntegrationTests.Utilities;
 
