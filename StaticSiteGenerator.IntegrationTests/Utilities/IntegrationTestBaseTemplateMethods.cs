@@ -6,7 +6,7 @@ namespace StaticSiteGenerator.IntegrationTests.Utilities;
 
 public static class IntegrationTestBaseTemplateMethods
 {
-    public static void Arrange(this IntegrationTestBase testBase, (string path, MockFileData content)[] fileSystemEntries)
+    public static void CreateFileSystemWith(this IntegrationTestBase testBase, (string path, MockFileData content)[] fileSystemEntries)
     {
         foreach (var (path, content) in fileSystemEntries)
         {
@@ -21,12 +21,12 @@ public static class IntegrationTestBaseTemplateMethods
         }
     }
 
-    public static void Act(this IntegrationTestBase testBase)
+    public static void GenerateHtml(this IntegrationTestBase testBase)
     {
         testBase.ServiceProvider.GetService<Generator>().Start();
     }
     
-    public static void Assert(this IntegrationTestBase testBase, (string path, string contents)[] fileContents)
+    public static void AssertFilesExistWithContents(this IntegrationTestBase testBase, (string path, string contents)[] fileContents)
     {
         foreach (var (path, contents) in fileContents)
         {

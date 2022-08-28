@@ -1,17 +1,16 @@
 using Xunit;
+using XunitAssert = Xunit.Assert;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO.Abstractions.TestingHelpers;
 using StaticSiteGenerator.IntegrationTests.Utilities;
-using System;
 
-namespace StaticSiteGenerator.IntegrationTests.Tests;
+namespace StaticSiteGenerator.IntegrationTests.Tests.Bold;
 
-public class BoldIntegrationTests : IntegrationTestBase
+public class BoldAsteriskIntegrationTests: SimpleIntegrationTest
 {
-    [Fact]
-    public void AsterisksShouldParseCorrectly()
+    protected override void Arrange()
     {
-	this.Arrange(new[]
+	this.CreateFileSystemWith(new[]
 	{
 	    ("templates/template/tag_templates/p.html", new MockFileData("<p class='testing'>{{}}</p>")),
 	    ("templates/template/tag_templates/b.html", new MockFileData("<span class='testing'>{{}}</span>")),
@@ -19,10 +18,16 @@ public class BoldIntegrationTests : IntegrationTestBase
 	    ("output", null),
 	    ("input/file1.md", new MockFileData("This is **bold** text!"))
 	});
+    }
 
-        this.Act();
-	
-        this.Assert(new[] {
+    protected override void Act()
+    {
+        this.GenerateHtml();
+    }
+
+    protected override void Assert()
+    {
+        this.AssertFilesExistWithContents(new[] {
 		(path: "/output/file1.html", contents: "<html><p class='testing'>This is <span class='testing'>bold</span> text!</p></html>")
 	});
     }
@@ -41,7 +46,7 @@ public class BoldIntegrationTests : IntegrationTestBase
 	const string expectedContent = "<html><p class='testing'>This is <span class='testing'>bold</span> text!</p></html>";
 	const string expectedName = "/output/file1.html";
 
-	Assert.True(this.FileExists(expectedName));
-	Assert.Equal(expectedContent, this.ReadFileContents(expectedName));
+	XunitAssert.True(this.FileExists(expectedName));
+	XunitAssert.Equal(expectedContent, this.ReadFileContents(expectedName));
     }
 }
