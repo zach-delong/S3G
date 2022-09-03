@@ -5,31 +5,27 @@ using Xunit;
 
 namespace StaticSiteGenerator.IntegrationTests.Tests;
 
-public class ImageIntegrationTests: IntegrationTestBase
+public class ImageIntegrationTests: SimpleIntegrationTest
 {
-    [Fact]
-    public void ImagesShouldParseCorrectly()
-    {
-        FileSystemCache.AddFile("templates/template/tag_templates/p.html",
-                                new MockFileData("<p>{{}}</p>"));
-        FileSystemCache.AddFile("templates/template/tag_templates/image.html",
-                                new MockFileData("<img href='{{url}}' />"));
-        FileSystemCache.AddFile("templates/template/site_template.html",
-                                new MockFileData("<html>{{}}</html>"));
+    protected override void Arrange() {
+	var data = new [] {
+	    ("templates/template/tag_templates/p.html", new MockFileData("<p>{{}}</p>")),
+	    ("templates/template/tag_templates/image.html", new MockFileData("<img href='{{url}}' />")),
+	    ("templates/template/site_template.html", new MockFileData("<html>{{}}</html>")),
+	    ("output", null),
+	    ("input/file1.md", new MockFileData("![dummy](img/image.png)")),
+	};
 
-        FileSystemCache.AddDirectory("output");
-        FileSystemCache.AddFile("input/file1.md",
-                                new MockFileData("![dummy](img/image.png)"));
+        this.CreateFileSystemWith(data);
+    }
 
-        ServiceProvider.GetService<Generator>().Start();
+    protected override void Act() {
+        this.GenerateHtml();
+    }
 
+    protected override void Assert() {
         const string expectedFileContent = "<html><p><img href='img/image.png' /></p></html>";
         const string expectedFileName = "/output/file1.html";
-
-        Assert.True(this.FileExists(expectedFileName));
-        Assert.Equal(
-            expectedFileContent,
-            this.ReadFileContents(expectedFileName),
-            ignoreCase: true);
+        this.AssertFilesExistWithContents(new[] { (expectedFileName, expectedFileContent) });
     }
 }
