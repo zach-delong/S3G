@@ -1,7 +1,5 @@
 using System.IO.Abstractions.TestingHelpers;
-using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.IntegrationTests.Utilities;
-using Xunit;
 
 namespace StaticSiteGenerator.IntegrationTests.Tests;
 
