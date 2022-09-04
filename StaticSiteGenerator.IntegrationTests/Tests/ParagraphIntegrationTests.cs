@@ -1,26 +1,36 @@
-using Xunit;
-using Microsoft.Extensions.DependencyInjection;
 using System.IO.Abstractions.TestingHelpers;
 using StaticSiteGenerator.IntegrationTests.Utilities;
 
 namespace StaticSiteGenerator.IntegrationTests.Tests;
 
-public class ParagraphIntegrationTests : IntegrationTestBase
+public class ParagraphIntegrationTests: SimpleIntegrationTest
 {
-    [Fact]
-    public void ParagraphShouldParseCorrectly()
+    protected override void Arrange()
     {
-        FileSystemCache.AddFile("templates/template/tag_templates/p.html", new MockFileData("<p class='testing'>{{}}</p>"));
-        FileSystemCache.AddFile("templates/template/site_template.html", new MockFileData("<html>{{}}</html>"));
-        FileSystemCache.AddDirectory("output");
-        FileSystemCache.AddFile("input/file1.md", new MockFileData("This is some text!"));
+        var data = new[]
+	{
+	    ("templates/template/tag_templates/p.html", new MockFileData("<p class='testing'>{{}}</p>")),
+	    ("templates/template/site_template.html", new MockFileData("<html>{{}}</html>")),
+	    ("output", null),
+	    ("input/file1.md", new MockFileData("This is some text!"))
+	};
 
-        ServiceProvider.GetService<Generator>().Start();
+        this.CreateFileSystemWith(data);
+    }
 
+    protected override void Act()
+    {
+        this.GenerateHtml();
+    }
+
+    protected override void Assert()
+    {
         const string expectedContent = "<html><p class='testing'>This is some text!</p></html>";
         const string expectedName = "/output/file1.html";
 
-        Assert.True(this.FileExists(expectedName));
-        Assert.Equal(expectedContent, this.ReadFileContents(expectedName));
+        this.AssertFilesExistWithContents(new[]
+        {
+	    (expectedName, expectedContent)
+	});
     }
 }
