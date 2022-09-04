@@ -6,7 +6,7 @@ namespace StaticSiteGenerator.IntegrationTests;
 
 public abstract class IntegrationTestBase
 {
-    protected MockFileSystem FileSystemCache = new MockFileSystem();
+    public MockFileSystem FileSystemCache = new MockFileSystem();
 
     private IServiceProvider provider;
     public IServiceProvider ServiceProvider => provider ??= GetNewServiceProvider();
@@ -21,4 +21,5 @@ public abstract class IntegrationTestBase
 
         return serviceCollection.BuildServiceProvider();
     }
+
 }
