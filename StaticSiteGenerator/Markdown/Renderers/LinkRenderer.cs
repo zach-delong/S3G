@@ -1,17 +1,37 @@
+using System;
+using System.IO.Abstractions;
 using Markdig.Renderers;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.Utilities;
 
 namespace StaticSiteGenerator.Markdown.Renderers;
 
 public class LinkRenderer : CustomRendererBase<LinkInline>
 {
-    private readonly ITemplateTagCollection tagCollection;
+    private readonly ITemplateTagCollection TagCollection;
 
-    public LinkRenderer(ITemplateTagCollection tagCollection)
+    public delegate void BeforeLinkWrite(bool isUrl, string url);
+
+    private readonly BeforeLinkWrite OnLinkWrite;
+    private readonly FilePathValidator FilePathValidator;
+    private readonly IFileSystem FileSystem;
+    private readonly string pathToInputFiles;
+
+    public LinkRenderer(
+	ITemplateTagCollection tagCollection,
+	BeforeLinkWrite beforeLinkWrite,
+	FilePathValidator filePathValidator,
+	IFileSystem fileSystem,
+	CliOptions options
+    )
     {
-        this.tagCollection = tagCollection;
+        TagCollection = tagCollection;
+        OnLinkWrite = beforeLinkWrite;
+        FilePathValidator = filePathValidator;
+        FileSystem = fileSystem;
+        pathToInputFiles = options.PathToMarkdownFiles;
     }
 
     protected override void Write(HtmlRenderer renderer, LinkInline obj)
@@ -24,7 +44,7 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
 
     private void WriteImage(HtmlRenderer renderer, LinkInline obj)
     {
-        var tag = tagCollection.GetTagForType(TagType.Image);
+        var tag = TagCollection.GetTagForType(TagType.Image);
 
         var tagElements = tag.Template.Split("{{url}}");
 
@@ -41,7 +61,7 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
 
     private void WriteNormalLink(HtmlRenderer renderer, LinkInline obj)
     {
-        var tag = tagCollection.GetTagForType(TagType.Link);
+        var tag = TagCollection.GetTagForType(TagType.Link);
 
         var tagElements = tag.Template.Split("{{url}}");
 
@@ -50,6 +70,16 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
         var url = obj.GetDynamicUrl != null
             ? obj.GetDynamicUrl() ?? obj.Url
             : obj.Url;
+
+        var isLocalFilePath = FilePathValidator.IsFilePath(url);
+
+        if (isLocalFilePath && (FileSystem.Path.GetExtension(url) == ".md"))
+        {
+            url = FileSystem.Path.ChangeExtension(url, ".html");
+        }
+
+        if(OnLinkWrite != null) 
+	    OnLinkWrite(isLocalFilePath, url);
 
         renderer.WriteEscapeUrl(url);
 

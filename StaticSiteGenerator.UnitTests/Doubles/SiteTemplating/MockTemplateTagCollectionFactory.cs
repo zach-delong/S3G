@@ -12,23 +12,33 @@ public class MockTemplateTagCollectionFactory
     {
         var tags = new Mock<ITemplateTagCollection>();
 
-        tags
+        return Get(tags, resultTag);
+    }
+
+    public Mock<ITemplateTagCollection> Get(Mock<ITemplateTagCollection> mock, TemplateTag resultTag)
+    {
+        mock 
             .Setup(c => c.GetTagForType(It.IsAny<TagType>()))
             .Returns(resultTag);
 
-        return tags;
+        return mock;
     }
 
     public Mock<ITemplateTagCollection> Get(IEnumerable<TemplateTag> resultTag)
     {
         var tags = new Mock<ITemplateTagCollection>();
 
-        var tagDictionary = resultTag.ToDictionary(x => x.Type, x => x);
+        return Get(tags, resultTag);
+    }
 
-        tags
+    public Mock<ITemplateTagCollection> Get(Mock<ITemplateTagCollection> mock, IEnumerable<TemplateTag> resultTags)
+    {
+        var tagDictionary = resultTags.ToDictionary(x => x.Type, x => x);
+
+	mock
             .Setup(c => c.GetTagForType(It.IsAny<TagType>()))
             .Returns<TagType>(x => tagDictionary[x]);
 
-        return tags;
+        return mock;
     }
 }

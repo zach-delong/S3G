@@ -9,6 +9,7 @@ public static class ServicesConfiguration
     {
         services.AddTransient(typeof(StrategyCollection<>), typeof(StrategyCollection<>));
         services.AddTransient(typeof(IStrategyExecutor<,>), typeof(GenericStrategyExecutor<,>));
+        services.AddTransient<FilePathValidator>();
         services.AddTransient<HeaderLevelHelper>();
     }
 }
