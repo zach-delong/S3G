@@ -11,24 +11,20 @@ namespace StaticSiteGenerator.Markdown.Renderers;
 public class LinkRenderer : CustomRendererBase<LinkInline>
 {
     private readonly ITemplateTagCollection TagCollection;
-
-    public delegate void BeforeLinkWrite(bool isUrl, string url);
-
     private readonly BeforeLinkWrite OnLinkWrite;
-    private readonly FilePathValidator FilePathValidator;
-    private readonly IFileSystem FileSystem;
+    private readonly ILinkProcessor LinkProcessor;
+
+    public delegate void BeforeLinkWrite(string url);
 
     public LinkRenderer(
 	ITemplateTagCollection tagCollection,
 	BeforeLinkWrite beforeLinkWrite,
-	FilePathValidator filePathValidator,
-	IFileSystem fileSystem
+	ILinkProcessor linkProcessor
     )
     {
         TagCollection = tagCollection;
         OnLinkWrite = beforeLinkWrite;
-        FilePathValidator = filePathValidator;
-        FileSystem = fileSystem;
+        LinkProcessor = linkProcessor;
     }
 
     protected override void Write(HtmlRenderer renderer, LinkInline obj)
@@ -68,15 +64,10 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
             ? obj.GetDynamicUrl() ?? obj.Url
             : obj.Url;
 
-        var isLocalFilePath = FilePathValidator.IsFilePath(url);
-
-        if (isLocalFilePath && (FileSystem.Path.GetExtension(url) == ".md"))
-        {
-            url = FileSystem.Path.ChangeExtension(url, ".html");
-        }
+        url = LinkProcessor.Process(url);
 
         if(OnLinkWrite != null) 
-	    OnLinkWrite(isLocalFilePath, url);
+	    OnLinkWrite(url);
 
         renderer.WriteEscapeUrl(url);
 

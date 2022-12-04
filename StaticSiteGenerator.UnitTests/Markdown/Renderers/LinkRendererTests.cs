@@ -3,6 +3,7 @@ using Markdig.Syntax.Inlines;
 using Moq.AutoMock;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.UnitTests.Doubles;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
@@ -29,6 +30,7 @@ public class LinkRendererTests
 
         mocker.MockTemplateTagCollection(resultTag);
         mocker.MockFileSystem(data.LocalFiles);
+        mocker.MockLinkProcessor();
 
         var sut = mocker.CreateInstance<LinkRenderer>();
 
@@ -62,40 +64,10 @@ public class LinkRendererTests
 		)
 	    };
 
-            // A link to a local markdown file should render as html
-
-            yield return new TestCaseDataObject[] {
-		new TestCaseDataObject (
-		    new LinkInline { Url = "testing.md" },
-		    "<a href='testing.html' property='thing'></a>",
-		    new string[1] { "testing.md" }
-		)
-	    };
-
-            // A link to a remote markdown file should render as md
-            yield return new TestCaseDataObject[] {
-		new TestCaseDataObject (
-		    new LinkInline { Url = "http://stuff.com/testing.md" },
-		    "<a href='http://stuff.com/testing.md' property='thing'></a>",
-		    new string[0]
-		)
-	    };
-
-            // A link to a local file that happens to contain ".md" but not as a file extension
-            // remote markdown file should render as whatever it was
             yield return new TestCaseDataObject[] {
 		new TestCaseDataObject (
 		    new LinkInline { Url = "testing.md.html" },
 		    "<a href='testing.md.html' property='thing'></a>",
-		    new string[0]
-		)
-	    };
-
-            // A link to a local markdown file should be transformed to a local html file 
-            yield return new TestCaseDataObject[] {
-		new TestCaseDataObject (
-		    new LinkInline { Url = "testing.md" },
-		    "<a href='testing.html' property='thing'></a>",
 		    new string[0]
 		)
 	    };

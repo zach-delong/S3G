@@ -16,7 +16,7 @@ public static class ServicesConfiguration
         services.AddTransient<BeforeLinkWrite>((sp) =>
         {
             var logger = sp.GetService<ILogger<LiteralRenderer>>();
-            return (bool isUrl, string url) => logger.LogDebug($"Is Url: {isUrl}, Url: {url}");
+            return (string url) => logger.LogDebug($"Writing url to link: {url}");
         });
         services.AddTransient<ICustomRenderer, LinkRenderer>();
         services.AddTransient<ICustomRenderer, ListRenderer>();
