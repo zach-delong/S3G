@@ -1,17 +1,30 @@
+using System;
+using System.IO.Abstractions;
 using Markdig.Renderers;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.Utilities;
 
 namespace StaticSiteGenerator.Markdown.Renderers;
 
 public class LinkRenderer : CustomRendererBase<LinkInline>
 {
-    private readonly ITemplateTagCollection tagCollection;
+    private readonly ITemplateTagCollection TagCollection;
+    private readonly BeforeLinkWrite OnLinkWrite;
+    private readonly ILinkProcessor LinkProcessor;
 
-    public LinkRenderer(ITemplateTagCollection tagCollection)
+    public delegate void BeforeLinkWrite(string url);
+
+    public LinkRenderer(
+	ITemplateTagCollection tagCollection,
+	BeforeLinkWrite beforeLinkWrite,
+	ILinkProcessor linkProcessor
+    )
     {
-        this.tagCollection = tagCollection;
+        TagCollection = tagCollection;
+        OnLinkWrite = beforeLinkWrite;
+        LinkProcessor = linkProcessor;
     }
 
     protected override void Write(HtmlRenderer renderer, LinkInline obj)
@@ -24,7 +37,7 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
 
     private void WriteImage(HtmlRenderer renderer, LinkInline obj)
     {
-        var tag = tagCollection.GetTagForType(TagType.Image);
+        var tag = TagCollection.GetTagForType(TagType.Image);
 
         var tagElements = tag.Template.Split("{{url}}");
 
@@ -41,7 +54,7 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
 
     private void WriteNormalLink(HtmlRenderer renderer, LinkInline obj)
     {
-        var tag = tagCollection.GetTagForType(TagType.Link);
+        var tag = TagCollection.GetTagForType(TagType.Link);
 
         var tagElements = tag.Template.Split("{{url}}");
 
@@ -50,6 +63,11 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
         var url = obj.GetDynamicUrl != null
             ? obj.GetDynamicUrl() ?? obj.Url
             : obj.Url;
+
+        url = LinkProcessor.Process(url);
+
+        if(OnLinkWrite != null) 
+	    OnLinkWrite(url);
 
         renderer.WriteEscapeUrl(url);
 
