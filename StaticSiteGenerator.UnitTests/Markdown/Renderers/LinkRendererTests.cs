@@ -28,7 +28,6 @@ public class LinkRendererTests
         };
 
         mocker.MockTemplateTagCollection(resultTag);
-        mocker.MockFileExistenceChecker(data.LocalFiles);
         mocker.MockFileSystem(data.LocalFiles);
 
         var sut = mocker.CreateInstance<LinkRenderer>();

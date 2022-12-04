@@ -15,7 +15,6 @@ public static class ServicesConfiguration
         services.AddTransient<IFileWriter, OverwritingFileWriter>();
 
         services.AddTransient<IDirectoryEnumerator, DeferredExecutionDirectoryEnumerator>();
-        services.AddTransient<FileExistenceChecker>();
 
         services.AddTransient<FileReader>();
 
