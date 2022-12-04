@@ -17,21 +17,18 @@ public class LinkRenderer : CustomRendererBase<LinkInline>
     private readonly BeforeLinkWrite OnLinkWrite;
     private readonly FilePathValidator FilePathValidator;
     private readonly IFileSystem FileSystem;
-    private readonly string pathToInputFiles;
 
     public LinkRenderer(
 	ITemplateTagCollection tagCollection,
 	BeforeLinkWrite beforeLinkWrite,
 	FilePathValidator filePathValidator,
-	IFileSystem fileSystem,
-	CliOptions options
+	IFileSystem fileSystem
     )
     {
         TagCollection = tagCollection;
         OnLinkWrite = beforeLinkWrite;
         FilePathValidator = filePathValidator;
         FileSystem = fileSystem;
-        pathToInputFiles = options.PathToMarkdownFiles;
     }
 
     protected override void Write(HtmlRenderer renderer, LinkInline obj)
