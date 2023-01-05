@@ -1,6 +1,7 @@
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown;
@@ -28,6 +29,7 @@ public static class ServicesConfiguration
 
         services.AddLogging();
         services.AddGenerator();
+        services.AddFileProcessingStrategies();
     }
 
     public static void AddLogging(this IServiceCollection services)

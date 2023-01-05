@@ -1,6 +1,6 @@
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.Files.FileProcessingStrategies;
+namespace StaticSiteGenerator.FileProcessingStrategies;
 
 public class FileProcessorForType : StrategyForTypeAttribute
 {

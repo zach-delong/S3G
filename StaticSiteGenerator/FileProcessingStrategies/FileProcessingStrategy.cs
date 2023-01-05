@@ -1,7 +1,8 @@
 using System.IO.Abstractions;
+using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.Files.FileProcessingStrategies;
+namespace StaticSiteGenerator.FileProcessingStrategies;
 
 [FileProcessorForType(nameof(FileFileSystemObject))]
 public class FileProcessingStrategy : IStrategy<object, IFileSystemObject>

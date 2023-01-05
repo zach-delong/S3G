@@ -1,10 +1,11 @@
 using System.IO.Abstractions;
+using StaticSiteGenerator.Files;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.Files.FileProcessingStrategies;
+namespace StaticSiteGenerator.FileProcessingStrategies;
 
 [FileProcessorForType(nameof(MarkdownFileSystemObject))]
 public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObject>

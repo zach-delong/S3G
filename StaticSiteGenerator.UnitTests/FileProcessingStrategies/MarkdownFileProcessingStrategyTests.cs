@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using Moq;
-using StaticSiteGenerator.Files.FileProcessingStrategies;
+using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies;
+namespace StaticSiteGenerator.UnitTests.FileProcessingStrategies;
 
 public class MarkdownFileProcessingStrategyTests
 {

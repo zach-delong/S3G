@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
+using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.Files;
-using StaticSiteGenerator.Files.FileProcessingStrategies;
 using StaticSiteGenerator.UnitTests.Utilities.Extensions;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Files.FileProcessingStrategies;
+namespace StaticSiteGenerator.UnitTests.FileProcessingStrategies;
 
 public class FolderProcessingStrategyTests
 {
