@@ -14,5 +14,7 @@ COPY StaticSiteGenerator.UnitTests/ StaticSiteGenerator.UnitTests/
 COPY StaticSiteGenerator.IntegrationTests/ StaticSiteGenerator.IntegrationTests/
 
 # Build and test
-RUN dotnet build
 RUN dotnet test
+
+WORKDIR /source/StaticSiteGenerator
+RUN dotnet publish -c release -o /output --no-restore
