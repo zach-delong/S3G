@@ -26,3 +26,4 @@ WORKDIR /s3g
 COPY --from=build-img /output ./
 
 WORKDIR /input
+COPY templates/ templates/
