@@ -17,7 +17,7 @@ public abstract class IntegrationTestBase
 
         serviceCollection.AddCustomServices();
         serviceCollection.OverrideFileReadingLayerWithDictionary(FileSystemCache);
-        serviceCollection.MockCliOptions("template", "input", "output");
+        serviceCollection.MockCliOptions("templates/template", "input", "output");
 
         return serviceCollection.BuildServiceProvider();
     }

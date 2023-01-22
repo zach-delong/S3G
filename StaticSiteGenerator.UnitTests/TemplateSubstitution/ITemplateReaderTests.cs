@@ -82,11 +82,11 @@ public class ITemplateReaderTests
 
         var fileReaderMock = FileReaderMockFactory.Get(fileNameToContents);
 
-        var mockOptions = new Mock<CliOptions>();
+        var mockOptions = Mock.Of<CliOptions>(x => x.TemplatePath == "templates/");
 
         return new TemplateReader(directoryEnumeratorMock.Object,
                                   fileReaderMock.Object,
-                                  mockOptions.Object);
+                                  mockOptions);
     }
 
 }

@@ -20,7 +20,7 @@ public class SiteTemplateLocalFileReaderTests
 
         var readerMock = FileReaderMockFactory.Get(fileCache);
 
-        var sut = new SiteTemplateLocalFileReader(readerMock.Object, new CliOptions { TemplateName = "template" });
+        var sut = new SiteTemplateLocalFileReader(readerMock.Object, new CliOptions { TemplatePath = "templates/template" });
 
         var result = sut.ReadTemplate();
 

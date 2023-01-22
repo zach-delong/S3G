@@ -18,14 +18,14 @@ public static class ServicesConfiguration
     }
 
     public static void MockCliOptions(this IServiceCollection services,
-                                      string templateName,
+                                      string templatePath,
                                       string markdownFileDirectoryName,
                                       string pathToOutput)
     {
 
         var cliOptions = new CliOptions()
         {
-            TemplateName = templateName,
+            TemplatePath = templatePath,
             PathToMarkdownFiles = markdownFileDirectoryName,
             OutputLocation = pathToOutput
         };
