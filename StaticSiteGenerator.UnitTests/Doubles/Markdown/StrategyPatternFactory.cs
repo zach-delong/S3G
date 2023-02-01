@@ -5,10 +5,10 @@ namespace StaticSiteGenerator.UnitTests.Doubles.Markdown;
 
 public class StrategyPatternFactory
 {
-    public GenericStrategyExecutor<input, result> Get<input, result>(IEnumerable<IStrategy<input, result>> strategies)
+    public GenericStrategyExecutor<TInput, TResult> Get<TInput, TResult>(IEnumerable<IStrategy<TInput, TResult>> strategies)
     {
-        var strategyCollection = new StrategyCollection<IStrategy<input, result>>(strategies);
-        var strategyPattern = new GenericStrategyExecutor<input, result>(strategyCollection);
+        var strategyCollection = new StrategyCollection<IStrategy<TInput, TResult>>(strategies);
+        var strategyPattern = new GenericStrategyExecutor<TInput, TResult>(strategyCollection);
         return strategyPattern;
     }
 }

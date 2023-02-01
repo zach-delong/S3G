@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace StaticSiteGenerator.Utilities.StrategyPattern;
 
-public class GenericStrategyExecutor<result, input> : IStrategyExecutor<result, input>
+public class GenericStrategyExecutor<TResult, TInput> : IStrategyExecutor<TResult, TInput>
 {
-    private readonly StrategyCollection<IStrategy<result, input>> strategies;
+    private readonly StrategyCollection<IStrategy<TResult, TInput>> strategies;
 
-    public GenericStrategyExecutor(StrategyCollection<IStrategy<result, input>> strategies)
+    public GenericStrategyExecutor(StrategyCollection<IStrategy<TResult, TInput>> strategies)
     {
         this.strategies = strategies;
     }
 
-    public IEnumerable<result> Process(IEnumerable inputs)
+    public IEnumerable<TResult> Process(IEnumerable TInputs)
     {
-        foreach (input i in inputs)
+        foreach (TInput i in TInputs)
         {
             var strategy = strategies.GetStrategyForType(i.GetType());
 

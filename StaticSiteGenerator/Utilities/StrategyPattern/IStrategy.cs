@@ -1,6 +1,6 @@
 namespace StaticSiteGenerator.Utilities.StrategyPattern;
 
-public interface IStrategy<result, input>
+public interface IStrategy<TResult, TInput>
 {
-    result Execute(input input);
+    TResult Execute(TInput input);
 }
