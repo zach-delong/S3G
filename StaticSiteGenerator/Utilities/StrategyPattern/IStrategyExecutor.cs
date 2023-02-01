@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StaticSiteGenerator.Utilities.StrategyPattern;
 
-public interface IStrategyExecutor<result, input>
+public interface IStrategyExecutor<TResult, TInput>
 {
-    public IEnumerable<result> Process(IEnumerable inputs);
+    public IEnumerable<TResult> Process(IEnumerable inputs);
 }
