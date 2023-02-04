@@ -43,5 +43,6 @@ website. As such, it should not be considered commercial strength
 - [X] Update to .NET 6
 - [X] Covert common *.md tags to HTML
 - [x] Reorganize namespaces 
+- [ ] Automate docker image publishing
 - [ ] Design & implement some kind of metadata (titles, publish date, etc)
 - [ ] Build a homepage with treeview navigation
