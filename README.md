@@ -44,6 +44,9 @@ website. As such, it should not be considered commercial strength
 - [x] Update to .NET 7
 - [X] Covert common *.md tags to HTML
 - [x] Reorganize namespaces 
+- [ ] Implement custom titles on each "page"
 - [ ] Automate docker image publishing
 - [ ] Design & implement some kind of metadata (titles, publish date, etc)
 - [ ] Build a homepage with treeview navigation
+- [ ] Add some kind of metadata system (author, publish date, etc)
+- [ ] Multithread processing so conversion can happen more quickly
