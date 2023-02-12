@@ -41,6 +41,7 @@ website. As such, it should not be considered commercial strength
 
 - [X] Copy non *.md files to the output directory
 - [X] Update to .NET 6
+- [x] Update to .NET 7
 - [X] Covert common *.md tags to HTML
 - [x] Reorganize namespaces 
 - [ ] Automate docker image publishing
