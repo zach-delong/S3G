@@ -16,6 +16,7 @@ public class CustomMarkdownPipelineFactory
         var pipeline = new MarkdownPipelineBuilder();
 
         pipeline.Extensions.Add(customExtension);
+        pipeline.UseYamlFrontMatter();
 
         return pipeline.Build();
     }
