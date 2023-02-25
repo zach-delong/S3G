@@ -11,7 +11,7 @@ public class CustomMarkdownPipelineFactory
         this.customExtension = customExtension;
     }
 
-    public MarkdownPipeline Get()
+    public virtual MarkdownPipeline Get()
     {
         var pipeline = new MarkdownPipelineBuilder();
 

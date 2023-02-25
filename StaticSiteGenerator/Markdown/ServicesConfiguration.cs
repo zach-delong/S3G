@@ -25,6 +25,8 @@ public static class ServicesConfiguration
         services.AddTransient<CustomExtension>();
         services.AddTransient<MarkdownConverter>();
         services.AddTransient<CustomMarkdownPipelineFactory>();
+
+        services.AddTransient<DocumentPropertyReader>();
     }
 
     public static void AddMarkdownParsers(this IServiceCollection services)

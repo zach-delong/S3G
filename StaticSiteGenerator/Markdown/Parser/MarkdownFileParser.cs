@@ -32,12 +32,14 @@ public class MarkdownFileParser : IMarkdownFileParser
         var fileContents = fileParser.ReadFile(filePath);
 
         logger.LogTrace($"Read file contents: {fileContents?.Substring(0, ((fileContents.Length > 50) ? 50 : fileContents.Length)) ?? String.Empty}");
-        var parsedContents = markdownConverter.ConvertToHtml(fileContents);
+        var parsedFile = markdownConverter.ConvertToHtml(fileContents);
 
         IHtmlFile file = new HtmlFile
         {
-            HtmlContent = parsedContents,
-            Name = Path.GetFileNameWithoutExtension(filePath)
+            HtmlContent = parsedFile.Contents,
+            Name = Path.GetFileNameWithoutExtension(filePath),
+	    Title = parsedFile?.Properties?.Title,
+	    IsPublished = parsedFile?.Properties?.Published ?? true
         };
 
         logger.LogTrace($"Converted file: {filePath}");

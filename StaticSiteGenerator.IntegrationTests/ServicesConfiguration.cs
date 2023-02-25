@@ -27,7 +27,7 @@ public static class ServicesConfiguration
         {
             TemplatePath = templatePath,
             PathToMarkdownFiles = markdownFileDirectoryName,
-            OutputLocation = pathToOutput
+            OutputLocation = pathToOutput,
         };
 
         services.AddSingleton(cliOptions);
