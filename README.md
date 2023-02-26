@@ -37,6 +37,34 @@ synaptic?)
 This project is not yet complete and has not yet been used for a production
 website. As such, it should not be considered commercial strength
 
+### Front matter
+
+I have now added support for FrontMatter! Currently this only supports two properties, but more should be added in the future!
+
+#### Published
+
+If you add "published" to your front matter on a document, you can control whether or not that document will appear in your export! 
+
+```md
+---
+published: false
+---
+this document won't be published.
+```
+
+If you do not provide a published attribute, it is assumed to be set to true.
+
+#### Title
+
+If you add a "title" attribute, wherever you put "{{title}}" in your site_template.html will be replaced with the content! You should probably do this in your template: `<title>{{title}}</title>`.
+
+```md
+---
+title: an interesting readme
+---
+This page will have the title "an interesting readme"
+```
+
 ### Ongoing tasks
 
 - [X] Copy non *.md files to the output directory
