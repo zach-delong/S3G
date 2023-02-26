@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FluentAssertions;
+using Markdig;
 using Markdig.Syntax;
 using Moq.AutoMock;
 using StaticSiteGenerator.Markdown;
@@ -25,11 +26,42 @@ public class DocumentPropertyReaderTests
     {
 	get
 	{
+            var pipelineBuilder = new MarkdownPipelineBuilder();
+            pipelineBuilder.UseYamlFrontMatter();
+
+            var pipeline = pipelineBuilder.Build();
+
             yield return new object[]
             {
 		new MarkdownDocument(),
 		null
             };
+
+            yield return new object[]
+            {
+		Markdig.Markdown.Parse("This is some markdown", pipeline),
+		null
+            };
+
+            var markdownWithFrontmatter = @"---
+published: false
+title: test title
+---";
+
+            yield return new object[]
+            {
+		Markdig.Markdown.Parse(markdownWithFrontmatter, pipeline),
+		new DocumentProperties { Title = "test title", Published = false}
+            };
+
+	    var markdownWithPublishedButNoTitle = @"---
+published: false
+---";
+            yield return new object[] {
+		Markdig.Markdown.Parse(markdownWithPublishedButNoTitle, pipeline),
+		new DocumentProperties { Published = false }
+	    };
+
         }
     }
 }
