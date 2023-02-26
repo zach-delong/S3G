@@ -31,8 +31,18 @@ public static class IntegrationTestBaseTemplateMethods
         foreach (var (path, contents) in fileContents)
         {
 	    XunitAssert.True(testBase.FileExists(path));
-	    XunitAssert.Equal(contents, testBase.ReadFileContents(path));
+            XunitAssert.Equal(contents, testBase.ReadFileContents(path));
         }
+    }
+
+    public static void AssertFileDoesNotExist(this IntegrationTestBase testBase, string fileName)
+    {
+        XunitAssert.False(testBase.FileExists(fileName));
+    }
+
+    public static void AssertFileExists(this IntegrationTestBase testBase, string fileName)
+    {
+        XunitAssert.True(testBase.FileExists(fileName));
     }
 
     public static void AssertFoldersExist(this IntegrationTestBase testBase, string[] paths)

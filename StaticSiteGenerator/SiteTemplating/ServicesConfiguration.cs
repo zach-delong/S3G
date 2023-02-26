@@ -10,5 +10,8 @@ public static class ServicesConfiguration
     {
         services.AddTransient<ISiteTemplateReader, SiteTemplateLocalFileReader>();
         services.AddTransient<ISiteTemplateFiller, SiteTemplateFiller>();
+
+        services.AddTransient<HtmlFilePropertyFiller>();
+        services.AddTransient<IHtmlFilePropertyFillerStrategy, TitlePropertyFiller>();
     }
 }

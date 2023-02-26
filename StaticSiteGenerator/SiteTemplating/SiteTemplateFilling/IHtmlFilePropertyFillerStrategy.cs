@@ -2,7 +2,7 @@ using StaticSiteGenerator.HtmlWriting;
 
 namespace StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 
-public interface ISiteTemplateFiller
+public interface IHtmlFilePropertyFillerStrategy
 {
-    public string FillSiteTemplate(IHtmlFile file);
+    public string Execute(IHtmlFile file);
 }

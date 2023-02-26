@@ -26,7 +26,7 @@ public class MarkdownFileProcessingStrategyTests
                           .Callback<string, string>((path, contents) => fs.AddFile(path, contents));
 
         var mockSiteTemplateFiller = new Mock<ISiteTemplateFiller>();
-        mockSiteTemplateFiller.Setup(f => f.FillSiteTemplate(It.IsAny<string>()))
+        mockSiteTemplateFiller.Setup(f => f.FillSiteTemplate(It.IsAny<IHtmlFile>()))
                               .Returns("<html><h1>Hello</h1></html>");
 
         var cliOptions = new CliOptions
@@ -64,7 +64,7 @@ public class MarkdownFileProcessingStrategyTests
                           .Callback<string, string>((path, contents) => fs.AddFile(path, contents));
 
         var mockSiteTemplateFiller = new Mock<ISiteTemplateFiller>();
-        mockSiteTemplateFiller.Setup(f => f.FillSiteTemplate(It.IsAny<string>()))
+        mockSiteTemplateFiller.Setup(f => f.FillSiteTemplate(It.IsAny<IHtmlFile>()))
                               .Returns("<html><h1>Hello</h1></html>");
 
         var cliOptions = new CliOptions

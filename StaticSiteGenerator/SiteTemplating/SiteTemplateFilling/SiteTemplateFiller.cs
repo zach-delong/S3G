@@ -1,20 +1,35 @@
+using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
 
 namespace StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 
 public class SiteTemplateFiller : ISiteTemplateFiller
 {
-    public SiteTemplateFiller(ISiteTemplateReader templateReader)
+    private readonly ISiteTemplateReader templateReader;
+    private readonly HtmlFilePropertyFiller propertyFiller;
+
+    public SiteTemplateFiller(
+	ISiteTemplateReader templateReader,
+	HtmlFilePropertyFiller propertyFiller)
     {
-        Reader = templateReader;
+        this.templateReader = templateReader;
+        this.propertyFiller = propertyFiller;
     }
 
-    public ISiteTemplateReader Reader { get; }
 
     public string FillSiteTemplate(string contents)
     {
-        var template = Reader.ReadTemplate();
+        var template = templateReader.ReadTemplate();
 
         return template.Replace("{{}}", contents);
+    }
+
+    public string FillSiteTemplate(IHtmlFile htmlFile)
+    {
+        htmlFile.HtmlContent = FillSiteTemplate(htmlFile.HtmlContent);
+
+        htmlFile.HtmlContent = propertyFiller.FillTemplateProperties(htmlFile);
+
+        return htmlFile.HtmlContent;
     }
 }

@@ -35,10 +35,12 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
     {
         var htmlFile = markdownFileParser.ReadFile(input.FullPath);
 
-        htmlFile.HtmlContent = templateFiller.FillSiteTemplate(htmlFile.HtmlContent);
+	if(!htmlFile.IsPublished)
+            return null;
 
-        if (htmlFile.IsPublished)
-            WriteOutputfile(input, htmlFile);
+        htmlFile.HtmlContent = templateFiller.FillSiteTemplate(htmlFile);
+
+	WriteOutputfile(input, htmlFile);
 
         return null;
     }
