@@ -72,7 +72,8 @@ This page will have the title "an interesting readme"
 - [x] Update to .NET 7
 - [X] Covert common *.md tags to HTML
 - [x] Reorganize namespaces 
-- [ ] Implement custom titles on each "page"
+- [x] Implement custom titles on each "page"
+- [ ] Implement FluentAssertions for integration tests
 - [ ] Automate docker image publishing
 - [ ] Design & implement some kind of metadata (titles, publish date, etc)
 - [ ] Build a homepage with treeview navigation
