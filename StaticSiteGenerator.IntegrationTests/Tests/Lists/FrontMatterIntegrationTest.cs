@@ -8,7 +8,7 @@ public class FrontMatterIntegrationTest: SimpleIntegrationTest
     protected override void Arrange() {
         var inputFileContents = new MockFileData(@"---
 title: stuff and things
-published: false 
+published: true
 foo: bar
 ---
 Hello, world!");

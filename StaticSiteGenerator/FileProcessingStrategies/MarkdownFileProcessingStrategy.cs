@@ -37,13 +37,24 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
 
         htmlFile.HtmlContent = templateFiller.FillSiteTemplate(htmlFile.HtmlContent);
 
-        var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
-
-        var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, input.FullPath);
-        var outputFilePath = fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
-
-        fileWriter.Write(outputFilePath, htmlFile.HtmlContent);
+        if (htmlFile.IsPublished)
+            WriteOutputfile(input, htmlFile);
 
         return null;
+    }
+
+    private string GetOutputFilePath(IFileSystemObject file)
+    {
+	var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
+
+	var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, file.FullPath);
+	return fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
+    }
+
+    private void WriteOutputfile(IFileSystemObject input, IHtmlFile htmlFile)
+    {
+            var outputFilePath = GetOutputFilePath(input);
+
+            fileWriter.Write(outputFilePath, htmlFile.HtmlContent);
     }
 }
