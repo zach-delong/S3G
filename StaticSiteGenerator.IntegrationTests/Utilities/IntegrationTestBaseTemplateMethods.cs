@@ -1,4 +1,5 @@
 using System.IO.Abstractions.TestingHelpers;
+using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using XunitAssert = Xunit.Assert;
 
@@ -30,26 +31,26 @@ public static class IntegrationTestBaseTemplateMethods
     {
         foreach (var (path, contents) in fileContents)
         {
-	    XunitAssert.True(testBase.FileExists(path));
-            XunitAssert.Equal(contents, testBase.ReadFileContents(path));
+            testBase.AssertFileExists(path);
+            testBase.ReadFileContents(path).Should().BeEquivalentTo(contents);
         }
     }
 
     public static void AssertFileDoesNotExist(this IntegrationTestBase testBase, string fileName)
     {
-        XunitAssert.False(testBase.FileExists(fileName));
+        testBase.FileExists(fileName).Should().BeFalse();
     }
 
     public static void AssertFileExists(this IntegrationTestBase testBase, string fileName)
     {
-        XunitAssert.True(testBase.FileExists(fileName));
+        testBase.FileExists(fileName).Should().BeTrue();
     }
 
     public static void AssertFoldersExist(this IntegrationTestBase testBase, string[] paths)
     {
         foreach (var path in paths)
         {
-            XunitAssert.Contains(path, testBase.FileSystemCache.AllDirectories);
+            testBase.FileSystemCache.AllDirectories.Should().Contain(path);
         }
     }
 }
