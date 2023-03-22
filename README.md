@@ -2,7 +2,7 @@
 
 This project is a simple toy project that is intended to convert a given
 directory full of markdown files into a blog. Heavily inspired by projects like
-[Jekyl](https://jekyllrb.com "Jekyl homepage") or [Hugo](https://gohugo.io "Hugo
+[Jekyl](https://jekyllrb.com "Jekyll homepage") or [Hugo](https://gohugo.io "Hugo
 homepage"). The primary difference is that I wanted something written in .NET,
 and I wanted an opportunity to play with the new .NET versions that are coming
 out. As of this writing, the project is written for .NET 7.
