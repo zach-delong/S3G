@@ -1,8 +1,8 @@
 using System.IO.Abstractions.TestingHelpers;
 
-namespace StaticSiteGenerator.IntegrationTests.Utilities.FluentAssertionExtensions;
+namespace StaticSiteGenerator.IntegrationTests.Utilities.Assertions.FileSystem;
 
-public static class FileSystemAssertions
+public static class MockFileSystemExtensions
 {
     public static MockFileSystemAssertions Should(this MockFileSystem system)
     {

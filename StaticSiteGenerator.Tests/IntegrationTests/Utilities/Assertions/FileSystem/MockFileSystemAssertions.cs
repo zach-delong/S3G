@@ -1,7 +1,7 @@
 using System.IO.Abstractions.TestingHelpers;
 using FluentAssertions;
 
-namespace StaticSiteGenerator.IntegrationTests.Utilities.FluentAssertionExtensions;
+namespace StaticSiteGenerator.IntegrationTests.Utilities.Assertions.FileSystem;
 
 public class MockFileSystemAssertions
 {

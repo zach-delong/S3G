@@ -1,6 +1,6 @@
 using FluentAssertions;
 
-namespace StaticSiteGenerator.IntegrationTests.Utilities.FluentAssertionExtensions;
+namespace StaticSiteGenerator.IntegrationTests.Utilities.Assertions;
 
 public class StringAssertions
 {
@@ -11,6 +11,7 @@ public class StringAssertions
         this.input = input;
     }
 
+    [CustomAssertion]
     public void Contain(string substring, string reason="", params object[] parameters)
     {
         input.Should().Contain(substring, reason, parameters);

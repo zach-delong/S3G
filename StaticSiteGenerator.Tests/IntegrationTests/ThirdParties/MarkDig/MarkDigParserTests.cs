@@ -1,4 +1,4 @@
-using StaticSiteGenerator.IntegrationTests.Utilities.FluentAssertionExtensions;
+using StaticSiteGenerator.IntegrationTests.Utilities.Assertions;
 using Xunit;
 
 namespace StaticSiteGenerator.IntegrationTests.ThirdParties.Markdown;

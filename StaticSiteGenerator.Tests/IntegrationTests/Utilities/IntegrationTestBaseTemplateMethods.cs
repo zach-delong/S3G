@@ -1,8 +1,7 @@
 using System.IO.Abstractions.TestingHelpers;
-using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.Extensions.DependencyInjection;
-using StaticSiteGenerator.IntegrationTests.Utilities.FluentAssertionExtensions;
+using StaticSiteGenerator.IntegrationTests.Utilities.Assertions;
 
 namespace StaticSiteGenerator.IntegrationTests.Utilities;
 
@@ -38,7 +37,7 @@ public static class IntegrationTestBaseTemplateMethods
         {
             foreach (var (path, contents) in fileContents)
             {
-                testBase.FileSystemCache.Should()
+                testBase.FileSystemCache.Must()
                                         .FileExistsWithContents(path, contents);
             }
         }
@@ -47,13 +46,13 @@ public static class IntegrationTestBaseTemplateMethods
     public static void AssertFileDoesNotExist(
 	this IntegrationTestBase testBase, string fileName)
     {
-        testBase.FileSystemCache.Should()
+        testBase.FileSystemCache.Must()
                                 .NotContainFile(fileName);
     }
 
     public static void AssertFileExists(this IntegrationTestBase testBase, string fileName)
     {
-        testBase.FileSystemCache.Should()
+        testBase.FileSystemCache.Must()
                                 .ContainFile(fileName);
     }
 
@@ -61,7 +60,7 @@ public static class IntegrationTestBaseTemplateMethods
     {
 	foreach (var path in paths)
 	{
-	    testBase.FileSystemCache.AllDirectories.Should().Contain(path);
+	    testBase.FileSystemCache.AllDirectories.Must().Contain(path);
 	}
     }
 }
