@@ -4,7 +4,7 @@ using StaticSiteGenerator.IntegrationTests.Utilities.Assertions.FileSystem;
 
 namespace StaticSiteGenerator.IntegrationTests.Utilities.Assertions;
 
-public static class FileSystemExtensions
+public static class MockFileSystemExtensions
 {
 
     [CustomAssertion]
