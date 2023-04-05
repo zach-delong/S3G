@@ -1,7 +1,7 @@
 using System.IO.Abstractions.TestingHelpers;
 using FluentAssertions.Execution;
 using Microsoft.Extensions.DependencyInjection;
-using StaticSiteGenerator.IntegrationTests.Utilities.Assertions;
+using StaticSiteGenerator.Tests.Assertions;
 
 namespace StaticSiteGenerator.IntegrationTests.Utilities;
 

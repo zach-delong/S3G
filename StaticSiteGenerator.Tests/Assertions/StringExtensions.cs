@@ -1,6 +1,6 @@
 using FluentAssertions;
 
-namespace StaticSiteGenerator.IntegrationTests.Utilities.Assertions;
+namespace StaticSiteGenerator.Tests.Assertions;
 
 public static class FileSystemExtensions
 {

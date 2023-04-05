@@ -1,6 +1,6 @@
 using System.IO.Abstractions.TestingHelpers;
 
-namespace StaticSiteGenerator.IntegrationTests.Utilities.Assertions.FileSystem;
+namespace StaticSiteGenerator.Tests.Assertions.FileSystem;
 
 public static class MockFileSystemExtensions
 {
