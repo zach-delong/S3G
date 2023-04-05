@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
-using System.Linq;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.Files;
+using StaticSiteGenerator.Tests.Assertions;
 using StaticSiteGenerator.UnitTests.Utilities.Extensions;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.FileProcessingStrategies;
+namespace StaticSiteGenerator.Tests.UnitTests.FileProcessingStrategies;
 
 public class FolderProcessingStrategyTests
 {
@@ -32,9 +32,7 @@ public class FolderProcessingStrategyTests
             sut.Execute(new FolderFileSystemObject(folder));
         }
 
-        var success = fs.AllDirectories.Any(d => d == pathToCheck);
-
-        Assert.True(success);
+        fs.Must().Contain(pathToCheck);
     }
 
     public static IEnumerable<object[]> TestCaseData

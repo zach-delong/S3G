@@ -53,7 +53,7 @@ public static class IntegrationTestBaseTemplateMethods
     public static void AssertFileExists(this IntegrationTestBase testBase, string fileName)
     {
         testBase.FileSystemCache.Must()
-                                .ContainFile(fileName);
+                                .Contain(fileName);
     }
 
     public static void AssertFoldersExist(this IntegrationTestBase testBase, string[] paths)

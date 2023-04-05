@@ -31,7 +31,7 @@ public class FileProcessingStrategyTests
             sut.Execute(new FileFileSystemObject(file));
         }
 
-        fs.Must().ContainFile(pathToCheck);
+        fs.Must().Contain(pathToCheck);
     }
 
     public static IEnumerable<object[]> TestCaseData
