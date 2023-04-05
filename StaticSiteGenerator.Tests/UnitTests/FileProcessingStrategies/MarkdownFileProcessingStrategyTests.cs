@@ -5,6 +5,7 @@ using Moq;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
+using StaticSiteGenerator.Tests.Assertions;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using Xunit;
 
@@ -47,7 +48,7 @@ public class MarkdownFileProcessingStrategyTests
 
         var file = fs.GetFile("output/foomd.html");
 
-        file.TextContents.Should().Be("<html><h1>Hello</h1></html>");
+        file.TextContents.Must().Be("<html><h1>Hello</h1></html>");
     }
 
     [Fact]
@@ -83,8 +84,6 @@ public class MarkdownFileProcessingStrategyTests
 
         sut.Execute(new StaticSiteGenerator.Files.MarkdownFileSystemObject("/input/foomd.md"));
 
-        var file = fs.GetFile("output/foomd.html");
-
-        file?.TextContents?.Should().BeNull();
+        fs.Must().NotContainFile("output/foomd.html");
     }
 }
