@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
-using System.Linq;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.Files;
+using StaticSiteGenerator.Tests.Assertions;
 using StaticSiteGenerator.UnitTests.Utilities.Extensions;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.FileProcessingStrategies;
+namespace StaticSiteGenerator.Tests.UnitTests.FileProcessingStrategies;
 
 public class FileProcessingStrategyTests
 {
@@ -31,9 +31,7 @@ public class FileProcessingStrategyTests
             sut.Execute(new FileFileSystemObject(file));
         }
 
-        var success = fs.AllFiles.Any(d => d == pathToCheck);
-
-        Assert.True(success);
+        fs.Must().ContainFile(pathToCheck);
     }
 
     public static IEnumerable<object[]> TestCaseData

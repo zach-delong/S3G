@@ -14,20 +14,16 @@ public class MockFileSystemAssertions
 
     [CustomAssertion]
     public void ContainFile(
-    string path,
-    string because = "",
-    params object[] becauseArgs)
+    string path)
     {
-	FileSystem.FileExists(path).Should().BeTrue(because, becauseArgs);
+	FileSystem.FileExists(path).Should().BeTrue($"the file system should contain {path} but doesn't");
     }
 
     [CustomAssertion]
     public void NotContainFile(
-    string path,
-    string because = "",
-    params object[] becauseArgs)
+    string path)
     {
-        FileSystem.FileExists(path).Should().BeFalse(because, becauseArgs);
+        FileSystem.FileExists(path).Should().BeFalse($"the file system should not contain {path} but does.");
     }
 
     [CustomAssertion]
