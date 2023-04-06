@@ -53,13 +53,17 @@ public class DeferredExecutionDirectoryEnumeratorTests
 
         var objects = sut.ListAllContents(pathToExamine);
 
-        var files = objects.Count(o => o.GetType() == typeof(FileFileSystemObject));
-        var folders = objects.Count(o => o.GetType() == typeof(FolderFileSystemObject));
-        var markdownFiles = objects.Count(o => o.GetType() == typeof(MarkdownFileSystemObject));
+        objects.Where(o => o.GetType() == typeof(FileFileSystemObject))
+	    .Must()
+	    .HaveCount(expectedFiles);
 
-        Assert.Equal(expectedFiles, files);
-        Assert.Equal(expectedFolders, folders);
-        Assert.Equal(expectedMarkdownFiles, markdownFiles);
+        objects.Where(o => o.GetType() == typeof(FolderFileSystemObject))
+	    .Must()
+	    .HaveCount(expectedFolders);
+
+        objects.Where(o => o.GetType() == typeof(MarkdownFileSystemObject))
+	    .Must()
+	    .HaveCount(expectedMarkdownFiles);
     }
 
     public static IEnumerable<object[]> TestCaseData

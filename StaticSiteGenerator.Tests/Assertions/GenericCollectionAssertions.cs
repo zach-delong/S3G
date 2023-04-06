@@ -9,13 +9,20 @@ public class GenericCollectionAssertions<T>
 
     public GenericCollectionAssertions(IEnumerable<T> haystack)
     {
-        Haystack = haystack;
+	Haystack = haystack;
     }
 
     [CustomAssertion]
-    public void Contain(T needle, string because="", params object[] objects)
+    public void Contain(T needle, string because = "", params object[] objects)
+    {
+	Haystack.Should()
+		.Contain(needle, because, objects);
+    }
+
+    [CustomAssertion]
+    public void HaveCount(int expectedCount, string because = "", params object[] objects)
     {
         Haystack.Should()
-                .Contain(needle, because, objects);
+            .HaveCount(expectedCount, because, objects);
     }
 }
