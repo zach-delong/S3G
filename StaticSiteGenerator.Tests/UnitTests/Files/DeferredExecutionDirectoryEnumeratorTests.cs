@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
+using FluentAssertions;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Files.FileListing;
+using StaticSiteGenerator.Tests.Assertions;
 using StaticSiteGenerator.UnitTests.Helpers;
 using StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
 using Xunit;
@@ -18,24 +21,23 @@ public class DeferredExecutionDirectoryEnumeratorTests
     [InlineData(3)]
     public void Test_Files(int numberOfTestFiles)
     {
-        using (var directory = TempFileHelper.GetTempFolder())
-        {
-            var files = new List<TempFile>();
+        var path = "tmp";
+	var mockFileSystem = new MockFileSystem();
+	mockFileSystem.AddDirectory(path);
 
-            foreach (var _ in Enumerable.Range(1, numberOfTestFiles))
-            {
-                TempFile item = TempFileHelper.GetTempTextFile(directory);
-                files.Add(item: item);
-            }
+	var filePaths = Enumerable
+	    .Range(1, numberOfTestFiles)
+	    .Select(_ => $"{path}/{Guid.NewGuid()}.txt")
+	    .ToArray();
 
-            var sut = new DeferredExecutionDirectoryEnumerator(new FileSystem());
+	foreach (var filePath in filePaths)
+	    mockFileSystem.AddFile(filePath, new MockFileData(string.Empty));
 
-            var result = sut.GetFiles(directory.Path, "*").ToList();
+	var sut = new DeferredExecutionDirectoryEnumerator(mockFileSystem);
 
-            Assert.Equal(numberOfTestFiles, result.Count);
-
-            files.ForEach((file) => file.Dispose());
-        }
+        mockFileSystem
+	    .Must()
+	    .HaveFileCount(numberOfTestFiles);
     }
 
     [Theory]

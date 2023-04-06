@@ -47,4 +47,10 @@ public class MockFileSystemAssertions
                     becauseReasons,
                     becauseArgs);
     }
+
+    [CustomAssertion]
+    public void HaveFileCount(int expectedFileCount)
+    {
+        FileSystem.AllFiles.Should().HaveCount(expectedFileCount);
+    }
 }
