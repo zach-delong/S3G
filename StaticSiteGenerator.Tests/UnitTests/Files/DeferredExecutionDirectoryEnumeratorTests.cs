@@ -1,17 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using FluentAssertions;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.Tests.Assertions;
-using StaticSiteGenerator.UnitTests.Helpers;
-using StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Files;
+namespace StaticSiteGenerator.Tests.UnitTests.Files;
 
 public class DeferredExecutionDirectoryEnumeratorTests
 {
