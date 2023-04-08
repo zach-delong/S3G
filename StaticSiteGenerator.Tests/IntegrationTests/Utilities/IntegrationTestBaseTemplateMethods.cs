@@ -1,7 +1,7 @@
 using System.IO.Abstractions.TestingHelpers;
 using FluentAssertions.Execution;
 using Microsoft.Extensions.DependencyInjection;
-using StaticSiteGenerator.Tests.Assertions;
+using StaticSiteGenerator.Tests.Assertions.FileSystem;
 
 namespace StaticSiteGenerator.IntegrationTests.Utilities;
 
@@ -60,7 +60,7 @@ public static class IntegrationTestBaseTemplateMethods
     {
 	foreach (var path in paths)
 	{
-	    testBase.FileSystemCache.AllDirectories.Should().Contain(path);
+	    testBase.FileSystemCache.Should().ContainDirectory(path);
 	}
     }
 }

@@ -1,4 +1,4 @@
-using StaticSiteGenerator.Tests.Assertions;
+using FluentAssertions;
 using Xunit;
 
 namespace StaticSiteGenerator.IntegrationTests.ThirdParties.Markdown;

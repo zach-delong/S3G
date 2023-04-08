@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
+using FluentAssertions;
+using FluentAssertions.Execution;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Files.FileListing;
-using StaticSiteGenerator.Tests.Assertions;
+using StaticSiteGenerator.Tests.Assertions.FileSystem;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Files;
@@ -49,17 +51,20 @@ public class DeferredExecutionDirectoryEnumeratorTests
 
         var objects = sut.ListAllContents(pathToExamine);
 
-        objects.Where(o => o.GetType() == typeof(FileFileSystemObject))
-	    .Should()
-	    .HaveCount(expectedFiles);
+        using (var scope = new AssertionScope())
+        {
+            objects.Where(o => o.GetType() == typeof(FileFileSystemObject))
+            .Should()
+            .HaveCount(expectedFiles);
 
-        objects.Where(o => o.GetType() == typeof(FolderFileSystemObject))
-	    .Should()
-	    .HaveCount(expectedFolders);
+            objects.Where(o => o.GetType() == typeof(FolderFileSystemObject))
+            .Should()
+            .HaveCount(expectedFolders);
 
-        objects.Where(o => o.GetType() == typeof(MarkdownFileSystemObject))
-	    .Should()
-	    .HaveCount(expectedMarkdownFiles);
+            objects.Where(o => o.GetType() == typeof(MarkdownFileSystemObject))
+            .Should()
+            .HaveCount(expectedMarkdownFiles);
+        }
     }
 
     public static IEnumerable<object[]> TestCaseData

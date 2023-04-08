@@ -1,56 +1,74 @@
 using System.IO.Abstractions.TestingHelpers;
+using System.Linq;
 using FluentAssertions;
+using FluentAssertions.Execution;
+using FluentAssertions.Primitives;
 
-namespace StaticSiteGenerator.Tests.Assertions.FileSystem;
+namespace StaticSiteGenerator.Tests.Assertions;
 
-public class MockFileSystemAssertions
+public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, MockFileSystemAssertions>
 {
-    private readonly MockFileSystem FileSystem;
+    protected override string Identifier => "file system";
 
-    public MockFileSystemAssertions(MockFileSystem fileSystem)
+    public MockFileSystemAssertions(MockFileSystem fileSystem) : base(fileSystem)
+    { }
+
+    [CustomAssertion]
+    public AndConstraint<MockFileSystemAssertions> Contain(
+	string path, string because="", params object[] args)
     {
-	FileSystem = fileSystem;
+        Execute.Assertion
+            .BecauseOf(because, args)
+            .ForCondition(string.IsNullOrWhiteSpace(path))
+	    .Given(() => Subject.AllNodes)
+	    .ForCondition(paths => paths.Any(p => p.Contains(path)))
+	    .FailWith("Expected {context:file system} to contain {0}{path}, but found {1}.", _ => path, paths => paths);
+
+
+        return new AndConstraint<MockFileSystemAssertions>(this);
     }
 
     [CustomAssertion]
-    public void Contain(
+    public AndConstraint<MockFileSystemAssertions> ContainDirectory(string path)
+    {
+	Subject.AllDirectories
+	    .Should()
+	    .Contain(path, $"the file system should contain {path} but doesn't");
+
+        return new AndConstraint<MockFileSystemAssertions>(this);
+    }
+
+    [CustomAssertion]
+    public AndConstraint<MockFileSystemAssertions> NotContainFile(
     string path)
     {
-	FileSystem.FileExists(path).Should().BeTrue($"the file system should contain {path} but doesn't");
+        Subject.FileExists(path).Should().BeFalse($"the file system should not contain {path} but does.");
+
+        return new AndConstraint<MockFileSystemAssertions>(this);
     }
 
     [CustomAssertion]
-    public void NotContainFile(
-    string path)
+    public AndConstraint<MockFileSystemAssertions> FileHasContents(string path, string expectedContents, string becauseReasons = "", params object[] becauseArgs)
     {
-        FileSystem.FileExists(path).Should().BeFalse($"the file system should not contain {path} but does.");
-    }
-
-    [CustomAssertion]
-    public void FileHasContents(string path, string expectedContents, string becauseReasons = "", params object[] becauseArgs)
-    {
-	FileSystem.GetFile(path)
+	Subject.GetFile(path)
 	    .TextContents
 	    .Should()
 	    .BeEquivalentTo(expectedContents, becauseReasons, becauseArgs);
+
+        return new AndConstraint<MockFileSystemAssertions>(this);
     }
 
     [CustomAssertion]
-    public void FileExistsWithContents(string path, string expectedContents, string becauseReasons = "", params object[] becauseArgs)
+    public AndConstraint<MockFileSystemAssertions> FileExistsWithContents(string path, string expectedContents, string becauseReasons = "", params object[] becauseArgs)
     {
-	FileSystem.Should()
-           .Contain(path);
-
-	FileSystem.Should()
-	  .FileHasContents(path,
-                    expectedContents,
-                    becauseReasons,
-                    becauseArgs);
+        return Contain(path)
+	    .And.FileHasContents(path, expectedContents, becauseReasons, becauseArgs);
     }
 
     [CustomAssertion]
-    public void HaveFileCount(int expectedFileCount)
+    public AndConstraint<MockFileSystemAssertions> HaveFileCount(int expectedFileCount)
     {
-        FileSystem.AllFiles.Should().HaveCount(expectedFileCount);
+        Subject.AllFiles.Should().HaveCount(expectedFileCount);
+        return new AndConstraint<MockFileSystemAssertions>(this);
     }
 }

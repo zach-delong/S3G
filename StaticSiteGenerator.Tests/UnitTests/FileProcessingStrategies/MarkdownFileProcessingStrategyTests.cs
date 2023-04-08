@@ -5,7 +5,7 @@ using Moq;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
-using StaticSiteGenerator.Tests.Assertions;
+using StaticSiteGenerator.Tests.Assertions.FileSystem;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
 using Xunit;
 
@@ -84,6 +84,8 @@ public class MarkdownFileProcessingStrategyTests
 
         sut.Execute(new StaticSiteGenerator.Files.MarkdownFileSystemObject("/input/foomd.md"));
 
-        fs.Should().NotContainFile("output/foomd.html");
+	MockFileSystemExtensions
+	    .Should(fs)
+	    .NotContainFile("output/foomd.html");
     }
 }
