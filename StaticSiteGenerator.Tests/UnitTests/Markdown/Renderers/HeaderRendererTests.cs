@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Markdig.Syntax;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
@@ -21,7 +22,9 @@ public class BlockTestWriter
 
         customRenderer.Write(renderer, inputBlock);
 
-        Assert.Equal(expectedOutput, writer.ToString());
+        writer
+            .ToString()
+            .Should().BeEquivalentTo(expectedOutput);
     }
 }
 
@@ -37,6 +40,9 @@ public class HeaderRendererTests
         var sut = new HeaderRenderer(tags, new HeaderLevelHelper());
 
         testHelper.runTest<HeadingBlock>(sut, blockToWrite, expectedResult);
+
+        testHelper.Invoking(h => h.runTest<HeadingBlock>(sut, blockToWrite, expectedResult))
+            .Should().NotThrow();
     }
 
     public static IEnumerable<object[]> TestData

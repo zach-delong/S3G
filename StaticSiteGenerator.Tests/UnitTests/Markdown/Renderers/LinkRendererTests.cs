@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Markdig.Syntax.Inlines;
 using Moq.AutoMock;
 using StaticSiteGenerator.Markdown.Renderers;
@@ -19,7 +20,7 @@ public class LinkRendererTests
 
     [Theory]
     [MemberData(nameof(TestLinkData))]
-    public void TestLinks(TestCaseDataObject data)
+    public void TestLinks(TestCaseDataObject testCaseData)
     {
         var mocker = new AutoMocker();
 
@@ -29,16 +30,21 @@ public class LinkRendererTests
         };
 
         mocker.MockTemplateTagCollection(resultTag);
-        mocker.MockFileSystem(data.LocalFiles);
+        mocker.MockFileSystem(testCaseData.LocalFiles);
         mocker.MockLinkProcessor();
 
         var sut = mocker.CreateInstance<LinkRenderer>();
 
         var (renderer, writer) = htmlWriterFactory.Get();
 
-        sut.Write(renderer, data.Input);
+        sut.Write(renderer, testCaseData.Input);
 
-        Assert.Equal(data.Result, writer.ToString());
+        Assert.Equal(testCaseData.Result, writer.ToString());
+
+        writer
+            .ToString()
+            .Should().BeEquivalentTo(testCaseData.Result);
+
     }
 
     public static IEnumerable<object[]> TestLinkData
@@ -87,7 +93,9 @@ public class LinkRendererTests
 
         sut.Write(renderer, inputBlock);
 
-        Assert.Equal(expectedOutput, writer.ToString());
+        writer
+            .ToString()
+            .Should().BeEquivalentTo(expectedOutput);
     }
 
     public static IEnumerable<object[]> TestImageData

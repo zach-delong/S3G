@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
@@ -26,6 +27,8 @@ public class EmphasisRendererTests
         sut.Write(renderer, input);
 
         Assert.Equal(expectedOutput, writer.ToString());
+        writer.ToString()
+            .Should().BeEquivalentTo(expectedOutput);
     }
 
     public static IEnumerable<object[]> TestData

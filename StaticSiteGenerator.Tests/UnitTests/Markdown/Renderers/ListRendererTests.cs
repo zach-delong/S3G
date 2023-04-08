@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Markdig.Syntax;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
@@ -27,6 +28,10 @@ public class ListRendererTests
         sut.Write(renderer, inputBlock);
 
         Assert.Equal(expectedOutput, writer.ToString());
+
+        writer
+            .ToString()
+            .Should().BeEquivalentTo(expectedOutput);
     }
 
     public static IEnumerable<object[]> TestData

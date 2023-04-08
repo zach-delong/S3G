@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using Markdig.Helpers;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
@@ -8,7 +9,7 @@ using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Utilities.Extensions;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Helpers.Extensions;
+namespace StaticSiteGenerator.UnitTests.Extensions;
 
 public class OrderedListExtensionsTests
 {
@@ -25,7 +26,7 @@ public class OrderedListExtensionsTests
         {
             var foo = targetList[expectedIndex.Value];
 
-            Assert.Equal(replaceWith, foo);
+            foo.Should().BeEquivalentTo(replaceWith);
         }
     }
 

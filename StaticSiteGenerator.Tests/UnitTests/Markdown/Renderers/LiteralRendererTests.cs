@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Markdig.Helpers;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.Renderers;
@@ -21,10 +22,14 @@ public class LiteralRendererTests
 
         sut.Write(renderer, input);
 
-        if(input != null)
-            Assert.Equal(input?.Content.ToString(), writer.ToString());
+        if (input != null)
+            writer
+            .ToString()
+            .Should().BeEquivalentTo(input?.Content.ToString());
         else
-            Assert.True(true);
+            true.Should().BeTrue();
+
+        // TODO: this test should probably be reworked to test the null case with an Invoking()
     }
 
     public static IEnumerable<object[]> TestData

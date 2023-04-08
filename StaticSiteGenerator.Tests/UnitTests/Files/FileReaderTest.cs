@@ -3,6 +3,7 @@ using StaticSiteGenerator.Files;
 using StaticSiteGenerator.UnitTests.Helpers;
 using System.IO.Abstractions;
 using StaticSiteGenerator.Files.FileException;
+using FluentAssertions;
 
 namespace StaticSiteGenerator.UnitTests.Filese;
 
@@ -16,6 +17,10 @@ public class FileReaderTest
         var filePath = "NonExistantFileName.txt";
 
         Assert.Throws<FileManipulationException>(() => { FileReader.ReadFile(filePath); });
+
+        FileReader
+	    .Invoking(r => r.ReadFile(filePath))
+	    .Should().Throw<FileManipulationException>();
     }
 
     [Fact]
@@ -27,7 +32,7 @@ public class FileReaderTest
 
             var fileContents = fileReader.ReadFile(file.Path);
 
-            Assert.Equal("", fileContents);
+            fileContents.Should().BeEmpty();
         }
     }
 
@@ -43,8 +48,9 @@ public class FileReaderTest
 
             var fileContents = fileReader.ReadFile(file.Path);
 
-
-            Assert.Contains(contents, fileContents);
+            fileContents
+		.Trim()
+		.Should().BeEquivalentTo(contents);
         }
     }
 }
