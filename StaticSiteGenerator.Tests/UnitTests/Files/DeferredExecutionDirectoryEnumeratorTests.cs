@@ -32,7 +32,7 @@ public class DeferredExecutionDirectoryEnumeratorTests
 	var sut = new DeferredExecutionDirectoryEnumerator(mockFileSystem);
 
         mockFileSystem
-	    .Must()
+	    .Should()
 	    .HaveFileCount(numberOfTestFiles);
     }
 
@@ -50,15 +50,15 @@ public class DeferredExecutionDirectoryEnumeratorTests
         var objects = sut.ListAllContents(pathToExamine);
 
         objects.Where(o => o.GetType() == typeof(FileFileSystemObject))
-	    .Must()
+	    .Should()
 	    .HaveCount(expectedFiles);
 
         objects.Where(o => o.GetType() == typeof(FolderFileSystemObject))
-	    .Must()
+	    .Should()
 	    .HaveCount(expectedFolders);
 
         objects.Where(o => o.GetType() == typeof(MarkdownFileSystemObject))
-	    .Must()
+	    .Should()
 	    .HaveCount(expectedMarkdownFiles);
     }
 

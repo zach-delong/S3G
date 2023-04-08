@@ -32,7 +32,7 @@ public class FolderProcessingStrategyTests
             sut.Execute(new FolderFileSystemObject(folder));
         }
 
-        fs.Must().Contain(pathToCheck);
+        fs.Should().Contain(pathToCheck);
     }
 
     public static IEnumerable<object[]> TestCaseData

@@ -37,7 +37,7 @@ public static class IntegrationTestBaseTemplateMethods
         {
             foreach (var (path, contents) in fileContents)
             {
-                testBase.FileSystemCache.Must()
+                testBase.FileSystemCache.Should()
                                         .FileExistsWithContents(path, contents);
             }
         }
@@ -46,13 +46,13 @@ public static class IntegrationTestBaseTemplateMethods
     public static void AssertFileDoesNotExist(
 	this IntegrationTestBase testBase, string fileName)
     {
-        testBase.FileSystemCache.Must()
+        testBase.FileSystemCache.Should()
                                 .NotContainFile(fileName);
     }
 
     public static void AssertFileExists(this IntegrationTestBase testBase, string fileName)
     {
-        testBase.FileSystemCache.Must()
+        testBase.FileSystemCache.Should()
                                 .Contain(fileName);
     }
 
@@ -60,7 +60,7 @@ public static class IntegrationTestBaseTemplateMethods
     {
 	foreach (var path in paths)
 	{
-	    testBase.FileSystemCache.AllDirectories.Must().Contain(path);
+	    testBase.FileSystemCache.AllDirectories.Should().Contain(path);
 	}
     }
 }

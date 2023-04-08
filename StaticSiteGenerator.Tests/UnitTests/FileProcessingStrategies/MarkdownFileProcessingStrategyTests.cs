@@ -48,7 +48,7 @@ public class MarkdownFileProcessingStrategyTests
 
         var file = fs.GetFile("output/foomd.html");
 
-        file.TextContents.Must().Be("<html><h1>Hello</h1></html>");
+        file.TextContents.Should().Be("<html><h1>Hello</h1></html>");
     }
 
     [Fact]
@@ -84,6 +84,6 @@ public class MarkdownFileProcessingStrategyTests
 
         sut.Execute(new StaticSiteGenerator.Files.MarkdownFileSystemObject("/input/foomd.md"));
 
-        fs.Must().NotContainFile("output/foomd.html");
+        fs.Should().NotContainFile("output/foomd.html");
     }
 }
