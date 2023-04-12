@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Moq.AutoMock;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.Utilities;
@@ -24,6 +25,6 @@ public class LinkProcessorTests
 
         var result = sut.Process(inputUrl);
 
-        Assert.Equal(expectedResult, result);
+        result.Should().Be(expectedResult);
     }
 }

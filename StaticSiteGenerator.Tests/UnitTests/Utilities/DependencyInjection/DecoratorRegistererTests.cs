@@ -1,4 +1,5 @@
 using System;
+using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.Utilities.DependencyInjection;
 using Xunit;
@@ -17,7 +18,9 @@ public class DecoratorRegistererTests
 
         var result = serviceProvider.GetService(typeof(ITargetDecorator));
 
-        Assert.IsType<TargetDecorator>(result);
+        result.GetType()
+            .Should()
+            .Be<TargetDecorator>();
     }
 
     [Fact]
@@ -32,6 +35,9 @@ public class DecoratorRegistererTests
         var result = sp.GetService(typeof(ITargetDecorator));
 
         Assert.IsType<TargetSecondDecorator>(result);
+        result.GetType()
+	    .Should()
+	    .Be<TargetSecondDecorator>();
     }
 
     [Fact]
@@ -46,7 +52,9 @@ public class DecoratorRegistererTests
 
         var result = sp.GetService(typeof(ITargetDecorator));
 
-        Assert.IsType<TargetDecorator>(result);
+        result.GetType()
+            .Should()
+            .Be<TargetDecorator>();
     }
 
     [Fact]
@@ -60,14 +68,19 @@ public class DecoratorRegistererTests
 
         var result = sp.GetService(typeof(ITargetDecorator));
 
-        Assert.IsType<DecoratorWithNewDependencies>(result);
+        result.GetType()
+            .Should()
+            .Be<DecoratorWithNewDependencies>();
     }
 
     [Fact]
     public void ShouldThrowExceptionWhenOverloadingTypeIsNotRegistered()
     {
         ServiceCollection sc = new ServiceCollection();
-        Assert.Throws<Exception>(() => sc.Decorate<ITargetDecorator, DecoratorWithNewDependencies>());
+        sc
+	    .Invoking(s => s.Decorate<ITargetDecorator, DecoratorWithNewDependencies>())
+	    .Should()
+	    .Throw<Exception>();
     }
 
     private static ServiceCollection GetServiceCollection()

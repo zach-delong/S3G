@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Utilities;
 using Xunit;
@@ -14,7 +15,7 @@ public class HeaderLevelHelperTests
 
         var result = helper.GetHeaderTagTypeFor(level);
 
-        Assert.Equal(expectedTagType, result);
+        result.Should().Be(expectedTagType);
     }
 
     public static IEnumerable<object[]> TestData

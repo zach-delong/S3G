@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using Xunit;
@@ -23,7 +24,7 @@ public class ITemplateFillerTests
 
         var result = filler.Fill(tag, content);
 
-        Assert.Equal(expected, result);
+        result.Should().BeEquivalentTo(expected);
     }
 
     [Theory, MemberData(nameof(TestData))]
@@ -35,7 +36,7 @@ public class ITemplateFillerTests
 
         var result = sut.Fill(tag, content);
 
-        Assert.Equal(expectedResult, result);
+        result.Should().BeEquivalentTo(expectedResult);
     }
 
     public static IEnumerable<object[]> TestData

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using FluentAssertions;
+using FluentAssertions.Extensions;
 using StaticSiteGenerator.Utilities.Date;
 using Xunit;
 
@@ -19,7 +21,12 @@ public class DateParserTests
         var success = parser.TryParse(input, out output);
 
         Assert.Equal(expectedSuccess, success);
-        Assert.Equal(expectedOutput, output);
+	if(expectedSuccess)
+            success.Should().BeTrue();
+	else
+            success.Should().BeFalse();
+
+        output.Should().Be(expectedOutput);
     }
 
     public static IEnumerable<object[]> TestData = new List<object[]> {

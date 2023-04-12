@@ -1,3 +1,4 @@
+using FluentAssertions;
 using StaticSiteGenerator.Utilities;
 using Xunit;
 
@@ -20,6 +21,9 @@ public class FilePathValidatorTests
 
         var result = sut.IsFilePath(input);
 	
-        Assert.Equal(expectedResult, result);
+	if(expectedResult)
+            result.Should().BeTrue();
+	else
+            result.Should().BeFalse();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using FluentAssertions;
 using Markdig;
 using Markdig.Renderers;
 using StaticSiteGenerator.Markdown;
@@ -20,6 +21,9 @@ public class CustomExtensionTests
         extension.Setup(null, renderer);
 
         // Assert that the extension exists in the pipeline
-        Assert.NotNull(renderer.ObjectRenderers.Find<LiteralRenderer>());
+        renderer.ObjectRenderers
+	    .Find<LiteralRenderer>()
+	    .Should()
+	    .NotBeNull();
     }
 }

@@ -4,6 +4,7 @@ using StaticSiteGenerator.Utilities.StrategyPattern;
 using System.Collections.Generic;
 using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 using StaticSiteGenerator.Files;
+using FluentAssertions;
 
 namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern;
 
@@ -46,7 +47,10 @@ public class StrategyCollectionTests
 
         var strategy = strategyCollection.GetStrategyForType(dummyObject.GetType());
 
-        Assert.IsType(mockConverter.GetType(), strategy);
+        strategy
+            .GetType()
+            .Should()
+            .Be(mockConverter.GetType());
     }
 
     [Fact]
@@ -56,7 +60,9 @@ public class StrategyCollectionTests
 
         var exception = Record.Exception(() => strategyCollection.SetCollection(new List<IStrategy<object, IFileSystemObject>>()));
 
-        Assert.Null(exception);
+        exception
+            .Should()
+            .BeNull();
     }
 
     [Fact]
@@ -64,7 +70,10 @@ public class StrategyCollectionTests
     {
         var strategyCollection = new StrategyCollection<IStrategy<object, IFileSystemObject>>(new List<IStrategy<object, IFileSystemObject>>());
 
-        Assert.Throws<ArgumentNullException>(() => strategyCollection.SetCollection(null));
+        strategyCollection
+	    .Invoking(c => c.SetCollection(null))
+	    .Should()
+	    .Throw<ArgumentNullException>();
     }
 
     [Fact]
@@ -74,12 +83,12 @@ public class StrategyCollectionTests
         var mockConverter = new FakeConverterWithoutAttribute();
         object dummyObject = new Object();
 
-        Assert.Throws<StrategyMapperAttributeNotFoundException>(() =>
-        {
-            strategyCollection.SetCollection(new List<IStrategy<object, IFileSystemObject>>() {
-                        mockConverter
-            });
-        });
+	strategyCollection.Invoking(sc =>
+	    sc.SetCollection(new List<IStrategy<object, IFileSystemObject>>() {
+		mockConverter
+	    }))
+	    .Should()
+	    .Throw<StrategyMapperAttributeNotFoundException>();
     }
 
     [Fact]
@@ -93,10 +102,10 @@ public class StrategyCollectionTests
                     mockConverter
             });
 
-        Assert.Throws<StrategyNotFoundException>(() =>
-        {
-            var strategy = strategyCollection.GetStrategyForType(mockConverter.GetType());
-        });
+        strategyCollection
+	    .Invoking(sc => sc.GetStrategyForType(mockConverter.GetType()))
+	    .Should()
+	    .Throw<StrategyNotFoundException>();
 
     }
 }

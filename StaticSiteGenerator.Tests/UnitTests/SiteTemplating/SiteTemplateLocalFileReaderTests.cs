@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using FluentAssertions;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
 using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
 using Xunit;
@@ -24,6 +25,6 @@ public class SiteTemplateLocalFileReaderTests
 
         var result = sut.ReadTemplate();
 
-        Assert.Equal("fileContents", result);
+	result.Should().BeEquivalentTo("fileContents");
     }
 }

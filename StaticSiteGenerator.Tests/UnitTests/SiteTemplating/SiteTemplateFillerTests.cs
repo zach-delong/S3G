@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Moq;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
@@ -22,7 +23,7 @@ public class SiteTemplateFillerTests
 
         var result = sut.FillSiteTemplate("asdf");
 
-        Assert.Equal("<html>asdf</html>", result);
+        result.Should().BeEquivalentTo("<html>asdf</html>");
     }
 
     [Fact]

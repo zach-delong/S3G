@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Moq;
 using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.TemplateReading;
@@ -45,6 +46,7 @@ public class ITemplateReaderTests
         var result = reader.ReadTemplate().ToList();
 
         Assert.NotEmpty(result);
+        result.Should().NotBeEmpty();
     }
 
     [Fact]
@@ -60,7 +62,10 @@ public class ITemplateReaderTests
             System.Console.WriteLine(r);
         }
 
-        Assert.Empty(result.First(t => t.Type == TagType.Header1).Template);
+        result
+            .First(t => t.Type == TagType.Header1).Template
+            .Should()
+            .BeEmpty();
     }
 
     [Fact]
@@ -72,6 +77,9 @@ public class ITemplateReaderTests
         var result = reader.ReadTemplate();
 
         Assert.Empty(result);
+        result
+            .Should()
+            .BeEmpty();
     }
 
     private ITemplateReader GetReader(

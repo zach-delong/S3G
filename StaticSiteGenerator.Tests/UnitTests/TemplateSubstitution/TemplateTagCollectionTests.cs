@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles;
@@ -50,7 +51,9 @@ public class TemplateTagCollectionTests
 
         var headerTemplate = bar.GetTagForType(TagType.Header1);
 
-        Assert.NotNull(headerTemplate);
+        headerTemplate
+            .Should()
+            .NotBeNull();
     }
 
     [Fact]
@@ -63,7 +66,11 @@ public class TemplateTagCollectionTests
         var headerTemplate = bar.GetTagForType(TagType.Header1);
         var paragraphTemplate = bar.GetTagForType(TagType.Paragraph);
 
-        Assert.NotNull(headerTemplate);
-        Assert.NotNull(paragraphTemplate);
+        headerTemplate
+            .Should()
+            .NotBeNull();
+	paragraphTemplate 
+            .Should()
+            .NotBeNull();
     }
 }
