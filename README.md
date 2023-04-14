@@ -73,7 +73,7 @@ This page will have the title "an interesting readme"
 - [X] Covert common *.md tags to HTML
 - [x] Reorganize namespaces 
 - [x] Implement custom titles on each "page"
-- [ ] Implement FluentAssertions for integration tests
+- [x] Implement FluentAssertions for integration tests
 - [ ] Automate docker image publishing
 - [ ] Design & implement some kind of metadata (titles, publish date, etc)
 - [ ] Build a homepage with treeview navigation
