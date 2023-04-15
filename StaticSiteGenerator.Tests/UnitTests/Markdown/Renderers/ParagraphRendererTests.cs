@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Markdig.Syntax;
+using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.UnitTests.Doubles.Markdown;
@@ -31,7 +32,6 @@ public class ParagraphRendererTests
 
         sut.Write(renderer, inputBlock);
 
-        Assert.Equal(expectedOutput, writer.ToString());
         writer
             .ToString()
             .Should().BeEquivalentTo(expectedOutput);
@@ -45,6 +45,33 @@ public class ParagraphRendererTests
             {
                 new ParagraphBlock {},
                 "<p property='thing'></p>"
+            };
+
+
+            var inlineText = new Markdig.Helpers.StringSlice("Some test text", Markdig.Helpers.NewLine.LineFeed);
+
+            var testTextContainer = new ContainerInline();
+            testTextContainer.AppendChild(new LiteralInline(inlineText));
+
+            var testTextParagraph = new ParagraphBlock { Inline = testTextContainer };
+
+            yield return new object[]
+            {
+		testTextParagraph,
+                "<p property='thing'>Some test text</p>"
+            };
+
+            var shouldBeHtmlEncoded = new Markdig.Helpers.StringSlice("Some test text <", Markdig.Helpers.NewLine.LineFeed);
+
+            var shouldBeEncodedContainer = new ContainerInline();
+            shouldBeEncodedContainer.AppendChild(new LiteralInline(inlineText));
+
+            var encodedParagraph = new ParagraphBlock { Inline = shouldBeEncodedContainer };
+
+            yield return new object[]
+            {
+		encodedParagraph,
+                "<p property='thing'>Some test text &lt;</p>"
             };
         }
     }

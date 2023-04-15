@@ -16,7 +16,6 @@ public class ParagraphRenderer : CustomRendererBase<ParagraphBlock>
 
     protected override void Write(HtmlRenderer renderer, ParagraphBlock obj)
     {
-        // TODO: what about other header sizes?
         var tag = tagCollection.GetTagForType(TagType.Paragraph);
 
         var foo = tag.Template.Split("{{}}");
