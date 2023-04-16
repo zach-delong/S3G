@@ -4,7 +4,7 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Utilities;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Utilities;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities;
 
 public class HeaderLevelHelperTests
 {

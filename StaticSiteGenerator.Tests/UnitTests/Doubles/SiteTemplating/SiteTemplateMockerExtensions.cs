@@ -3,7 +3,7 @@ using Moq.AutoMock;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 
 public static class SiteTemplateMockerExtensions
 {

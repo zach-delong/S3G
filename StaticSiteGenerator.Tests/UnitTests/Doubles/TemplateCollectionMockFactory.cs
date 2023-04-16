@@ -4,7 +4,7 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using System.Linq;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 
-namespace StaticSiteGenerator.UnitTests.Doubles;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public class TemplateCollectionMockFactory
 {

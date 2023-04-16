@@ -1,6 +1,6 @@
 using System.IO.Abstractions;
 
-namespace StaticSiteGenerator.UnitTests.Utilities.Extensions;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions;
 
 public static class PathExtensions
 {

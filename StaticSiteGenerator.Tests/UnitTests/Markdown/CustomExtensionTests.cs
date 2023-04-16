@@ -7,7 +7,7 @@ using StaticSiteGenerator.Markdown;
 using StaticSiteGenerator.Markdown.Renderers;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Markdown;
+namespace StaticSiteGenerator.Tests.UnitTests.Markdown;
 
 public class CustomExtensionTests
 {

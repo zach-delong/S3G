@@ -3,7 +3,7 @@ using Moq;
 using StaticSiteGenerator.Files.FileException;
 using StaticSiteGenerator.Files.FileWriting;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
 public class FileWriterMockFactory
 {

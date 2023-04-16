@@ -4,11 +4,11 @@ using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.UnitTests.Doubles.Markdown;
-using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Markdown.Renderers;
+namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
 public class ParagraphRendererTests
 {

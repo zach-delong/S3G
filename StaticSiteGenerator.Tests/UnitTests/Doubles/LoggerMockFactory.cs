@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace StaticSiteGenerator.UnitTests.Doubles;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public class LoggerMockFactory
 {

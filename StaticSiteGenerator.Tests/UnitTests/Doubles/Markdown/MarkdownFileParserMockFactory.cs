@@ -3,7 +3,7 @@ using Moq;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.Markdown;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 
 public static class MarkdownFileParserMockFactory
 {

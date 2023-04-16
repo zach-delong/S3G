@@ -3,10 +3,10 @@ using System.Linq;
 using Moq;
 using StaticSiteGenerator.Files.FileException;
 using StaticSiteGenerator.HtmlWriting;
-using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.HtmlWriting;
+namespace StaticSiteGenerator.Tests.UnitTests.HtmlWriting;
 
 public class FileSystemHtmlWriterTests
 {

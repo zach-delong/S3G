@@ -2,7 +2,7 @@ using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using Moq.AutoMock;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
 public static class FilesystemAutoMockerExtensions
 {

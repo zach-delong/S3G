@@ -1,6 +1,6 @@
 using System;
 
-namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
+namespace StaticSiteGenerator.Tests.UnitTests.Helpers.TemporaryFiles;
 
 public abstract class TempFileObject : IDisposable
 {

@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using FluentAssertions;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.UnitTests.Doubles;
+using StaticSiteGenerator.Tests.UnitTests.Doubles;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TagCollection;
+namespace StaticSiteGenerator.Tests.UnitTests.TemplateSubstitution.TagCollection;
 
 public class TemplateTagCollectionTests
 {

@@ -2,7 +2,7 @@ using Markdig.Helpers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 
-namespace StaticSiteGenerator.UnitTests.Utilities.Extensions.MarkdownExtensions;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions.MarkdownExtensions;
 
 public static class HeaderExtensions
 {

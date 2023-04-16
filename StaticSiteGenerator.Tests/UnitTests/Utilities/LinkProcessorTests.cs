@@ -1,10 +1,10 @@
 using FluentAssertions;
 using Moq.AutoMock;
-using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.Utilities;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Utilities;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities;
 
 public class LinkProcessorTests
 {

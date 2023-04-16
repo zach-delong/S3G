@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Moq;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.UnitTests.Doubles;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public class StrategyExecutorMockFactory
 {

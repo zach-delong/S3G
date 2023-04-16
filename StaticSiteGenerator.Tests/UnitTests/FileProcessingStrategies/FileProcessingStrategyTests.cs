@@ -3,7 +3,7 @@ using System.IO.Abstractions.TestingHelpers;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Tests.Assertions.FileSystem;
-using StaticSiteGenerator.UnitTests.Utilities.Extensions;
+using StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.FileProcessingStrategies;

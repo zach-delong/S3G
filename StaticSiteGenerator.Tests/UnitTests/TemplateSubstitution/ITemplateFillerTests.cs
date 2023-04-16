@@ -4,7 +4,7 @@ using StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.TemplateSubstitution;
+namespace StaticSiteGenerator.Tests.UnitTests.TemplateSubstitution;
 
 public class ITemplateFillerTests
 {

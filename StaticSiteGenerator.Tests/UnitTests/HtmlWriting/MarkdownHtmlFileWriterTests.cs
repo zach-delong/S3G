@@ -2,7 +2,7 @@ using Moq;
 using StaticSiteGenerator.HtmlWriting;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.HtmlWriting;
+namespace StaticSiteGenerator.Tests.UnitTests.HtmlWriting;
 
 public class MarkdownHtmlFileWriterTests
 {

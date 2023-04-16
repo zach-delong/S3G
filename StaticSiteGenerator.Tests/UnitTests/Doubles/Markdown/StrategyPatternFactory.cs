@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.Markdown;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 
 public class StrategyPatternFactory
 {

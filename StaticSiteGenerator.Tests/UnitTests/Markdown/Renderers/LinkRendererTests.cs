@@ -4,13 +4,13 @@ using Markdig.Syntax.Inlines;
 using Moq.AutoMock;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.UnitTests.Doubles;
-using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
-using StaticSiteGenerator.UnitTests.Doubles.Markdown;
-using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
+using StaticSiteGenerator.Tests.UnitTests.Doubles;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Markdown.Renderers;
+namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
 public class LinkRendererTests
 {

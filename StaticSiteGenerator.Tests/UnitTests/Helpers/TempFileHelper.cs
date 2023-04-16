@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
+using StaticSiteGenerator.Tests.UnitTests.Helpers.TemporaryFiles;
 
-namespace StaticSiteGenerator.UnitTests.Helpers;
+namespace StaticSiteGenerator.Tests.UnitTests.Helpers;
 
 public static class TempFileHelper
 {

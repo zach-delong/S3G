@@ -1,7 +1,7 @@
 using Moq;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 
 public class SiteTemplateReaderMockFactory
 {

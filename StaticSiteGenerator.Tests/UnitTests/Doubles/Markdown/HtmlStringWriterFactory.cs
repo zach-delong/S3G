@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Markdig.Renderers;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.Markdown;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 
 public class HtmlStringWriterFactory
 {

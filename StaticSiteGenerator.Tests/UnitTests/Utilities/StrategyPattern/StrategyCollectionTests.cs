@@ -6,7 +6,7 @@ using StaticSiteGenerator.Utilities.StrategyPattern.Exceptions;
 using StaticSiteGenerator.Files;
 using FluentAssertions;
 
-namespace StaticSiteGenerator.UnitTests.Utilities.StrategyPattern;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities.StrategyPattern;
 
 public class StrategyCollectionTests
 {

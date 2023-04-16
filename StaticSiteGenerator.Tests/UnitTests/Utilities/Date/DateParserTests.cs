@@ -5,7 +5,7 @@ using FluentAssertions.Extensions;
 using StaticSiteGenerator.Utilities.Date;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Utilities.Date;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities.Date;
 
 public class DateParserTests
 {

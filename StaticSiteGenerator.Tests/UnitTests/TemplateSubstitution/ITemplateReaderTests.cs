@@ -5,10 +5,10 @@ using Moq;
 using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.TemplateSubstitution.TemplateReading;
+namespace StaticSiteGenerator.Tests.UnitTests.TemplateSubstitution.TemplateReading;
 
 public class ITemplateReaderTests
 {

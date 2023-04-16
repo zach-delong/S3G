@@ -2,7 +2,7 @@ using Moq;
 using Moq.AutoMock;
 using StaticSiteGenerator.Utilities;
 
-namespace StaticSiteGenerator.UnitTests.Doubles;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public static class UtilitiesAutoMockerExtensions
 {

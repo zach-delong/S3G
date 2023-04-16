@@ -3,7 +3,7 @@ using Moq;
 using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.UnitTests.Doubles;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public class TemplateReaderMockFactory
 {

@@ -2,10 +2,10 @@ using FluentAssertions;
 using Moq;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
-using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.SiteTemplating;
+namespace StaticSiteGenerator.Tests.UnitTests.SiteTemplating;
 
 public class SiteTemplateFillerTests
 {

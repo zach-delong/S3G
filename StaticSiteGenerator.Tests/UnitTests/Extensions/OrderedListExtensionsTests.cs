@@ -9,7 +9,7 @@ using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Utilities.Extensions;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Extensions;
+namespace StaticSiteGenerator.Tests.UnitTests.Extensions;
 
 public class OrderedListExtensionsTests
 {

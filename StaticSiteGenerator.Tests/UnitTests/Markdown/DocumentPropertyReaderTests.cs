@@ -6,7 +6,7 @@ using Moq.AutoMock;
 using StaticSiteGenerator.Markdown;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Markdown;
+namespace StaticSiteGenerator.Tests.UnitTests.Markdown;
 
 public class DocumentPropertyReaderTests
 {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StaticSiteGenerator.Utilities.DependencyInjection;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.DependencyInjection;
+namespace StaticSiteGenerator.Tests.UnitTests.DependencyInjection;
 
 public class DecoratorRegistererTests
 {

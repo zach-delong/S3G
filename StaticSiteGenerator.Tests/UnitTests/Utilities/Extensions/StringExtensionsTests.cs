@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using StaticSiteGenerator.Utilities.Extensions;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Utilities.Extensions;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions;
 
 public class StringExtensionsTests
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using Moq;
 using StaticSiteGenerator.Files;
 
-namespace StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
 public class FileReaderMockFactory
 {

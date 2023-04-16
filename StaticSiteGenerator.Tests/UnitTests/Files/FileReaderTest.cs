@@ -1,11 +1,11 @@
 using Xunit;
 using StaticSiteGenerator.Files;
-using StaticSiteGenerator.UnitTests.Helpers;
+using StaticSiteGenerator.Tests.UnitTests.Helpers;
 using System.IO.Abstractions;
 using StaticSiteGenerator.Files.FileException;
 using FluentAssertions;
 
-namespace StaticSiteGenerator.UnitTests.Filese;
+namespace StaticSiteGenerator.Tests.UnitTests.Filese;
 
 public class FileReaderTest
 {

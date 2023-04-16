@@ -2,7 +2,7 @@ using Moq;
 using StaticSiteGenerator.TemplateSubstitution.TemplateFilling;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
-namespace StaticSiteGenerator.UnitTests.Doubles;
+namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public class TemplateFillerMockFactory
 {

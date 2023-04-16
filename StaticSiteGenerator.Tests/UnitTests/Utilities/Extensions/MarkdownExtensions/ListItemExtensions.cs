@@ -1,6 +1,6 @@
 using Markdig.Syntax;
 
-namespace StaticSiteGenerator.UnitTests.Utilities.Extensions.MarkdownExtensions;
+namespace StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions.MarkdownExtensions;
 
 public static class ListItemExtensions
 {

@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
-using StaticSiteGenerator.UnitTests.Doubles.FileManipulation;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.SiteTemplating;
+namespace StaticSiteGenerator.Tests.UnitTests.SiteTemplating;
 
 public class SiteTemplateLocalFileReaderTests
 {

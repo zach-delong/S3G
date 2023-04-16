@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace StaticSiteGenerator.UnitTests.Helpers;
+namespace StaticSiteGenerator.Tests.UnitTests.Helpers;
 
 public class RandomizedStringListGenerator
 {

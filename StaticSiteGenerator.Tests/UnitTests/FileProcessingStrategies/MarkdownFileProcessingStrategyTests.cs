@@ -6,10 +6,10 @@ using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Tests.Assertions.FileSystem;
-using StaticSiteGenerator.UnitTests.Doubles.Markdown;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.FileProcessingStrategies;
+namespace StaticSiteGenerator.Tests.UnitTests.FileProcessingStrategies;
 
 public class MarkdownFileProcessingStrategyTests
 {

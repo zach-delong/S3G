@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace StaticSiteGenerator.UnitTests.Helpers.TemporaryFiles;
+namespace StaticSiteGenerator.Tests.UnitTests.Helpers.TemporaryFiles;
 
 public class TempFile : TempFileObject
 {

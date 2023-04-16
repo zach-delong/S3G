@@ -3,10 +3,10 @@ using FluentAssertions;
 using Markdig.Helpers;
 using Markdig.Syntax.Inlines;
 using StaticSiteGenerator.Markdown.Renderers;
-using StaticSiteGenerator.UnitTests.Doubles.Markdown;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Markdown.Renderers;
+namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
 public class LiteralRendererTests
 {

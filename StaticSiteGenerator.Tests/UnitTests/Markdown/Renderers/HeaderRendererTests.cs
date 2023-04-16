@@ -4,13 +4,13 @@ using Markdig.Syntax;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
-using StaticSiteGenerator.UnitTests.Doubles.Markdown;
-using StaticSiteGenerator.UnitTests.Doubles.SiteTemplating;
-using StaticSiteGenerator.UnitTests.Utilities.Extensions.MarkdownExtensions;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
+using StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions.MarkdownExtensions;
 using StaticSiteGenerator.Utilities;
 using Xunit;
 
-namespace StaticSiteGenerator.UnitTests.Markdown.Renderers;
+namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
 public class BlockTestWriter
 {
