@@ -37,6 +37,7 @@ public class ParagraphRendererTests
             .Should().BeEquivalentTo(expectedOutput);
     }
 
+
     public static IEnumerable<object[]> TestData
     {
         get
@@ -47,32 +48,31 @@ public class ParagraphRendererTests
                 "<p property='thing'></p>"
             };
 
-
-            var inlineText = new Markdig.Helpers.StringSlice("Some test text", Markdig.Helpers.NewLine.LineFeed);
-
-            var testTextContainer = new ContainerInline();
-            testTextContainer.AppendChild(new LiteralInline(inlineText));
-
-            var testTextParagraph = new ParagraphBlock { Inline = testTextContainer };
-
             yield return new object[]
             {
-		testTextParagraph,
+		ParagraphHelper.Get("Some test text"),
                 "<p property='thing'>Some test text</p>"
             };
 
-            var shouldBeHtmlEncoded = new Markdig.Helpers.StringSlice("Some test text <", Markdig.Helpers.NewLine.LineFeed);
-
-            var shouldBeEncodedContainer = new ContainerInline();
-            shouldBeEncodedContainer.AppendChild(new LiteralInline(inlineText));
-
-            var encodedParagraph = new ParagraphBlock { Inline = shouldBeEncodedContainer };
-
             yield return new object[]
             {
-		encodedParagraph,
+		ParagraphHelper.Get("Some test text <"),
                 "<p property='thing'>Some test text &lt;</p>"
             };
         }
+    }
+}
+
+public static class ParagraphHelper
+{
+    public static ParagraphBlock Get(string contents)
+    {
+	var shouldBeHtmlEncoded = new Markdig.Helpers.StringSlice(contents, Markdig.Helpers.NewLine.LineFeed);
+
+	var shouldBeEncodedContainer = new ContainerInline();
+	shouldBeEncodedContainer.AppendChild(new LiteralInline(shouldBeHtmlEncoded));
+
+	return new ParagraphBlock { Inline = shouldBeEncodedContainer };
+
     }
 }
