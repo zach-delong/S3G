@@ -12,7 +12,7 @@ public class MarkDigParserTests
 
         var document = Markdig.Markdown.ToHtml(exampleInput);
 
-        document.Should().Contain("<h1>Hello, world!</h1");
+        document.Should().BeEquivalentTo("<h1>Hello, world!</h1>\n");
     }
 
 }
