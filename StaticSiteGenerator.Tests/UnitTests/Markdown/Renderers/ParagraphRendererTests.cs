@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using FluentAssertions;
+using Markdig.Renderers.Html;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-using StaticSiteGenerator.Markdown.Renderers;
-using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 using Xunit;
@@ -19,14 +18,7 @@ public class ParagraphRendererTests
     [MemberData(nameof(TestData))]
     public void Test(ParagraphBlock inputBlock, string expectedOutput)
     {
-        var resultTag = new TemplateTag
-        {
-            Template = "<p property='thing'>{{}}</p>"
-        };
-
-        var tags = tagCollectionFactory.Get(resultTag);
-
-        var sut = new ParagraphRenderer(tags.Object);
+        var sut = new ParagraphRenderer();
 
         var (renderer, writer) = htmlWriterFactory.Get();
 
@@ -45,19 +37,25 @@ public class ParagraphRendererTests
             yield return new object[]
             {
                 new ParagraphBlock {},
-                "<p property='thing'></p>"
+                "<p></p>\n"
             };
 
             yield return new object[]
             {
 		ParagraphHelper.Get("Some test text"),
-                "<p property='thing'>Some test text</p>"
+                "<p>Some test text</p>\n"
             };
 
             yield return new object[]
             {
 		ParagraphHelper.Get("Some test text <"),
-                "<p property='thing'>Some test text &lt;</p>"
+                "<p>Some test text &lt;</p>\n"
+            };
+
+            yield return new object[]
+            {
+		ParagraphHelper.Get("Some test text ="),
+                "<p>Some test text =</p>\n"
             };
         }
     }
