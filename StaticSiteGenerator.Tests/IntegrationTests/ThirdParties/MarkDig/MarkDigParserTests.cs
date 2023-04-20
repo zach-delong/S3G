@@ -22,6 +22,21 @@ public class MarkDigParserTests
         document.Should().BeEquivalentTo("<h1>Hello, world!</h1>\n");
     }
 
+    [Fact]
+    public void CodeBlockConversion()
+    {
+	var exampleInput = @"
+```
+this is some code
+```
+
+";
+
+        var document = Markdig.Markdown.ToHtml(exampleInput);
+
+        document.Should().BeEquivalentTo("<pre><code>this is some code\n</code></pre>\n");
+    }
+
     [Theory]
     [MemberData(nameof(TestData))]
     public void Test(ParagraphBlock inputBlock, string expectedOutput)

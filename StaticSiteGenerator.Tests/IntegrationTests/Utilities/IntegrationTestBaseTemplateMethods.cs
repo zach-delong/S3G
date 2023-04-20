@@ -43,6 +43,15 @@ public static class IntegrationTestBaseTemplateMethods
         }
     }
 
+    public static void AssertFileExistsWithContents(this IntegrationTestBase testBase, string path, string contents)
+    {
+        using (new AssertionScope())
+        {
+	    testBase.FileSystemCache.Should()
+		.FileExistsWithContents(path, contents);
+        }
+    }
+
     public static void AssertFileDoesNotExist(
 	this IntegrationTestBase testBase, string fileName)
     {
