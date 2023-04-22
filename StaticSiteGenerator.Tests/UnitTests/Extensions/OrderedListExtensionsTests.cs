@@ -18,39 +18,57 @@ public class OrderedListExtensionsTests
     public void TestReplace(OrderedList<IMarkdownObjectRenderer> targetList,
                             Type targetType,
                             IMarkdownObjectRenderer replaceWith,
-                            int? expectedIndex)
+                            OrderedList<IMarkdownObjectRenderer> expected)
     {
         targetList.ReplaceOrAdd(targetType, replaceWith);
 
-        if(expectedIndex != null)
-        {
-            var foo = targetList[expectedIndex.Value];
+        targetList.Should().BeEquivalentTo(expected);
 
-            foo.Should().BeEquivalentTo(replaceWith);
-        }
     }
 
     public static IEnumerable<object[]> TestData
     {
         get
         {
+            var codeBlockRenderer = new CodeBlockRenderer();
+            var literalRenderer = new LiteralInlineRenderer();
+
             yield return new object[]
             {
                 new OrderedList<IMarkdownObjectRenderer>(),
                 typeof(HtmlObjectRenderer<LiteralInline>),
                 null,
-                null
+                new OrderedList<IMarkdownObjectRenderer> {
+		    null
+		}
             };
 
             yield return new object[]
             {
                 new OrderedList<IMarkdownObjectRenderer>
                 {
-                    new LiteralInlineRenderer()
+                    literalRenderer
                 },
                 typeof(HtmlObjectRenderer<LiteralInline>),
                 null,
-                0
+                new OrderedList<IMarkdownObjectRenderer> {
+		    null
+		}
+            };
+
+            yield return new object[]
+            {
+                new OrderedList<IMarkdownObjectRenderer>
+                {
+		    codeBlockRenderer,
+		    literalRenderer
+                },
+                typeof(HtmlObjectRenderer<LiteralInline>),
+                null,
+                new OrderedList<IMarkdownObjectRenderer> {
+		    codeBlockRenderer,
+		    null
+		}
             };
 
         }

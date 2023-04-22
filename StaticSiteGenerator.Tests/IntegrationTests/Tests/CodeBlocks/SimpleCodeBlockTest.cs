@@ -37,6 +37,11 @@ mkdir test-dir
 
     protected override void Assert()
     {
-        this.AssertFileExistsWithContents("/output/file1.html", "<html><title></title><p>this is some code:<code></code></p></html>");
+        this.AssertFileExistsWithContents("/output/file1.html", @"<html><title></title><p>this is some code:</p>
+<pre><code class=""language-sh"">
+mkdir test-dir
+
+</code></pre>
+</html>");
     }
 }
