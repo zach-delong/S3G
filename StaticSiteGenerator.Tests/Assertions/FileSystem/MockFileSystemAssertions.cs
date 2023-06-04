@@ -19,7 +19,9 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
     {
         Execute.Assertion
             .BecauseOf(because, args)
-            .ForCondition(string.IsNullOrWhiteSpace(path))
+            .ForCondition(!string.IsNullOrWhiteSpace(path))
+	    .FailWith("The input path should not be null or empty")
+	    .Then
 	    .Given(() => Subject.AllNodes)
 	    .ForCondition(paths => paths.Any(p => p.Contains(path)))
 	    .FailWith("Expected {context:file system} to contain {0}{path}, but found {1}.", _ => path, paths => paths);
@@ -51,8 +53,10 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
     public AndConstraint<MockFileSystemAssertions> FileHasContents(string path, string expectedContents, string becauseReasons = "", params object[] becauseArgs)
     {
 	Subject.GetFile(path)
-	    .TextContents
-	    .Should()
+	    ?.TextContents
+	    ?.Should()
+	    .NotBeNull()
+	    .And
 	    .BeEquivalentTo(expectedContents, becauseReasons, becauseArgs);
 
         return new AndConstraint<MockFileSystemAssertions>(this);
