@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using FluentAssertions;
 using Moq;
 using StaticSiteGenerator.Files.FileException;
 using StaticSiteGenerator.HtmlWriting;
@@ -43,7 +44,9 @@ public class FileSystemHtmlWriterTests
 
         if (fileNames.Contains(fileName))
         {
-            Assert.Throws<FileAlreadyExistsException>(() => writerUnderTest.Write(fileName, ""));
+	    writerUnderTest
+		.Invoking(w => w.Write(fileName, ""))
+		.Should().Throw<FileAlreadyExistsException>();
         }
 
         writerUnderTest.Write(fileName, "");
