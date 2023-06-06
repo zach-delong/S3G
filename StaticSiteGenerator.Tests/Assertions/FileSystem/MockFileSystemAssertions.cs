@@ -24,7 +24,7 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
 	    .Then
 	    .Given(() => Subject.AllNodes)
 	    .ForCondition(paths => paths.Any(p => p.Contains(path)))
-	    .FailWith("Expected {context:file system} to contain {0}{path}, but found {1}.", _ => path, paths => paths);
+	    .FailWith("Expected {context:system} to contain {0}{reason}, but found {1}.", _ => path, paths => paths);
 
 
         return new AndConstraint<MockFileSystemAssertions>(this);
