@@ -15,7 +15,9 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
 
     [CustomAssertion]
     public AndConstraint<MockFileSystemAssertions> Contain(
-	string path, string because="", params object[] args)
+	string path,
+	string because="",
+	params object[] args)
     {
         Execute.Assertion
             .BecauseOf(because, args)
@@ -31,11 +33,20 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
     }
 
     [CustomAssertion]
-    public AndConstraint<MockFileSystemAssertions> ContainDirectory(string path)
+    public AndConstraint<MockFileSystemAssertions> ContainDirectory(
+	string path,
+	string because="",
+	params object[] args)
+
     {
-	Subject.AllDirectories
-	    .Should()
-	    .Contain(path, $"the file system should contain {path} but doesn't");
+        Execute.Assertion
+            .BecauseOf(because, args)
+            .ForCondition(!string.IsNullOrWhiteSpace(path))
+	    .FailWith("The input path should not be null or empty")
+	    .Then
+	    .Given(() => Subject.AllDirectories)
+	    .ForCondition(paths => paths.Any(p => p.Contains(path)))
+	    .FailWith("Expected {context:system} to contain {0}{reason}, but found {1}.", _ => path, paths => paths);
 
         return new AndConstraint<MockFileSystemAssertions>(this);
     }

@@ -4,12 +4,12 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using Xunit;
 
-namespace StaticSiteGenerator.Tests.Assertions.FileSystem;
+namespace StaticSiteGenerator.Tests.Assertions.FileSystem.Tests;
 
-public class MockFileSystemAssertionTests
+public class ContainsTests
 {
     [Fact]
-    public void ContainsShouldPass()
+    public void file_exists_contains_should_pass()
     {
         var mockFileSystem = new MockFileSystem();
 
@@ -24,7 +24,7 @@ public class MockFileSystemAssertionTests
     }
 
     [Fact]
-    public void ContainsShouldFail()
+    public void file_does_not_exist_should_fail()
     {
         var mockFileSystem = new MockFileSystem();
 
@@ -36,11 +36,11 @@ public class MockFileSystemAssertionTests
         mockFileSystem
             .Invoking(fileSystem => fileSystem.Should().Contain("notMyFile.txt"))
 	    .Should().Throw<Exception>()
-	    .WithMessage("Expected fileSystem to contain \"notMyFile.txt\", but found {\"/temp\", \"/myFile.txt\"}.");
+	    .WithMessage("""Expected fileSystem to contain "notMyFile.txt", *""");
     }
 
     [Fact]
-    public void ContainsShouldFailOnNull()
+    public void null_path_should_fail()
     {
         var mockFileSystem = new MockFileSystem();
 
@@ -56,7 +56,7 @@ public class MockFileSystemAssertionTests
     }
 
     [Fact]
-    public void ContainsShouldFailOnEmptyString()
+    public void empty_path_should_fail()
     {
         var mockFileSystem = new MockFileSystem();
 
@@ -72,7 +72,7 @@ public class MockFileSystemAssertionTests
     }
 
     [Fact]
-    public void PassingParentShouldWork()
+    public void providing_custom_context_should_appear_in_message()
     {
         var mockFileSystem = new MockFileSystem();
 
@@ -89,11 +89,11 @@ public class MockFileSystemAssertionTests
                 }
             })
 	    .Should().Throw<Exception>()
-	    .WithMessage("Expected file system to contain \"notMyFile.txt\", but found {\"/temp\", \"/myFile.txt\"}.");
+	    .WithMessage("""Expected file system to contain "notMyFile.txt", *""");
     }
 
     [Fact]
-    public void BecauseShouldWorkWithArgs()
+    public void providing_custom_because_and_args_should_appear_in_message()
     {
         var mockFileSystem = new MockFileSystem();
 
@@ -113,6 +113,6 @@ public class MockFileSystemAssertionTests
 			"hi");
             })
 	    .Should().Throw<Exception>()
-	    .WithMessage("Expected fileSystem to contain \"notMyFile.txt\" because I need it to 13 hi, but found {\"/temp\", \"/myFile.txt\"}.");
+	    .WithMessage("""Expected fileSystem to contain "notMyFile.txt" because I need it to 13 hi, *""");
     }
 }
