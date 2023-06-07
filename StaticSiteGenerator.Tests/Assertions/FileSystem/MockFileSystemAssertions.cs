@@ -63,7 +63,10 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
     [CustomAssertion]
     public AndConstraint<MockFileSystemAssertions> FileHasContents(string path, string expectedContents, string becauseReasons = "", params object[] becauseArgs)
     {
-	Subject.GetFile(path)
+        path.Should().NotBeNullOrEmpty("You must provide a file path to check");
+        expectedContents.Should().NotBeNull("You must provide contents to compare against (but you may provide the empty string!");
+
+        Subject.GetFile(path)
 	    ?.TextContents
 	    ?.Should()
 	    .NotBeNull()
