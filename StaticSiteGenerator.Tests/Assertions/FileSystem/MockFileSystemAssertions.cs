@@ -77,7 +77,10 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
     }
 
     [CustomAssertion]
-    public AndConstraint<MockFileSystemAssertions> FileExistsWithContents(string path, string expectedContents, string becauseReasons = "", params object[] becauseArgs)
+    public AndConstraint<MockFileSystemAssertions> FileExistsWithContents(string path,
+                                                                          string expectedContents,
+                                                                          string becauseReasons = "",
+                                                                          params object[] becauseArgs)
     {
         return Contain(path)
 	    .And.FileHasContents(path, expectedContents, becauseReasons, becauseArgs);
