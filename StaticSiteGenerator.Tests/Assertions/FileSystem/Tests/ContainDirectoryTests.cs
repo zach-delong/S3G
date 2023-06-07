@@ -6,7 +6,7 @@ using Xunit;
 
 namespace StaticSiteGenerator.Tests.Assertions.FileSystem.Tests;
 
-public class DirectoryExistsTests 
+public class ContainDirectoryTests 
 {
     [Fact]
     public void folder_exists_contains_should_pass()
@@ -17,7 +17,7 @@ public class DirectoryExistsTests
 	    .AddDirectory("example_directory");
 
         mockFileSystem
-            .Invoking(s => s.Should().Contain("example_directory"))
+            .Invoking(s => s.Should().ContainDirectory("example_directory"))
 	    .Should().NotThrow<Exception>();
     }
 
