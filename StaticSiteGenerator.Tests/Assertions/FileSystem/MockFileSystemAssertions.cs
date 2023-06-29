@@ -87,7 +87,7 @@ public class MockFileSystemAssertions : ReferenceTypeAssertions<MockFileSystem, 
     }
 
     [CustomAssertion]
-    public AndConstraint<MockFileSystemAssertions> HaveFileCount(int expectedFileCount, string because, params object[] becauseArgs)
+    public AndConstraint<MockFileSystemAssertions> HaveFileCount(int expectedFileCount, string because = "", params object[] becauseArgs)
     {
         Subject.AllFiles.Should().HaveCount(expectedFileCount, because, becauseArgs);
         return new AndConstraint<MockFileSystemAssertions>(this);
