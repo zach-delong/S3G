@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace StaticSiteGenerator;
 
-public class Program
+public sealed class Program
 {
     static void Main(string[] args)
     {
