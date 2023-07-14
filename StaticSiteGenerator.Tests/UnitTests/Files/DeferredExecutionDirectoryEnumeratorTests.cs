@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using FluentAssertions;
+using FluentAssertions.FileSystem;
 using FluentAssertions.Execution;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Files.FileListing;
-using StaticSiteGenerator.Tests.Assertions.FileSystem;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Files;

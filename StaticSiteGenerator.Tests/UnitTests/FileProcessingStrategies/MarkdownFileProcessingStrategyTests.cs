@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using FluentAssertions;
+using FluentAssertions.FileSystem;
 using Moq;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
-using StaticSiteGenerator.Tests.Assertions.FileSystem;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 using Xunit;
 

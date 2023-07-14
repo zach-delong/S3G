@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.Files;
-using StaticSiteGenerator.Tests.Assertions.FileSystem;
 using StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions;
 using Xunit;
+using FluentAssertions.FileSystem;
 
 namespace StaticSiteGenerator.Tests.UnitTests.FileProcessingStrategies;
 
