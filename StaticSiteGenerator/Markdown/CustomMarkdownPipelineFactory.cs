@@ -26,7 +26,7 @@ public class CustomMarkdownPipelineFactory
 
     private void AddS3GExtension(MarkdownPipelineBuilder pipeline)
     {
-        pipeline.Extensions.Add(customExtension);
+        pipeline.Extensions.AddIfNotAlready(customExtension);
     }
 
     private static void SetupProvidedExtensions(MarkdownPipelineBuilder pipeline)
