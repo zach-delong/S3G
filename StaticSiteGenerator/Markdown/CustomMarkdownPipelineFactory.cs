@@ -15,9 +15,22 @@ public class CustomMarkdownPipelineFactory
     {
         var pipeline = new MarkdownPipelineBuilder();
 
-        pipeline.Extensions.Add(customExtension);
-        pipeline.UseYamlFrontMatter();
+        // Note: add in their extension first, because if you don't,
+        // It won't find the correct renderer to replace! (because I swap them off)
+        SetupProvidedExtensions(pipeline);
+
+        AddS3GExtension(pipeline);
 
         return pipeline.Build();
+    }
+
+    private void AddS3GExtension(MarkdownPipelineBuilder pipeline)
+    {
+        pipeline.Extensions.Add(customExtension);
+    }
+
+    private static void SetupProvidedExtensions(MarkdownPipelineBuilder pipeline)
+    {
+        pipeline.UseYamlFrontMatter();
     }
 }
