@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Text.Json;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
@@ -20,14 +22,16 @@ public class CustomCodeBlockRenderer: CustomRendererBase<CodeBlock>
         var tag = tagCollection.GetTagForType(TagType.CodeBlock);
         var foo = tag.Template.Split("{{}}");
 
-        renderer.Write(foo[0]);
-
         var attributes = obj.TryGetAttributes();
 
-        foreach (var c in attributes.Classes)
+        var languageClass = attributes?.Classes.FirstOrDefault(s => s.Contains("language-"));
+
+        if (languageClass != null)
         {
-	    System.Console.WriteLine(c);
+	    foo[0] = foo[0].Replace("<code>", $@"<code class=""{languageClass}"">");
         }
+
+        renderer.Write(foo[0]);
 
         renderer.WriteLeafRawLines(obj, true, true, true);
 

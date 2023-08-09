@@ -22,8 +22,13 @@ mkdir test-dir
         var data = new[]
 	{
 	    ("templates/template/tag_templates/p.html", new MockFileData("<p>{{}}</p>")),
-	    ("templates/template/site_template.html", new MockFileData("<html><title>{{title}}</title>{{}}</html>")),
-	    ("templates/template/tag_templates/code_block.html", new MockFileData("<pre><code>{{}}</code></pre>")),
+	    ("templates/template/site_template.html", new MockFileData(@"<html>
+<title>{{title}}</title>
+{{}}
+</html>")),
+	    ("templates/template/tag_templates/code_block.html", new MockFileData(@"<pre><code>
+{{}}
+</code></pre>")),
 	    ("output", null),
 	    ("input/file1.md", inputFileContents)   
 	};
@@ -38,9 +43,12 @@ mkdir test-dir
 
     protected override void Assert()
     {
-        this.AssertFileExistsWithContents("/output/file1.html", @"<html><title></title>this is some code:
-<pre><code class=""language-sh"">
+        this.AssertFileExistsWithContents("/output/file1.html", @"<html>
+<title></title>
+<p>this is some code:</p><pre><code class=""language-sh"">
+
 mkdir test-dir
+
 
 </code></pre>
 </html>");
