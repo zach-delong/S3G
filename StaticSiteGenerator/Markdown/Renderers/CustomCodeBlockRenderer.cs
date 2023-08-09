@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Text.Json;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax;
