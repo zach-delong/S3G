@@ -19,6 +19,17 @@ public static class OrderedListExtensions
 		&& baseType.GenericTypeArguments.Count() == 1
 		&& baseType.GenericTypeArguments.First().Name == toReplace.GenericTypeArguments.First().Name)
             {
+                // var typeName = baseType.Name;
+                // var genericParamName = baseType.GenericTypeArguments
+                //     .First()
+                //     .Name;
+
+                // var replaceWithTypeName = toReplace.Name;
+                // var toReplaceGenericParamName = toReplace.GenericTypeArguments
+                //     .First()
+                //     .Name;
+
+                // System.Console.WriteLine($"Replacing {typeName}<{genericParamName}> with {replaceWithTypeName}<{toReplaceGenericParamName}>");
                 t.RemoveAt(i);
                 t.Insert(i, replaceWith);
                 found = true;

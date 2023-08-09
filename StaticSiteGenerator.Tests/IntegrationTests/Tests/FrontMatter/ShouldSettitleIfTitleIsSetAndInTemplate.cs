@@ -1,8 +1,10 @@
 using System.IO.Abstractions.TestingHelpers;
 using StaticSiteGenerator.IntegrationTests.Utilities;
+using Xunit;
 
 namespace StaticSiteGenerator.IntegrationTests.Tests;
 
+[Trait("Category", "Test")]
 public class ShuldSettitleIfTitleIsSetAndInTemplate: SimpleIntegrationTest
 {
     protected override void Arrange() {

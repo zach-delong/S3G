@@ -98,6 +98,8 @@ public class TemplateReader : ITemplateReader
                 return TagType.Italic;
             case "b":
                 return TagType.Bold;
+	    case "code_block":
+                return TagType.CodeBlock;
             default:
                 throw new ArgumentException(message: $"{input} is not a valid type for {nameof(TagType)}");
         }

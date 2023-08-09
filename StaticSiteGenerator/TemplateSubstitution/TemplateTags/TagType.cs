@@ -31,5 +31,7 @@ public enum TagType
     [Description("i")]
     Italic,
     [Description("b")]
-    Bold
+    Bold,
+    [Description("code_block")]
+    CodeBlock
 }
