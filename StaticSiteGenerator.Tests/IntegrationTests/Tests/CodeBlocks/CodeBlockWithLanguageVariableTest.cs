@@ -4,7 +4,7 @@ using StaticSiteGenerator.IntegrationTests.Utilities;
 
 namespace StaticSiteGenerator.Tests.IntegrationTests.Tests.CodeBlocks;
 
-public class SimpleCodeBlockTest : SimpleIntegrationTest
+public class CodeBlockWithLanguageVariableTest: SimpleIntegrationTest
 {
     protected override void Arrange()
     {
@@ -26,7 +26,7 @@ mkdir test-dir
 <title>{{title}}</title>
 {{}}
 </html>")),
-	    ("templates/template/tag_templates/code_block.html", new MockFileData(@"<pre><code>
+	    ("templates/template/tag_templates/code_block.html", new MockFileData(@"<pre><code class=""language-{{language}}"">
 {{}}
 </code></pre>")),
 	    ("output", null),
@@ -45,7 +45,7 @@ mkdir test-dir
     {
         this.AssertFileExistsWithContents("/output/file1.html", @"<html>
 <title></title>
-<p>this is some code:</p><pre><code>
+<p>this is some code:</p><pre><code class=""language-sh"">
 
 mkdir test-dir
 

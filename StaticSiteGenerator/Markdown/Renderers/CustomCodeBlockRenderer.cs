@@ -23,11 +23,15 @@ public class CustomCodeBlockRenderer: CustomRendererBase<CodeBlock>
 
         var attributes = obj.TryGetAttributes();
 
-        var languageClass = attributes?.Classes.FirstOrDefault(s => s.Contains("language-"));
+        var languageClass = attributes?.Classes
+	    .FirstOrDefault(s => s.Contains("language-"));
 
         if (languageClass != null)
         {
-	    foo[0] = foo[0].Replace("<code>", $@"<code class=""{languageClass}"">");
+            var languageWithoutPrefix = languageClass
+		.Substring(languageClass.IndexOf('-')+1);
+
+            foo[0] = foo[0].Replace("{{language}}", $"{languageWithoutPrefix}");
         }
 
         renderer.Write(foo[0]);
