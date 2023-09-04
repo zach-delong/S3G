@@ -1,26 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
+using NSubstitute;
 using StaticSiteGenerator.Files.FileListing;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
 public class DirectoryEnumeratorMockFactory
 {
-    public static Mock<IDirectoryEnumerator> Get(IEnumerable<string> result)
+    public static IDirectoryEnumerator Get(IEnumerable<string> result)
     {
-        var fileIteratorMock = new Mock<IDirectoryEnumerator>();
+        var fileIteratorMock = Substitute.For<IDirectoryEnumerator>();
 
         fileIteratorMock
-            .Setup(i => i.GetFiles(It.IsAny<string>(), It.IsAny<string>()))
-            .Returns<string, string>((path, pattern) =>
+            .GetFiles(Arg.Any<string>(), Arg.Any<string>())
+            .Returns((input) =>
             {
-                    // System.Console.WriteLine($"Looking for file path '{path}' and pattern '{pattern}'");
+                var path = (string)input[0];
+                var pattern = (string)input[1];
+                // System.Console.WriteLine($"Looking for file path '{path}' and pattern '{pattern}'");
 
-                    // Note: this isn't a perfect analogue for the pattern
-                    // parameter, but it should work for the tests that I need
-                    // to write
-                    var whitelistedPattern = pattern
+                // Note: this isn't a perfect analogue for the pattern
+                // parameter, but it should work for the tests that I need
+                // to write
+                var whitelistedPattern = pattern
                     .Replace("*", "")
                     .Replace("?", "");
 

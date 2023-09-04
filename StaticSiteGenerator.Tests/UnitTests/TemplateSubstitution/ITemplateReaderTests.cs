@@ -86,13 +86,13 @@ public class ITemplateReaderTests
         IEnumerable<string> listOfFiles,
         IDictionary<string, string> fileNameToContents)
     {
-        Mock<IDirectoryEnumerator> directoryEnumeratorMock = DirectoryEnumeratorMockFactory.Get(listOfFiles);
+        IDirectoryEnumerator directoryEnumeratorMock = DirectoryEnumeratorMockFactory.Get(listOfFiles);
 
         var fileReaderMock = FileReaderMockFactory.Get(fileNameToContents);
 
         var mockOptions = Mock.Of<CliOptions>(x => x.TemplatePath == "templates/");
 
-        return new TemplateReader(directoryEnumeratorMock.Object,
+        return new TemplateReader(directoryEnumeratorMock,
                                   fileReaderMock.Object,
                                   mockOptions);
     }
