@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Moq;
 using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.TemplateReading;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.Tests.UnitTests.Doubles;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using Xunit;
 
@@ -88,13 +88,12 @@ public class ITemplateReaderTests
     {
         IDirectoryEnumerator directoryEnumeratorMock = DirectoryEnumeratorMockFactory.Get(listOfFiles);
 
-        var fileReaderMock = FileReaderMockFactory.Get(fileNameToContents);
+        var fileReader = FileReaderMockFactory.Get(fileNameToContents);
 
-        var mockOptions = Mock.Of<CliOptions>(x => x.TemplatePath == "templates/");
+        var options = CliOptionsFactory.Get(templatePath: "templates/");
 
         return new TemplateReader(directoryEnumeratorMock,
-                                  fileReaderMock.Object,
-                                  mockOptions);
+                                  fileReader,
+                                  options);
     }
-
 }

@@ -1,24 +1,18 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
-using Moq;
+using NSubstitute;
 using StaticSiteGenerator.Files;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
 public class FileReaderMockFactory
 {
-    public static Mock<FileReader> Get(IDictionary<string, string> fileNameToResults)
+    public static FileReader Get(IDictionary<string, string> fileNameToResults)
     {
         var fileSystem = new MockFileSystem(GetFileDataDictionary(fileNameToResults));
 
-        var mock = new Mock<FileReader>(fileSystem);
-
-        foreach (var entry in fileNameToResults)
-        {
-            mock.Setup(m => m.ReadFile(It.IsAny<string>()))
-                .Returns((string filePath) => fileSystem.File.ReadAllText(filePath));
-        }
+        var mock = Substitute.ForPartsOf<FileReader>(fileSystem);
 
         return mock;
     }

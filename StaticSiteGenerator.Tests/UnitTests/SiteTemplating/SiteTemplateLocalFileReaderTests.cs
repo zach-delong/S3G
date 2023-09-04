@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
+using StaticSiteGenerator.Tests.UnitTests.Doubles;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using Xunit;
 
@@ -19,9 +20,10 @@ public class SiteTemplateLocalFileReaderTests
                 {Path.Combine("templates", "template", "site_template.html"), "fileContents"}
             };
 
-        var readerMock = FileReaderMockFactory.Get(fileCache);
+        var templateReader = FileReaderMockFactory.Get(fileCache);
+        var options = CliOptionsFactory.Get(templatePath: "templates/template");
 
-        var sut = new SiteTemplateLocalFileReader(readerMock.Object, new CliOptions { TemplatePath = "templates/template" });
+        var sut = new SiteTemplateLocalFileReader(templateReader, options);
 
         var result = sut.ReadTemplate();
 
