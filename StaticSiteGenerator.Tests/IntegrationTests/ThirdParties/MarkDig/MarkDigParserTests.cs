@@ -46,9 +46,9 @@ this is some code
             Template = "<p property='thing'>{{}}</p>"
         };
 
-        var tags = tagCollectionFactory.Get(resultTag);
+        var tags = MockTemplateTagCollectionFactory.Get(resultTag);
 
-        var sut = new ParagraphRenderer(tags.Object);
+        var sut = new ParagraphRenderer(tags);
 
         var (renderer, writer) = htmlWriterFactory.Get();
 
@@ -59,7 +59,6 @@ this is some code
             .Should().BeEquivalentTo(expectedOutput);
     }
 
-    MockTemplateTagCollectionFactory tagCollectionFactory => new MockTemplateTagCollectionFactory();
     HtmlStringWriterFactory htmlWriterFactory => new HtmlStringWriterFactory();
 
     public static IEnumerable<object[]> TestData

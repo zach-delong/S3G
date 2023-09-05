@@ -11,7 +11,6 @@ namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
 public class ParagraphRendererTests
 {
-    MockTemplateTagCollectionFactory tagCollectionFactory => new MockTemplateTagCollectionFactory();
     HtmlStringWriterFactory htmlWriterFactory => new HtmlStringWriterFactory();
 
     [Theory]
