@@ -30,8 +30,6 @@ public class BlockTestWriter
 
 public class HeaderRendererTests
 {
-    public static MockTemplateTagCollectionFactory tagCollectionFactory => new MockTemplateTagCollectionFactory();
-
     [Theory]
     [MemberData(nameof(TestData))]
     public void Test(HeadingBlock blockToWrite, ITemplateTagCollection tags, string expectedResult)
@@ -52,56 +50,56 @@ public class HeaderRendererTests
             yield return new object[]
             {
                 new HeadingBlock(null),
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h1 property='thing'>{{}}</h1>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h1 property='thing'>{{}}</h1>" }),
                 "<h1 property='thing'></h1>"
             };
 
             yield return new object[]
             {
                 new HeadingBlock(null) { Level = 2 } ,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h2 property='thing'>{{}}</h2>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h2 property='thing'>{{}}</h2>" }),
                 "<h2 property='thing'></h2>"
             };
 
             yield return new object[]
             {
                 new HeadingBlock(null) { Level = 3 } ,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h3 property='thing'>{{}}</h3>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h3 property='thing'>{{}}</h3>" }),
                 "<h3 property='thing'></h3>"
             };
 
             yield return new object[]
             {
                 new HeadingBlock(null) { Level = 4 } ,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h4 property='thing'>{{}}</h4>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h4 property='thing'>{{}}</h4>" }),
                 "<h4 property='thing'></h4>"
             };
 
             yield return new object[]
             {
                 new HeadingBlock(null) { Level = 5 } ,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h5 property='thing'>{{}}</h5>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h5 property='thing'>{{}}</h5>" }),
                 "<h5 property='thing'></h5>"
             };
 
             yield return new object[]
             {
                 new HeadingBlock(null) { Level = 6 } ,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h6 property='thing'>{{}}</h6>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h6 property='thing'>{{}}</h6>" }),
                 "<h6 property='thing'></h6>"
             };
 
             yield return new object[]
             {
                 new HeadingBlock(null) { Level = 7 } ,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h6 property='thing'>{{}}</h6>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h6 property='thing'>{{}}</h6>" }),
                 "<h6 property='thing'></h6>"
             };
 
             yield return new object[]
             {
                 new HeadingBlock(null) { Level = 100 } ,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h6 property='thing'>{{}}</h6>" }).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h6 property='thing'>{{}}</h6>" }),
                 "<h6 property='thing'></h6>"
             };
 
@@ -112,7 +110,7 @@ public class HeaderRendererTests
             yield return new object[]
             {
                 headingWithText,
-                tagCollectionFactory.Get(new TemplateTag { Template = "<h3 class='stuff'>{{}}</h3>"}).Object,
+                MockTemplateTagCollectionFactory.Get(new TemplateTag { Template = "<h3 class='stuff'>{{}}</h3>"}),
                 "<h3 class='stuff'>This is a heading</h3>"
             };
         }

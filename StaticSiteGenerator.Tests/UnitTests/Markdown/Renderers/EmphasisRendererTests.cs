@@ -13,7 +13,6 @@ namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
 public class EmphasisRendererTests
 {
-    static MockTemplateTagCollectionFactory tagCollectionFactory => new MockTemplateTagCollectionFactory();
     HtmlStringWriterFactory htmlWriterFactory => new HtmlStringWriterFactory();
 
     [Theory]
@@ -47,13 +46,12 @@ public class EmphasisRendererTests
             };
             italicsWithText.Add("Italics text");
 
-            ITemplateTagCollection tagCollection = tagCollectionFactory
+            ITemplateTagCollection tagCollection = MockTemplateTagCollectionFactory 
                 .Get(new TemplateTag[]
                 {
                     new TemplateTag { Template = "<span class='bold'>{{}}</span>", Type = TagType.Bold },
                     new TemplateTag { Template = "<span class='italic'>{{}}</span>", Type = TagType.Italic }
-                })
-                .Object;
+                });
 
             yield return new object[]
             {

@@ -12,16 +12,15 @@ namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
 public class ListRendererTests
 {
-    MockTemplateTagCollectionFactory tagCollectionFactory => new MockTemplateTagCollectionFactory();
     HtmlStringWriterFactory htmlWriterFactory => new HtmlStringWriterFactory();
 
     [Theory]
     [MemberData(nameof(TestData))]
     public void Test(ListBlock inputBlock, IEnumerable<TemplateTag> template, string expectedOutput)
     {
-        var tags = tagCollectionFactory.Get(template);
+        var tags = MockTemplateTagCollectionFactory.Get(template);
 
-        var sut = new ListRenderer(tags.Object);
+        var sut = new ListRenderer(tags);
 
         var (renderer, writer) = htmlWriterFactory.Get();
 

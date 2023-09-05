@@ -1,43 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
+using NSubstitute;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 
-public class MockTemplateTagCollectionFactory
+public static class MockTemplateTagCollectionFactory
 {
-    public Mock<ITemplateTagCollection> Get(TemplateTag resultTag)
+    public static ITemplateTagCollection Get(TemplateTag resultTag)
     {
-        var tags = new Mock<ITemplateTagCollection>();
+        var tags = Substitute.For<ITemplateTagCollection>();
 
         return Get(tags, resultTag);
     }
 
-    public Mock<ITemplateTagCollection> Get(Mock<ITemplateTagCollection> mock, TemplateTag resultTag)
+    public static ITemplateTagCollection Get(ITemplateTagCollection mock, TemplateTag resultTag)
     {
         mock 
-            .Setup(c => c.GetTagForType(It.IsAny<TagType>()))
+            .GetTagForType(Arg.Any<TagType>())
             .Returns(resultTag);
 
         return mock;
     }
 
-    public Mock<ITemplateTagCollection> Get(IEnumerable<TemplateTag> resultTag)
+    public static ITemplateTagCollection Get(IEnumerable<TemplateTag> resultTag)
     {
-        var tags = new Mock<ITemplateTagCollection>();
+        var tags = Substitute.For<ITemplateTagCollection>();
 
         return Get(tags, resultTag);
     }
 
-    public Mock<ITemplateTagCollection> Get(Mock<ITemplateTagCollection> mock, IEnumerable<TemplateTag> resultTags)
+    public static ITemplateTagCollection Get(ITemplateTagCollection mock, IEnumerable<TemplateTag> resultTags)
     {
         var tagDictionary = resultTags.ToDictionary(x => x.Type, x => x);
 
 	mock
-            .Setup(c => c.GetTagForType(It.IsAny<TagType>()))
-            .Returns<TagType>(x => tagDictionary[x]);
+            .GetTagForType(Arg.Any<TagType>())
+            .Returns((x) => tagDictionary[(TagType)x[0]]);
 
         return mock;
     }

@@ -15,35 +15,29 @@ namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 public class LinkRendererTests
 {
 
-    MockTemplateTagCollectionFactory tagCollectionFactory => new MockTemplateTagCollectionFactory();
     HtmlStringWriterFactory htmlWriterFactory => new HtmlStringWriterFactory();
 
     [Theory]
     [MemberData(nameof(TestLinkData))]
     public void TestLinks(TestCaseDataObject testCaseData)
     {
-        var mocker = new AutoMocker();
-
         var resultTag = new TemplateTag
         {
             Template = "<a href='{{url}}' property='thing'>{{display_text}}</a>"
         };
 
-        mocker.MockTemplateTagCollection(resultTag);
-        mocker.MockFileSystem(testCaseData.LocalFiles);
-        mocker.MockLinkProcessor();
+        var templateTagCollection = MockTemplateTagCollectionFactory.Get(resultTag);
+        var linkProcessor = LinkProcessorFactory.Get();
 
-        var sut = mocker.CreateInstance<LinkRenderer>();
+        var sut = new LinkRenderer(templateTagCollection, null, linkProcessor);
 
         var (renderer, writer) = htmlWriterFactory.Get();
 
         sut.Write(renderer, testCaseData.Input);
 
-        Assert.Equal(testCaseData.Result, writer.ToString());
-
         writer
             .ToString()
-            .Should().BeEquivalentTo(testCaseData.Result);
+            .Should().BeEquivalentTo(testCaseData.ExpectedResult);
 
     }
 
@@ -84,10 +78,8 @@ public class LinkRendererTests
     [MemberData(nameof(TestImageData))]
     public void TestImages(LinkInline inputBlock, TemplateTag template, string expectedOutput)
     {
-        var mocker = new AutoMocker();
-        mocker.MockTemplateTagCollection(template);
-
-        var sut = mocker.CreateInstance<LinkRenderer>();
+        var tagCollection = MockTemplateTagCollectionFactory.Get(template);
+        var sut = new LinkRenderer(tagCollection, null, null);
 
         var (renderer, writer) = htmlWriterFactory.Get();
 
@@ -140,7 +132,7 @@ public class LinkRendererTests
     public class TestCaseDataObject
     {
         public readonly LinkInline Input;
-        public readonly string Result;
+        public readonly string ExpectedResult;
         public readonly string[] LocalFiles;
 
         public TestCaseDataObject(LinkInline inline,
@@ -148,13 +140,13 @@ public class LinkRendererTests
 				  string[] localFiles)
         {
             Input = inline;
-            Result = expectedResult;
+            ExpectedResult = expectedResult;
             LocalFiles = localFiles;
         }
 
         public override string ToString()
         {
-	    return $"Input Url: {Input?.Url}, Expected output: {Result}, File Cache: {string.Join(", ", LocalFiles)}";
+	    return $"Input Url: {Input?.Url}, Expected output: {ExpectedResult}, File Cache: {string.Join(", ", LocalFiles)}";
         }
     }
 }
