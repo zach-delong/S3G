@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Moq;
+using NSubstitute;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
 
@@ -7,13 +7,16 @@ namespace StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 
 public static class MarkdownFileParserMockFactory
 {
-    public static Mock<IMarkdownFileParser> Get(IDictionary<string, IHtmlFile> input)
+    public static IMarkdownFileParser Get(IDictionary<string, IHtmlFile> input)
     {
-        var mock = new Mock<IMarkdownFileParser>();
+        var mock = Substitute.For<IMarkdownFileParser>();
 
         mock
-            .Setup(m => m.ReadFile(It.IsAny<string>()))
-            .Returns<string>(fileName => input[fileName]);
+            .ReadFile(Arg.Any<string>())
+            .Returns<IHtmlFile>((args) => {
+                string fileName = args[0].ToString();
+                return input[fileName];
+            });
 
         return mock;
     }

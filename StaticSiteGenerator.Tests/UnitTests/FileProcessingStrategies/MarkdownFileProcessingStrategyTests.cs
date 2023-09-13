@@ -37,7 +37,7 @@ public class MarkdownFileProcessingStrategyTests
         };
 
         var sut = new MarkdownFileProcessingStrategy(
-            mockFileParser.Object,
+            mockFileParser,
             mockHtmlFileWriter.Object,
             mockSiteTemplateFiller.Object,
             cliOptions,
@@ -75,7 +75,7 @@ public class MarkdownFileProcessingStrategyTests
         };
 
         var sut = new MarkdownFileProcessingStrategy(
-            mockFileParser.Object,
+            mockFileParser,
             mockHtmlFileWriter.Object,
             mockSiteTemplateFiller.Object,
             cliOptions,
