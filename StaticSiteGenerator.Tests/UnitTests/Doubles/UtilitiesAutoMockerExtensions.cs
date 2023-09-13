@@ -1,4 +1,3 @@
-using System;
 using Moq;
 using Moq.AutoMock;
 using NSubstitute;
