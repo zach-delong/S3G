@@ -37,7 +37,7 @@ public class TemplateTagCollectionTests
     {
         var mockReader = TemplateReaderMockFactory.Get(new List<TemplateTag>());
 
-        ITemplateTagCollection bar = new TemplateTagCollection(mockReader.Object);
+        ITemplateTagCollection bar = new TemplateTagCollection(mockReader);
 
         // ASSERT: this just shouldn't throw an exception
     }
@@ -47,7 +47,7 @@ public class TemplateTagCollectionTests
     {
         var mockReader = TemplateReaderMockFactory.Get(SingleTemplate);
 
-        ITemplateTagCollection bar = new TemplateTagCollection(mockReader.Object);
+        ITemplateTagCollection bar = new TemplateTagCollection(mockReader);
 
         var headerTemplate = bar.GetTagForType(TagType.Header1);
 
@@ -61,7 +61,7 @@ public class TemplateTagCollectionTests
     {
         var mockReader = TemplateReaderMockFactory.Get(MultipleTemplate);
 
-        ITemplateTagCollection bar = new TemplateTagCollection(mockReader.Object);
+        ITemplateTagCollection bar = new TemplateTagCollection(mockReader);
 
         var headerTemplate = bar.GetTagForType(TagType.Header1);
         var paragraphTemplate = bar.GetTagForType(TagType.Paragraph);
