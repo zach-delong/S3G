@@ -19,7 +19,7 @@ public class SiteTemplateFillerTests
 	    .Setup(s => s.FillTemplateProperties(It.IsAny<IHtmlFile>()))
 	    .Returns((IHtmlFile file) => file.HtmlContent);
 
-        var sut = new SiteTemplateFiller(templateFillerMock.Object, templatePropertyFillerMock.Object);
+        var sut = new SiteTemplateFiller(templateFillerMock, templatePropertyFillerMock.Object);
 
         var result = sut.FillSiteTemplate("asdf");
 
@@ -35,7 +35,7 @@ public class SiteTemplateFillerTests
 	    .Setup(s => s.FillTemplateProperties(It.IsAny<IHtmlFile>()))
 	    .Returns((IHtmlFile file) => file.HtmlContent);
 
-        var sut = new SiteTemplateFiller(mock.Object, templatePropertyFillerMock.Object);
+        var sut = new SiteTemplateFiller(mock, templatePropertyFillerMock.Object);
 
         var result = sut.FillSiteTemplate("asdf");
 

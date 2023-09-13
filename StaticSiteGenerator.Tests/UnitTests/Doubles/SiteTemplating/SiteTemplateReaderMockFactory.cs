@@ -1,16 +1,16 @@
-using Moq;
+using NSubstitute;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateReading;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 
 public class SiteTemplateReaderMockFactory
 {
-    public Mock<ISiteTemplateReader> Get(string template)
+    public ISiteTemplateReader Get(string template)
     {
-        var mock = new Mock<ISiteTemplateReader>();
+        var mock = Substitute.For<ISiteTemplateReader>();
 
         mock
-            .Setup(m => m.ReadTemplate())
+            .ReadTemplate()
             .Returns(template);
 
         return mock;
