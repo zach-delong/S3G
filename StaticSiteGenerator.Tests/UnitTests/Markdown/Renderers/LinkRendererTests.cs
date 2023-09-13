@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using AutoFixture;
+using AutoFixture.AutoNSubstitute;
 using FluentAssertions;
 using Markdig.Syntax.Inlines;
 using Moq.AutoMock;
@@ -26,10 +28,13 @@ public class LinkRendererTests
             Template = "<a href='{{url}}' property='thing'>{{display_text}}</a>"
         };
 
-        var templateTagCollection = MockTemplateTagCollectionFactory.Get(resultTag);
-        var linkProcessor = LinkProcessorFactory.Get();
+        var fixture = new Fixture()
+	    .Customize(new AutoNSubstituteCustomization { ConfigureMembers = true });
 
-        var sut = new LinkRenderer(templateTagCollection, null, linkProcessor);
+        fixture.MockLinkProcessor();
+        fixture.MockTemplateTagCollection(resultTag);
+
+        var sut = fixture.Create<LinkRenderer>();
 
         var (renderer, writer) = htmlWriterFactory.Get();
 
