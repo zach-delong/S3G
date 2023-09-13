@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AutoFixture;
 using NSubstitute;
 using StaticSiteGenerator.TemplateSubstitution.TagCollection;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
@@ -13,6 +14,15 @@ public static class MockTemplateTagCollectionFactory
         var tags = Substitute.For<ITemplateTagCollection>();
 
         return Get(tags, resultTag);
+    }
+
+    public static void MockTemplateTagCollection(this IFixture fixture, TemplateTag resultTag)
+    {
+        var frozenMock = fixture
+            .Freeze<ITemplateTagCollection>();
+
+        Get(frozenMock, resultTag);
+
     }
 
     public static ITemplateTagCollection Get(ITemplateTagCollection mock, TemplateTag resultTag)

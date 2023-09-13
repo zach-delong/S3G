@@ -1,5 +1,4 @@
-using Moq;
-using Moq.AutoMock;
+using AutoFixture;
 using NSubstitute;
 using StaticSiteGenerator.Utilities;
 
@@ -7,12 +6,12 @@ namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public static class LinkProcessorFactory
 {
-    public static void MockLinkProcessor(this AutoMocker mocker)
+    public static void MockLinkProcessor(this IFixture mocker)
     {
         mocker
-            .GetMock<ILinkProcessor>()
-            .Setup(m => m.Process(It.IsAny<string>()))
-	    .Returns<string>(i => i);
+            .Freeze<ILinkProcessor>()
+            .Process(Arg.Any<string>())
+	    .Returns(args => args[0].ToString());
     }
 
     public static ILinkProcessor Get()
