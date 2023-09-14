@@ -11,7 +11,7 @@ public static class LinkProcessorFactory
         mocker
             .Freeze<ILinkProcessor>()
             .Process(Arg.Any<string>())
-	    .Returns(args => args[0].ToString());
+	    .Returns(args => args[0]?.ToString());
     }
 
     public static ILinkProcessor Get()

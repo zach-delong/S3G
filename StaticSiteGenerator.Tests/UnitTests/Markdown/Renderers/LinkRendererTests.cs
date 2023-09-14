@@ -3,18 +3,17 @@ using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using FluentAssertions;
 using Markdig.Syntax.Inlines;
-using Moq.AutoMock;
 using StaticSiteGenerator.Markdown.Renderers;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
+using StaticSiteGenerator.Tests.AutoFixture;
 using StaticSiteGenerator.Tests.UnitTests.Doubles;
-using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Markdown.Renderers;
 
-public class LinkRendererTests
+public class LinkRendererTests: MockingTestBase
 {
 
     HtmlStringWriterFactory htmlWriterFactory => new HtmlStringWriterFactory();
@@ -28,13 +27,10 @@ public class LinkRendererTests
             Template = "<a href='{{url}}' property='thing'>{{display_text}}</a>"
         };
 
-        var fixture = new Fixture()
-	    .Customize(new AutoNSubstituteCustomization { ConfigureMembers = true });
+        Mocker.MockLinkProcessor();
+        Mocker.MockTemplateTagCollection(resultTag);
 
-        fixture.MockLinkProcessor();
-        fixture.MockTemplateTagCollection(resultTag);
-
-        var sut = fixture.Create<LinkRenderer>();
+        var sut = Mocker.Create<LinkRenderer>();
 
         var (renderer, writer) = htmlWriterFactory.Get();
 
