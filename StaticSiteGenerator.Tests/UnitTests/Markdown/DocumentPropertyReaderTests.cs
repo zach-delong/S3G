@@ -1,21 +1,21 @@
 using System.Collections.Generic;
+using AutoFixture;
 using FluentAssertions;
 using Markdig;
 using Markdig.Syntax;
-using Moq.AutoMock;
 using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.Tests.AutoFixture;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Markdown;
 
-public class DocumentPropertyReaderTests
+public class DocumentPropertyReaderTests: MockingTestBase
 {
-    AutoMocker mocker = new AutoMocker();
     [Theory]
     [MemberData(nameof(TestCaseData))]
     public void Test(MarkdownDocument document, DocumentProperties expectedDocumentProperties)
     {
-        var reader = mocker.CreateInstance<DocumentPropertyReader>();
+        var reader = Mocker.Create<DocumentPropertyReader>();
 
         var result = reader.GetDocumentProperties(document);
 
