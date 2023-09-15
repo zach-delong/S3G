@@ -1,12 +1,12 @@
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
-using Moq.AutoMock;
+using AutoFixture;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
 public static class FilesystemAutoMockerExtensions
 {
-    public static void MockFileSystem(this AutoMocker mocker, string[] filePaths)
+    public static void MockFileSystem(this IFixture mocker, string[] filePaths)
     {
         var mockFilesystem = new MockFileSystem();
 
@@ -26,6 +26,6 @@ public static class FilesystemAutoMockerExtensions
             }
         }
 
-        mocker.Use<IFileSystem>(mockFilesystem);
+        mocker.Inject<IFileSystem>(mockFilesystem);
     }
 }
