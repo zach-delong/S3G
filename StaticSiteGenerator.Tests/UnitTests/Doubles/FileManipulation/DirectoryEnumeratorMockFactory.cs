@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
+using NSubstitute.Extensions;
 using StaticSiteGenerator.Files.FileListing;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
@@ -12,6 +13,7 @@ public class DirectoryEnumeratorMockFactory
         var fileIteratorMock = Substitute.For<IDirectoryEnumerator>();
 
         fileIteratorMock
+	    .Configure()
             .GetFiles(Arg.Any<string>(), Arg.Any<string>())
             .Returns((input) =>
             {
