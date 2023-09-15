@@ -1,18 +1,20 @@
 using System.Collections.Generic;
+using AutoFixture;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Markdig;
 using Markdig.Syntax;
-using Moq;
-using Moq.AutoMock;
+using NSubstitute;
+using NSubstitute.Extensions;
 using StaticSiteGenerator.Markdown;
+using StaticSiteGenerator.Tests.AutoFixture;
 using Xunit;
+using static StaticSiteGenerator.Markdown.DocumentPropertyReader;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Markdown;
 
-public class MarkdownConverterTests
+public class MarkdownConverterTests: MockingTestBase
 {
-    AutoMocker mocker = new AutoMocker();
 
     [Theory]
     [MemberData(nameof(TestCaseData))]
@@ -21,9 +23,10 @@ public class MarkdownConverterTests
 	DocumentProperties documentProperties,
 	string expectedOutput)
     {
-        mocker.SetupCustomPipelineFactory();
-        mocker.SetupDocumentPropertyReader(documentProperties);
-        var converter = mocker.CreateInstance<MarkdownConverter>();
+        Mocker.SetupCustomPipelineFactory();
+        Mocker.SetupDocumentPropertyReader(documentProperties);
+
+        var converter = Mocker.Create<MarkdownConverter>();
 
 	var result = converter.ConvertToHtml(inputString);
 
@@ -57,22 +60,27 @@ public class MarkdownConverterTests
 
 public static class AutoMockerExtensions
 {
-    public static Mock<CustomMarkdownPipelineFactory> SetupCustomPipelineFactory(this AutoMocker mocker)
+    public static void SetupCustomPipelineFactory(this IFixture mocker)
     {
-        var mock = mocker.GetMock<CustomMarkdownPipelineFactory>();
+        var mock = Substitute.ForPartsOf<CustomMarkdownPipelineFactory>((CustomExtension)null);
 
-        mock.Setup(m => m.Get())
-            .Returns(new MarkdownPipelineBuilder().Build());
+	mock
+	    .Configure()
+	    .Get()
+            .Returns((new MarkdownPipelineBuilder()).Build());
 
-        return mock;
+        mocker.Inject(mock);
     }
 
-    public static Mock<DocumentPropertyReader> SetupDocumentPropertyReader(this AutoMocker mocker, DocumentProperties result)
+    public static DocumentPropertyReader SetupDocumentPropertyReader(this IFixture mocker, DocumentProperties result)
     {
-        var mock = mocker.GetMock<DocumentPropertyReader>();
+        var mock = Substitute.ForPartsOf<DocumentPropertyReader>((OnPropertiesFound)null);
 
-        mock.Setup(m => m.GetDocumentProperties(It.IsAny<MarkdownDocument>()))
-        .Returns(result);
+        mock.Configure()
+	    .GetDocumentProperties(Arg.Any<MarkdownDocument>())
+            .Returns(result);
+
+        mocker.Inject(mock);
 
         return mock;
     }
