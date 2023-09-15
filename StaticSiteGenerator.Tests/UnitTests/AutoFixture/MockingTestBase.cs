@@ -5,8 +5,8 @@ namespace StaticSiteGenerator.Tests.AutoFixture;
 
 public class MockingTestBase
 {
-    private IFixture mocker = new Fixture()
+    private IFixture fixture = new Fixture()
 	.Customize(new AutoNSubstituteCustomization());
 
-    public IFixture Mocker { get => mocker; set => mocker = value; }
+    public IFixture Mocker { get => fixture; set => fixture = value; }
 }
