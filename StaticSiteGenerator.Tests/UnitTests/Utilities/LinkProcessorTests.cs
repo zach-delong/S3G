@@ -1,12 +1,13 @@
+using AutoFixture;
 using FluentAssertions;
-using Moq.AutoMock;
+using StaticSiteGenerator.Tests.AutoFixture;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 using StaticSiteGenerator.Utilities;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Utilities;
 
-public class LinkProcessorTests
+public class LinkProcessorTests: MockingTestBase
 {
     [Theory]
     [InlineData("", "")]
@@ -16,12 +17,10 @@ public class LinkProcessorTests
     [InlineData("https://testing/stuff.html", "https://testing/stuff.html")]
     public void foo(string inputUrl, string expectedResult)
     {
-        var mocker = new AutoMocker();
+        Mocker.MockFileSystem(new string[0]);
+        Mocker.Inject(new FilePathValidator());
 
-        mocker.MockFileSystem(new string[0]);
-        mocker.Use<FilePathValidator>(new FilePathValidator());
-
-        ILinkProcessor sut = mocker.CreateInstance<LinkProcessor>();
+        ILinkProcessor sut = Mocker.Create<LinkProcessor>();
 
         var result = sut.Process(inputUrl);
 
