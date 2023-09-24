@@ -6,7 +6,6 @@ namespace StaticSiteGenerator.IntegrationTests.Tests;
 public class LocalFileLinkIntegrationTest: SimpleIntegrationTest
 {
     protected override void Arrange() {
-	System.Console.WriteLine("Testing local file");
         var data = new[] {
 	    ("templates/template/tag_templates/p.html", new MockFileData("<p>{{}}</p>")),
 	    ("templates/template/tag_templates/link.html", new MockFileData("<a class='foo' href='{{url}}'>{{display_text}}</a>")),

@@ -6,7 +6,7 @@ namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
 public static class FilesystemAutoMockerExtensions
 {
-    public static void MockFileSystem(this IFixture mocker, string[] filePaths)
+    public static MockFileSystem MockFileSystem(this IFixture mocker, string[] filePaths)
     {
         var mockFilesystem = new MockFileSystem();
 
@@ -27,5 +27,7 @@ public static class FilesystemAutoMockerExtensions
         }
 
         mocker.Inject<IFileSystem>(mockFilesystem);
+
+        return mockFilesystem;
     }
 }

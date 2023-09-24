@@ -1,25 +1,23 @@
+using AutoFixture;
 using FluentAssertions;
-using Moq;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
+using StaticSiteGenerator.Tests.AutoFixture;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.SiteTemplating;
 
-public class SiteTemplateFillerTests
+public class SiteTemplateFillerTests: MockingTestBase
 {
-    private SiteTemplateReaderMockFactory templateFillerMockFactory => new SiteTemplateReaderMockFactory();
     [Fact]
     public void SiteTemplateFillerShouldFillWithCachedTemplate()
     {
-        var templateFillerMock = templateFillerMockFactory.Get("<html>{{}}</html>");
-        var templatePropertyFillerMock = new Mock<HtmlFilePropertyFiller>(null);
-        templatePropertyFillerMock
-	    .Setup(s => s.FillTemplateProperties(It.IsAny<IHtmlFile>()))
-	    .Returns((IHtmlFile file) => file.HtmlContent);
-
-        var sut = new SiteTemplateFiller(templateFillerMock, templatePropertyFillerMock.Object);
+        Mocker.SetupTemplateReader("<html>{{}}</html>");
+        Mocker.SetupHtmlFilePropertyFiller();
+	
+        var sut = Mocker.Create<SiteTemplateFiller>();
 
         var result = sut.FillSiteTemplate("asdf");
 
@@ -29,13 +27,10 @@ public class SiteTemplateFillerTests
     [Fact]
     public void SiteTemplateShouldNotFillWithoutMustache()
     {
-        var mock = templateFillerMockFactory.Get("<html></html>");
-        var templatePropertyFillerMock = new Mock<HtmlFilePropertyFiller>(null);
-        templatePropertyFillerMock
-	    .Setup(s => s.FillTemplateProperties(It.IsAny<IHtmlFile>()))
-	    .Returns((IHtmlFile file) => file.HtmlContent);
-
-        var sut = new SiteTemplateFiller(mock, templatePropertyFillerMock.Object);
+        Mocker.SetupTemplateReader("<html></html>");
+        Mocker.SetupHtmlFilePropertyFiller();
+	
+        var sut = Mocker.Create<SiteTemplateFiller>();
 
         var result = sut.FillSiteTemplate("asdf");
 
