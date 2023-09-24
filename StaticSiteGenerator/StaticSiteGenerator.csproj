@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
     <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.1.1" />
     <PackageReference Include="NReco.Logging.File" Version="1.1.5" />
-    <PackageReference Include="System.IO.Abstractions" Version="19.1.14" />
+    <PackageReference Include="System.IO.Abstractions" Version="19.2.69" />
     <PackageReference Include="YamlDotNet" Version="13.0.1" />
   </ItemGroup>
 
