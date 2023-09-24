@@ -47,9 +47,10 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
 
     private string GetOutputFilePath(IFileSystemObject file)
     {
-	var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
+        var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
 
 	var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, file.FullPath);
+
 	return fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
     }
 
@@ -57,6 +58,6 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
     {
             var outputFilePath = GetOutputFilePath(input);
 
-            fileWriter.Write(outputFilePath, htmlFile.HtmlContent);
+	    fileWriter.Write(outputFilePath, htmlFile.HtmlContent);
     }
 }

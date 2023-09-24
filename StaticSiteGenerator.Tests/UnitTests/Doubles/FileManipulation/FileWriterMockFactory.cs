@@ -1,23 +1,29 @@
 using System.Collections.Generic;
+using System.Linq;
+using AutoFixture;
+using NSubstitute;
+using NSubstitute.Extensions;
 using StaticSiteGenerator.Files.FileException;
 using StaticSiteGenerator.Files.FileWriting;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
 
-public class FileWriterMockFactory
+public static class FileWriterMockFactory
 {
-    public Mock<IFileWriter> Get()
+    public static IFileWriter SetupFileWriter(this IFixture fixture)
     {
-        return Get(new List<string>());
+        return SetupFileWriter(fixture, new List<string>());
     }
 
-    public Mock<IFileWriter> Get(IEnumerable<string> existingFileNames)
+    public static IFileWriter SetupFileWriter(this IFixture fixture, IEnumerable<string> existingFileNames)
     {
-        var mock = new Mock<IFileWriter>();
+        var mock = Substitute.For<IFileWriter>();
 
-        mock.Setup(m => m.WriteFile(It.IsIn(existingFileNames), It.IsAny<string>()))
-            .Throws(new FileAlreadyExistsException());
+        mock.Configure()
+            .When(c => c.WriteFile(Arg.Is<string>(s => existingFileNames.Contains(s)), Arg.Any<string>()))
+	    .Do((_) => throw new FileAlreadyExistsException());
 
+        fixture.Inject<IFileWriter>(mock);
         return mock;
     }
 }

@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
+using AutoFixture;
 using FluentAssertions;
-using Moq;
+using NSubstitute;
 using StaticSiteGenerator.Files.FileException;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
@@ -9,10 +10,8 @@ using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.HtmlWriting;
 
-public class FileSystemHtmlWriterTests
+public class FileSystemHtmlWriterTests: AutoFixture.MockingTestBase
 {
-    private FileWriterMockFactory FileWriterMockFactory => new FileWriterMockFactory();
-
     [Theory]
     [InlineData("testFile", "testFile")]
     [InlineData("testFile.html", "testFile.html")]
@@ -20,14 +19,15 @@ public class FileSystemHtmlWriterTests
     [InlineData("a", "a")]
     public void InputFileShouldBeWrittenAsHtml(string inputFileName, string ExpectedFileName)
     {
-        var mock = FileWriterMockFactory.Get();
+        var mock = Mocker.SetupFileWriter();
 
-        IHtmlFileWriter writerUnderTest = new FileSystemHtmlWriter(mock.Object);
+        IHtmlFileWriter writerUnderTest = Mocker.Create<FileSystemHtmlWriter>();
 
         writerUnderTest.Write(inputFileName, "");
 
         // Somehow validate that the input was called with an Html file
-        mock.Verify(m => m.WriteFile(ExpectedFileName, It.IsAny<string>()));
+        mock.Received()
+	    .WriteFile(ExpectedFileName, Arg.Any<string>());
     }
 
     [Theory]
@@ -37,9 +37,9 @@ public class FileSystemHtmlWriterTests
     {
         var fileNames = new string[] { "testfile.html" };
 
-        var mock = FileWriterMockFactory.Get();
+        var mock = Mocker.SetupFileWriter();
 
-        IHtmlFileWriter writerUnderTest = new FileSystemHtmlWriter(mock.Object);
+        IHtmlFileWriter writerUnderTest = Mocker.Create<FileSystemHtmlWriter>();
 
 
         if (fileNames.Contains(fileName))
@@ -51,6 +51,8 @@ public class FileSystemHtmlWriterTests
 
         writerUnderTest.Write(fileName, "");
 
-        mock.Verify(m => m.WriteFile(fileName, It.IsAny<string>()));
+        mock
+	    .Received()
+	    .WriteFile(fileName, Arg.Any<string>());
     }
 }

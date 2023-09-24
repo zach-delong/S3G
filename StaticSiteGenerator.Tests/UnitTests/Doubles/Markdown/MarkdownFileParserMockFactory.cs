@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AutoFixture;
 using NSubstitute;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
@@ -17,6 +18,15 @@ public static class MarkdownFileParserMockFactory
                 string fileName = args[0].ToString();
                 return input[fileName];
             });
+
+        return mock;
+    }
+
+    public static IMarkdownFileParser MockFileParser(this IFixture fixture, IDictionary<string, IHtmlFile> input)
+    {
+        var mock = Get(input);
+
+        fixture.Inject<IMarkdownFileParser>(mock);
 
         return mock;
     }

@@ -1,48 +1,51 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
+using System.Linq;
+using AutoFixture;
 using FluentAssertions;
 using FluentAssertions.FileSystem;
-using Moq;
+using NSubstitute;
+using NSubstitute.Extensions;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
+using StaticSiteGenerator.Tests.AutoFixture;
+using StaticSiteGenerator.Tests.UnitTests.Doubles;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.HtmlWriting;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.Markdown;
+using StaticSiteGenerator.Tests.UnitTests.Doubles.SiteTemplating;
 using Xunit;
 
 namespace StaticSiteGenerator.Tests.UnitTests.FileProcessingStrategies;
 
-public class MarkdownFileProcessingStrategyTests
+public class MarkdownFileProcessingStrategyTests: MockingTestBase
 {
+
+    Dictionary<string, IHtmlFile> fileSystemWithHtmlFile = new Dictionary<string, IHtmlFile>
+    {
+	{
+	    "/input/foomd.md",
+	    new HtmlFile
+	    {
+		Name = "output/foo",
+		HtmlContent = "<h1>Hello<h1>",
+		IsPublished = true
+	    }
+	}
+    };
+
     [Fact]
+    [Trait("Test", "true")]
     public void Published_html_file_should_be_written()
     {
-        var fs = new MockFileSystem();
-        var mockFileParser = MarkdownFileParserMockFactory.Get(new Dictionary<string, IHtmlFile>
-            {
-                {"/input/foomd.md", new HtmlFile { Name = "output/foo", HtmlContent = "<h1>Hello<h1>", IsPublished = true }}
-            });
+        var fs = Mocker.MockFileSystem(new string[] { "/input/foomd.md" });
+        Mocker.MockFileParser(fileSystemWithHtmlFile);
+        Mocker.SetupHtmlfileWriter(fs);
+        Mocker.SetupSiteTemplateFiller("<html><h1>Hello</h1></html>");
+        Mocker.SetupCliOptions(pathToMarkdownFiles: "/input", outputLocation: "/output");
 
-        var mockHtmlFileWriter = new Mock<IHtmlFileWriter>();
-        mockHtmlFileWriter.Setup(w => w.Write(It.IsAny<string>(), It.IsAny<string>()))
-                          .Callback<string, string>((path, contents) => fs.AddFile(path, contents));
-
-        var mockSiteTemplateFiller = new Mock<ISiteTemplateFiller>();
-        mockSiteTemplateFiller.Setup(f => f.FillSiteTemplate(It.IsAny<IHtmlFile>()))
-                              .Returns("<html><h1>Hello</h1></html>");
-
-        var cliOptions = new CliOptions
-        {
-            PathToMarkdownFiles = "input",
-            OutputLocation = "output"
-        };
-
-        var sut = new MarkdownFileProcessingStrategy(
-            mockFileParser,
-            mockHtmlFileWriter.Object,
-            mockSiteTemplateFiller.Object,
-            cliOptions,
-            fs
-        );
+        var sut = Mocker.Create<MarkdownFileProcessingStrategy>();
 
         sut.Execute(new StaticSiteGenerator.Files.MarkdownFileSystemObject("/input/foomd.md"));
 
@@ -55,32 +58,16 @@ public class MarkdownFileProcessingStrategyTests
     public void Unpublished_html_file_should_not_be_written()
     {
         var fs = new MockFileSystem();
-        var mockFileParser = MarkdownFileParserMockFactory.Get(new Dictionary<string, IHtmlFile>
+
+        Mocker.MockFileParser(new Dictionary<string, IHtmlFile>
             {
                 {"/input/foomd.md", new HtmlFile { Name = "output/foo", HtmlContent = "<h1>Hello<h1>", IsPublished = false}}
             });
+        Mocker.SetupHtmlfileWriter(fs);
+        Mocker.SetupSiteTemplateFiller("<html><h1>Hello</h1></html>");
+        Mocker.SetupCliOptions(pathToMarkdownFiles: "input", outputLocation: "output");
 
-        var mockHtmlFileWriter = new Mock<IHtmlFileWriter>();
-        mockHtmlFileWriter.Setup(w => w.Write(It.IsAny<string>(), It.IsAny<string>()))
-                          .Callback<string, string>((path, contents) => fs.AddFile(path, contents));
-
-        var mockSiteTemplateFiller = new Mock<ISiteTemplateFiller>();
-        mockSiteTemplateFiller.Setup(f => f.FillSiteTemplate(It.IsAny<IHtmlFile>()))
-                              .Returns("<html><h1>Hello</h1></html>");
-
-        var cliOptions = new CliOptions
-        {
-            PathToMarkdownFiles = "input",
-            OutputLocation = "output"
-        };
-
-        var sut = new MarkdownFileProcessingStrategy(
-            mockFileParser,
-            mockHtmlFileWriter.Object,
-            mockSiteTemplateFiller.Object,
-            cliOptions,
-            fs
-        );
+        var sut = Mocker.Create<MarkdownFileProcessingStrategy>();
 
         sut.Execute(new StaticSiteGenerator.Files.MarkdownFileSystemObject("/input/foomd.md"));
 
