@@ -90,7 +90,9 @@ public class ITemplateReaderTests
 
         var fileReader = FileReaderMockFactory.Get(fileNameToContents);
 
-        var options = CliOptionsFactory.Get(templatePath: "templates/");
+        var options = CliOptionsBuilder.Get()
+                                       .WithTemplatePath("templates/")
+                                       .Build();
 
         return new TemplateReader(directoryEnumeratorMock,
                                   fileReader,
