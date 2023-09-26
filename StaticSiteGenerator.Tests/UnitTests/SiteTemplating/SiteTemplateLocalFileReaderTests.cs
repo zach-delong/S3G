@@ -21,7 +21,9 @@ public class SiteTemplateLocalFileReaderTests
             };
 
         var templateReader = FileReaderMockFactory.Get(fileCache);
-        var options = CliOptionsFactory.Get(templatePath: "templates/template");
+        var options = CliOptionsBuilder.Get()
+                                       .WithTemplatePath("templates/template")
+                                       .Build();
 
         var sut = new SiteTemplateLocalFileReader(templateReader, options);
 

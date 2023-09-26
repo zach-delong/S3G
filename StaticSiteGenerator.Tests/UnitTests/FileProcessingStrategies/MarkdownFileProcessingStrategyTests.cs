@@ -43,7 +43,9 @@ public class MarkdownFileProcessingStrategyTests: MockingTestBase
         Mocker.MockFileParser(fileSystemWithHtmlFile);
         Mocker.SetupHtmlfileWriter(fs);
         Mocker.SetupSiteTemplateFiller("<html><h1>Hello</h1></html>");
-        Mocker.SetupCliOptions(pathToMarkdownFiles: "/input", outputLocation: "/output");
+        Mocker.SetupCliOptions(CliOptionsBuilder.Get()
+                                                .WithPathToMarkdownFiles("/input")
+                                                .WithOutputLocation("/output"));
 
         var sut = Mocker.Create<MarkdownFileProcessingStrategy>();
 
@@ -65,7 +67,9 @@ public class MarkdownFileProcessingStrategyTests: MockingTestBase
             });
         Mocker.SetupHtmlfileWriter(fs);
         Mocker.SetupSiteTemplateFiller("<html><h1>Hello</h1></html>");
-        Mocker.SetupCliOptions(pathToMarkdownFiles: "input", outputLocation: "output");
+        Mocker.SetupCliOptions(CliOptionsBuilder.Get()
+                                                .WithPathToMarkdownFiles("/input")
+                                                .WithOutputLocation("/output"));
 
         var sut = Mocker.Create<MarkdownFileProcessingStrategy>();
 

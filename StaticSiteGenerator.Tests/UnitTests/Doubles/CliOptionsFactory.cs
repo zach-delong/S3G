@@ -1,48 +1,59 @@
 using AutoFixture;
-using NSubstitute;
-using NSubstitute.Extensions;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 public static class CliOptionsFactory
 {
-    public static CliOptions Get(
-	string templatePath = "templates/",
-	string pathToMarkdownFiles = "input",
-	string outputLocation = "output") {
-
-	var mock = Substitute.ForPartsOf<CliOptions>();
-
-        mock
-            .Configure()
-            .TemplatePath
-            .Returns(templatePath);
-
-        mock
-            .Configure()
-            .PathToMarkdownFiles
-            .Returns(pathToMarkdownFiles);
-
-        mock
-            .Configure()
-            .OutputLocation
-            .Returns(outputLocation);
-
-        return mock;
-    }
-
     public static void SetupCliOptions(
 	this IFixture fixture,
-	string templatePath = null,
-	string pathToMarkdownFiles = null,
-	string outputLocation = null)
+	CliOptionsBuilder builder)
     {
-        var mock = Get(
-	    templatePath: templatePath,
-	    pathToMarkdownFiles: pathToMarkdownFiles,
-	    outputLocation: outputLocation
-	);
+        var testOptions = builder.Build();
 
-        fixture.Inject(mock);
+        fixture.Inject(testOptions);
+    }
+}
+
+public class CliOptionsBuilder
+{
+    private readonly CliOptions OptionsUnderConstruction;
+
+    public CliOptionsBuilder()
+    {
+        OptionsUnderConstruction = new CliOptions
+        {
+	    PathToMarkdownFiles = "input/",
+	    TemplatePath = "templates/",
+	    OutputLocation = "output/",
+        };
+    }
+
+    public CliOptions Build()
+    {
+        return OptionsUnderConstruction;
+    }
+
+    public CliOptionsBuilder WithPathToMarkdownFiles(string path)
+    {
+        OptionsUnderConstruction.PathToMarkdownFiles = path;
+
+        return this;
+    }
+
+    public CliOptionsBuilder WithTemplatePath(string path)
+    {
+        OptionsUnderConstruction.TemplatePath = path;
+        return this;
+    }
+
+    public CliOptionsBuilder WithOutputLocation(string path)
+    {
+        OptionsUnderConstruction.OutputLocation = path;
+        return this;
+    }
+
+    public static CliOptionsBuilder Get()
+    {
+        return new CliOptionsBuilder();
     }
 }
