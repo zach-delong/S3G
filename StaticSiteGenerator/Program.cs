@@ -7,13 +7,17 @@ public sealed class Program
 {
     static void Main(string[] args)
     {
-        CommandLine.Parser.Default.ParseArguments<CliOptions>(args)
-            .WithParsed((CliOptions o) =>
-            {
-                ServiceCollectionFactory 
-		    .Get(o)
-		    .GetService<Generator>()
-		    .Start();
-            });
+        var o = Parser.Default.ParseArguments<CliOptions>(args);
+
+        if (o?.Value == null)
+        {
+	    // We were not able to parse some or all of the arguments...
+            return;
+        }
+
+        ServiceCollectionFactory
+	    .Get(o.Value)
+	    .GetService<Generator>()
+	    .Start();
     }
 }
