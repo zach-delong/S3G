@@ -18,7 +18,7 @@ public class CliOptions
     public virtual string TemplatePath { get; set; }
 
     [Option('o',
-            "OutputLocation",
+            "pathToOutput",
             Required = false,
             Default = "output",
             HelpText = "The full path to the desired output folder")]

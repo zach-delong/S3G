@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
   </PropertyGroup>
 
   <ItemGroup>
