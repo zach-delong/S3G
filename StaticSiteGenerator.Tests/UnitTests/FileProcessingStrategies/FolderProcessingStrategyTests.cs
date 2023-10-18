@@ -5,6 +5,8 @@ using StaticSiteGenerator.Files;
 using StaticSiteGenerator.Tests.UnitTests.Utilities.Extensions;
 using Xunit;
 using FluentAssertions.FileSystem;
+using StaticSiteGenerator.CLI;
+using StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 namespace StaticSiteGenerator.Tests.UnitTests.FileProcessingStrategies;
 
@@ -19,13 +21,13 @@ public class FolderProcessingStrategyTests
         string[] targetFolderNames,
         string pathToCheck)
     {
-        var options = new CliOptions
-        {
-            OutputLocation = outputLocation,
-            PathToMarkdownFiles = inputLocation
-        };
+	var options = CliOptionsBuilder
+	    .Get()
+	    .WithOutputLocation(outputLocation)
+	    .WithPathToMarkdownFiles(inputLocation)
+	    .Build();
 
-        var sut = new FolderProcessingStrategy(fs, options);
+        var sut = new FolderProcessingStrategy(fs, options, options);
 
         foreach (var folder in targetFolderNames)
         {

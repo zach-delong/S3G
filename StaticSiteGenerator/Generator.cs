@@ -3,13 +3,14 @@ using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.Utilities.StrategyPattern;
 using StaticSiteGenerator.Files;
 using System.Linq;
+using StaticSiteGenerator.CLI;
 
 namespace StaticSiteGenerator;
 
 public class Generator
 {
     private readonly IDirectoryEnumerator directoryLister;
-    private readonly CliOptions Options;
+    private readonly MarkdownFilePathOption Options;
     private readonly IStrategyExecutor<object, IFileSystemObject> converter;
 
     public delegate void OnSiteStart();
@@ -20,7 +21,7 @@ public class Generator
 
     public Generator(
         IDirectoryEnumerator directoryLister,
-        CliOptions options,
+        MarkdownFilePathOption options,
         IStrategyExecutor<object, IFileSystemObject> converter,
         OnSiteStart beforeStart,
         OnSiteDone afterEnd

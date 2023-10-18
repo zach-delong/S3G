@@ -3,6 +3,8 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using StaticSiteGenerator.CLI;
+using StaticSiteGenerator.Tests.UnitTests.Doubles;
 
 namespace StaticSiteGenerator.IntegrationTests;
 
@@ -23,13 +25,15 @@ public static class ServicesConfiguration
                                       string pathToOutput)
     {
 
-        var cliOptions = new CliOptions()
-        {
-            TemplatePath = templatePath,
-            PathToMarkdownFiles = markdownFileDirectoryName,
-            OutputLocation = pathToOutput,
-        };
+	var options = CliOptionsBuilder
+	    .Get()
+	    .WithOutputLocation(pathToOutput)
+	    .WithPathToMarkdownFiles(markdownFileDirectoryName)
+	    .WithTemplatePath(templatePath)
+	    .Build();
 
-        services.AddSingleton(cliOptions);
+        services.AddSingleton<MarkdownFilePathOption>(options);
+        services.AddSingleton<TemplatePathOption>(options);
+        services.AddSingleton<OutputLocationOption>(options);
     }
 }

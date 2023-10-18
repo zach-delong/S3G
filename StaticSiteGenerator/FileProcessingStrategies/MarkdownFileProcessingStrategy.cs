@@ -1,4 +1,5 @@
 using System.IO.Abstractions;
+using StaticSiteGenerator.CLI;
 using StaticSiteGenerator.Files;
 using StaticSiteGenerator.HtmlWriting;
 using StaticSiteGenerator.Markdown.Parser;
@@ -13,22 +14,25 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
     private readonly IMarkdownFileParser markdownFileParser;
     private readonly IHtmlFileWriter fileWriter;
     private readonly ISiteTemplateFiller templateFiller;
-    private readonly CliOptions options;
+    private readonly MarkdownFilePathOption markdownFilePathOption;
+    private readonly OutputLocationOption outputLocationOption;
     private readonly IFileSystem fileSystem;
 
     public MarkdownFileProcessingStrategy(
         IMarkdownFileParser markdownFileParser,
         IHtmlFileWriter fileWriter,
         ISiteTemplateFiller templateFiller,
-        CliOptions options,
         IFileSystem fileSystem
-    )
+,
+        MarkdownFilePathOption markdownFilePathOption,
+        OutputLocationOption outputLocationOption)
     {
         this.markdownFileParser = markdownFileParser;
         this.fileWriter = fileWriter;
         this.templateFiller = templateFiller;
-        this.options = options;
         this.fileSystem = fileSystem;
+        this.markdownFilePathOption = markdownFilePathOption;
+        this.outputLocationOption = outputLocationOption;
     }
 
     public object Execute(IFileSystemObject input)
@@ -47,11 +51,11 @@ public class MarkdownFileProcessingStrategy : IStrategy<object, IFileSystemObjec
 
     private string GetOutputFilePath(IFileSystemObject file)
     {
-        var inputRoot = fileSystem.Path.GetFullPath(options.PathToMarkdownFiles);
+        var inputRoot = fileSystem.Path.GetFullPath(markdownFilePathOption.PathToMarkdownFiles);
 
 	var fileRelativeInputRoot = fileSystem.Path.GetRelativePath(inputRoot, file.FullPath);
 
-	return fileSystem.Path.Combine(options.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
+	return fileSystem.Path.Combine(outputLocationOption.OutputLocation, fileRelativeInputRoot).Replace(".md", ".html");
     }
 
     private void WriteOutputfile(IFileSystemObject input, IHtmlFile htmlFile)

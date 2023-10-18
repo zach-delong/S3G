@@ -1,4 +1,5 @@
 using AutoFixture;
+using StaticSiteGenerator.CLI;
 
 namespace StaticSiteGenerator.Tests.UnitTests.Doubles;
 
@@ -10,7 +11,9 @@ public static class CliOptionsFactory
     {
         var testOptions = builder.Build();
 
-        fixture.Inject(testOptions);
+        fixture.Inject<MarkdownFilePathOption>(testOptions);
+        fixture.Inject<TemplatePathOption>(testOptions);
+        fixture.Inject<OutputLocationOption>(testOptions);
     }
 }
 

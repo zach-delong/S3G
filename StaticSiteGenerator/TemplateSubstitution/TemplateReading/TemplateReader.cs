@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using StaticSiteGenerator.TemplateSubstitution.TemplateTags;
 using StaticSiteGenerator.Files.FileListing;
 using StaticSiteGenerator.Files;
+using StaticSiteGenerator.CLI;
 
 namespace StaticSiteGenerator.TemplateReading;
 
@@ -12,23 +13,21 @@ public class TemplateReader : ITemplateReader
 {
     readonly IDirectoryEnumerator DirectoryEnumerator;
     readonly FileReader FileReader;
-
-    public CliOptions Options { get; }
+    readonly TemplatePathOption templatePathOption;
 
     public TemplateReader(
         IDirectoryEnumerator directoryEnumerator,
         FileReader fileReader,
-        CliOptions options
-    )
+        TemplatePathOption templatePathOption)
     {
         DirectoryEnumerator = directoryEnumerator;
         FileReader = fileReader;
-        Options = options;
+        this.templatePathOption = templatePathOption;
     }
 
     public IEnumerable<TemplateTag> ReadTemplate()
     {
-        foreach (var filePath in DirectoryEnumerator.GetFiles(Path.Combine(Options.TemplatePath, "tag_templates"), "*.html"))
+        foreach (var filePath in DirectoryEnumerator.GetFiles(Path.Combine(templatePathOption.TemplatePath, "tag_templates"), "*.html"))
         {
             yield return ReadTemplateFile(filePath);
         }

@@ -1,7 +1,7 @@
 using CommandLine;
-namespace StaticSiteGenerator;
+namespace StaticSiteGenerator.CLI;
 
-public class CliOptions
+public class CliOptions: MarkdownFilePathOption, TemplatePathOption, OutputLocationOption
 {
     [Option('p',
             "pathToMarkdown",
@@ -29,4 +29,19 @@ public class CliOptions
     {
         return $"{nameof(PathToMarkdownFiles)}: {PathToMarkdownFiles}, {nameof(TemplatePath)}: {TemplatePath}, {nameof(OutputLocation)}: {OutputLocation}";
     }
+}
+
+public interface MarkdownFilePathOption
+{
+    public string PathToMarkdownFiles { get; }
+}
+
+public interface TemplatePathOption
+{
+    public string TemplatePath { get; }
+}
+
+public interface OutputLocationOption
+{
+    public string OutputLocation { get; }
 }

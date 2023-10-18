@@ -1,14 +1,10 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
-using System.Linq;
 using AutoFixture;
 using FluentAssertions;
 using FluentAssertions.FileSystem;
-using NSubstitute;
-using NSubstitute.Extensions;
 using StaticSiteGenerator.FileProcessingStrategies;
 using StaticSiteGenerator.HtmlWriting;
-using StaticSiteGenerator.SiteTemplating.SiteTemplateFilling;
 using StaticSiteGenerator.Tests.AutoFixture;
 using StaticSiteGenerator.Tests.UnitTests.Doubles;
 using StaticSiteGenerator.Tests.UnitTests.Doubles.FileManipulation;
