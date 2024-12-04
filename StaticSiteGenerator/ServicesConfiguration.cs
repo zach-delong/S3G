@@ -9,6 +9,7 @@ using StaticSiteGenerator.SiteTemplating;
 using StaticSiteGenerator.TemplateSubstitution;
 using StaticSiteGenerator.Utilities;
 using StaticSiteGenerator.Utilities.Date;
+using NReco.Logging.File;
 using static StaticSiteGenerator.Generator;
 
 namespace StaticSiteGenerator;
