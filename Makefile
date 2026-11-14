@@ -1,2 +1,6 @@
 build:
-	podman build -t zachdelong/s3g ./
+	podman build -t docker.io/zachdelong/s3g --pull=true ./
+
+push:
+	podman push docker.io/zachdelong/s3g
+
